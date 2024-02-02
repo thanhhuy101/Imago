@@ -17,9 +17,9 @@ export class NavbarComponent implements OnInit {
 
   constructor(private router: Router, @Inject(TuiDialogService) private readonly dialogs: TuiDialogService) { }
   ngOnInit(): void {
-    if (this.router.url === '/home') this.itemSelected = 0;
-    if (this.router.url === '/creator') this.itemSelected = 2;
-    if (this.router.url === '/profile') this.itemSelected = 4;
+    if (this.router.url.includes('/home')) this.itemSelected = 0;
+    if (this.router.url.includes('/creator')) this.itemSelected = 2;
+    if (this.router.url.includes('/profile')) this.itemSelected = 4;
   }
 
 
