@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NgClass } from "@angular/common";
 import { Router } from '@angular/router';
+import { TaigaModule } from '../../taiga.module';
+import { TuiDialogService, TuiSizeL, TuiSizeS } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    NgClass
+    NgClass, TaigaModule
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  constructor(private router: Router) { }
+
+  constructor(private router: Router, @Inject(TuiDialogService) private readonly dialogs: TuiDialogService) { }
 
   itemSelected = 0;
   navBarItems = [
@@ -28,4 +31,19 @@ export class NavbarComponent {
     this.router.navigate([this.navBarItems[i].path]);
   }
 
+  open = false;
+
+  readonly webApis = ['Common', 'Audio', 'Canvas', 'Geolocation', 'MIDI', 'Workers'];
+
+  readonly tinkoff = [
+    'Taiga-UI',
+    'ng-event-plugins',
+    'ng-polymorpheus',
+    'ng-dompurify',
+  ];
+
+  toggle(open: boolean): void {
+    this.open = open;
+  }
 }
+
