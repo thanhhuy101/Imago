@@ -1,1 +1,58 @@
-<p>share works!</p>
+<div class="allPost">
+  @for (post of list; track post.id){
+    <div class="post1">
+      <div class="top-post">
+        <div class="picture-post1">
+          <img class="picture1"
+               [src]="post.picture" alt=""  >
+        </div>
+      </div>
+
+      <div class="capAndReaction">
+        <div class="capPicture">
+          <p class="cap">
+                          <span class="vegan">
+                             {{post.hastag}}
+                          </span>
+            <span class="name">
+                            {{post.cap}}
+              </span>
+          </p>
+        </div>
+
+        <div class="reaction">
+          <div class="tymAndCmt">
+            <button
+              icon="tuiIconHeart"
+              tuiIconButton
+              [ngClass]="post.isLiked ? 'heartBtnActive' : 'heartBtn'"
+              appearance="flat"
+              type="button"
+              (click)="like(post.id)"
+              class="heartBtn tui-space_right-3 tui-space_bottom-3"
+            ></button>
+
+            <button
+              icon="tuiIconMessageSquare"
+              tuiIconButton
+              appearance="flat"
+              type="button"
+              class="tui-space_right-3 tui-space_bottom-3"
+            ></button>
+          </div>
+
+          <button
+            icon="tuiIconShare"
+            tuiIconButton
+            appearance="flat"
+            type="button"
+            class="tui-space_right-3 tui-space_bottom-3"
+          ></button>
+        </div>
+
+      </div>
+
+    </div>
+  }
+</div>
+
