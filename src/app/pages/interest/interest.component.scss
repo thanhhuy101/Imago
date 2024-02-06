@@ -61,55 +61,97 @@ img {
   color: red;
 }
 
-.button-container .carousel .list-cart {
-  //margin-top: 0.8rem;
+//.button-container .carousel .list-cart {
+//  //margin-top: 0.8rem;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//  flex-wrap: wrap;
+//  color: #262626;
+//height: 17.5rem;
+//}
+//
+//.cart b{
+//  font-size: 10px;
+//  margin: 0 10px;
+//}
+//.button-container .carousel .cart {
+//  cursor: pointer;
+//  left: 2px;
+//  margin: 0 15px;
+//  //margin-bottom: 25px;
+//  width: 7.65rem;
+//  height: 7.65rem;
+//  border-radius: 8px;
+//  background-color: #f5f5f5;
+//  position: relative;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//  font-size: 50px;
+//
+//}
+//.button-container .cart i{
+//  width: 100px;
+//  height: 100px;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//}
+.list-interest{
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   color: #262626;
-height: 17.5rem;
+  height: 17.5rem;
+  Position: relative;
 }
-
-.cart b{
-  font-size: 10px;
-  margin: 0 10px;
-}
-.button-container .carousel .cart {
-  cursor: pointer;
-  left: 2px;
-  margin: 0 15px;
-  //margin-bottom: 25px;
-  width: 7.65rem;
-  height: 7.65rem;
+.image-content{
   border-radius: 8px;
-  background-color: #f5f5f5;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 50px;
-
+  cursor: pointer;
 }
-.button-container .cart i{
-  width: 100px;
-  height: 100px;
+.image-content img{
+  border-radius: 8px;
+}
+.card-interest {
+  width: 7.65rem;
+  height: 7.65rem;
+  border-radius: 8px;
+  //background-color: #f5f5f5;
+  position: relative;
+  Flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
+  //font-size: 50px;
+  margin: 0 15px;
+  cursor: pointer;
 }
-
-
-.button-container .cart p {
-  position: absolute;
+.card-interest .obacity-card{
+  position: absolute ;
   bottom: 0;
   left: 0;
   width: 100%;
   padding: 5px;
-  box-sizing: border-box;
   text-align: center;
-  font-size: 20px;
+  font-size: 12px;
 }
+
+//.button-container .cart p {
+//  position: absolute;
+//  bottom: 0;
+//  left: 0;
+//  width: 100%;
+//  padding: 5px;
+//  box-sizing: border-box;
+//  text-align: center;
+//  font-size: 20px;
+//}
 .Skip{
   cursor: pointer;
 
