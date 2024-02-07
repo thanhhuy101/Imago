@@ -2,26 +2,40 @@
     <div class="post-preview1">
         <div class="post-preview2">
             <div>
-                <h3>Create Post</h3>
+                <h2 class="post">Create Post</h2>
             </div>
             <div class="form">
-                <div class="drop-image">
-                    <div>
-                        <span class="material-symbols-outlined">
-                            add_photo_alternate
-                        </span>
-                    </div>
-                    <h3>
-                        Drag And Drop Your Images Here
-                    </h3>
-                    <p id="paragraph">or <u id="browse">browse</u>
-                        from
-                        your computer
-                    </p>
-                </div>
+                <tui-island class="main-post">
+                    @if (imgSrc != "") {
+                    <img class="post-img" ngSrc="{{ imgSrc }}" alt="image" fill=" " />
+                    } @else {
+                    <tui-input-files class="post-upload" [formControl]="img" (change)="onImagePicked(img.value!)">
+                        <ng-template let-dragged>
+                            @if (dragged) {
+                            <div class="content">
+                                <tui-marker-icon mode="link" src="tuiIconFolderPlusLarge"></tui-marker-icon>
+                                <div>
+                                    Drag and drop file here or
+                                    <a tuiLink>click to upload</a>
+                                </div>
+                            </div>
+                            } @else {
+                            <div class="content">
+                                <tui-marker-icon mode="link" src="tuiIconFolderPlusLarge"></tui-marker-icon>
+                                <div>
+                                    Drag and drop file here or
+                                    <a tuiLink>click to upload</a>
+                                </div>
+                            </div>
+                            }
+                        </ng-template>
+                    </tui-input-files>
+                    }
+                </tui-island>
+
                 <div class="user-info">
                     <div class="user-img">
-                        <img class="avatar" src="./asset/avatar.png" alt="avatar">
+                        <img class="avatar" src="./assets/avatar.png" alt="avatar">
                     </div>
                     <div class="info">
                         <h3 class="name-user">GoVegan</h3>
@@ -29,7 +43,11 @@
                     </div>
                 </div>
                 <div class="description">
-                    <input class="label" placeholder="label">
+                    <tui-textarea class="b-form" type="text" [formControl]="inputControl">
+                        Label
+                        <textarea maxlength="100" placeholder="Write a few words about yourself"
+                            tuiTextfield></textarea>
+                    </tui-textarea>
                 </div>
                 <div class="button-place">
                     <button class="button button1">Cancel</button>
@@ -39,51 +57,70 @@
         </div>
     </div>
     <div class="post-preview-2">
-        <h3>Post Preview</h3>
+        <h2 class="post">Post Preview</h2>
         <div class="preview">
-            <div class="drop-image-preview">
-                <div>
-                    <span class="material-symbols-outlined">
-                        add_photo_alternate
+            <tui-island class="main-post">
+                @if (imgSrc != "") {
+                <img class="post-img-preview" ngSrc="{{ imgSrc }}" alt="image" fill=" " />
+                } @else {
+                <tui-input-files class="post-upload-preview" [formControl]="img" (change)="onImagePicked(img.value!)">
+                    <ng-template let-dragged>
+                        @if (dragged) {
+                        <div class="content">
+                            <tui-marker-icon mode="link" src="tuiIconFolderPlusLarge"></tui-marker-icon>
+                            <div>
+                                Drag and drop file here or
+                                <a tuiLink>click to upload</a>
+                            </div>
+                        </div>
+                        } @else {
+                        <div class="content">
+                            <tui-marker-icon mode="link" src="tuiIconFolderPlusLarge"></tui-marker-icon>
+                            <div>
+                                Drag and drop file here or
+                                <a tuiLink>click to upload</a>
+                            </div>
+                        </div>
+                        }
+                    </ng-template>
+                </tui-input-files>
+                }
+            </tui-island>
+            <div class="main-preview-post">
+                <div class="user-info-2">
+                    <div class="user-img">
+                        <img class="avatar-preview" src="./assets/avatar.png" alt="avatar">
+                    </div>
+                    <div class="info-preview">
+                        <h3 class="preview-name">GoVegan</h3>
+                        <p class="date">on 15 Oct 2019</p>
+                    </div>
+                </div>
+                <div class="paragraph-preview">
+                    <div class="paragraph-preview">
+                        @for (word of highlightedWords; track trackByIndex) {
+                        <span>
+
+                            <span [class.highlight]="word.startsWith('#')">{{ word }}</span>
+                        </span>
+                        }
+                    </div>
+                </div>
+
+                <div class="icon">
+                    <div class="icon1">
+                        <span id="favorite" class="material-symbols-outlined">
+                            favorite
+                        </span>
+                        <span class="material-symbols-outlined">
+                            chat_bubble
+                        </span>
+                    </div>
+                    <span style="padding-left: 100px;" class="material-symbols-outlined">
+                        ios_share
                     </span>
                 </div>
-                <h3>
-                    Drag And Drop Your Images Here
-                </h3>
-                <p id="paragraph">or <u id="browse">browse</u>
-                    from
-                    your computer
-                </p>
-            </div>
-            <div class="user-info">
-                <div class="user-img">
-                    <img class="avatar-preview" src="./asset/avatar.png" alt="avatar">
-                </div>
-                <div class="info">
-                    <h3 class="preview-name">GoVegan</h3>
-                    <p class="date">on 15 Oct 2019</p>
-                </div>
-            </div>
-            <div class="paragraph-preview">
-                <p class="description-preview"><span style="color: #0081FF;">#vegan
-                        #healthy</span> Chocolate cake is a classic dessert that is loved by people of all
-                    ages. It is rich, decadent, and perfect for any occasion. It is quick and easy to make.
-                </p>
-            </div>
-            <div class="icon">
-                <div class="icon1">
-                    <span id="favorite" class="material-symbols-outlined">
-                        favorite
-                    </span>
-                    <span class="material-symbols-outlined">
-                        chat_bubble
-                    </span>
-                </div>
-                <span style="padding-left: 100px;" class="material-symbols-outlined">
-                    ios_share
-                </span>
             </div>
         </div>
     </div>
-
 </div>
