@@ -2,7 +2,7 @@ import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { TuiRootModule, TUI_SANITIZER } from '@taiga-ui/core';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TaigaModule } from './shared/taiga.module';
+import { TaigaModule } from './shared/modules/taiga.module';
 
 @Component({
   selector: 'app-root',

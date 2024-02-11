@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {TaigaModule} from "../../shared/taiga.module";
-import {AsyncPipe} from "@angular/common";
-import {ReactiveFormsModule,FormControl , FormGroup} from "@angular/forms";
+import { TaigaModule } from '../../shared/modules/taiga.module';
+import { AsyncPipe } from '@angular/common';
+import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +16,6 @@ export class RegisterComponent {
     userName: new FormControl(''),
     firstName: new FormControl(''),
     lastName: new FormControl(''),
-    checkBox: new FormControl( false),
-
+    checkBox: new FormControl(false),
   });
 }
