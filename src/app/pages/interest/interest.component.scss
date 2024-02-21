@@ -227,14 +227,7 @@ img {
   background-color: rgb(56, 56, 56); /* chỉ vào > xanh và đưa ra < bth */
   color: #ffffff;
 }
-//.Back:hover {
-//  background-color: rgb(56, 56, 56); /* chỉ vào > xanh và đưa ra < bth */
-//  color: #ffffff;
-//}
-//.Next:hover {
-//  background-color: rgb(56, 56, 56); /* chỉ vào > xanh và đưa ra < bth */
-//  color: #ffffff;
-//}
+
 .cart:hover{
   color: #ffffff;
   background-color: grey !important;
@@ -242,7 +235,47 @@ img {
 
 .selected {
   background-color: #262626!important;
+  filter: blur(1px);
   color: white;
   /* Các kiểu dáng khác bạn muốn áp dụng khi phần tử đang được chọn */
 }
 
+
+
+
+.nextbtn{
+  background-color: grey;
+  color: #ffffff;
+}
+.card-interest-active:hover{
+  color: #ffffff;
+  background-color: grey !important;
+}
+.card-interest-active
+{
+  width: 7.65rem;
+  height: 7.65rem;
+  border-radius: 8px;
+  //background-color: #f5f5f5;
+  position: relative;
+  Flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //font-size: 50px;
+  margin: 0 15px;
+  cursor: pointer;
+  .obacity-card{
+    background-color: #262626;
+    color: white;
+    position: absolute ;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+}

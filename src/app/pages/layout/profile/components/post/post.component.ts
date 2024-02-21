@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, inject, Inject, Injector, ViewChild} from '@angular/core';
 import { TaigaModule } from '../../../../../shared/modules/taiga.module';
 import { ShareModule } from '../../../../../shared/modules/share.module';
-
+import {PolymorpheusComponent} from '@tinkoff/ng-polymorpheus';
+import {TuiDialogService} from "@taiga-ui/core";
 @Component({
   selector: 'app-post',
   standalone: true,
@@ -119,4 +120,25 @@ export class PostComponent {
       return item;
     });
   }
+  selectedItem :any |null = null
+
+
+
+  constructor(
+    @Inject(TuiDialogService) private readonly dialogs: TuiDialogService,
+    @Inject(Injector) private readonly injector: Injector,
+  ) {}
+
+
+  open = false;
+  openUpdate = false;
+
+  showDialog(i:any): void {
+    this.selectedItem = this.list[i]
+    this.open = true;
+
+
+  }
+
+
 }
