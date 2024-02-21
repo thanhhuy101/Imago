@@ -1,12 +1,91 @@
 import { Component } from '@angular/core';
+import { ShareModule } from '../../../shared/modules/share.module';
+import { TaigaModule } from '../../../shared/modules/taiga.module';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [ShareModule, TaigaModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  stories = [
+    {
+      id: 1,
+      image: './assets/images/stories1.png',
+    },
+    {
+      id: 2,
+      image: './assets/images/stories2.png',
+    },
+    {
+      id: 3,
+      image: './assets/images/stories3.png',
+    },
+    {
+      id: 4,
+      image: './assets/images/stories4.png',
+    },
+    {
+      id: 5,
+      image: './assets/images/stories5.png',
+    },
+  ];
+  posts = [
+    {
+      id: 1,
+      image: './assets/images/picture1.png',
+      tag: '#vegan #healthy',
+      description:
+        "The Best Vegan Chocolate Cake- A quick and easy recipe! It's super moist, rich and full of chocolate",
+      isLiked: false,
+    },
+    {
+      id: 2,
+      image: './assets/images/picture2.png',
+      tag: '#sweet #healthy',
+      description: 'Breakfast ideas',
+      isLiked: false,
+    },
+    {
+      id: 3,
+      image: './assets/images/picture2.png',
+      tag: '#sweet #healthy',
+      description: 'Breakfast ideas',
+      isLiked: false,
+    },
+    {
+      id: 4,
+      image: './assets/images/picture1.png',
+      tag: '#vegan #healthy',
+      description:
+        "The Best Vegan Chocolate Cake- A quick and easy recipe! It's super moist, rich and full of chocolate",
+      isLiked: false,
+    },
+    {
+      id: 5,
+      image: './assets/images/picture1.png',
+      tag: '#vegan #healthy',
+      description:
+        "The Best Vegan Chocolate Cake- A quick and easy recipe! It's super moist, rich and full of chocolate",
+      isLiked: false,
+    },
+    {
+      id: 6,
+      image: './assets/images/picture2.png',
+      tag: '#sweet #healthy',
+      description: 'Breakfast ideas',
+      isLiked: false,
+    },
+  ];
 
+  like(id: number) {
+    this.posts = this.posts.map((item) => {
+      if (item.id === id) {
+        item.isLiked = !item.isLiked;
+      }
+      return item;
+    });
+  }
 }
