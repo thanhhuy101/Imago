@@ -1,9 +1,9 @@
-import {Component, Inject} from '@angular/core';
-import {NgForOf} from "@angular/common";
-import {TuiTabsModule} from "@taiga-ui/kit";
-import {Router, RouterOutlet} from "@angular/router";
-import {TuiAlertService} from "@taiga-ui/core";
-import {TaigaModule} from "../../../../shared/modules/taiga.module";
+import { Component, Inject } from '@angular/core';
+import { NgForOf } from "@angular/common";
+import { TuiTabsModule } from "@taiga-ui/kit";
+import { Router, RouterOutlet } from "@angular/router";
+import { TuiAlertService } from "@taiga-ui/core";
+import { TaigaModule } from "../../../../shared/taiga.module";
 
 @Component({
   selector: 'app-search',
@@ -45,7 +45,7 @@ export class SearchComponent {
 
   activeItemIndex = 0;
 
-  constructor(@Inject(TuiAlertService) private readonly alerts: TuiAlertService,private route:Router) {}
+  constructor(@Inject(TuiAlertService) private readonly alerts: TuiAlertService, private route: Router) { }
 
 
   onActiveItemChange(index: number) {
@@ -53,9 +53,9 @@ export class SearchComponent {
     this.onChangePage(index)
   }
 
-  onChangePage(i:number){
+  onChangePage(i: number) {
     console.log(this.items[i].router);
-    this.route.navigate(['/search'+this.items[i].router]);
+    this.route.navigate(['/search' + this.items[i].router]);
 
   }
 }

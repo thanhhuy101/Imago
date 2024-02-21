@@ -1,4 +1,4 @@
-<img id="mainImage" src="../../../assets/images/Wall%20-%20Dark.jpg" alt="shapress"/>
+<img id="mainImage" src="../../../assets/images/Wall%20-%20Dark.jpg" alt="shapress" />
 
 <div class="button-container">
 
@@ -15,54 +15,38 @@
   <tui-carousel class="carousel" #carousel>
 
     @for (itemArray of interest; track itemArray; let i = $index) {
-      <div class="list-interest" *tuiItem>
-        @for (item of itemArray; track item; let j = $index) {
-          @if (item.backgroundColor) {
-            <div class="card-interest" style="background-color: black">
+    <div class="list-interest" *tuiItem>
+      @for (item of itemArray; track item; let j = $index) {
+      @if (item.backgroundColor) {
+      <div class="card-interest" style="background-color: black">
 
-              <div class="image-content" (click)="changebackground(item)">
-                <img src="{{ item.image }}" alt=""/>
-              </div>
-              <div class="obacity-card">
-                <b>{{ item.title }}</b>
-              </div>
-            </div>
-          } @else {
-            <div class="card-interest-active">
-              <div class="obacity-card">
-                <p>{{ item.title }}</p>
-              </div>
-            </div>
-          }
-        }
+        <div class="image-content" (click)="changebackground(item)">
+          <img src="{{ item.image }}" alt="" />
+        </div>
+        <div class="obacity-card">
+          <b>{{ item.title }}</b>
+        </div>
       </div>
+      } @else {
+      <div class="card-interest-active">
+        <div class="obacity-card">
+          <p>{{ item.title }}</p>
+        </div>
+      </div>
+      }
+      }
+    </div>
     }
   </tui-carousel>
 
   <div class="Back">
-    <button
-      icon="tuiIconChevronLeftLarge"
-      title="Previous"
-      tuiIconButton
-      type="button"
-      appearance="custom"
-      class="backbtn"
-      (click)="carousel.prev()"
-    ></button>
+    <button icon="tuiIconChevronLeftLarge" title="Previous" tuiIconButton type="button" appearance="custom"
+      class="backbtn" (click)="carousel.prev()"></button>
   </div>
 
   <div class="Next">
-    <button
-      icon="tuiIconChevronRightLarge"
-      title="Next"
-      tuiIconButton
-      class="nextbtn"
-
-      appearance="custom"
-      type="button"
-      (click)="carousel.next()"
-
-    ></button>
+    <button icon="tuiIconChevronRightLarge" title="Next" tuiIconButton class="nextbtn" appearance="custom" type="button"
+      (click)="carousel.next()"></button>
   </div>
 
   <button class="Skip"><b>Skip</b></button>
@@ -70,5 +54,3 @@
 
   <button class="Finish"><b>Next</b></button>
 </div>
-
-

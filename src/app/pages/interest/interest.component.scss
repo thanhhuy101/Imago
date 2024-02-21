@@ -57,6 +57,7 @@ img {
   justify-content: flex-start;
   line-height: 1.2rem;
 }
+
 .button-container .row .text span {
   color: red;
 }
@@ -98,7 +99,7 @@ img {
 //  align-items: center;
 //  justify-content: center;
 //}
-.list-interest{
+.list-interest {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,7 +108,8 @@ img {
   height: 17.5rem;
   Position: relative;
 }
-.image-content{
+
+.image-content {
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -115,9 +117,11 @@ img {
   font-size: 50px;
   cursor: pointer;
 }
-.image-content img{
+
+.image-content img {
   border-radius: 8px;
 }
+
 .card-interest {
   width: 7.65rem;
   height: 7.65rem;
@@ -132,8 +136,9 @@ img {
   margin: 0 15px;
   cursor: pointer;
 }
-.card-interest .obacity-card{
-  position: absolute ;
+
+.card-interest .obacity-card {
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -152,7 +157,7 @@ img {
 //  text-align: center;
 //  font-size: 20px;
 //}
-.Skip{
+.Skip {
   cursor: pointer;
 
   position: fixed;
@@ -166,7 +171,8 @@ img {
   border-radius: 12px;
   border: none;
 }
-.Finish{
+
+.Finish {
   cursor: pointer;
   position: fixed;
   top: 88%;
@@ -179,7 +185,8 @@ img {
   border-radius: 12px;
   border: none;
 }
-.Back{
+
+.Back {
   cursor: pointer;
   position: fixed;
   top: 52.8%;
@@ -191,7 +198,8 @@ img {
   border: 1px solid #ffffff;
   color: black
 }
-.Back button{
+
+.Back button {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50px;
@@ -199,7 +207,8 @@ img {
   background-color: white;
   color: black;
 }
-.Next{
+
+.Next {
   cursor: pointer;
   position: fixed;
   top: 52.8%;
@@ -211,7 +220,8 @@ img {
   border: 1px solid #ffffff;
   color: black;
 }
-.Next button{
+
+.Next button {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50px;
@@ -219,22 +229,26 @@ img {
   background-color: white;
   color: black;
 }
+
 .Skip:hover {
-  background-color: rgb(56, 56, 56); /* chỉ vào > xanh và đưa ra < bth */
-  color: #ffffff;
-}
-.Finish:hover {
-  background-color: rgb(56, 56, 56); /* chỉ vào > xanh và đưa ra < bth */
+  background-color: rgb(56, 56, 56);
+  /* chỉ vào > xanh và đưa ra < bth */
   color: #ffffff;
 }
 
-.cart:hover{
+.Finish:hover {
+  background-color: rgb(56, 56, 56);
+  /* chỉ vào > xanh và đưa ra < bth */
+  color: #ffffff;
+}
+
+.cart:hover {
   color: #ffffff;
   background-color: grey !important;
 }
 
 .selected {
-  background-color: #262626!important;
+  background-color: #262626 !important;
   filter: blur(1px);
   color: white;
   /* Các kiểu dáng khác bạn muốn áp dụng khi phần tử đang được chọn */
@@ -243,16 +257,17 @@ img {
 
 
 
-.nextbtn{
+.nextbtn {
   background-color: grey;
   color: #ffffff;
 }
-.card-interest-active:hover{
+
+.card-interest-active:hover {
   color: #ffffff;
   background-color: grey !important;
 }
-.card-interest-active
-{
+
+.card-interest-active {
   width: 7.65rem;
   height: 7.65rem;
   border-radius: 8px;
@@ -265,10 +280,11 @@ img {
   //font-size: 50px;
   margin: 0 15px;
   cursor: pointer;
-  .obacity-card{
+
+  .obacity-card {
     background-color: #262626;
     color: white;
-    position: absolute ;
+    position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;

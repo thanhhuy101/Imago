@@ -1,13 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
-import { TaigaModule } from '../../../shared/modules/taiga.module';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import { TaigaModule } from '../../../shared/taiga.module';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
 import { DataService } from '../../../service/data.service';
+
 
 @Component({
   selector: 'app-creator',
@@ -21,7 +17,6 @@ export class CreatorComponent {
   value = '';
   imgSrc = '';
   img = new FormControl('');
-
   onImagePicked(img: string) {
     this.imgSrc = img;
     console.log('img', img);
@@ -40,12 +35,13 @@ export class CreatorComponent {
     //       this.dataService.updateData(value);
     //     }
     //   });
-    this.inputControl.valueChanges.subscribe((value) => {
+    this.inputControl.valueChanges.subscribe(value => {
       if (typeof value === 'string') {
         this.highlightedWords = this.highlightWords(value);
       }
     });
   }
+
 
   // @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   // onFileSelected(event: any) {
@@ -64,11 +60,13 @@ export class CreatorComponent {
   // }
 
   highlightWords(value: string): string[] {
-    const words = value.split(/\s+/);
-    return words.filter((word) => word.trim() !== ' ');
-  }
 
+    const words = value.split(/\s+/);
+
+    return words.filter(word => word.trim() !== ' ');
+  }
   trackByIndex(index: number, word: string) {
     return index;
   }
 }
+
