@@ -60,7 +60,9 @@ export class CreatorComponent {
   // }
 
   highlightWords(value: string): string[] {
+
     const words = value.split(/\s+/);
+
     return words.filter(word => word.trim() !== ' ');
   }
   trackByIndex(index: number, word: string) {

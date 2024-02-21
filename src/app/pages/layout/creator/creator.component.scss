@@ -129,9 +129,14 @@
     font-size: 12px;
 }
 
+.date-preview {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 12px;
+}
+
 .description {
     width: 100%;
-    margin-left: 40px;
+    margin-left: 45px;
 }
 
 .b-form {
@@ -302,6 +307,100 @@
 .paragraph-preview .highlight {
     color: #0081FF;
     /* Màu chữ khi có ký tự # */
+}
+
+@media screen and (min-width: 2560px) and (max-width: 2560px) {
+    .b-form {
+        height: 20rem;
+    }
+
+    .post-upload {
+        width: 64rem;
+        height: 28rem;
+    }
+
+    .preview {
+        height: 100%;
+        width: 88%;
+    }
+
+    .post-upload-preview {
+        width: 41rem;
+        height: 20rem;
+    }
+
+    .t-icon {
+        width: 100px;
+    }
+
+    .content {
+        font-size: 35px;
+    }
+
+    .name-user {
+        font-size: 35px;
+
+    }
+
+    .date {
+        font-size: 25px;
+    }
+
+    .date-preview {
+        font-size: 20px;
+    }
+
+    #favorite {
+        margin-right: 40px;
+        font-size: 40px;
+    }
+
+    #chat {
+        font-size: 40px;
+    }
+
+    #share {
+        font-size: 40px;
+    }
+
+    .avatar {
+        height: 10rem;
+        width: 10rem;
+    }
+
+    .avatar-preview {
+        width: 8rem;
+        height: 8rem;
+    }
+
+    .preview-name {
+        font-size: 25px;
+    }
+
+    .form {
+        height: 70rem;
+        width: 70rem;
+    }
+
+    .post-preview {
+        width: 150rem;
+    }
+
+    .description {
+        margin-left: 75px;
+    }
+
+    .button1 {
+        font-size: 35px;
+    }
+
+    .post {
+        font-size: 30px;
+    }
+
+    .button2 {
+        font-size: 35px;
+    }
 }
 
 @media only screen and (max-width: 769px) {
