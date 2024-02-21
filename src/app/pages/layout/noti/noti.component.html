@@ -1,0 +1,9 @@
+<div class="container">
+  <tui-tabs tuiMobileTabs [(activeItemIndex)]="activeItemIndex">
+    <button *ngFor="let item of items; let i = index" tuiRipple="var(--tui-text-01)" tuiTab class="post"
+            (click)="onActiveItemChange(i)">
+      {{ item.text }}
+    </button>
+  </tui-tabs>
+</div>
+<router-outlet></router-outlet>
