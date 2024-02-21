@@ -3,7 +3,7 @@ import {NgForOf} from "@angular/common";
 import {TuiTabsModule} from "@taiga-ui/kit";
 import {Router, RouterOutlet} from "@angular/router";
 import {TuiAlertService} from "@taiga-ui/core";
-import {TaigaModule} from "../../../../shared/taiga.module";
+import {TaigaModule} from "../../../../shared/modules/taiga.module";
 
 @Component({
   selector: 'app-search',
