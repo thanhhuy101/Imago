@@ -1,478 +1,478 @@
-.post-preview {
-    width: 100rem;
-    height: 48rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.post-preview1 {
-    width: 49%;
-    display: flex;
-    flex-direction: row;
-    margin-right: 5rem;
-}
-
-.post-preview2 {
-    width: 100%;
-}
-
-.post {
-    font-weight: bold;
-    // padding: 15px 0;
-}
-
-#image {
-    width: 100%;
-    height: 100%;
-    font-size: 50px;
-}
-
-.form {
-    width: 44rem;
-    height: 43rem;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    padding-top: 25px;
-    border-radius: 10px;
-    padding-bottom: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.07);
-}
-
-.drop-image {
-    width: 92%;
-    height: 50%;
-    border-radius: 10px;
-    background-color: #F6F6F6;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#paragraph {
-    font-size: 18px;
-    color: rgba(0, 0, 0, 0.5);
-}
-
-#browse:hover {
-    color: rgba(0, 0, 0, 1);
-}
-
-.user-info {
-    width: 38%;
-    height: 25%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-self: flex-start;
-    margin-left: 15px;
-}
-
-.user-info-2 {
-    width: 52%;
-    height: 32%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.user-img {
-    width: 90px;
-    height: 90px;
-    align-items: start;
-    margin-left: 30px;
-}
-
-.main-preview-post {
-    width: 90%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-.avatar {
-    width: 6rem;
-    height: 6rem;
-    margin: 15px;
-    border-radius: 10px;
-}
-
-.info {
-    line-height: 0;
-    margin: 15px;
-    height: 60%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.info-preview {
-    width: 42%;
-    line-height: 0;
-    margin: 15px;
-    height: 60%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.preview-name {
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.date {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 12px;
-}
-
-.date-preview {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 12px;
-}
-
-.description {
-    width: 100%;
-    margin-left: 45px;
-}
-
-.b-form {
-    width: 93%;
-}
-
-.label {
-    border-radius: 10px;
-    width: 92%;
-    height: 7rem;
-    margin-left: 5px;
-    align-self: flex-start;
-    padding-left: 10px;
-    border: 1px solid rgb(186, 183, 183);
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
-}
-
-.button-place {
-    display: flex;
-    align-self: self-end;
-    margin-top: 10px;
-    float: right;
-    margin-right: 30px;
-}
-
-.button {
-    background-color: #04AA6D;
-    /* Green */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-.button1 {
-    background-color: white;
-    color: rgb(150, 22, 22);
-    font-weight: bold;
-    padding-right: 35px;
-    font-size: 20px;
-}
-
-.button2 {
-    background-color: white;
-    color: black;
-    font-weight: bold;
-    border: 1px solid rgb(186, 183, 183);
-    border-radius: 10px;
-    font-size: 20px;
-}
-
-.post-preview-2 {
-    width: 35%;
-}
-
-.preview {
-    width: 85%;
-    height: 66%;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    padding-top: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.07);
-}
-
-.avatar-preview {
-    width: 95%;
-    height: 85%;
-    border-radius: 10px;
-}
-
-
-.drop-image-preview {
-    width: 92%;
-    height: 70%;
-    padding-top: 20px;
-    border-radius: 10px;
-    background-color: #F6F6F6;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.paragraph-preview {
-    word-wrap: break-word;
-    text-align: justify;
-    font-size: 14px;
-    // white-space: nowrap;
-    // /* Ngăn chặn xuống dòng tự động */
-    // overflow-x: auto;
-    // /* Cho phép cuộn ngang nếu cần */
-}
-
-.description-preview {
-    width: 100%;
-    font-size: 14px;
-}
-
-.icon {
-    display: flex;
-    align-items: center;
-    height: 10%;
-    justify-content: space-between;
-}
-
-.icon1 {
-    display: flex;
-    width: 35%;
-}
-
-.name-user {
-    font-weight: bold;
-    font-size: 20px;
-}
-
-#favorite {
-    margin-right: 15px;
-}
-
-.control {
-    height: 10rem;
-    margin-bottom: 1rem;
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.post-img {
-    width: 39rem;
-    height: 17rem;
-}
-
-.post-img-preview {
-    width: 25rem;
-    height: 13rem;
-}
-
-.post-upload {
-    width: 39rem;
-    height: 20rem;
-    background-color: #f6f6f6;
-}
-
-.post-upload-preview {
-    width: 25rem;
-    height: 14rem;
-    background-color: #f6f6f6;
-}
-
-// .paragraph-preview p {
-//     color: black;
-//     /* Màu chữ mặc định */
-// }
-
-
-.paragraph-preview .highlight {
-    color: #0081FF;
-    /* Màu chữ khi có ký tự # */
-}
-
-@media screen and (min-width: 2560px) and (max-width: 2560px) {
-    .b-form {
-        height: 20rem;
+    .post-preview {
+        width: 100rem;
+        height: 48rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 
-    .post-upload {
-        width: 64rem;
-        height: 28rem;
+    .post-preview1 {
+        width: 49%;
+        display: flex;
+        flex-direction: row;
+        margin-right: 5rem;
     }
 
-    .preview {
+    .post-preview2 {
+        width: 100%;
+    }
+
+    .post {
+        font-weight: bold;
+        // padding: 15px 0;
+    }
+
+    #image {
+        width: 100%;
         height: 100%;
-        width: 88%;
-    }
-
-    .post-upload-preview {
-        width: 41rem;
-        height: 20rem;
-    }
-
-    .t-icon {
-        width: 100px;
-    }
-
-    .content {
-        font-size: 35px;
-    }
-
-    .name-user {
-        font-size: 35px;
-
-    }
-
-    .date {
-        font-size: 25px;
-    }
-
-    .date-preview {
-        font-size: 20px;
-    }
-
-    #favorite {
-        margin-right: 40px;
-        font-size: 40px;
-    }
-
-    #chat {
-        font-size: 40px;
-    }
-
-    #share {
-        font-size: 40px;
-    }
-
-    .avatar {
-        height: 10rem;
-        width: 10rem;
-    }
-
-    .avatar-preview {
-        width: 8rem;
-        height: 8rem;
-    }
-
-    .preview-name {
-        font-size: 25px;
+        font-size: 50px;
     }
 
     .form {
-        height: 70rem;
-        width: 70rem;
+        width: 44rem;
+        height: 43rem;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        padding-top: 25px;
+        border-radius: 10px;
+        padding-bottom: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.07);
     }
 
-    .post-preview {
-        width: 150rem;
+    .drop-image {
+        width: 92%;
+        height: 50%;
+        border-radius: 10px;
+        background-color: #F6F6F6;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    .description {
-        margin-left: 75px;
+    #paragraph {
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.5);
     }
 
-    .button1 {
-        font-size: 35px;
+    #browse:hover {
+        color: rgba(0, 0, 0, 1);
     }
 
-    .post {
-        font-size: 30px;
+    .user-info {
+        width: 38%;
+        height: 25%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-self: flex-start;
+        margin-left: 15px;
     }
 
-    .button2 {
-        font-size: 35px;
-    }
-}
-
-@media only screen and (max-width: 769px) {
-    .post {
-        font-size: 12px;
+    .user-info-2 {
+        width: 52%;
+        height: 32%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
-    .post-upload {
-        width: 34rem;
-        height: 10rem;
+    .user-img {
+        width: 90px;
+        height: 90px;
+        align-items: start;
+        margin-left: 30px;
+    }
+
+    .main-preview-post {
+        width: 90%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
     }
 
     .avatar {
-        width: 4rem;
-        height: 4rem;
+        width: 6rem;
+        height: 6rem;
+        margin: 15px;
+        border-radius: 10px;
     }
 
-    .post-img {
-        width: 33.5rem;
-        height: 9rem;
-    }
-
-    .post-preview {
-        height: 58rem;
-        width: 43rem;
+    .info {
+        line-height: 0;
+        margin: 15px;
+        height: 60%;
+        display: flex;
+        justify-content: center;
         flex-direction: column;
-        margin-left: 90px;
     }
 
-    .post-upload-preview {
-        height: 10rem;
-        width: 25rem;
+    .info-preview {
+        width: 42%;
+        line-height: 0;
+        margin: 15px;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
     }
 
-    .preview {
-        width: 29rem;
-        height: 26rem;
-        padding-top: 15px;
+    .preview-name {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .date {
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 12px;
+    }
+
+    .date-preview {
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 12px;
+    }
+
+    .description {
+        width: 100%;
+        margin-left: 45px;
+    }
+
+    .b-form {
+        width: 93%;
+    }
+
+    .label {
+        border-radius: 10px;
+        width: 92%;
+        height: 7rem;
+        margin-left: 5px;
+        align-self: flex-start;
+        padding-left: 10px;
+        border: 1px solid rgb(186, 183, 183);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 0px 0px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .button-place {
+        display: flex;
+        align-self: self-end;
+        margin-top: 10px;
+        float: right;
+        margin-right: 30px;
+    }
+
+    .button {
+        background-color: #04AA6D;
+        /* Green */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
     }
 
     .button1 {
-        font-size: 16px;
+        background-color: white;
+        color: rgb(150, 22, 22);
+        font-weight: bold;
+        padding-right: 35px;
+        font-size: 20px;
     }
 
     .button2 {
-        font-size: 16px;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        border: 1px solid rgb(186, 183, 183);
+        border-radius: 10px;
+        font-size: 20px;
     }
 
-    .name-user {
-        font-weight: 19px;
+    .post-preview-2 {
+        width: 35%;
+    }
+
+    .preview {
+        width: 85%;
+        height: 66%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        padding-top: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.07);
     }
 
     .avatar-preview {
         width: 95%;
-        height: 75%;
+        height: 85%;
+        border-radius: 10px;
     }
 
-    .info-preview {
-        width: 50%;
+
+    .drop-image-preview {
+        width: 92%;
+        height: 70%;
+        padding-top: 20px;
+        border-radius: 10px;
+        background-color: #F6F6F6;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    .user-info {
-        height: 20%;
+    .paragraph-preview {
+        word-wrap: break-word;
+        text-align: justify;
+        font-size: 14px;
+        // white-space: nowrap;
+        // /* Ngăn chặn xuống dòng tự động */
+        // overflow-x: auto;
+        // /* Cho phép cuộn ngang nếu cần */
     }
 
-    .form {
-        width: 38rem;
-        height: 29rem;
-        padding-top: 10px;
+    .description-preview {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        height: 10%;
+        justify-content: space-between;
+    }
+
+    .icon1 {
+        display: flex;
+        width: 35%;
+    }
+
+    .name-user {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    #favorite {
+        margin-right: 15px;
+    }
+
+    .control {
+        height: 10rem;
+        margin-bottom: 1rem;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .post-img {
+        width: 39rem;
+        height: 17rem;
     }
 
     .post-img-preview {
-        height: 12rem;
+        width: 25rem;
+        height: 13rem;
     }
-}
+
+    .post-upload {
+        width: 39rem;
+        height: 20rem;
+        background-color: #f6f6f6;
+    }
+
+    .post-upload-preview {
+        width: 25rem;
+        height: 14rem;
+        background-color: #f6f6f6;
+    }
+
+    // .paragraph-preview p {
+    //     color: black;
+    //     /* Màu chữ mặc định */
+    // }
+
+
+    .paragraph-preview .highlight {
+        color: #0081FF;
+        /* Màu chữ khi có ký tự # */
+    }
+
+    @media screen and (min-width: 2560px) and (max-width: 2560px) {
+        .b-form {
+            height: 20rem;
+        }
+
+        .post-upload {
+            width: 64rem;
+            height: 28rem;
+        }
+
+        .preview {
+            height: 100%;
+            width: 88%;
+        }
+
+        .post-upload-preview {
+            width: 41rem;
+            height: 20rem;
+        }
+
+        .t-icon {
+            width: 100px;
+        }
+
+        .content {
+            font-size: 35px;
+        }
+
+        .name-user {
+            font-size: 35px;
+
+        }
+
+        .date {
+            font-size: 25px;
+        }
+
+        .date-preview {
+            font-size: 20px;
+        }
+
+        #favorite {
+            margin-right: 40px;
+            font-size: 40px;
+        }
+
+        #chat {
+            font-size: 40px;
+        }
+
+        #share {
+            font-size: 40px;
+        }
+
+        .avatar {
+            height: 10rem;
+            width: 10rem;
+        }
+
+        .avatar-preview {
+            width: 8rem;
+            height: 8rem;
+        }
+
+        .preview-name {
+            font-size: 25px;
+        }
+
+        .form {
+            height: 70rem;
+            width: 70rem;
+        }
+
+        .post-preview {
+            width: 150rem;
+        }
+
+        .description {
+            margin-left: 75px;
+        }
+
+        .button1 {
+            font-size: 35px;
+        }
+
+        .post {
+            font-size: 30px;
+        }
+
+        .button2 {
+            font-size: 35px;
+        }
+    }
+
+    @media only screen and (max-width: 769px) {
+        .post {
+            font-size: 12px;
+        }
+
+        .post-upload {
+            width: 34rem;
+            height: 10rem;
+        }
+
+        .avatar {
+            width: 4rem;
+            height: 4rem;
+        }
+
+        .post-img {
+            width: 33.5rem;
+            height: 9rem;
+        }
+
+        .post-preview {
+            height: 58rem;
+            width: 43rem;
+            flex-direction: column;
+            margin-left: 90px;
+        }
+
+        .post-upload-preview {
+            height: 10rem;
+            width: 25rem;
+        }
+
+        .preview {
+            width: 29rem;
+            height: 26rem;
+            padding-top: 15px;
+        }
+
+        .button1 {
+            font-size: 16px;
+        }
+
+        .button2 {
+            font-size: 16px;
+        }
+
+        .name-user {
+            font-weight: 19px;
+        }
+
+        .avatar-preview {
+            width: 95%;
+            height: 75%;
+        }
+
+        .info-preview {
+            width: 50%;
+        }
+
+        .user-info {
+            height: 20%;
+        }
+
+        .form {
+            width: 38rem;
+            height: 29rem;
+            padding-top: 10px;
+        }
+
+        .post-img-preview {
+            height: 12rem;
+        }
+    }
