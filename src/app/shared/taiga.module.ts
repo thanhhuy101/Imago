@@ -159,7 +159,6 @@ const TaigaModules = [
   TuiActiveZoneModule,
   TuiLetModule,
   TuiSidebarModule,
-
 ];
 
 @NgModule({
@@ -167,4 +166,4 @@ const TaigaModules = [
   imports: [CommonModule, ...TaigaModules],
   exports: [...TaigaModules],
 })
-export class TaigaModule { }
+export class TaigaModule {}

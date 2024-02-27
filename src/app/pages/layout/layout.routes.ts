@@ -26,6 +26,11 @@ export const LAYOUT_ROUTERS: Routes = [
         loadChildren: () =>
           import('./profile/profile.routers').then((m) => m.PROFILE_ROUTERS),
       },
+      {
+        path: 'search',
+        loadChildren: () =>
+          import('./search/search.routers').then((m) => m.SEARCH_ROUTERS),
+      },
     ],
   },
 ];
