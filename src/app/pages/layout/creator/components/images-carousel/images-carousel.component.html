@@ -1,0 +1,47 @@
+<tui-carousel
+  [style.--tui-carousel-padding]="0"
+  style="height: 100%"
+  [draggable]="true"
+  [(index)]="index"
+>
+  <ng-container>
+    <tui-island *tuiItem>
+      <tui-input-files
+        accept="image/*"
+        [formControl]="control"
+        [multiple]="true"
+        (reject)="onReject($event)"
+        class="input_images"
+      >
+        <ng-template let-dragged>
+          <div *ngIf="dragged; else base" class="content">
+            <tui-marker-icon src="tuiIconDropletLarge"></tui-marker-icon>
+            <div>Drop it like it's hot!</div>
+          </div>
+          <ng-template #base>
+            <div class="content">
+              <tui-marker-icon
+                size="l"
+                src="tuiIconUploadCloudLarge"
+              ></tui-marker-icon>
+              <div class="tui-space_top-4">
+                Drag and drop file here or
+                <a tuiLink>click to upload</a>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+      </tui-input-files>
+    </tui-island>
+  </ng-container>
+  <ng-container *ngFor="let image of imageList">
+    <img class="imageItems" *tuiItem [draggable]="false" [src]="image" />
+  </ng-container>
+</tui-carousel>
+<tui-pagination
+  size="s"
+  class="tui-space_top-4"
+  [index]="rounded"
+  [length]="(imageList.length + 1) / itemsCount"
+  (indexChange)="onIndex($event)"
+></tui-pagination>

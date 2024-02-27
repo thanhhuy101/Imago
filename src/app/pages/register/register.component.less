@@ -1,0 +1,69 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+#register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: #000;
+}
+
+#background-register {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../assets/images/background-dark.png");
+  background-size: auto 230%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#background-overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  //backdrop-filter: blur(4px);
+}
+
+#cover-register-surface {
+  width: calc(100% - 10rem);
+  height: calc(100vh - 10rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem;
+
+  label {
+    color: var(--tui-text-01-night);
+  }
+}
+
+#register-surface {
+  width: 30%;
+  min-width: 576px;
+  height: 70%;
+  min-height: 745px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-block: 2rem;
+
+  .tui-text_h3 {
+    width: 50%;
+    color: #fff;
+  }
+}
+
+.highlight {
+  width: fit-content;
+  color: var(--tui-accent);
+}
+
+[tuiWrapper][data-appearance='material-textfield'] {
+  background: #3C4142;
+  color: #FFFFFF;
+  border-radius: 12px;
+}

@@ -78,6 +78,13 @@ import { TuiProgressModule } from '@taiga-ui/kit';
 import { TuiMultiSelectModule } from '@taiga-ui/kit';
 import { TuiLineClampModule } from '@taiga-ui/kit';
 import { TuiSidebarModule } from '@taiga-ui/addon-mobile';
+import {
+  TuiCardModule,
+  TuiHeaderModule,
+  TuiTitleModule,
+  TuiSurfaceModule,
+  TuiFadeModule,
+} from '@taiga-ui/experimental';
 
 const TaigaModules = [
   TuiInputModule,
@@ -160,6 +167,12 @@ const TaigaModules = [
   TuiLetModule,
   TuiSidebarModule,
 
+  // experimental
+  TuiCardModule,
+  TuiSurfaceModule,
+  TuiHeaderModule,
+  TuiTitleModule,
+  TuiFadeModule,
 ];
 
 @NgModule({
@@ -167,4 +180,4 @@ const TaigaModules = [
   imports: [CommonModule, ...TaigaModules],
   exports: [...TaigaModules],
 })
-export class TaigaModule { }
+export class TaigaModule {}

@@ -1,126 +1,119 @@
-<div class="post-preview">
-    <div class="post-preview1">
-        <div class="post-preview2">
-            <div>
-                <h2 class="post">Create Post</h2>
-            </div>
-            <div class="form">
-                <tui-island class="main-post">
-                    @if (imgSrc != "") {
-                    <img class="post-img" ngSrc="{{ imgSrc }}" alt="image" fill=" " />
-                    } @else {
-                    <tui-input-files class="post-upload" [formControl]="img" (change)="onImagePicked(img.value!)">
-                        <ng-template let-dragged>
-                            @if (dragged) {
-                            <div class="content">
-                                <tui-marker-icon mode="link" src="tuiIconFolderPlusLarge"></tui-marker-icon>
-                                <div>
-                                    Drag and drop file here or
-                                    <a tuiLink>click to upload</a>
-                                </div>
-                            </div>
-                            } @else {
-                            <div class="content">
-                                <tui-marker-icon mode="link" src="tuiIconFolderPlusLarge"></tui-marker-icon>
-                                <div>
-                                    Drag and drop file here or
-                                    <a tuiLink>click to upload</a>
-                                </div>
-                            </div>
-                            }
-                        </ng-template>
-                    </tui-input-files>
-                    }
-                </tui-island>
-
-                <div class="user-info">
-                    <div class="user-img">
-                        <img class="avatar" src="./assets/avatar.png" alt="avatar">
-                    </div>
-                    <div class="info">
-                        <h3 class="name-user">GoVegan</h3>
-                        <p class="date">on 15 Oct 2019</p>
-                    </div>
-                </div>
-                <div class="description">
-                    <tui-textarea class="b-form" type="text" [formControl]="inputControl">
-                        Label
-                        <textarea maxlength="100" placeholder="Write a few words about yourself"
-                            tuiTextfield></textarea>
-                    </tui-textarea>
-                </div>
-                <div class="button-place">
-                    <button class="button button1">Cancel</button>
-                    <button class="button button2">Craft</button>
-                </div>
-            </div>
+<tui-scrollbar style="height: 100%">
+  <div id="creator-container">
+    <div id="create-container">
+      <div class="cover">
+        <h4 class="tui-text_h4">Create Post</h4>
+      </div>
+      <div id="create-card">
+        <div class="input_form-cover">
+          <app-images-carousel
+            (responseChangeEvent)="handleImageListChange($event)"
+          ></app-images-carousel>
         </div>
-    </div>
-    <div class="post-preview-2">
-        <h2 class="post">Post Preview</h2>
-        <div class="preview">
-            <tui-island class="main-post">
-                @if (imgSrc != "") {
-                <img class="post-img-preview" ngSrc="{{ imgSrc }}" alt="image" fill=" " />
-                } @else {
-                <tui-input-files class="post-upload-preview" [formControl]="img" (change)="onImagePicked(img.value!)">
-                    <ng-template let-dragged>
-                        @if (dragged) {
-                        <div class="content">
-                            <tui-marker-icon mode="link" src="tuiIconFolderPlusLarge"></tui-marker-icon>
-                            <div>
-                                Drag and drop file here or
-                                <a tuiLink>click to upload</a>
-                            </div>
-                        </div>
-                        } @else {
-                        <div class="content">
-                            <tui-marker-icon mode="link" src="tuiIconFolderPlusLarge"></tui-marker-icon>
-                            <div>
-                                Drag and drop file here or
-                                <a tuiLink>click to upload</a>
-                            </div>
-                        </div>
-                        }
-                    </ng-template>
-                </tui-input-files>
-                }
-            </tui-island>
-            <div class="main-preview-post">
-                <div class="user-info-2">
-                    <div class="user-img">
-                        <img class="avatar-preview" src="./assets/avatar.png" alt="avatar">
-                    </div>
-                    <div class="info-preview">
-                        <h3 class="preview-name">GoVegan</h3>
-                        <p class="date-preview">on 15 Oct 2019</p>
-                    </div>
-                </div>
-                <div class="paragraph-preview">
-                    <div class="paragraph-preview">
-                        @for (word of highlightedWords; track trackByIndex) {
-                        <span>
-
-                            <span [class.highlight]="word.startsWith('#')">{{ word }}</span>
-                        </span>
-                        }
-                    </div>
-                </div>
-
-                <div class="icon">
-                    <div class="icon1">
-                        <span id="favorite" class="material-symbols-outlined">
-                            favorite
-                        </span>
-                        <span id="chat" class="material-symbols-outlined">
-                            chat_bubble
-                        </span>
-                    </div>
-                    <span id="share" style="padding-left: 100px;" class="material-symbols-outlined">
-                        ios_share
-                    </span>
-                </div>
-            </div>
+        <div class="info_cover tui-space_bottom-4">
+          <tui-avatar [text]="name" [autoColor]="true" size="xl"></tui-avatar>
+          <div class="info tui-space_left-4">
+            <h6 class="tui-text_h6">{{ name }}</h6>
+            <p class="tui-text_body-s-2">on 15 Oct 2019</p>
+          </div>
         </div>
+
+        <div
+          class="status-cover"
+          [tuiTextfieldCleaner]="true"
+          [tuiTextfieldLabelOutside]="true"
+        >
+          <tui-textarea
+            [(ngModel)]="statusValue"
+            class="field-medium"
+            [expandable]="true"
+            [maxLength]="200"
+          >
+            Status here...
+          </tui-textarea>
+        </div>
+
+        <div class="cover-btn">
+          <button tuiButton type="button" appearance="flat" size="m">
+            Clear
+          </button>
+          <button tuiButton type="button" appearance="accent" size="m">
+            Publish
+          </button>
+        </div>
+      </div>
     </div>
-</div>
+    <div id="preview-container">
+      <div class="cover">
+        <h4 class="tui-text_h4">Post Preview</h4>
+      </div>
+      <div id="preview-card">
+        <div id="preview-img">
+          <tui-carousel
+            [style.--tui-carousel-padding]="0"
+            [draggable]="true"
+            [(index)]="index"
+            style="height: 95%"
+          >
+            <ng-container *ngFor="let image of imageList">
+              <img class="imageItems" *tuiItem [src]="image" />
+            </ng-container>
+          </tui-carousel>
+          <tui-pagination
+            style="height: 5%"
+            size="s"
+            class="tui-space_top-4"
+            [index]="rounded"
+            [length]="imageList.length / itemsCount"
+            (indexChange)="onIndex($event)"
+          ></tui-pagination>
+        </div>
+        <div class="info_cover">
+          <tui-avatar
+            [text]="name"
+            class="tui-space_top-1"
+            [autoColor]="true"
+            size="xl"
+          ></tui-avatar>
+          <div class="info tui-space_left-4">
+            <h6 class="tui-text_h6">{{ name }}</h6>
+            <p class="tui-text_body-s-2">on 15 Oct 2019</p>
+          </div>
+        </div>
+        <div class="status-cover" *ngIf="statusValue != ''">
+          <tui-textarea
+            [readOnly]="true"
+            [(ngModel)]="statusValue"
+            class="field-medium"
+            [maxLength]="200"
+            [expandable]="true"
+          >
+          </tui-textarea>
+        </div>
+        <div class="reactions tui-space_top-4">
+          <button
+            tuiIconButton
+            type="button"
+            appearance="flat"
+            icon="tuiIconHeartLarge"
+            size="m"
+          ></button>
+          <button
+            tuiIconButton
+            type="button"
+            appearance="flat"
+            icon="tuiIconMessageCircleLarge"
+            size="m"
+          ></button>
+          <button
+            tuiIconButton
+            type="button"
+            appearance="flat"
+            icon="tuiIconNavigationLarge"
+            size="m"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</tui-scrollbar>
