@@ -34,7 +34,14 @@
         </div>
 
         <div class="cover-btn">
-          <button tuiButton type="button" appearance="flat" size="m">
+          <button
+            tuiButton
+            type="button"
+            appearance="flat"
+            size="m"
+            (click)="clearStatus()"
+            class="tui-space_right-4"
+          >
             Clear
           </button>
           <button tuiButton type="button" appearance="accent" size="m">

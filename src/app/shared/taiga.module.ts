@@ -84,6 +84,7 @@ import {
   TuiTitleModule,
   TuiSurfaceModule,
   TuiFadeModule,
+  TuiButtonCloseModule,
 } from '@taiga-ui/experimental';
 
 const TaigaModules = [
@@ -173,6 +174,7 @@ const TaigaModules = [
   TuiHeaderModule,
   TuiTitleModule,
   TuiFadeModule,
+  TuiButtonCloseModule,
 ];
 
 @NgModule({
