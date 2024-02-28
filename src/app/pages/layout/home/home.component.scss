@@ -2,51 +2,85 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+
 }
 
+.picture-post {
+  width: 100%;
 
-/* Stories */
-.stories {
-  width: 100px;
-  height: 400px;
-  align-items: center;
+}
+
+.allPost {
+  width: 85%;
+  height: fit-content;
+  columns: 3;
+}
+
+.post {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.07);
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
+  height: fit-content;
+  break-inside: avoid;
+}
 
-  h2 {
-    margin: 0px;
+@media (max-width: 4000px) {
+  .allPost {
+    width: 85%;
+    height: fit-content;
+
+    columns: 5;
+    padding-bottom: 2.5rem;
   }
 }
 
-.main-post {
-  width: 85rem;
+@media (max-width: 3000px) {
+  .allPost {
+    width: 85%;
+    height: fit-content;
+    columns: 4;
+    padding-bottom: 2.5rem;
+  }
 }
+
+@media (max-width: 2000px) {
+  .allPost {
+    width: 85%;
+    height: fit-content;
+    columns: 3;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 1400px) {
+  .allPost {
+    width: 85%;
+    height: fit-content;
+    columns: 2;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .allPost {
+    width: 85%;
+    height: fit-content;
+    columns: 1;
+    padding-bottom: 2.5rem;
+  }
+}
+
 
 .btn-star {
   width: 56px;
   height: 56px;
   background-color: black;
   border-radius: 12px;
-}
-
-.main-stories {
-  height: 100vh;
-  width: 15%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bottom-stories {
-  width: 70%;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-self: center;
-  justify-content: center;
 }
 
 .description-preview {
@@ -62,49 +96,13 @@
   color: white;
 }
 
-.post-preview-2 {
-  width: 35%;
-}
-
-.post {
-  width: 400px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.07);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
-  height: fit-content;
-  break-inside: avoid;
-}
-
-
 .image-post {
-  width: 400px;
+  width: 100%;
   height: 60%;
 }
 
-.row-post {
-  height: 100%;
-  width: 100%;
-  padding-bottom: 30px;
-  justify-content: space-between;
-  display: flex;
-  flex-direction: row;
-
-}
-
-.column-post {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .detail-image {
-  object-fit: fill;
+  object-fit: cover;
   width: 100%;
   height: 100%;
   border-top-left-radius: 12px;
@@ -199,23 +197,10 @@
 }
 
 .bottom {
-  width: 400px;
-  height: 40%;
   padding: 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-
-.allPost {
-  width: 80%;
-  columns: 3;
-  column-gap: 13rem;
-  //margin: 2.5rem auto;
-  // margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-  padding-bottom: 2.5rem;
 }
 
 .reaction {
@@ -248,176 +233,5 @@
 }
 
 
-@media (max-width: 1024px) {
-  .allPost {
-    width: 55%;
-    columns: 2;
-    column-gap: 16rem;
-    margin-bottom: 2.5rem;
-  }
 
-  .storie-inside {
-    width: 50px;
-  }
 
-  .main-stories {
-    width: 11%;
-    height: 55rem;
-  }
-
-  .btn-star {
-    width: 50px;
-    height: 50px;
-  }
-
-  .post {
-    width: 18rem;
-  }
-
-  .image-post {
-    width: 288px;
-  }
-
-  .bottom {
-    width: 290px;
-  }
-
-  .description-preview {
-    margin-top: 25px;
-  }
-}
-
-//2k
-@media screen and (min-width: 2560px) and (max-width: 2560px) {
-
-  .bottom {
-    width: 450px;
-  }
-
-  .avatar-user {
-    width: 100px;
-    height: 100px;
-  }
-
-  .name-user {
-    font-size: 25px;
-  }
-
-  .date {
-    font-size: 25px;
-  }
-
-  .info-post {
-    line-height: 35px;
-  }
-
-  .description-preview {
-    font-size: 25px;
-    line-height: 30px;
-  }
-
-  .post {
-    width: 450px;
-    margin-bottom: 70px;
-  }
-
-  #heart {
-    font-size: 500px !important;
-  }
-
-  .image-post {
-    width: 450px;
-  }
-
-  .stories {
-    font-size: 25px;
-  }
-
-  .storie-inside {
-    width: 6rem;
-  }
-
-  .allPost {
-    width: 90%;
-    columns: 4;
-    column-gap: 14rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .main-post {
-    width: 130rem;
-  }
-}
-
-//ipad air
-// @media (max-width: 1180px) {
-
-//     .bottom {
-//         width: 370px;
-//     }
-
-//     .allPost {
-//         width: 60%;
-//         columns: 2;
-//         column-gap: 16rem;
-//         //margin: 2.5rem auto;
-//         margin-top: 2.5rem;
-//         margin-bottom: 2.5rem;
-//     }
-
-// }
-
-//     .post1 {
-//         width: 18rem;
-//         margin-top: 1rem;
-//         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-//         /* border: 1px solid rgb(224, 219, 219); */
-//         border-radius: 0.938rem;
-//         display: flex;
-//         align-items: center;
-//         justify-content: space-between;
-//         flex-direction: column;
-//         padding: 1rem;
-//         height: fit-content;
-//         //grid-row-end: span 20;
-//         break-inside: avoid;
-//     }
-
-//     .capAndReaction {
-//         width: 100%;
-
-//     }
-// }
-
-// //ipad mini
-// @media (max-width: 740px) {
-//     .allPost {
-//         width: 60%;
-//         height: 100%;
-//         columns: 1;
-//         column-gap: 16rem;
-//         //margin: 2.5rem auto;
-//         margin-top: 2.5rem;
-//         margin-bottom: 2.5rem;
-//     }
-
-//     .post1 {
-//         width: 15.8rem;
-//         margin-top: 1rem;
-//         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-//         /* border: 1px solid rgb(224, 219, 219); */
-//         border-radius: 0.938rem;
-//         display: flex;
-//         align-items: center;
-//         justify-content: space-between;
-//         flex-direction: column;
-//         padding: 1rem;
-//         height: fit-content;
-//         //grid-row-end: span 20;
-//         break-inside: avoid;
-//     }
-
-//     .capAndReaction {
-//         width: 100%;
-//     }
-// }
