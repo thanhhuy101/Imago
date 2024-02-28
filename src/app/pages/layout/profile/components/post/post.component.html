@@ -2,11 +2,9 @@
 <div class="main"  >
   <div class="allPost">
     @for (post of list; track post.id; let i = $index){
-    <div class="post1" >
-      <div class="top-post">
-        <div class="picture-post1" (click)="showDialog(i)">
-          <img class="picture1" [src]="post.picture" alt="">
-        </div>
+    <div class="post" >
+      <div class="picture-post1" (click)="showDialog(i)">
+        <img class="picture1" [src]="post.picture" alt="">
       </div>
 
       <div class="capAndReaction">
