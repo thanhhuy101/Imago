@@ -10,8 +10,6 @@ body {
   padding: 0px 5rem;
 }
 
-
-
 .logo {
   font-size: 30px;
 }
@@ -20,28 +18,28 @@ body {
   font-size: 30px;
 }
 
-
 .profile {
+  padding: 35px 50px;
   display: flex;
   flex-direction: row;
-
   width: 100%;
-  /* background-color: aqua; */
 }
 
 .left {
-  width: 69%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.right {
+  width: 50%;
   display: flex;
   justify-content: center;
 }
 
 .information {
-  width: 28rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  margin-top: 45px;
-  /* background-color: red; */
 }
 
 .name {
@@ -61,10 +59,7 @@ body {
 .bio {
   font-size: 17px;
   margin-top: 8px;
-  max-width: 420px;
   word-break: break-word;
-
-  /* font-weight: bold; */
 }
 
 .avatar {
@@ -75,7 +70,7 @@ body {
 .avatar-user {
   height: 100%;
   width: 100%;
-  object-fit: fill;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -108,12 +103,11 @@ body {
   margin-top: 15px;
 }
 
-.right {
+.content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 22%;
-  margin-top: 45px;
 }
 
 .post{
@@ -181,10 +175,6 @@ body {
 .framebtnEditProfile:hover {
   background-color: rgb(190, 186, 186);
 }
-
-
-
-
 
 //.vegan {
 //  color: blue;
