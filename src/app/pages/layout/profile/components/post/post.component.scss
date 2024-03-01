@@ -1,5 +1,7 @@
 .vegan {
   color: blue;
+  Cursor: pointer;
+
 }
 .allPost {
   width: 91%;
@@ -28,7 +30,6 @@
   height: fit-content ;
   //grid-row-end: span 20;
   break-inside: avoid;
-
 }
 
 
@@ -36,6 +37,8 @@
 .picture-post1 {
 
   width : 100%;
+  Cursor: pointer;
+
 
 }
 
@@ -187,3 +190,49 @@
     width: 100%;
   }
 }
+
+
+@media only screen and (min-width: 1920px) {
+  .allPost {
+    width: 88%;
+    columns: 3;
+    column-gap: 9.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .post1 {
+    width: 16rem;
+    margin-top: 3rem;
+  }
+}
+@media only screen and (min-width: 2560px) {
+  .allPost {
+    width: 100%;
+    columns: 4;
+    column-gap: 4rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .post1 {
+    width: 29rem;
+    margin-top: 3rem;
+  }
+
+
+}
+@media only screen and (min-width: 3840px) {
+
+  .allPost {
+    width: 70%;
+    columns: 4;
+    column-gap: 12rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .post1 {
+    width: 20rem;
+    margin-top: 3rem;
+  }
+
+}
+

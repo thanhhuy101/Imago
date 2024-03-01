@@ -1,70 +1,81 @@
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgOptimizedImage } from '@angular/common';
-import { DataService } from '../../../service/data.service';
-
+import { ShareModule } from '../../../shared/share.module';
+import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
+import { TuiValidationError } from '@taiga-ui/cdk';
+import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
+import { NotificationService } from '../../../service/notification/notification.service';
+import { CanComponentDeactivate } from '../../../guard/can-deactive.guard';
 
 @Component({
   selector: 'app-creator',
   standalone: true,
-  imports: [TaigaModule, ReactiveFormsModule, NgOptimizedImage, FormsModule],
+  imports: [TaigaModule, ShareModule, ImagesCarouselComponent],
   templateUrl: './creator.component.html',
-  styleUrl: './creator.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './creator.component.less',
+  encapsulation: ViewEncapsulation.None,
 })
-export class CreatorComponent {
-  value = '';
-  imgSrc = '';
-  img = new FormControl('');
-  onImagePicked(img: string) {
-    this.imgSrc = img;
-    console.log('img', img);
-    console.log(this.imgSrc);
+export class CreatorComponent implements OnInit, CanComponentDeactivate {
+  readonly control = new FormControl(new Array<File>(), [maxFilesLength(5)]);
+
+  name: string = 'Lulu';
+  statusValue: string = '';
+
+  index = 0;
+  itemsCount = 1;
+
+  isContentChanged = false;
+
+  expanded = false;
+
+  // add default image
+  imageList: string[] = ['https://via.placeholder.com/450'];
+
+  constructor(private notificationService: NotificationService) {}
+
+  canDeactivate(): boolean {
+    // Add your logic here to determine whether navigation should be allowed.
+    // For example, you might return false if the user has unsaved changes.
+    if (this.isContentChanged) {
+      this.notificationService.errorNotification('Your content will be lost!');
+      return false;
+    }
+
+    return true;
   }
 
-  formData: FormData = new FormData();
-  file: any;
-  selectedImage: string | ArrayBuffer | null = null;
-  inputControl = new FormControl('');
-  highlightedWords: string[] = [];
+  ngOnInit(): void {}
 
-  constructor(private dataService: DataService) {
-    //   this.inputControl.valueChanges.subscribe(value => {
-    //     if (value !== null) {
-    //       this.dataService.updateData(value);
-    //     }
-    //   });
-    this.inputControl.valueChanges.subscribe(value => {
-      if (typeof value === 'string') {
-        this.highlightedWords = this.highlightWords(value);
-      }
-    });
+  handleImageListChange(imageList: string[]): void {
+    this.imageList = [...imageList];
+    this.isContentChanged = true;
   }
 
-
-  // @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  // onFileSelected(event: any) {
-  //   const file: File = event.target.files[0];
-  //   console.log(file);
-  //   this.formData.append('image', file, file.name);
-  //   this.file = file;
-
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onload = () => {
-  //     this.selectedImage = reader.result;
-  //   };
-  //   console.log(this.file);
-  //   console.log(this.selectedImage);
-  // }
-
-  highlightWords(value: string): string[] {
-    const words = value.split(/\s+/);
-    return words.filter(word => word.trim() !== ' ');
+  get rounded(): number {
+    return Math.floor(this.index / this.itemsCount);
   }
-  trackByIndex(index: number, word: string) {
-    return index;
+
+  onIndex(index: number): void {
+    this.index = index * this.itemsCount;
+  }
+
+  toggle(): void {
+    this.expanded = !this.expanded;
   }
 }
 
+export function maxFilesLength(maxLength: number): ValidatorFn {
+  return ({ value }: AbstractControl) =>
+    value.length > maxLength
+      ? {
+          maxLength: new TuiValidationError(
+            'Error: maximum limit - 5 files for upload',
+          ),
+        }
+      : null;
+}
