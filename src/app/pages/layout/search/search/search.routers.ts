@@ -21,6 +21,11 @@ export const SEARCH_ROUTERS: Routes = [
       {
         path: 'explore',
         loadComponent: () => import('../components/explore/explore.component').then((m) => m.ExploreComponent),
+      },
+      {
+        path: '',
+        redirectTo: 'post',
+        pathMatch: 'full'
       }
 
     ]
