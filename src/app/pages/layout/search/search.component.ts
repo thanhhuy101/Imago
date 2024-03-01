@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   readonly items = [
     {
       text: 'Post',
@@ -41,20 +41,20 @@ export class SearchComponent implements OnInit {
   constructor(
     @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
     private route: Router,
-  ) {}
-  ngOnInit(): void {
-    // let path = window.location.href.split('?')[0];
-    // console.log(path);
-    // if (path.includes('search/people')) {
-    //   this.activeItemIndex = 1;
-    // } else if (path.includes('search/group')) {
-    //   this.activeItemIndex = 2;
-    // } else if (path.includes('search/explore')) {
-    //   this.activeItemIndex = 3;
-    // } else {
-    //   this.activeItemIndex = 0;
-    // }
+  ) {
+    let path = window.location.href.split('?')[0];
+    console.log(path);
+    if (path.includes('search/people')) {
+      this.activeItemIndex = 1;
+    } else if (path.includes('search/group')) {
+      this.activeItemIndex = 2;
+    } else if (path.includes('search/explore')) {
+      this.activeItemIndex = 3;
+    } else {
+      this.activeItemIndex = 0;
+    }
   }
+
   onActiveItemChange(index: number) {
     this.onChangePage(index);
   }
