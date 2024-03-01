@@ -1,44 +1,117 @@
-<div class="container">
-  <div class="content">
-    <form [formGroup]="registForm">
-      <h3>Personal Information</h3>
-      <div>
-        <p class="wrapper wrapper_dark">
-          <tui-input formControlName="userName" tuiMode="onDark" [tuiTextfieldCleaner]="true"
-            [tuiTextfieldLabelOutside]="true">
-            Username
-            <input placeholder="Input here" tuiTextfield type="email" />
-          </tui-input>
-        </p>
+<div id="register-container">
+  <div id="background-register">
+    <tui-scrollbar id="background-overlay">
+      <div id="cover-register-surface">
+        <form id="register-surface" [formGroup]="regisForm">
+          <div class="tui-row tui-row_sme">
+            <div class="tui-col_12">
+              <h3
+                class="tui-form__header tui-form__header_margin-top_none tui-form__header_margin-bottom_small tui-text_h3"
+              >
+                Personal Information
+              </h3>
+              <div class="tui-form__row">
+                <label tuiLabel="Email">
+                  <tui-input
+                    [readOnly]="true"
+                    formControlName="email"
+                    tuiTextfieldSize="l"
+                    [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true"
+                  >
+                    <input tuiTextfield />
+                  </tui-input>
+                  <tui-error
+                    formControlName="email"
+                    [error]="[] | tuiFieldError | async"
+                  ></tui-error>
+                </label>
+              </div>
+
+              <div class="tui-form__row">
+                <label tuiLabel="Username">
+                  <tui-input
+                    formControlName="userName"
+                    tuiTextfieldSize="l"
+                    [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true"
+                  >
+                    <input tuiTextfield />
+                  </tui-input>
+                  <tui-error
+                    formControlName="username"
+                    [error]="[] | tuiFieldError | async"
+                  ></tui-error>
+                </label>
+              </div>
+              <div class="tui-form__row">
+                <label tuiLabel="Last name">
+                  <tui-input
+                    formControlName="lastName"
+                    tuiTextfieldSize="l"
+                    [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true"
+                  >
+                    <input tuiTextfield />
+                  </tui-input>
+                  <tui-error
+                    formControlName="lastname"
+                    [error]="[] | tuiFieldError | async"
+                  ></tui-error>
+                </label>
+              </div>
+              <div class="tui-form__row">
+                <label tuiLabel="First name">
+                  <tui-input
+                    formControlName="firstName"
+                    tuiTextfieldSize="l"
+                    [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true"
+                  >
+                    <input tuiTextfield />
+                  </tui-input>
+                  <tui-error
+                    formControlName="firstname"
+                    [error]="[] | tuiFieldError | async"
+                  ></tui-error>
+                </label>
+              </div>
+              <div class="tui-form__row">
+                <div class="tui-form__field-checkbox">
+                  <tui-checkbox-labeled
+                    class="tui-space_top-6"
+                    formControlName="isCheck"
+                    size="l"
+                  >
+                    <a [pseudo]="true" class="link" tuiLink tuiMode="onDark"
+                      >Check here by accept the terms and conditions</a
+                    >
+                    <tui-tooltip
+                      tuiMode="onDark"
+                      content="Read the terms and conditions before checking the box to accept"
+                      describeId="button"
+                      direction="right"
+                      class="tui-space_left-2"
+                    ></tui-tooltip>
+                  </tui-checkbox-labeled>
+                </div>
+              </div>
+
+              <div class="tui-form__buttons tui-form__buttons_align_center">
+                <button
+                  tuiButton
+                  appearance="accent"
+                  class="tui-form__button"
+                  [disabled]="regisForm.invalid"
+                  (click)="register()"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-      <div>
-        <p class="wrapper wrapper_dark">
-          <tui-input formControlName="firstName" tuiMode="onDark" [tuiTextfieldCleaner]="true"
-            [tuiTextfieldLabelOutside]="true">
-            First name
-            <input placeholder="Input here" tuiTextfield type="email" />
-          </tui-input>
-        </p>
-      </div>
-      <div>
-        <p class="wrapper wrapper_dark">
-          <tui-input formControlName="lastName" tuiMode="onDark" [tuiTextfieldCleaner]="true"
-            [tuiTextfieldLabelOutside]="true">
-            Last name
-            <input placeholder="Input here" tuiTextfield type="email" />
-          </tui-input>
-        </p>
-      </div>
-      <div class="tui-checkbox-labeled">
-        <tui-checkbox-labeled formControlName="checkBox">
-        </tui-checkbox-labeled>
-        <p class="example"> I have read and accept the terms and conditions</p>
-        <span class="material-symbols-outlined">help</span>
-      </div>
-      <button appearance="custom" tuiButton type="button" class="tui-space_right-3 tui-space_bottom-3"
-        (click)="logout()">
-        Let's go!!
-      </button>
-    </form>
+    </tui-scrollbar>
   </div>
 </div>

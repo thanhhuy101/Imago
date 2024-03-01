@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
+import { SEARCH_ROUTERS } from './search/search/search.routers';
 
 export const LAYOUT_ROUTERS: Routes = [
   {
@@ -22,7 +23,7 @@ export const LAYOUT_ROUTERS: Routes = [
           import('./creator/creator.routers').then((m) => m.CREATOR_ROUTERS),
       },
       {
-        path: 'noti',
+        path: 'notification',
         loadChildren: () =>
           import('./noti/noti.routes').then((m) => m.NOTI_ROUTERS),
       },
@@ -30,6 +31,14 @@ export const LAYOUT_ROUTERS: Routes = [
         path: 'profile',
         loadChildren: () =>
           import('./profile/profile.routers').then((m) => m.PROFILE_ROUTERS),
+      },
+
+      {
+        path: 'search',
+        loadChildren: () =>
+          import('./search/search/search.routers').then(
+            (m) => m.SEARCH_ROUTERS,
+          ),
       },
     ],
   },

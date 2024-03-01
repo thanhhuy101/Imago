@@ -1,22 +1,180 @@
-<div class="container">
-  <div class="nav-bar">
-    <div>
-      <img class="logo" src="../../../../assets/images/logo.png" alt="">
+<div id="navbar-container">
+  <div id="navbar-fullness">
+    <div class="logo_cover">
+      <img class="logo" src="../../../../assets/images/logo.png" alt="" />
+    </div>
 
-    </div>
-    <div class="tab-items">
-      @for (item of navBarItems; track item.icon; let i = $index) {
+    <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
+      <button
+        [disabled]="activeItemIndex === 0"
+        [routerLink]="['']"
+        routerLinkActive
+        tuiTab
+      >
+        <span class="material-symbols-rounded">desktop_windows</span>
+      </button>
+      <button
+        [disabled]="activeItemIndex === 1"
+        [routerLink]="['search']"
+        routerLinkActive
+        tuiTab
+      >
+        <span class="material-symbols-rounded">search</span>
+      </button>
+      <button
+        [disabled]="activeItemIndex === 2"
+        [routerLink]="['creator']"
+        routerLinkActive
+        tuiTab
+      >
+        <span class="material-symbols-rounded">edit_square</span>
+      </button>
+      <button
+        [disabled]="activeItemIndex === 3"
+        [routerLink]="['notification']"
+        routerLinkActive
+        tuiTab
+      >
+        <span class="material-symbols-rounded">local_fire_department</span>
+      </button>
+      <button
+        [disabled]="activeItemIndex === 4"
+        [routerLink]="['profile']"
+        routerLinkActive
+        tuiTab
+      >
+        <span class="material-symbols-rounded">for_you</span>
+      </button>
+    </tui-tabs>
 
-        <span class="material-symbols-outlined" id="underline" [id]="itemSelected == i ? 'underline':'item'"
-              (click)="select(i)">
-        {{ item.icon }}
-      </span>
-      }
+    <div
+      class="options"
+      type="button"
+      tuiDropdownAlign="center"
+      tuiDropdownDirection="bottom"
+      [tuiDropdown]="dropdownContent"
+      [tuiDropdownManual]="open"
+      (click)="onClick()"
+    >
+      <span class="material-symbols-rounded"> page_info </span>
+      <ng-template #dropdownContent>
+        <button tuiButton appearance="flat" size="m">Logout</button>
+      </ng-template>
     </div>
-    <div class="page-info">
-      <span class="material-symbols-outlined">
-        page_info
-      </span>
+  </div>
+  <div id="navbar">
+    <div class="hamburger">
+      <button
+        icon="tuiIconMenuLarge"
+        tuiIconButton
+        type="button"
+        appearance="flat"
+        size="xl"
+        (click)="openDrawer(true)"
+        (tuiActiveZoneChange)="openDrawer($event)"
+      >
+        <div
+          class="drawer"
+          *tuiSidebar="
+            this.openDrawerSidebar;
+            direction: 'left';
+            autoWidth: true
+          "
+        >
+          <nav
+            tuiTabs
+            vertical="left"
+            class="left"
+            [(activeItemIndex)]="activeItemIndex"
+          >
+            <button
+              class="tui-space_bottom-4"
+              [disabled]="activeItemIndex === 0"
+              [routerLink]="['']"
+              routerLinkActive
+              tuiTab
+            >
+              <div class="nav-items">
+                <span class="material-symbols-rounded tui-space_right-4"
+                  >desktop_windows</span
+                >
+                Home
+              </div>
+            </button>
+            <button
+              class="tui-space_bottom-4"
+              [disabled]="activeItemIndex === 1"
+              [routerLink]="['search']"
+              routerLinkActive
+              tuiTab
+            >
+              <div class="nav-items">
+                <span class="material-symbols-rounded tui-space_right-4"
+                  >search</span
+                >
+                Search
+              </div>
+            </button>
+            <button
+              class="tui-space_bottom-4"
+              [disabled]="activeItemIndex === 2"
+              [routerLink]="['creator']"
+              routerLinkActive
+              tuiTab
+            >
+              <div class="nav-items">
+                <span class="material-symbols-rounded tui-space_right-4"
+                  >edit_square</span
+                >
+                Creator
+              </div>
+            </button>
+            <button
+              class="tui-space_bottom-4"
+              [disabled]="activeItemIndex === 3"
+              [routerLink]="['notification']"
+              routerLinkActive
+              tuiTab
+            >
+              <div class="nav-items">
+                <span class="material-symbols-rounded tui-space_right-4"
+                  >local_fire_department</span
+                >
+                Notification
+              </div>
+            </button>
+            <button
+              class="tui-space_bottom-4"
+              [disabled]="activeItemIndex === 4"
+              [routerLink]="['profile']"
+              routerLinkActive
+              tuiTab
+            >
+              <div class="nav-items">
+                <span class="material-symbols-rounded tui-space_right-4"
+                  >for_you</span
+                >
+                Profile
+              </div>
+            </button>
+          </nav>
+          <div>
+            <button
+              tuiButton
+              type="button"
+              icon="tuiIconLogOut"
+              appearance="accent"
+              size="m"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </button>
     </div>
+    <div class="logo_cover">
+      <img class="logo" src="../../../../assets/images/logo.png" alt="" />
+    </div>
+    <div class="white-space"></div>
   </div>
 </div>

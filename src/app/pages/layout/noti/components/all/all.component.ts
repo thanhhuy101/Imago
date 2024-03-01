@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import {TuiButtonModule} from "@taiga-ui/core";
 
 @Component({
   selector: 'app-all',
   standalone: true,
-  imports: [],
+  imports: [
+    TuiButtonModule
+  ],
   templateUrl: './all.component.html',
   styleUrl: './all.component.scss'
 })

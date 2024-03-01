@@ -1,40 +1,43 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { Router } from '@angular/router';
-import { TaigaModule } from '../../modules/taiga.module';
-import { TuiDialogService, TuiSizeL, TuiSizeS } from '@taiga-ui/core';
+import { Router, RouterLink } from '@angular/router';
+import { TaigaModule } from '../../taiga.module';
+import { TuiDialogService } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [NgClass, TaigaModule],
+  imports: [NgClass, TaigaModule, RouterLink],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss',
+  styleUrl: './navbar.component.less',
+  encapsulation: ViewEncapsulation.None,
 })
 export class NavbarComponent implements OnInit {
-  constructor(
-    private router: Router,
-    @Inject(TuiDialogService) private readonly dialogs: TuiDialogService,
-  ) {}
+  activeItemIndex = 0;
+  open = false;
+  openDrawerSidebar = false;
 
-  ngOnInit(): void {
-    if (this.router.url.includes('/home')) this.itemSelected = 0;
-    if (this.router.url.includes('/creator')) this.itemSelected = 2;
-    if (this.router.url.includes('/noti')) this.itemSelected = 3;
-    if (this.router.url.includes('/profile')) this.itemSelected = 4;
+  constructor(private router: Router) {
+    if (this.router.url === '/home') {
+      this.activeItemIndex = 0;
+    } else if (this.router.url === '/search') {
+      this.activeItemIndex = 1;
+    } else if (this.router.url === '/creator') {
+      this.activeItemIndex = 2;
+    } else if (this.router.url === '/notification') {
+      this.activeItemIndex = 3;
+    } else if (this.router.url === '/profile') {
+      this.activeItemIndex = 4;
+    }
   }
 
-  itemSelected = 0;
-  navBarItems = [
-    { icon: 'desktop_windows', path: '/home' },
-    { icon: 'search', path: '' },
-    { icon: 'edit_square', path: '/creator' },
-    { icon: 'local_fire_department', path: '/noti' },
-    { icon: 'for_you', path: '/profile' },
-  ];
+  ngOnInit(): void {}
 
-  select(i: number) {
-    this.itemSelected = i;
-    this.router.navigate([this.navBarItems[i].path]);
+  onClick(): void {
+    this.open = !this.open;
+  }
+
+  openDrawer(open: boolean): void {
+    this.openDrawerSidebar = open;
   }
 }

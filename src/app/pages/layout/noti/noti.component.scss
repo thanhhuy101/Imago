@@ -5,7 +5,7 @@
 }
 
 .post {
-  margin-left: 0px;
+  margin-left: 0;
   width: 24%;
   font-weight: bold;
   display: flex;
@@ -14,19 +14,17 @@
 }
 
 tui-tabs {
-  width: 50%;
+  width: 45%;
   display: flex;
   justify-content: space-around;
+  font-size: 18px;
 }
 
 @media (max-width: 770px) {
   tui-tabs button {
-    font-size: 15px;
   }
 
   tui-tabs {
     width: 60%;
-
   }
-
 }
