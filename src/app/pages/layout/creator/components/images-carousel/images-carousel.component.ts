@@ -4,6 +4,7 @@ import { ShareModule } from '../../../../../shared/share.module';
 import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 import { TuiFileLike } from '@taiga-ui/kit';
 import { TuiValidationError } from '@taiga-ui/cdk';
+import { NotificationService } from '../../../../../service/notification/notification.service';
 
 @Component({
   selector: 'app-images-carousel',
@@ -26,9 +27,17 @@ export class ImagesCarouselComponent implements OnInit {
   index = 0;
   itemsCount = 1;
 
+  constructor(private notificationService: NotificationService) {}
+
   ngOnInit(): void {
     this.control.valueChanges.subscribe((response: File[] | null) => {
       if (response) {
+        if (response.length > 5) {
+          this.notificationService.errorNotification(
+            'Error: maximum limit - 5 files for upload',
+          );
+          return;
+        }
         response.forEach((file: File) => {
           const reader = new FileReader();
           reader.readAsArrayBuffer(file);
@@ -39,10 +48,6 @@ export class ImagesCarouselComponent implements OnInit {
               this.tmpImageList.push(url);
               if (this.tmpImageList.length === response.length) {
                 this.imageList = this.tmpImageList;
-                if (this.imageList.length > 5) {
-                  // remove the image just added
-                  this.imageList.splice(-1, 1);
-                }
                 this.responseChangeEvent.emit(this.imageList);
                 this.tmpImageList = [];
               }
@@ -67,6 +72,10 @@ export class ImagesCarouselComponent implements OnInit {
 
   deleteImage(index: number): void {
     this.imageList.splice(index, 1);
+
+    // delete file from the list
+    this.control.setValue(this.control.value!.filter((_, i) => i !== index));
+
     this.responseChangeEvent.emit(this.imageList);
     if (this.imageList.length === 0) {
       this.imageList = ['https://via.placeholder.com/450'];

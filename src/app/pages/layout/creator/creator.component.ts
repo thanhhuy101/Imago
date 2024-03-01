@@ -42,6 +42,7 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
     this.isContentChanged = true;
     if (this.imageList.length === 0) {
       this.imageList = ['https://via.placeholder.com/450'];
+      this.isContentChanged = false;
     }
     this.index = this.imageList.length - 1;
   }

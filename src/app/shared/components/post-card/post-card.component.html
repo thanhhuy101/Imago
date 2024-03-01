@@ -1,0 +1,69 @@
+<div id="post-card-container">
+  <div id="post-card">
+    <div id="post-img">
+      <tui-carousel
+        [style.--tui-carousel-padding]="0"
+        [draggable]="true"
+        [(index)]="index"
+        style="height: 95%"
+      >
+        <ng-container *ngFor="let image of imageList">
+          <img class="image-list" *tuiItem [src]="image" />
+        </ng-container>
+      </tui-carousel>
+      <tui-pagination
+        style="height: 5%"
+        size="s"
+        class="tui-space_top-4"
+        [index]="rounded"
+        [length]="imageList.length / itemsCount"
+        (indexChange)="onIndex($event)"
+      ></tui-pagination>
+    </div>
+    <div class="info_cover">
+      <tui-avatar
+        [text]="name"
+        class="tui-space_top-1"
+        [autoColor]="true"
+        size="xl"
+      ></tui-avatar>
+      <div class="info tui-space_left-4">
+        <h6 class="tui-text_h6">{{ name }}</h6>
+        <p class="tui-text_body-s-2">on 15 Oct 2019</p>
+      </div>
+    </div>
+    <div class="status-cover" *ngIf="statusValue != ''">
+      <tui-textarea
+        [readOnly]="true"
+        [(ngModel)]="statusValue"
+        class="field-medium"
+        [maxLength]="200"
+        [expandable]="true"
+      >
+      </tui-textarea>
+    </div>
+    <div class="reactions tui-space_top-4">
+      <button
+        tuiIconButton
+        type="button"
+        appearance="flat"
+        icon="tuiIconHeartLarge"
+        size="m"
+      ></button>
+      <button
+        tuiIconButton
+        type="button"
+        appearance="flat"
+        icon="tuiIconMessageCircleLarge"
+        size="m"
+      ></button>
+      <button
+        tuiIconButton
+        type="button"
+        appearance="flat"
+        icon="tuiIconNavigationLarge"
+        size="m"
+      ></button>
+    </div>
+  </div>
+</div>
