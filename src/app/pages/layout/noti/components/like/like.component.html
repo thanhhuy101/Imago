@@ -1,0 +1,12 @@
+<div class="content">
+  @for (item of listLike; track $index) {
+    <div class="container1">
+      <div>
+        <img class="img" [src]="item.avatar" />
+      </div>
+      <div class="username">
+        <p><b>{{item.name}}</b> liked your post</p>
+        <p>{{item.time}} hours ago</p>
+      </div>
+    </div>}
+</div>

@@ -1,0 +1,22 @@
+<div class="main">
+  @for (item of listComment; track item.id) {
+    <div class="container">
+      <div class="left">
+        <div>
+          <img class="ava" [src]="item.avatar" />
+        </div>
+        <div>
+          <div class="info">
+            <p><b>{{item.name}}</b> commented on your post</p>
+            <p>{{item.time}} hours ago</p>
+          </div>
+          <div class="content">
+            <p>{{item.content}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <img class="img" [src]="item.image" />
+      </div>
+    </div>}
+</div>

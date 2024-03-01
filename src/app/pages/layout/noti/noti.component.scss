@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post {
+  margin-left: 0px;
+  width: 24%;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+tui-tabs {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+
+@media (max-width: 770px) {
+  tui-tabs button {
+    font-size: 15px;
+  }
+
+  tui-tabs {
+    width: 60%;
+
+  }
+
+}

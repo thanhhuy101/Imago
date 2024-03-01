@@ -1,0 +1,12 @@
+<div class="main">
+  @for (item of listFollow; track $index) {
+    <div class="container">
+      <div>
+        <img class="ava" [src]="item.avatar" />
+      </div>
+      <div class="info">
+        <p><b>{{item.name}}</b> followed on you</p>
+        <p>{{item.time}} hours ago</p>
+      </div>
+    </div>}
+</div>

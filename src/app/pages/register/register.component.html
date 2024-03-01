@@ -4,52 +4,28 @@
       <h3>Personal Information</h3>
       <div>
         <p class="wrapper wrapper_dark">
-          <tui-input
-            formControlName="userName"
-            tuiMode="onDark"
-            [tuiTextfieldCleaner]="true"
-            [tuiTextfieldLabelOutside]="true"
-          >
+          <tui-input formControlName="userName" tuiMode="onDark" [tuiTextfieldCleaner]="true"
+            [tuiTextfieldLabelOutside]="true">
             Username
-            <input
-              placeholder="Input here"
-              tuiTextfield
-              type="email"
-            />
+            <input placeholder="Input here" tuiTextfield type="email" />
           </tui-input>
         </p>
       </div>
       <div>
         <p class="wrapper wrapper_dark">
-          <tui-input
-            formControlName="firstName"
-            tuiMode="onDark"
-            [tuiTextfieldCleaner]="true"
-            [tuiTextfieldLabelOutside]="true"
-          >
+          <tui-input formControlName="firstName" tuiMode="onDark" [tuiTextfieldCleaner]="true"
+            [tuiTextfieldLabelOutside]="true">
             First name
-            <input
-              placeholder="Input here"
-              tuiTextfield
-              type="email"
-            />
+            <input placeholder="Input here" tuiTextfield type="email" />
           </tui-input>
         </p>
       </div>
       <div>
         <p class="wrapper wrapper_dark">
-          <tui-input
-            formControlName="lastName"
-            tuiMode="onDark"
-            [tuiTextfieldCleaner]="true"
-            [tuiTextfieldLabelOutside]="true"
-          >
+          <tui-input formControlName="lastName" tuiMode="onDark" [tuiTextfieldCleaner]="true"
+            [tuiTextfieldLabelOutside]="true">
             Last name
-            <input
-              placeholder="Input here"
-              tuiTextfield
-              type="email"
-            />
+            <input placeholder="Input here" tuiTextfield type="email" />
           </tui-input>
         </p>
       </div>
@@ -57,14 +33,10 @@
         <tui-checkbox-labeled formControlName="checkBox">
         </tui-checkbox-labeled>
         <p class="example"> I have read and accept the terms and conditions</p>
-        <span class="material-symbols-outlined" >help</span>
+        <span class="material-symbols-outlined">help</span>
       </div>
-      <button
-        appearance="custom"
-        tuiButton
-        type="button"
-        class="tui-space_right-3 tui-space_bottom-3"
-      >
+      <button appearance="custom" tuiButton type="button" class="tui-space_right-3 tui-space_bottom-3"
+        (click)="logout()">
         Let's go!!
       </button>
     </form>
