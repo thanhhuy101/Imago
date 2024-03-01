@@ -1,15 +1,10 @@
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TaigaModule } from '../../../../../shared/taiga.module';
 import { ShareModule } from '../../../../../shared/share.module';
-import { FormControl } from '@angular/forms';
-import { maxFilesLength } from '../../creator.component';
+import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 import { TuiFileLike } from '@taiga-ui/kit';
+import { TuiValidationError } from '@taiga-ui/cdk';
+import { NotificationService } from '../../../../../service/notification/notification.service';
 
 @Component({
   selector: 'app-images-carousel',
@@ -23,18 +18,26 @@ export class ImagesCarouselComponent implements OnInit {
     string[]
   >();
 
-  readonly control = new FormControl(new Array<File>(), [maxFilesLength(5)]);
+  control = new FormControl(new Array<File>(), [maxFilesLength(5)]);
   rejectedFiles: readonly TuiFileLike[] = [];
 
-  imageList: string[] = ['https://via.placeholder.com/650'];
+  imageList: string[] = ['https://via.placeholder.com/450'];
   tmpImageList: string[] = [];
 
   index = 0;
   itemsCount = 1;
 
+  constructor(private notificationService: NotificationService) {}
+
   ngOnInit(): void {
     this.control.valueChanges.subscribe((response: File[] | null) => {
       if (response) {
+        if (response.length > 5) {
+          this.notificationService.errorNotification(
+            'Error: maximum limit - 5 files for upload',
+          );
+          return;
+        }
         response.forEach((file: File) => {
           const reader = new FileReader();
           reader.readAsArrayBuffer(file);
@@ -42,9 +45,9 @@ export class ImagesCarouselComponent implements OnInit {
             if (reader.result) {
               const blob = new Blob([reader.result], { type: 'image/png' });
               const url = URL.createObjectURL(blob);
-              this.tmpImageList = [...this.tmpImageList, url];
+              this.tmpImageList.push(url);
               if (this.tmpImageList.length === response.length) {
-                this.imageList = [...this.tmpImageList];
+                this.imageList = this.tmpImageList;
                 this.responseChangeEvent.emit(this.imageList);
                 this.tmpImageList = [];
               }
@@ -66,4 +69,31 @@ export class ImagesCarouselComponent implements OnInit {
   onReject(files: TuiFileLike | readonly TuiFileLike[]): void {
     this.rejectedFiles = [...this.rejectedFiles, ...(files as TuiFileLike[])];
   }
+
+  deleteImage(index: number): void {
+    this.imageList.splice(index, 1);
+
+    // delete file from the list
+    this.control.setValue(this.control.value!.filter((_, i) => i !== index));
+
+    this.responseChangeEvent.emit(this.imageList);
+    if (this.imageList.length === 0) {
+      this.imageList = ['https://via.placeholder.com/450'];
+    }
+    // get index of the last image
+    if (index === this.imageList.length) {
+      this.index = index;
+    }
+  }
+}
+
+export function maxFilesLength(maxLength: number): ValidatorFn {
+  return ({ value }: AbstractControl) =>
+    value.length > maxLength
+      ? {
+          maxLength: new TuiValidationError(
+            'Error: maximum limit - 5 files for upload',
+          ),
+        }
+      : null;
 }

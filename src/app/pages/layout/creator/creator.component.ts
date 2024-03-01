@@ -1,13 +1,6 @@
-import {
-  Component,
-  HostListener,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/share.module';
-import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
-import { TuiValidationError } from '@taiga-ui/cdk';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
 import { NotificationService } from '../../../service/notification/notification.service';
 import { CanComponentDeactivate } from '../../../guard/can-deactive.guard';
@@ -21,8 +14,6 @@ import { CanComponentDeactivate } from '../../../guard/can-deactive.guard';
   encapsulation: ViewEncapsulation.None,
 })
 export class CreatorComponent implements OnInit, CanComponentDeactivate {
-  readonly control = new FormControl(new Array<File>(), [maxFilesLength(5)]);
-
   name: string = 'Lulu';
   statusValue: string = '';
 
@@ -31,21 +22,16 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
 
   isContentChanged = false;
 
-  expanded = false;
-
   // add default image
   imageList: string[] = ['https://via.placeholder.com/450'];
 
   constructor(private notificationService: NotificationService) {}
 
   canDeactivate(): boolean {
-    // Add your logic here to determine whether navigation should be allowed.
-    // For example, you might return false if the user has unsaved changes.
     if (this.isContentChanged) {
       this.notificationService.errorNotification('Your content will be lost!');
       return false;
     }
-
     return true;
   }
 
@@ -54,6 +40,11 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
   handleImageListChange(imageList: string[]): void {
     this.imageList = [...imageList];
     this.isContentChanged = true;
+    if (this.imageList.length === 0) {
+      this.imageList = ['https://via.placeholder.com/450'];
+      this.isContentChanged = false;
+    }
+    this.index = this.imageList.length - 1;
   }
 
   get rounded(): number {
@@ -64,18 +55,7 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
     this.index = index * this.itemsCount;
   }
 
-  toggle(): void {
-    this.expanded = !this.expanded;
+  clearStatus(): void {
+    this.statusValue = '';
   }
-}
-
-export function maxFilesLength(maxLength: number): ValidatorFn {
-  return ({ value }: AbstractControl) =>
-    value.length > maxLength
-      ? {
-          maxLength: new TuiValidationError(
-            'Error: maximum limit - 5 files for upload',
-          ),
-        }
-      : null;
 }

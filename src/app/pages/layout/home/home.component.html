@@ -1,92 +1,40 @@
 <div class="main">
-    <div class="main-stories">
-        <div class="stories">
-            <h2>Stories</h2>
-            <div class="bottom-stories">
-                @for (story of stories; track $index) {
-                <img class="storie-inside" src="{{story.image}}" alt="">
-                }
-            </div>
-        </div>
-    </div>
-    <div class="main-post">
-        <div class="allPost">
-            @for(item of posts; track item){
-            <div class="post">
-                <div class="picture-post1">
-                    <div class="image-post">
-                        <img class="detail-image" [src]="item.image" alt="">
-                    </div>
-                </div>
-                <div class="bottom">
-                    <div class="user-info">
-                        <div class="avatar-user">
-                            <img class="avatar" src="./assets/avatar.png" alt="">
-                        </div>
-                        <div class="info-post">
-                            <span class="name-user">GoVegan</span>
-                            <span class="date">on 15 Oct 2019</span>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <p class="description-preview"><span style="color: #0081FF;">{{item.tag}}</span>
-                            {{item.description}}
-                        </p>
-                    </div>
-                    <div class="reaction">
-                        <div class="tymAndCmt">
-                            <button id="heart" icon="tuiIconHeart" tuiIconButton
-                                [ngClass]="item.isLiked ? 'heartBtnActive' : 'heartBtn'" appearance="flat" type="button"
-                                (click)="like(item.id)" class="heartBtn tui-space_right-3 tui-space_bottom-3"></button>
-                            <button id="comment" icon="tuiIconMessageSquare" tuiIconButton appearance="flat"
-                                type="button" class="tui-space_right-3 tui-space_bottom-3"></button>
-                        </div>
-                        <button id="share" icon="tuiIconShare" tuiIconButton appearance="flat" type="button"
-                            class="tui-space_right-3 tui-space_bottom-3"></button>
-                    </div>
-                </div>
-            </div>
-            }
-        </div>
-    </div>
-    <!-- <div class="main-post">
-        <div class="list-post">
-            @for(item of posts; track item){
-            <div class="post">
+    <div class="allPost">
+        @for(item of posts; track item){
+        <div class="post">
+            <div class="picture-post">
                 <div class="image-post">
-                    <img class="detail-image" src="{{item.image}}" alt="">
-                </div>
-                <div class="bottom">
-                    <div class="user-info">
-                        <div class="avatar-user">
-                            <img class="avatar" src="./assets/avatar.png" alt="">
-                        </div>
-                        <div class="info-post">
-                            <span class="name-user">GoVegan</span>
-                            <span class="date">on 15 Oct 2019</span>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <p class="description-preview"><span style="color: #0081FF;">{{item.tag}}</span>
-                            {{item.description}}
-                        </p>
-                    </div>
-                    <div class="icon">
-                        <div class="icon1">
-                            <span id="favorite" class="material-symbols-outlined">
-                                favorite
-                            </span>
-                            <span class="material-symbols-outlined">
-                                chat_bubble
-                            </span>
-                        </div>
-                        <span class="material-symbols-outlined">
-                            ios_share
-                        </span>
-                    </div>
+                    <img class="detail-image" [src]="item.image" alt="">
                 </div>
             </div>
-            }
+            <div class="bottom">
+                <div class="user-info">
+                    <div class="avatar-user">
+                        <img class="avatar" src="./assets/avatar.png" alt="">
+                    </div>
+                    <div class="info-post">
+                        <span class="name-user">GoVegan</span>
+                        <span class="date">on 15 Oct 2019</span>
+                    </div>
+                </div>
+                <div class="content">
+                    <p class="description-preview"><span style="color: #0081FF;">{{item.tag}}</span>
+                        {{item.description}}
+                    </p>
+                </div>
+                <div class="reaction">
+                    <div class="tymAndCmt">
+                        <button id="heart" icon="tuiIconHeart" tuiIconButton
+                            [ngClass]="item.isLiked ? 'heartBtnActive' : 'heartBtn'" appearance="flat" type="button"
+                            (click)="like(item.id)" class="heartBtn tui-space_right-3 tui-space_bottom-3"></button>
+                        <button id="comment" icon="tuiIconMessageSquare" tuiIconButton appearance="flat"
+                            type="button" class="tui-space_right-3 tui-space_bottom-3"></button>
+                    </div>
+                    <button id="share" icon="tuiIconShare" tuiIconButton appearance="flat" type="button"
+                        class="tui-space_right-3 tui-space_bottom-3"></button>
+                </div>
+            </div>
         </div>
-    </div> -->
+        }
+    </div>
 </div>

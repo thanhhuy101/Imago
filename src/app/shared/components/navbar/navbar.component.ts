@@ -17,7 +17,19 @@ export class NavbarComponent implements OnInit {
   open = false;
   openDrawerSidebar = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    if (this.router.url === '/home') {
+      this.activeItemIndex = 0;
+    } else if (this.router.url === '/search') {
+      this.activeItemIndex = 1;
+    } else if (this.router.url === '/creator') {
+      this.activeItemIndex = 2;
+    } else if (this.router.url === '/notification') {
+      this.activeItemIndex = 3;
+    } else if (this.router.url === '/profile') {
+      this.activeItemIndex = 4;
+    }
+  }
 
   ngOnInit(): void {}
 
