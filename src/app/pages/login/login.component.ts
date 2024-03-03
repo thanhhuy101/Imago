@@ -12,14 +12,14 @@ import { AuthService } from '../../service/auth/auth.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  readonly avatarUrl = `https://taiga-ui.dev/assets/images/avatar.jpg`;
-  constructor(private authService: AuthService,private router: Router) {}
-
-  login() {
-    this.authService.signInWithGG();
-  }
+  readonly googleIcon = `https://taiga-ui.dev/assets/images/avatar.jpg`;
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   loginWithGoogle() {
+    //this.authService.signInWithGG();
     this.router.navigate(['/register']).then();
   }
 }

@@ -11,7 +11,6 @@ import {
   tuiCheckboxOptionsProvider,
 } from '@taiga-ui/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -38,16 +37,9 @@ export class RegisterComponent {
     isCheck: new FormControl(false, Validators.requiredTrue),
   });
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {}
-
-  logout() {
-    this.authService.signOutWithGG();
-  }
+  constructor(private router: Router) {}
 
   register() {
-    this.router.navigate(['']).then();
+    this.router.navigate(['/home']).then();
   }
 }
