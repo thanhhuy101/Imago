@@ -11,6 +11,12 @@ export const PROFILE_ROUTERS: Routes = [
         loadComponent: () => import('../profile/components/post/post.component').then((m) => m.PostComponent),
       },
       {
+        redirectTo: 'post',
+        path: '',
+        pathMatch: 'full',
+      },
+
+      {
         path: 'share',
         loadComponent: () => import('../profile/components/share/share.component').then((m) => m.ShareComponent),
       },

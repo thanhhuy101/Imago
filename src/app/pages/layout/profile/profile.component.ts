@@ -29,7 +29,15 @@ export class ProfileComponent {
 
   activeItemIndex = 0;
 
-  constructor(@Inject(TuiAlertService) private readonly alerts: TuiAlertService,private route:Router) {}
+  constructor(@Inject(TuiAlertService) private readonly alerts: TuiAlertService,private route:Router) {
+    let path = window.location.href.split('?')[0];
+    console.log(path);
+    if (path.includes('profile/share')) {
+      this.activeItemIndex = 1;
+    } else if (path.includes('profile/mention')) {
+      this.activeItemIndex = 2;
+    }
+  }
 
 
   onActiveItemChange(index: number) {
