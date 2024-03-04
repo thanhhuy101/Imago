@@ -45,6 +45,6 @@ export class NavbarComponent implements OnInit {
     this.openDrawerSidebar = open;
   }
   logout() {
-    this.authService.signOutWithGG();
+    this.authService.signOut();
   }
 }
