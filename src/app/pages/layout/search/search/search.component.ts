@@ -45,7 +45,20 @@ export class SearchComponent {
 
   activeItemIndex = 0;
 
-  constructor(@Inject(TuiAlertService) private readonly alerts: TuiAlertService, private route: Router) { }
+  constructor(@Inject(TuiAlertService) private readonly alerts: TuiAlertService, private route: Router) {
+
+    let path = window.location.href.split('?')[0];
+    console.log(path);
+    if (path.includes('search/people')) {
+      this.activeItemIndex = 1;
+    } else if (path.includes('search/group')) {
+      this.activeItemIndex = 2;
+    } else if (path.includes('search/explore')) {
+      this.activeItemIndex = 3;
+    } else {
+      this.activeItemIndex = 0;
+    }
+  }
 
 
   onActiveItemChange(index: number) {

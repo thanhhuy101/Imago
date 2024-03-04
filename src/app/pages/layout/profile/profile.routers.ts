@@ -23,6 +23,11 @@ export const PROFILE_ROUTERS: Routes = [
       {
         path: 'mention',
         loadComponent: () => import('../profile/components/mention/mention.component').then((m) => m.MentionComponent),
+      },
+      {
+        path:'',
+        redirectTo:'post',
+        pathMatch:'full'
       }
     ]
   },
