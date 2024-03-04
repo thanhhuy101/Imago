@@ -20,7 +20,7 @@ import { TaigaModule } from "../../../../shared/taiga.module";
 export class SearchComponent {
   readonly items = [
     {
-      text: 'Post',
+      text: 'post',
       router: '/post',
       icon: 'tuiIconFileText',
     },
