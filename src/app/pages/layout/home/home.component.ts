@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { ShareModule } from '../../../shared/share.module';
 import { TaigaModule } from '../../../shared/taiga.module';
+import {TuiDialogContext, TuiDialogService, TuiSizeL, TuiSizeS} from "@taiga-ui/core";
+import {TuiDataListDropdownManagerModule} from "@taiga-ui/kit";
+import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ShareModule, TaigaModule],
+  imports: [ShareModule, TaigaModule, TuiDataListDropdownManagerModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -126,5 +130,52 @@ export class HomeComponent {
       return item;
     });
   }
+  dropdownOpen = true;
+  constructor(@Inject(TuiDialogService) private readonly dialogs: TuiDialogService) {}
+
+  selectOption(item: string): void {
+    this.dropdownOpen = false;
+    this.dialogs.open(`You selected ${item}`).subscribe();
+  }
+  showDialog(content: PolymorpheusContent<TuiDialogContext>): void {
+    this.dialogs.open(content,).subscribe();
+  }
+  testForm = new FormGroup({
+    testValue0: new FormControl(false),
+    testValue1: new FormControl(false),
+    testValue2: new FormControl(false),
+    testValue3: new FormControl(false),
+    testValue4: new FormControl(false),
+    testValue5: new FormControl(false),
+    testValue6: new FormControl(false),
+    testValue7: new FormControl(false),
+  });
+
+  listReports = ["Hate speech", "Harassment", "Spam", "Fake news", "False information", "Violence", "Terrorism", "Nude"]
+
+  listChooses: string[] = []
+  checkBox(name: string, index: any) {
+      // this.listChooses.push(name)
+    console.log(name, index)
+
+  }
+
+  submit(form: any) {
+    this.testForm.patchValue({
+      testValue0: false,
+      testValue1: false,
+      testValue2: false,
+      testValue3: false,
+      testValue4: false,
+      testValue5: false,
+      testValue6: false,
+      testValue7: false,
+    })
+  }
+
+  testForm2 = new FormGroup({
+    testValue1: new FormControl('', Validators.required),
+  });
+
 }
 
