@@ -1,17 +1,23 @@
-<div class="container">
-  <div class="content">
-    <div class="ctn">
-      <div class="logo">
-        <img class="logo1" src="../../../../assets/images/image.png" alt="" />
+<ng-template #icon>
+  <tui-avatar size="xs" [avatarUrl]="googleIcon" [rounded]="true"></tui-avatar>
+</ng-template>
+<div id="login-container">
+  <div id="background-login">
+    <tui-scrollbar id="background-overlay">
+      <div id="cover-login-surface">
+        <div id="login-surface">
+          <img src="../../../assets/images/logo.png" alt="" />
+          <h3 class="tui-text_h3">
+            A
+            <span class="highlight">picture</span>
+            is worth a thousand
+            <span class="highlight">words</span>
+          </h3>
+          <button tuiButton appearance="outline" [icon]="icon" (click)="loginWithGoogle()">
+            Login with Google
+          </button>
+        </div>
       </div>
-      <h1>Imago</h1>
-      <div class="title">
-        <h3>A <span>picture</span> is worth <br>a thousand <span>words</span></h3>
-      </div>
-      <button tuiButton appearance="custom" type="button" class="tui-space_right-3 tui-space_bottom-3">
-        <img class="GG" src="https://cdn-icons-png.flaticon.com/512/300/300221.png" loading="lazy" alt="google logo">
-        Sign in with Google
-      </button>
-    </div>
+    </tui-scrollbar>
   </div>
 </div>

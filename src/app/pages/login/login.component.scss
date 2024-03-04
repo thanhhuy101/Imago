@@ -1,88 +1,56 @@
-.container {
+#login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+
+#background-login {
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url('../../../assets/images/background.png');
+  background-image: url("../../../assets/images/background-light.png");
+  background-size: auto 250%;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  z-index: 0;
-
-
 }
 
-.content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  position: absolute;
+#background-overlay {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background: rgba(60, 65, 66, 0.65);
+  backdrop-filter: blur(4px);
 }
 
-.ctn {
+#cover-login-surface {
+  width: 100%;
+  height: 100vh;
   display: flex;
-  position: absolute;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  z-index: 1;
-  width: 400px;
-  height: 500px;
-  padding: 20px;
-  background-color: #fafafa;
+  justify-content: center;
+}
+
+#login-surface {
+  width: 30%;
+  min-width: 576px;
+  height: 70%;
+  min-height: 745px;
+  background-color: var(--tui-secondary);
   border-radius: 20px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-}
-
-.logo {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-}
+  justify-content: space-evenly;
+  padding-block: 2rem;
+  margin-block: 5rem;
 
-.logo1 {
-  width: 70px;
-  height: 70px;
-}
-
-h1 {
-  font-size: 34px;
-  font-weight: bolder;
-}
-
-.title {
-  width: 320px;
-  line-height: 2.5rem;
-  padding: 0 19px;
-
-  h3 {
-    font-size: 32px;
-    font-weight: bold;
+  .tui-text_h3 {
+    width: 55%;
   }
 }
 
-span {
-  color: #a7373a;
-}
-
-button {
-  margin-top: 20px;
-  border: 1px solid rgba(128, 128, 128, 0.3);
-  width: 17rem;
-}
-
-button:hover {
-  background-color: rgba(0, 0, 0, 0.9);
-  color: #ffffff;
-}
-
-.GG {
-  width: 25px;
-  height: 25px;
-  margin-right: 6%;
+.highlight {
+  width: fit-content;
+  color: var(--tui-accent);
 }
