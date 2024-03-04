@@ -13,23 +13,23 @@ export class HomeComponent {
   stories = [
     {
       id: 1,
-      image: "./assets/stories1.png",
+      image: "../../../../assets/images/stories1.png",
     },
     {
       id: 2,
-      image: "./assets/stories2.png",
+      image: "../../../../assets/images/stories2.png",
     },
     {
       id: 3,
-      image: "./assets/stories3.png",
+      image: "../../../../assets/images/stories3.png",
     },
     {
       id: 4,
-      image: "./assets/stories4.png",
+      image: "../../../../assets/images/stories4.png",
     },
     {
       id: 5,
-      image: "./assets/stories5.png",
+      image: "../../../../assets/images/stories5.png",
     },
   ];
   posts = [
@@ -42,14 +42,14 @@ export class HomeComponent {
     },
     {
       id: 2,
-      image: "./assets/picture2.png",
+      image: "../../../../assets/images/picture2.png",
       tag: "#sweet #healthy",
       description: "Breakfast ideas",
       isLiked: false,
     },
     {
       id: 3,
-      image: "./assets/picture1.png",
+      image: "../../../../assets/images/picture1.png",
       tag: "#vegan #healthy",
       description: "The Best Vegan Chocolate Cake- A quick and easy recipe! It's super moist, rich and full of chocolate",
       isLiked: false,
@@ -70,21 +70,21 @@ export class HomeComponent {
     },
     {
       id: 6,
-      image: "./assets/picture2.png",
+      image: "../../../../assets/images/picture2.png",
       tag: "#sweet #healthy",
       description: "Breakfast ideas",
       isLiked: false,
     },
     {
       id: 7,
-      image: "./assets/picture1.png",
+      image: "../../../../assets/images/picture1.png",
       tag: "#vegan #healthy",
       description: "The Best Vegan Chocolate Cake- A quick and easy recipe! It's super moist, rich and full of chocolate",
       isLiked: false,
     },
     {
       id: 8,
-      image: "./assets/picture2.png",
+      image: "../../../../assets/images/picture2.png",
       tag: "#sweet #healthy",
       description: "Breakfast ideas",
       isLiked: false,
@@ -98,21 +98,21 @@ export class HomeComponent {
     },
     {
       id: 10,
-      image: "./assets/picture2.png",
+      image: "../../../../assets/images/picture2.png",
       tag: "#sweet #healthy",
       description: "Breakfast ideas aaaa aaaa aaaaa aaaa aaaa  aaaa  aaaa  aaaa",
       isLiked: false,
     },
     {
       id: 11,
-      image: "./assets/picture1.png",
+      image: "../../../../assets/images/picture1.png",
       tag: "#vegan #healthy",
       description: "The Best Vegan Chocolate Cake- A quick and easy recipe! It's super moist, rich and full of chocolate",
       isLiked: false,
     },
     {
       id: 12,
-      image: "./assets/picture2.png",
+      image: "../../../../assets/images/picture2.png",
       tag: "#sweet #healthy",
       description: "Breakfast ideas aaaaa aaaaa aaaaaaaa aaaaaaa aaaaaaaaa aaaaa",
       isLiked: false,
