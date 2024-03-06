@@ -23,8 +23,7 @@ export class LoginComponent {
   ) {}
 
   loginWithGoogle() {
-    // 
+    // this.router.navigate(['/register']).then();
     this.store.dispatch(AuthActions.signInWithGG());
-    this.router.navigate(['/register']);
   }
 }
