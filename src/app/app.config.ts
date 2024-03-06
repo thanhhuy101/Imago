@@ -2,7 +2,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { TuiRootModule } from '@taiga-ui/core';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -13,6 +13,8 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { authReducer } from '../ngrx/auth/reducer/auth.reducer';
 import { AuthEffects } from '../ngrx/auth/effects/auth.effects';
+import { storageReducer } from '../ngrx/storage/reducer/storage.reducer';
+import { StorageEffects } from '../ngrx/storage/effects/storage.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,8 +38,11 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(provideFirestore(() => getFirestore())),
     importProvidersFrom(provideDatabase(() => getDatabase())),
     importProvidersFrom(provideStorage(() => getStorage())),
-    provideStore(),
+    provideStore({
+     
+    }),
     provideState({ name: 'auth', reducer: authReducer }),
-    provideEffects([AuthEffects]),
+    provideEffects([AuthEffects, StorageEffects]),
+    provideHttpClient(),
   ],
 };
