@@ -13,6 +13,11 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { authReducer } from '../ngrx/auth/reducer/auth.reducer';
 import { AuthEffects } from '../ngrx/auth/effects/auth.effects';
+import { postReducer } from '../ngrx/post/post.reducer';
+import { PostEffect } from '../ngrx/post/post.effect';
+import { provideHttpClient } from '@angular/common/http';
+import { reportReducer } from '../ngrx/report/report.reducer';
+import { ReportEffect } from '../ngrx/report/report.effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -38,6 +43,9 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(provideStorage(() => getStorage())),
     provideStore(),
     provideState({ name: 'auth', reducer: authReducer }),
-    provideEffects([AuthEffects]),
+    provideState({ name: 'post', reducer: postReducer }),
+    provideState({ name: 'report', reducer: reportReducer }),
+    provideEffects([AuthEffects, PostEffect, ReportEffect]),
+    provideHttpClient(),
   ],
 };

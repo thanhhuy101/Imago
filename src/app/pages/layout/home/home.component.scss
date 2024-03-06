@@ -27,6 +27,7 @@
   flex-direction: column;
   height: fit-content;
   break-inside: avoid;
+  cursor: pointer;
 }
 
 @media (max-width: 4000px) {
@@ -237,30 +238,73 @@
   align-items: center;
   justify-content: space-between;
 }
-.checkbox{
-  margin:20px 0;
+
+.checkbox {
+  margin: 20px 0;
 }
-.btn-report{
+
+.btn-report {
   display: flex;
   align-items: center;
   justify-content: space-around;
   margin: 25px 0;
 }
-.selectProblem{
+
+.selectProblem {
   margin: 60px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
-.reportTitle{
+
+.reportTitle {
   display: flex;
   justify-content: center;
 }
-.line{
+
+.line {
   width: 100%;
   height: 1px;
-  border:solid 1px #d2d0d0;
+  border: solid 1px #d2d0d0;
   display: flex;
   align-self: center;
   margin-bottom: 20px;
 }
+
+.check {
+  display: flex;
+  align-items: center;
+}
+
+.postDetail {
+  display: flex;
+  width: 1100px;
+
+  .left {
+    width: 50%;
+  }
+
+  .right {
+    width: 50%;
+    height: 100%;
+  }
+
+  .bottom {
+    padding: 0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 537px
+
+  }
+}
+
+
+
+
+
+
+
+
 
 
 
