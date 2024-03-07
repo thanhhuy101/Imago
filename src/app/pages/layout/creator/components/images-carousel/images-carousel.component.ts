@@ -5,7 +5,12 @@ import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 import { TuiFileLike } from '@taiga-ui/kit';
 import { TuiValidationError } from '@taiga-ui/cdk';
 import { NotificationService } from '../../../../../service/notification/notification.service';
-
+import { Store } from '@ngrx/store';
+import {StorageService} from "../../../../../service/storage/storage.service";
+import {Auth, onAuthStateChanged} from "@angular/fire/auth";
+import {StorageState} from "../../../../../../ngrx/storage/state/storage.state";
+import {AuthState} from "../../../../../../ngrx/auth/state/auth.state";
+import * as AuthActions from "../../../../../../ngrx/auth/actions/auth.actions";
 @Component({
   selector: 'app-images-carousel',
   standalone: true,
@@ -23,13 +28,42 @@ export class ImagesCarouselComponent implements OnInit {
 
   imageList: string[] = ['https://via.placeholder.com/450'];
   tmpImageList: string[] = [];
-
+  idTokenImage = '';
+  uid = '';
+  postId = '';
   index = 0;
   itemsCount = 1;
 
-  constructor(private notificationService: NotificationService) {}
+  linkOfImage : string[] = [];
+  storageState$ = this.store.select('storage', 'url');
+  isStorageUploading$ = this.store.select('storage', 'isUploading');
+  constructor(private notificationService: NotificationService,
+              private storageService: StorageService,
+              private auth: Auth,
+              private store: Store<{
+                storage: StorageState;
+                auth: AuthState;
+              }>,) {
+    onAuthStateChanged(this.auth, async (user) => {
+
+      if (user) {
+        const idToken = await user.getIdToken();
+        this.store.dispatch(
+          AuthActions.storeToken({ token: idToken }),
+        )
+        this.uid = user.uid;
+        this.idTokenImage = idToken;
+        console.log('uid', user.uid);
+
+      }
+    });
+    this.postId = Math.floor(
+      Math.random() * Math.floor(Math.random() * Date.now())
+    ).toString();
+  }
 
   ngOnInit(): void {
+
     this.control.valueChanges.subscribe((response: File[] | null) => {
       if (response) {
         if (response.length > 5) {
