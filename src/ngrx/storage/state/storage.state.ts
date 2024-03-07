@@ -1,5 +1,8 @@
+import { StorageModel } from "../../../app/model/storage.model";
+
 export interface StorageState {
-  storage: Storage;
-  isCreating: boolean;
-  createErrorMessage: any;
+  storage: StorageModel;
+  url: string;
+  isUploading: boolean;
+  uploadError: string;
 }

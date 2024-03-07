@@ -27,4 +27,23 @@ export class AuthEffects {
       }),
     );
   });
+
+  signOutWithGoogle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.signOutWithGG),
+      switchMap(() => {
+        return this.authService.signOut();
+      }),
+      map(() => {
+        return AuthActions.signOutWithGGSuccess();
+      }),
+      catchError((error) => {
+        return of(
+          AuthActions.signOutWithGGFailure({
+            signOutWithGGErrorMessage: error,
+          }),
+        );
+      }),
+    );
+  });
 }

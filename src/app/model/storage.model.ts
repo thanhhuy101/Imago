@@ -1,4 +1,4 @@
-export interface Storage{
+export interface StorageModel {
   fileName: string;
-  urls: string[];
+  urls: string;
 }

@@ -4,10 +4,10 @@ import { ShareModule } from '../../../shared/share.module';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
 import { NotificationService } from '../../../service/notification/notification.service';
 import { CanComponentDeactivate } from '../../../guard/can-deactive.guard';
-import {Store} from "@ngrx/store";
-import {AuthState} from "../../../../ngrx/auth/state/auth.state";
-import {StorageState} from "../../../../ngrx/storage/state/storage.state";
-import {PostState} from "../../../../ngrx/post/post.state";
+import { Store } from "@ngrx/store";
+import { AuthState } from "../../../../ngrx/auth/state/auth.state";
+import { StorageState } from "../../../../ngrx/storage/state/storage.state";
+import { PostState } from "../../../../ngrx/post/post.state";
 import * as StorageActions from "../../../../ngrx/storage/actions/storage.actions";
 @Component({
   selector: 'app-creator',
@@ -32,12 +32,11 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
   constructor(
     private notificationService: NotificationService,
     private store: Store<{
-    auth: AuthState;
-    storage: StorageState;
-    post: PostState;
-  }>
-  )
-  {}
+      auth: AuthState;
+      storage: StorageState;
+      post: PostState;
+    }>
+  ) { }
 
   canDeactivate(): boolean {
     if (this.isContentChanged) {
@@ -47,7 +46,7 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
     return true;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   handleImageListChange(imageList: string[]): void {
     this.imageList = [...imageList];

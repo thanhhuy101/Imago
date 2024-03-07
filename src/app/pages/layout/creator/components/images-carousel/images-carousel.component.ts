@@ -1,16 +1,19 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TaigaModule } from '../../../../../shared/taiga.module';
 import { ShareModule } from '../../../../../shared/share.module';
-import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { TuiFileLike } from '@taiga-ui/kit';
 import { TuiValidationError } from '@taiga-ui/cdk';
 import { NotificationService } from '../../../../../service/notification/notification.service';
+import { StorageService } from '../../../../../service/storage/storage.service';
 import { Store } from '@ngrx/store';
-import {StorageService} from "../../../../../service/storage/storage.service";
-import {Auth, onAuthStateChanged} from "@angular/fire/auth";
-import {StorageState} from "../../../../../../ngrx/storage/state/storage.state";
-import {AuthState} from "../../../../../../ngrx/auth/state/auth.state";
-import * as AuthActions from "../../../../../../ngrx/auth/actions/auth.actions";
+import { StorageState } from '../../../../../../ngrx/storage/state/storage.state';
+import { AuthState } from '../../../../../../ngrx/auth/state/auth.state';
+
+import * as StorageActions from '../../../../../../ngrx/storage/actions/storage.actions';
+import * as AuthActions from '../../../../../../ngrx/auth/actions/auth.actions';
+import { Auth } from '@angular/fire/auth';
+import { onAuthStateChanged } from '@firebase/auth';
 @Component({
   selector: 'app-images-carousel',
   standalone: true,
@@ -28,22 +31,27 @@ export class ImagesCarouselComponent implements OnInit {
 
   imageList: string[] = ['https://via.placeholder.com/450'];
   tmpImageList: string[] = [];
+  index = 0;
+  itemsCount = 1;
+  files: File[] = [];
   idTokenImage = '';
   uid = '';
   postId = '';
-  index = 0;
-  itemsCount = 1;
 
-  linkOfImage : string[] = [];
+  linkOfImage: string[] = []
+
   storageState$ = this.store.select('storage', 'url');
   isStorageUploading$ = this.store.select('storage', 'isUploading');
-  constructor(private notificationService: NotificationService,
-              private storageService: StorageService,
-              private auth: Auth,
-              private store: Store<{
-                storage: StorageState;
-                auth: AuthState;
-              }>,) {
+
+  constructor(
+    private notificationService: NotificationService,
+    private storageService: StorageService,
+    private auth: Auth,
+    private store: Store<{
+      storage: StorageState;
+      auth: AuthState;
+    }>,
+  ) {
     onAuthStateChanged(this.auth, async (user) => {
 
       if (user) {
@@ -80,6 +88,14 @@ export class ImagesCarouselComponent implements OnInit {
               const blob = new Blob([reader.result], { type: 'image/png' });
               const url = URL.createObjectURL(blob);
               this.tmpImageList.push(url);
+              this.files.push(file);
+              console.log('file', this.files.length)
+              this.files.forEach((file: File) => {
+                console.log('file', file)
+                this.store.dispatch(
+                  StorageActions.upLoadFile({ file: file, fileName: `${this.uid}/posts/${this.postId}`, idToken: this.idTokenImage })
+                );
+              });
               if (this.tmpImageList.length === response.length) {
                 this.imageList = this.tmpImageList;
                 this.responseChangeEvent.emit(this.imageList);
@@ -90,6 +106,17 @@ export class ImagesCarouselComponent implements OnInit {
         });
       }
     });
+
+    this.storageState$.subscribe((url) => {
+      if (url) {
+        this.linkOfImage.push(url)
+        console.log('url', url)
+      } else {
+        console.log('no url')
+      }
+    });
+    console.log('linkOfImage', this.linkOfImage)
+
   }
 
   get rounded(): number {
@@ -119,15 +146,18 @@ export class ImagesCarouselComponent implements OnInit {
       this.index = index;
     }
   }
-}
 
+  numOfLink() {
+    console.log('linkOfImage', this.linkOfImage.length)
+  }
+}
 export function maxFilesLength(maxLength: number): ValidatorFn {
   return ({ value }: AbstractControl) =>
     value.length > maxLength
       ? {
-          maxLength: new TuiValidationError(
-            'Error: maximum limit - 5 files for upload',
-          ),
-        }
+        maxLength: new TuiValidationError(
+          'Error: maximum limit - 5 files for upload',
+        ),
+      }
       : null;
 }
