@@ -50,7 +50,19 @@
   }
 }
 
-.highlight {
-  width: fit-content;
-  color: var(--tui-accent);
+.highlight1 {
+  background-image: linear-gradient(90deg,#771ac9, #f30a96);
+  background-clip: text;
+  color: transparent;
+}
+
+.highlight2 {
+  background-image: linear-gradient(90deg,#f30a96,#771ac9);
+  background-clip: text;
+  color: transparent;
+}
+
+.Imago{
+  width: 18%;
+  height: 15%;
 }

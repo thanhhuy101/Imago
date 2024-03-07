@@ -11,6 +11,10 @@ const initialState: AuthState = {
   isSigningInWithGG: false,
   isSignInWithGGSuccess: false,
   signInWithGGErrorMessage: '',
+
+  isSigningOutWithGG: false,
+  isSignOutWithGGSuccess: false,
+  signOutWithGGErrorMessage: '',
 };
 
 export const authReducer = createReducer(
@@ -41,6 +45,35 @@ export const authReducer = createReducer(
         signInWithGGErrorMessage: signInWithGGErrorMessage,
         isSigningInWithGG: false,
         isSignInWithGGSuccess: false,
+      };
+    },
+  ),
+
+  // signOutWithGG
+  on(AuthActions.signOutWithGG, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSigningOutWithGG: true,
+    };
+  }),
+  on(AuthActions.signOutWithGGSuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSigningOutWithGG: false,
+      isSignOutWithGGSuccess: true,
+    };
+  }),
+  on(
+    AuthActions.signOutWithGGFailure,
+    (state, { signOutWithGGErrorMessage, type }) => {
+      console.log(type);
+      return {
+        ...state,
+        signOutWithGGErrorMessage: signOutWithGGErrorMessage,
+        isSigningOutWithGG: false,
+        isSignOutWithGGSuccess: false,
       };
     },
   ),
