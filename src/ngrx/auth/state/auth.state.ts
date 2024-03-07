@@ -1,15 +1,24 @@
 import { AuthCredentialModel } from '../../../app/model/auth.model';
+import { HttpErrorResponseModel } from '../../../app/model/http-error-response.model';
 
 export interface AuthState {
   token: string;
 
   //google
-  authCredential: AuthCredentialModel;
   isSigningInWithGG: boolean;
   isSignInWithGGSuccess: boolean;
-  signInWithGGErrorMessage: string;
+  signInWithGGErrorResponse: HttpErrorResponseModel;
 
   isSigningOutWithGG: boolean;
   isSignOutWithGGSuccess: boolean;
-  signOutWithGGErrorMessage: string;
+  signOutWithGGErrorResponse: HttpErrorResponseModel;
+
+  //user
+  authCredential: AuthCredentialModel;
+  isSignUp: boolean;
+  isSignUpSuccess: boolean;
+  signUpErrorResponse: HttpErrorResponseModel;
+
+  isGettingAuth: boolean;
+  getAuthErrorResponse: HttpErrorResponseModel;
 }

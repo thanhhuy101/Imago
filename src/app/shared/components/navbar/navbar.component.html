@@ -1,7 +1,7 @@
 <div id="navbar-container">
   <div id="navbar-fullness">
     <div class="logo_cover">
-      <img class="logo" src="../../../../assets/images/logo-Imago.png" alt=""/>
+      <img class="logo" src="../../../../assets/images/logo-Imago.png" alt="" />
     </div>
 
     <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
@@ -58,8 +58,8 @@
     >
       <span class="material-symbols-rounded"> page_info </span>
       <ng-template #dropdownContent>
-        <button tuiButton appearance="flat" size="m" (click)="signOut()"
-        >Logout
+        <button tuiButton appearance="flat" size="m" (click)="signOut()">
+          Logout
         </button>
       </ng-template>
     </div>
@@ -98,7 +98,7 @@
             >
               <div class="nav-items">
                 <span class="material-symbols-rounded tui-space_right-4"
-                >desktop_windows</span
+                  >desktop_windows</span
                 >
                 Home
               </div>
@@ -112,7 +112,7 @@
             >
               <div class="nav-items">
                 <span class="material-symbols-rounded tui-space_right-4"
-                >search</span
+                  >search</span
                 >
                 Search
               </div>
@@ -126,7 +126,7 @@
             >
               <div class="nav-items">
                 <span class="material-symbols-rounded tui-space_right-4"
-                >edit_square</span
+                  >edit_square</span
                 >
                 Creator
               </div>
@@ -140,7 +140,7 @@
             >
               <div class="nav-items">
                 <span class="material-symbols-rounded tui-space_right-4"
-                >local_fire_department</span
+                  >local_fire_department</span
                 >
                 Notification
               </div>
@@ -154,7 +154,7 @@
             >
               <div class="nav-items">
                 <span class="material-symbols-rounded tui-space_right-4"
-                >for_you</span
+                  >for_you</span
                 >
                 Profile
               </div>
@@ -167,6 +167,7 @@
               icon="tuiIconLogOut"
               appearance="accent"
               size="m"
+              (click)="signOut()"
             >
               Logout
             </button>
@@ -175,7 +176,7 @@
       </button>
     </div>
     <div class="logo_cover">
-      <img class="logo" src="../../../../assets/images/logo.png" alt=""/>
+      <img class="logo" src="../../../../assets/images/logo.png" alt="" />
     </div>
     <div class="white-space"></div>
   </div>
