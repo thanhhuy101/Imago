@@ -71,14 +71,6 @@ export class ImagesCarouselComponent implements OnInit {
       
 
     }
-
-    
-
-  
-
- 
- 
-
   ngOnInit(): void {
     
     this.control.valueChanges.subscribe((response: File[] | null) => {
@@ -102,7 +94,7 @@ export class ImagesCarouselComponent implements OnInit {
               this.files.forEach((file: File) => {
                 console.log('file', file)
                 this.store.dispatch(
-                  StorageActions.upLoadFile({file: file,fileName: `${this.uid}/posts/${this.postId}`, idToken: this.idTokenImage})
+                  StorageActions.upLoadFile({file: file, fileName: `${this.uid}/posts/${this.postId}`, idToken: this.idTokenImage})
                 );
               });
               if (this.tmpImageList.length === response.length) {
@@ -119,13 +111,13 @@ export class ImagesCarouselComponent implements OnInit {
     });
 
     //how to upload file[] to firebase storage
-    
-
-    
 
     this.storageState$.subscribe((url) => {
       if (url) {
-        this.linkOfImage.push(url)
+        url.forEach((url: string) => {
+          this.linkOfImage.push(url);
+      });
+       
         console.log('url', url)
       }else{
         console.log('no url')
@@ -164,7 +156,8 @@ export class ImagesCarouselComponent implements OnInit {
   }
 
   numOfLink(){
-    console.log('linkOfImage', this.linkOfImage.length)
+    console.log('linkOfImage', this.linkOfImage)
+
 
    
   

@@ -8,7 +8,7 @@ export const initualState: StorageState = {
     storage: <StorageModel>{},
     isUploading: false,
     uploadError: '',
-    url: ''
+    url: []
 };
 
 export const storageReducer = createReducer(

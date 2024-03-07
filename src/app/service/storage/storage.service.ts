@@ -10,10 +10,10 @@ export class StorageService {
   constructor(private httpClient: HttpClient ) {}
   uploadFile(file: File, fileName: string, idToken: string) {
     const formData = new FormData();
+    
     formData.append('files', file);
-    console.log('file', file);
     formData.append('fileName', fileName);
-    console.log('fileName', fileName);
+
  
     const headers = new HttpHeaders({
       Authorization: `Bearer ${idToken}`,
