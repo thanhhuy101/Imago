@@ -2,19 +2,28 @@ import { AuthState } from '../state/auth.state';
 import { AuthCredentialModel } from '../../../app/model/auth.model';
 import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from '../actions/auth.actions';
+import { HttpErrorResponseModel } from '../../../app/model/http-error-response.model';
 
 const initialState: AuthState = {
   token: '',
 
   //google
-  authCredential: <AuthCredentialModel>{},
   isSigningInWithGG: false,
   isSignInWithGGSuccess: false,
-  signInWithGGErrorMessage: '',
+  signInWithGGErrorResponse: <HttpErrorResponseModel>{},
 
   isSigningOutWithGG: false,
   isSignOutWithGGSuccess: false,
-  signOutWithGGErrorMessage: '',
+  signOutWithGGErrorResponse: <HttpErrorResponseModel>{},
+
+  //user
+  authCredential: <AuthCredentialModel>{},
+  isSignUp: false,
+  isSignUpSuccess: false,
+  signUpErrorResponse: <HttpErrorResponseModel>{},
+
+  isGettingAuth: false,
+  getAuthErrorResponse: <HttpErrorResponseModel>{},
 };
 
 export const authReducer = createReducer(
@@ -38,11 +47,11 @@ export const authReducer = createReducer(
   }),
   on(
     AuthActions.signInWithGGFailure,
-    (state, { signInWithGGErrorMessage, type }) => {
+    (state, { signInWithGGErrorResponse, type }) => {
       console.log(type);
       return {
         ...state,
-        signInWithGGErrorMessage: signInWithGGErrorMessage,
+        signInWithGGErrorResponse: signInWithGGErrorResponse,
         isSigningInWithGG: false,
         isSignInWithGGSuccess: false,
       };
@@ -67,16 +76,68 @@ export const authReducer = createReducer(
   }),
   on(
     AuthActions.signOutWithGGFailure,
-    (state, { signOutWithGGErrorMessage, type }) => {
+    (state, { signOutWithGGErrorResponse, type }) => {
       console.log(type);
       return {
         ...state,
-        signOutWithGGErrorMessage: signOutWithGGErrorMessage,
+        signOutWithGGErrorResponse: signOutWithGGErrorResponse,
         isSigningOutWithGG: false,
         isSignOutWithGGSuccess: false,
       };
     },
   ),
+
+  // signUp
+  on(AuthActions.signUp, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSignUp: true,
+    };
+  }),
+  on(AuthActions.signUpSuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSignUp: false,
+      isSignUpSuccess: true,
+    };
+  }),
+  on(AuthActions.signUpFailure, (state, { signUpErrorResponse, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      signUpErrorResponse: signUpErrorResponse,
+      isSignUp: false,
+      isSignUpSuccess: false,
+    };
+  }),
+
+  // getAuth
+  on(AuthActions.getAuth, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingAuth: true,
+    };
+  }),
+  on(AuthActions.getAuthSuccess, (state, { authCredential, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      authCredential: authCredential,
+      isGettingAuth: false,
+    };
+  }),
+  on(AuthActions.getAuthFailure, (state, { getAuthErrorResponse, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      authCredential: <AuthCredentialModel>{},
+      getAuthErrorResponse: getAuthErrorResponse,
+      isGettingAuth: false,
+    };
+  }),
 
   // storeToken
   on(AuthActions.storeToken, (state, { token }) => {
@@ -90,7 +151,9 @@ export const authReducer = createReducer(
   on(AuthActions.clearMessages, (state) => {
     return {
       ...state,
-      signInWithGGErrorMessage: '',
+      signInWithGGErrorResponse: <HttpErrorResponseModel>{},
+      signUpErrorResponse: <HttpErrorResponseModel>{},
+      getAuthErrorResponse: <HttpErrorResponseModel>{},
     };
   }),
 
@@ -99,10 +162,19 @@ export const authReducer = createReducer(
     return {
       ...state,
       token: '',
-      authCredential: <AuthCredentialModel>{},
+
       isSigningInWithGG: false,
       isSignInWithGGSuccess: false,
-      signInWithGGErrorMessage: '',
+      signInWithGGErrorResponse: <HttpErrorResponseModel>{},
+
+      authCredential: <AuthCredentialModel>{},
+
+      isSignUp: false,
+      isSignUpSuccess: false,
+      signUpErrorResponse: <HttpErrorResponseModel>{},
+
+      isGettingAuth: false,
+      getAuthErrorResponse: <HttpErrorResponseModel>{},
     };
   }),
 );

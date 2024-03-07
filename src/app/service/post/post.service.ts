@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../../ngrx/auth/state/auth.state';
 import { PostModel } from '../../model/post.model';
+import { HttpClientAuth } from '../../util/http-client-auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
   constructor(
-    private httpClient: HttpClient,
+    private httpClient: HttpClientAuth,
     private store: Store<{ auth: AuthState }>,
   ) {}
 
@@ -21,20 +22,11 @@ export class PostService {
     });
   }
 
-  createPost(post: PostModel, token: string) {
-    const headers = { Authorization: `${token}` };
-    return this.httpClient.post('http://localhost:3000/v1/post', post, {
-      headers: headers,
-    });
+  createPost(post: PostModel) {
+    return this.httpClient.post('post', post);
   }
 
-  getMine(token: string, page: number, size: number) {
-    const headers = { Authorization: `${token}` };
-    return this.httpClient.get(
-      `http://localhost:3000/v1/post/mine?page=${page}&size=${size}`,
-      {
-        headers: headers,
-      },
-    );
+  getMine(page: number, size: number) {
+    return this.httpClient.get(`post/mine?page=${page}&size=${size}`);
   }
 }

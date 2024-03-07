@@ -36,7 +36,7 @@
   min-width: 576px;
   height: 70%;
   min-height: 745px;
-  background-color: var(--tui-secondary);
+  background-color: #fff;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -47,22 +47,24 @@
 
   .tui-text_h3 {
     width: 55%;
+    cursor: pointer;
+  }
+
+  .logo {
+    width: 18%;
+    height: 15%;
+    max-height: 103px;
   }
 }
 
 .highlight1 {
-  background-image: linear-gradient(90deg,#771ac9, #f30a96);
+  background-image: linear-gradient(90deg, #771ac9, #f30a96);
   background-clip: text;
   color: transparent;
 }
 
 .highlight2 {
-  background-image: linear-gradient(90deg,#f30a96,#771ac9);
+  background-image: linear-gradient(90deg, #f30a96, #771ac9);
   background-clip: text;
   color: transparent;
-}
-
-.Imago{
-  width: 18%;
-  height: 15%;
 }
