@@ -13,7 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostState } from '../../../../ngrx/post/post.state';
 import { Store } from '@ngrx/store';
 import * as PostActions from '../../../../ngrx/post/post.action';
-import { AuthState } from '../../../../ngrx/auth/state/auth.state';
+import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { ReportState } from '../../../../ngrx/report/report.state';
 import { ReportModel } from '../../../model/report.model';
 import * as ReportAction from '../../../../ngrx/report/report.action';

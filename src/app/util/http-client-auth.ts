@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../ngrx/auth/state/auth.state';
+import { AuthState } from '../../ngrx/auth/auth.state';
 import { Observable } from 'rxjs';
 import { dev_environment } from '../../environments/environment.development';
 

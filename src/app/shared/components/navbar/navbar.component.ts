@@ -4,8 +4,8 @@ import { Router, RouterLink } from '@angular/router';
 import { TaigaModule } from '../../taiga.module';
 import { TuiDialogService } from '@taiga-ui/core';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../../../ngrx/auth/state/auth.state';
-import * as AuthActions from '../../../../ngrx/auth/actions/auth.actions';
+import { AuthState } from '../../../../ngrx/auth/auth.state';
+import * as AuthActions from '../../../../ngrx/auth/auth.actions';
 
 @Component({
   selector: 'app-navbar',
