@@ -42,7 +42,6 @@ export class AppComponent {
       if (user) {
         let idToken = await user.getIdToken(true);
         this.store.dispatch(AuthActions.storeToken({ token: idToken }));
-        console.log(idToken);
       }
     });
   }

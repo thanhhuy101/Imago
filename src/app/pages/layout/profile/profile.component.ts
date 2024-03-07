@@ -1,17 +1,20 @@
-import {Component, Inject} from '@angular/core';
-import {TaigaModule} from "../../../shared/taiga.module";
-import {ShareModule} from "../../../shared/share.module";
-import {TuiAlertService} from "@taiga-ui/core";
-import {Router, RouterOutlet} from "@angular/router";
+import { Component, Inject, OnInit } from '@angular/core';
+import { TaigaModule } from '../../../shared/taiga.module';
+import { ShareModule } from '../../../shared/share.module';
+import { TuiAlertService } from '@taiga-ui/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ProfileState } from '../../../../ngrx/profile/state/profile.state';
+import * as ProfileActions from '../../../../ngrx/profile/actions/profile.actions';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [TaigaModule, ShareModule, RouterOutlet],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrl: './profile.component.scss',
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   readonly items = [
     {
       text: 'post',
@@ -28,8 +31,13 @@ export class ProfileComponent {
   ];
 
   activeItemIndex = 0;
+  $profile = this.store.select((state) => state.profile.profile);
 
-  constructor(@Inject(TuiAlertService) private readonly alerts: TuiAlertService,private route:Router) {
+  constructor(
+    @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
+    private route: Router,
+    private store: Store<{ profile: ProfileState }>,
+  ) {
     let path = window.location.href.split('?')[0];
     console.log(path);
     if (path.includes('profile/share')) {
@@ -38,16 +46,16 @@ export class ProfileComponent {
       this.activeItemIndex = 2;
     }
   }
-
-
-  onActiveItemChange(index: number) {
-
-    this.onChangePage(index)
+  ngOnInit(): void {
+    this.store.dispatch(ProfileActions.getProfile({ token: '' }));
   }
 
-  onChangePage(i:number){
-    console.log(this.items[i].router);
-    this.route.navigate(['/profile'+this.items[i].router]);
+  onActiveItemChange(index: number) {
+    this.onChangePage(index);
+  }
 
+  onChangePage(i: number) {
+    console.log(this.items[i].router);
+    this.route.navigate(['/profile' + this.items[i].router]);
   }
 }

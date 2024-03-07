@@ -5,10 +5,13 @@ export interface ProfileState {
 
   //profile
   profile: ProfileModel;
+  profileList: ProfileModel[];
   isGettingProfile: boolean;
   isGetProfileSuccess: boolean;
   getProfileErrorMessage: string;
   isUpdatingProfile: boolean;
   isUpdateProfileSuccess: boolean;
   updateProfileErrorMessage: string;
+  loading: boolean;
+  error: string;
 }

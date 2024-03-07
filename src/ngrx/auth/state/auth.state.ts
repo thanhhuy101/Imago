@@ -8,4 +8,8 @@ export interface AuthState {
   isSigningInWithGG: boolean;
   isSignInWithGGSuccess: boolean;
   signInWithGGErrorMessage: string;
+
+  isSigningOutWithGG: boolean;
+  isSignOutWithGGSuccess: boolean;
+  signOutWithGGErrorMessage: string;
 }
