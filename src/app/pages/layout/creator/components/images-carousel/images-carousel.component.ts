@@ -33,10 +33,15 @@ export class ImagesCarouselComponent implements OnInit {
   tmpImageList: string[] = [];
   index = 0;
   itemsCount = 1;
-  file: any;
+  files: File[] = [];
   idTokenImage = '';
   uid = '';
   postId= '';
+
+  linkOfImage : string[] = []
+
+  storageState$ = this.store.select('storage', 'url');
+  isStorageUploading$ = this.store.select('storage', 'isUploading');
 
   constructor(
     private notificationService: NotificationService,
@@ -66,8 +71,11 @@ export class ImagesCarouselComponent implements OnInit {
       
 
     }
- formData = new FormData();
-  //if array control have a value . append to formData and call api at service
+
+    
+
+  
+
  
  
 
@@ -89,10 +97,14 @@ export class ImagesCarouselComponent implements OnInit {
               const blob = new Blob([reader.result], { type: 'image/png' });
               const url = URL.createObjectURL(blob);
               this.tmpImageList.push(url);
-            
-              this.file = file;
-              console.log('file', this.file);
-              this.store.dispatch(StorageActions.upLoadFile({ file: file, fileName: `${this.uid}/posts/${this.postId}`, idToken: this.idTokenImage }));
+              this.files.push(file);
+              console.log('file', this.files.length)
+              this.files.forEach((file: File) => {
+                console.log('file', file)
+                this.store.dispatch(
+                  StorageActions.upLoadFile({file: file,fileName: `${this.uid}/posts/${this.postId}`, idToken: this.idTokenImage})
+                );
+              });
               if (this.tmpImageList.length === response.length) {
                 this.imageList = this.tmpImageList;
                 this.responseChangeEvent.emit(this.imageList);
@@ -101,8 +113,26 @@ export class ImagesCarouselComponent implements OnInit {
             }
           };
         });
+        
+      
       }
     });
+
+    //how to upload file[] to firebase storage
+    
+
+    
+
+    this.storageState$.subscribe((url) => {
+      if (url) {
+        this.linkOfImage.push(url)
+        console.log('url', url)
+      }else{
+        console.log('no url')
+      }
+    });
+    console.log('linkOfImage', this.linkOfImage)
+    
   }
 
   get rounded(): number {
@@ -131,6 +161,13 @@ export class ImagesCarouselComponent implements OnInit {
     if (index === this.imageList.length) {
       this.index = index;
     }
+  }
+
+  numOfLink(){
+    console.log('linkOfImage', this.linkOfImage.length)
+
+   
+  
   }
 }
 

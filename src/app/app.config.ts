@@ -15,6 +15,10 @@ import { authReducer } from '../ngrx/auth/reducer/auth.reducer';
 import { AuthEffects } from '../ngrx/auth/effects/auth.effects';
 import { storageReducer } from '../ngrx/storage/reducer/storage.reducer';
 import { StorageEffects } from '../ngrx/storage/effects/storage.effects';
+import { postReducer } from '../ngrx/post/post.reducer';
+import { PostEffect } from '../ngrx/post/post.effect';
+import { reportReducer } from '../ngrx/report/report.reducer';
+import { ReportEffect } from '../ngrx/report/report.effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -42,7 +46,10 @@ export const appConfig: ApplicationConfig = {
      
     }),
     provideState({ name: 'auth', reducer: authReducer }),
-    provideEffects([AuthEffects, StorageEffects]),
+    provideState({ name: 'post', reducer: postReducer }),
+    provideState({ name: 'report', reducer: reportReducer }),
+    provideState({ name: 'storage', reducer: storageReducer }),
+    provideEffects([AuthEffects, PostEffect, ReportEffect, StorageEffects]),
     provideHttpClient(),
   ],
 };

@@ -11,6 +11,8 @@ export const upLoadFileFailure = createAction(
     props<{ upLoadFileErrorMessage: string }>(),
 );
 
+// create success it return the url of the file
 export const upLoadFileSuccess = createAction(
     '[Storage] Upload File Success',
+    props<{url: any }>(),
 );

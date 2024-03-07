@@ -28,8 +28,7 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
 
   isContentChanged = false;
 
-  storageState$ = this.store.select('storage', 'storage');
-  isStorageUploading$ = this.store.select('storage', 'isUploading');
+ 
 
   authState$ = this.store.select('auth', 'isSignInWithGGSuccess');
   auth: AuthCredentialModel = <AuthCredentialModel>{};
