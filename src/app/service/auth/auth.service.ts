@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import { HttpClientAuth } from '../../util/http-client-auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private auth: Auth) {}
+  constructor(
+    private auth: Auth,
+    private http: HttpClientAuth,
+  ) {}
 
   async signInWithGoogle(): Promise<string> {
     const auth = this.auth;
@@ -28,5 +32,13 @@ export class AuthService {
     } catch (error) {
       throw error;
     }
+  }
+
+  signUp() {
+    return this.http.post('auth', '');
+  }
+
+  getById(id: string) {
+    return this.http.get(`auth?id=${id}`);
   }
 }

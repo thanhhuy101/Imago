@@ -3,6 +3,9 @@ import { NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { TaigaModule } from '../../taiga.module';
 import { TuiDialogService } from '@taiga-ui/core';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../../../ngrx/auth/state/auth.state';
+import * as AuthActions from '../../../../ngrx/auth/actions/auth.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +20,10 @@ export class NavbarComponent implements OnInit {
   open = false;
   openDrawerSidebar = false;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private store: Store<{ auth: AuthState }>,
+  ) {
     if (this.router.url === '/home') {
       this.activeItemIndex = 0;
     } else if (this.router.url === '/search') {
@@ -39,5 +45,10 @@ export class NavbarComponent implements OnInit {
 
   openDrawer(open: boolean): void {
     this.openDrawerSidebar = open;
+  }
+
+  signOut(): void {
+    console.log('sign out');
+    this.store.dispatch(AuthActions.signOutWithGG());
   }
 }
