@@ -28,4 +28,38 @@ export class PostEffect {
       }),
     ),
   );
+
+  getMine$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.getMine),
+      mergeMap((action) => {
+        return this.postService
+          .getMine(action.token, action.page, action.size)
+          .pipe(
+            map((postList: any) => {
+              return PostActions.getMineSuccess({ postList });
+            }),
+            catchError((error) => {
+              return of(PostActions.getMineFailure({ message: error }));
+            }),
+          );
+      }),
+    ),
+  );
+
+  createPost$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.createPost),
+      switchMap((action) => {
+        return this.postService.createPost(action.post, action.token).pipe(
+          map((post: any) => {
+            return PostActions.createPostSuccess({ post });
+          }),
+          catchError((error) => {
+            return of(PostActions.createPostFailure({ message: error }));
+          }),
+        );
+      }),
+    ),
+  );
 }
