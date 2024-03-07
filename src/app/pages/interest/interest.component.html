@@ -1,56 +1,24 @@
-<img id="mainImage" src="../../../assets/images/Wall%20-%20Dark.jpg" alt="shapress" />
-
-<div class="button-container">
-
-  <div class="row">
-    <div class="text">
-      <h1>Your <span>inclinations</span></h1>
-      <div class="selectAndExplore">
-        <p>Select categories which you want to </p>
-        <p>explore on your own</p>
+<div id="container">
+  <div id="category-container">
+    <div class="header">
+      <h1>
+        <span>Your</span>
+        <span style="color: #A7373A"> inclinations</span>
+      </h1>
+      <div class="notion">
+        <p>Select categories which you want to explore on your own.</p>
       </div>
     </div>
-  </div>
-
-  <tui-carousel class="carousel" #carousel>
-
-    @for (itemArray of interest; track itemArray; let i = $index) {
-    <div class="list-interest" *tuiItem>
-      @for (item of itemArray; track item; let j = $index) {
-      @if (item.backgroundColor) {
-      <div class="card-interest" style="background-color: black">
-
-        <div class="image-content" (click)="changebackground(item)">
-          <img src="{{ item.image }}" alt="" />
-        </div>
-        <div class="obacity-card">
-          <b>{{ item.title }}</b>
-        </div>
+    <div class="main">
+      <div tuiCarouselButtons class="wrapper">
+        <tui-carousel
+          #carousel
+          class="carousel"
+        >
+        </tui-carousel>
       </div>
-      } @else {
-      <div class="card-interest-active">
-        <div class="obacity-card">
-          <p>{{ item.title }}</p>
-        </div>
-      </div>
-      }
-      }
     </div>
-    }
-  </tui-carousel>
-
-  <div class="Back">
-    <button icon="tuiIconChevronLeftLarge" title="Previous" tuiIconButton type="button" appearance="custom"
-      class="backbtn" (click)="carousel.prev()"></button>
+    <div class="footer"></div>
   </div>
-
-  <div class="Next">
-    <button icon="tuiIconChevronRightLarge" title="Next" tuiIconButton class="nextbtn" appearance="custom" type="button"
-      (click)="carousel.next()"></button>
-  </div>
-
-  <button class="Skip"><b>Skip</b></button>
-
-
-  <button class="Finish"><b>Next</b></button>
 </div>
+
