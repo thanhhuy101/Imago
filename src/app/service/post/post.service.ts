@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../../ngrx/auth/auth.state';
 import { HttpClientAuth } from '../../util/http-client-auth';
+import { PostModel } from '../../model/post.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,13 @@ export class PostService {
     return this.httpClient.get('http://localhost:3000/v1/post/all', {
       headers: headers,
     });
+  }
+
+  createPost(post: PostModel) {
+    return this.httpClient.post('post', post);
+  }
+
+  getMine(page: number, size: number) {
+    return this.httpClient.get(`post/mine?page=${page}&size=${size}`);
   }
 }

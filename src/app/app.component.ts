@@ -1,5 +1,10 @@
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
-import { TuiRootModule, TUI_SANITIZER } from '@taiga-ui/core';
+import {
+  TuiRootModule,
+  TUI_SANITIZER,
+  TuiDialogModule,
+  TuiAlertModule,
+} from '@taiga-ui/core';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { TaigaModule } from './shared/taiga.module';
@@ -12,10 +17,19 @@ import * as AuthActions from '../ngrx/auth/auth.actions';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TuiRootModule, TaigaModule],
+  imports: [
+    RouterOutlet,
+    TuiRootModule,
+    TaigaModule,
+    TuiDialogModule,
+    TuiAlertModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
+  providers: [
+    { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
+    { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
+  ],
 })
 export class AppComponent implements OnInit {
   uid = '';
