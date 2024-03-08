@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    this.store.dispatch(ProfileActions.getProfile({ token: '' }));
+    this.store.dispatch(ProfileActions.getProfile({ id: '' }));
   }
 
   onActiveItemChange(index: number) {

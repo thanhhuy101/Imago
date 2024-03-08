@@ -6,12 +6,21 @@ export interface ProfileState {
   //profile
   profile: ProfileModel;
   profileList: ProfileModel[];
-  isGettingProfile: boolean;
-  isGetProfileSuccess: boolean;
-  getProfileErrorMessage: string;
-  isUpdatingProfile: boolean;
-  isUpdateProfileSuccess: boolean;
-  updateProfileErrorMessage: string;
   loading: boolean;
   error: string;
+  //get all profile
+  isGetAllProfilesSuccess: boolean;
+  getAllProfilesErrorMessage: string;
+
+
+  isGetProfileSuccess: boolean;
+  getProfileErrorMessage: string;
+
+
+  isCreateProfileSuccess: boolean;
+  createProfileErrorMessage: string;
+
+ 
+  isUpdateProfileSuccess: boolean;
+  updateProfileErrorMessage: string;
 }

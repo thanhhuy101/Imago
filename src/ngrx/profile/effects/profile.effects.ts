@@ -12,55 +12,57 @@ export class ProfileEffect {
   ) {}
 
   //get all profile
-  getAllProfile$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(ProfileActions.getAllProfile),
-      switchMap((action) => {
-        return this.profileService.getAllProfiles(action.token).pipe(
-          map((profileList: any) => {
-            return ProfileActions.getAllProfileSuccess({ profileList });
-          }),
-          catchError((error) => {
-            return of(
-              ProfileActions.getAllProfileFailure({
-                error,
-              }),
-            );
-          }),
-        );
-      }),
-    ),
-  );
+  // getAllProfile$ = createEffect(() =>
+  //   this.action$.pipe(
+  //     ofType(ProfileActions.getAllProfile),
+  //     switchMap(() => {
+  //       return this.profileService.getAllProfiles().pipe(
+  //         map((profileList: any) => {
+  //           return ProfileActions.getAllProfileSuccess({ profileList });
+  //         }),
+  //         catchError((error) => {
+  //           return of(
+  //             ProfileActions.getAllProfileFailure({
+  //               getAllProfilesErrorMessage: error,
+  //             }),
+  //           );
+  //         }),
+  //       );
+  //     }),
+  //   ),
+  // );
 
   //get profile
-  getProfile$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(ProfileActions.getProfile),
-      switchMap((action) => {
-        return this.profileService.getProfile(action.token).pipe(
-          map((profile: any) => {
-            return ProfileActions.getProfileSuccess({ profile });
-          }),
-          catchError((error) => {
-            return of(
-              ProfileActions.getProfileFailure({
-                getProfileErrorMessage: error,
-              }),
-            );
-          }),
-        );
-      }),
-    ),
-  );
+  // getProfile$ = createEffect(() =>
+  //   this.action$.pipe(
+  //     ofType(ProfileActions.getProfile),
+  //     switchMap(() => {
+  //       return this.profileService.getProfile().pipe(
+  //         map((profile: any) => {
+  //           return ProfileActions.getProfileSuccess({ profile });
+  //         }),
+  //         catchError((error) => {
+  //           return of(
+  //             ProfileActions.getProfileFailure({
+  //               getProfileErrorMessage: error,
+  //             }),
+  //           );
+  //         }),
+  //       );
+  //     }),
+  //   ),
+  // );
 
   //create profile
   createProfile$ = createEffect(() =>
     this.action$.pipe(
       ofType(ProfileActions.createProfile),
       switchMap((action) => {
-        return this.profileService.createProfile(action.token).pipe(
-          map(() => {
-            return ProfileActions.createProfileSuccess();
+        console.log(action.profile);
+        return this.profileService.createProfile(action.profile).pipe(
+          map((profile) => {
+            console.log(profile);
+            return ProfileActions.createProfileSuccess({ profile: profile });
           }),
           catchError((error) => {
             return of(
@@ -79,7 +81,7 @@ export class ProfileEffect {
     this.action$.pipe(
       ofType(ProfileActions.updateProfile),
       switchMap((action) => {
-        return this.profileService.updateProfile(action.token).pipe(
+        return this.profileService.updateProfile(action.profile).pipe(
           map(() => {
             return ProfileActions.updateProfileSuccess();
           }),

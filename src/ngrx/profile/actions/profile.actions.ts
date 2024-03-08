@@ -3,7 +3,7 @@ import { ProfileModel } from '../../../app/model/profile.model';
 
 export const getAllProfile = createAction(
   '[getAllProfile] Get All Profile',
-  props<{ token: string }>(),
+  props<{ id: string }>(),
 );
 export const getAllProfileSuccess = createAction(
   '[getAllProfile] Get All Profile Success',
@@ -11,12 +11,12 @@ export const getAllProfileSuccess = createAction(
 );
 export const getAllProfileFailure = createAction(
   '[getAllProfile] Get All Profile Failure',
-  props<{ error: string }>(),
+  props<{ getAllProfilesErrorMessage: string }>(),
 );
 
 export const getProfile = createAction(
   '[Profile] Get Profile',
-  props<{ token: string }>(),
+  props<{ id: string }>(),
 );
 export const getProfileSuccess = createAction(
   '[Profile] Get Profile Success',
@@ -29,10 +29,11 @@ export const getProfileFailure = createAction(
 
 export const createProfile = createAction(
   '[Profile] Create Profile',
-  props<{ token: string }>(),
+  props<{ profile: ProfileModel }>(),
 );
 export const createProfileSuccess = createAction(
   '[Profile] Create Profile Success',
+  props<{ profile: ProfileModel }>(),
 );
 export const createProfileFailure = createAction(
   '[Profile] Create Profile Failure',
@@ -41,7 +42,7 @@ export const createProfileFailure = createAction(
 
 export const updateProfile = createAction(
   '[Profile] Update Profile',
-  props<{ token: string }>(),
+  props<{ profile: ProfileModel }>(),
 );
 export const updateProfileSuccess = createAction(
   '[Profile] Update Profile Success',
