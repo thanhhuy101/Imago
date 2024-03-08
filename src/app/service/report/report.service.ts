@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../../ngrx/auth/state/auth.state';
+import { AuthState } from '../../../ngrx/auth/auth.state';
 import { ReportModel } from '../../model/report.model';
+import { HttpClientAuth } from '../../util/http-client-auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportService {
   constructor(
-    private httpClient: HttpClient,
+    private httpClient: HttpClientAuth,
     private store: Store<{ auth: AuthState }>,
   ) {}
 

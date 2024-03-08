@@ -3,9 +3,9 @@ import { TaigaModule } from '../../shared/taiga.module';
 import { NgOptimizedImage } from '@angular/common';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../../ngrx/auth/state/auth.state';
+import { AuthState } from '../../../ngrx/auth/auth.state';
 
-import * as AuthActions from '../../../ngrx/auth/actions/auth.actions';
+import * as AuthActions from '../../../ngrx/auth/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +17,9 @@ import * as AuthActions from '../../../ngrx/auth/actions/auth.actions';
 export class LoginComponent {
   readonly googleIcon = '../../../assets/images/google.png';
 
-  constructor(
-    private router: Router,
-    private store: Store<{ auth: AuthState }>,
-  ) {}
+  constructor(private store: Store<{ auth: AuthState }>) {}
 
   loginWithGoogle() {
-    // this.router.navigate(['/register']).then();
     this.store.dispatch(AuthActions.signInWithGG());
   }
 }

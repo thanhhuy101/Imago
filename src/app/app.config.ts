@@ -11,30 +11,22 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { authReducer } from '../ngrx/auth/reducer/auth.reducer';
-import { AuthEffects } from '../ngrx/auth/effects/auth.effects';
+import { authReducer } from '../ngrx/auth/auth.reducer';
+import { AuthEffects } from '../ngrx/auth/auth.effects';
 import { postReducer } from '../ngrx/post/post.reducer';
 import { PostEffect } from '../ngrx/post/post.effect';
 import { provideHttpClient } from '@angular/common/http';
 import { reportReducer } from '../ngrx/report/report.reducer';
 import { ReportEffect } from '../ngrx/report/report.effect';
+import { dev_environment } from '../environments/environment.development';
+import { HttpClientAuth } from './util/http-client-auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     provideRouter(routes),
     importProvidersFrom(
-      provideFirebaseApp(() =>
-        initializeApp({
-          projectId: 'itss-imago-0000',
-          appId: '1:1098187958856:web:931b5d503852e1c9a1867d',
-          storageBucket: 'itss-imago-0000.appspot.com',
-          apiKey: 'AIzaSyAJ93BuFGs7gOJe9kudLYvAn4-Fp6Q936M',
-          authDomain: 'itss-imago-0000.firebaseapp.com',
-          messagingSenderId: '1098187958856',
-          measurementId: 'G-7TVCQGP8RS',
-        }),
-      ),
+      provideFirebaseApp(() => initializeApp(dev_environment.firebase)),
       TuiRootModule,
     ),
     importProvidersFrom(provideAuth(() => getAuth())),
@@ -47,5 +39,6 @@ export const appConfig: ApplicationConfig = {
     provideState({ name: 'report', reducer: reportReducer }),
     provideEffects([AuthEffects, PostEffect, ReportEffect]),
     provideHttpClient(),
+    HttpClientAuth,
   ],
 };
