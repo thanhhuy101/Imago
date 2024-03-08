@@ -22,6 +22,8 @@ import { reportReducer } from '../ngrx/report/report.reducer';
 import { ReportEffect } from '../ngrx/report/report.effect';
 import { dev_environment } from '../environments/environment.development';
 import { HttpClientAuth } from './util/http-client-auth';
+import { profileReducer } from '../ngrx/profile/reducer/profile.reducer';
+import { ProfileEffect } from '../ngrx/profile/effects/profile.effects';
 import { categoryReducer } from '../ngrx/category/category.reducer';
 import { CategoryEffect } from '../ngrx/category/category.effects';
 
@@ -37,15 +39,21 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(provideFirestore(() => getFirestore())),
     importProvidersFrom(provideDatabase(() => getDatabase())),
     importProvidersFrom(provideStorage(() => getStorage())),
-    provideStore({
-     
-    }),
+    provideStore({}),
     provideState({ name: 'auth', reducer: authReducer }),
     provideState({ name: 'post', reducer: postReducer }),
     provideState({ name: 'report', reducer: reportReducer }),
+    provideState({ name: 'profile', reducer: profileReducer }),
     provideState({ name: 'storage', reducer: storageReducer }),
     provideState({ name: 'category', reducer: categoryReducer }),
-    provideEffects([AuthEffects, PostEffect, ReportEffect, CategoryEffect,StorageEffects]),
+    provideEffects([
+      AuthEffects,
+      PostEffect,
+      ReportEffect,
+      CategoryEffect,
+      StorageEffects,
+      ProfileEffect,
+    ]),
     provideHttpClient(),
     HttpClientAuth,
   ],
