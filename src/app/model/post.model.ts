@@ -1,6 +1,6 @@
-import {CommentModel} from "./comment.model";
+import { CommentModel } from './comment.model';
 
-export interface PostModel{
+export interface PostModel {
   id: string;
   creatorId: string;
   share: string[];
@@ -12,4 +12,9 @@ export interface PostModel{
   comments: CommentModel[];
   mention: string[];
   createdAt: Date;
+}
+
+export interface PostResponse {
+  data: PostModel[];
+  endpage: number;
 }

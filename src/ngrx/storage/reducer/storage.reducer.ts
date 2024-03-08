@@ -8,7 +8,7 @@ export const initualState: StorageState = {
   storage: <StorageModel>{},
   isUploading: false,
   uploadError: '',
-  url: ''
+  url: []
 };
 
 export const storageReducer = createReducer(
@@ -33,10 +33,9 @@ export const storageReducer = createReducer(
 
   on(StorageActions.upLoadFileSuccess, (state, action) => {
     console.log(action.type)
-    // console.log(action.url)
+
     return {
       ...state,
-      storage: action.url,
       url: action.url,
       isUploading: false,
       uploadError: ''

@@ -4,11 +4,13 @@ import { ShareModule } from '../../../shared/share.module';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
 import { NotificationService } from '../../../service/notification/notification.service';
 import { CanComponentDeactivate } from '../../../guard/can-deactive.guard';
-import { Store } from "@ngrx/store";
-import { AuthState } from "../../../../ngrx/auth/auth.state";
-import { StorageState } from "../../../../ngrx/storage/state/storage.state";
-import { PostState } from "../../../../ngrx/post/post.state";
-import * as StorageActions from "../../../../ngrx/storage/actions/storage.actions";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store, on } from '@ngrx/store';
+import { StorageState } from '../../../../ngrx/storage/state/storage.state';
+import * as AuthActions from '../../../../ngrx/auth/auth.actions';
+import { AuthState } from '../../../../ngrx/auth/auth.state';
+import { AuthCredentialModel } from '../../../model/auth.model';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 @Component({
   selector: 'app-creator',
   standalone: true,
@@ -26,17 +28,28 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
 
   isContentChanged = false;
 
+
+
+  authState$ = this.store.select('auth', 'isSignInWithGGSuccess');
+  auth: AuthCredentialModel = <AuthCredentialModel>{};
   // add default image
   imageList: string[] = ['https://via.placeholder.com/450'];
 
   constructor(
     private notificationService: NotificationService,
+    private authFirebase: Auth,
     private store: Store<{
-      auth: AuthState;
       storage: StorageState;
-      post: PostState;
-    }>
-  ) { }
+      auth: AuthState;
+    }>,
+  ) {
+    onAuthStateChanged(this.authFirebase, async (user) => {
+      if (user) {
+        console.log('uid', user.uid);
+      }
+    });
+  }
+
 
   canDeactivate(): boolean {
     if (this.isContentChanged) {
@@ -46,11 +59,14 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
     return true;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+  }
 
   handleImageListChange(imageList: string[]): void {
     this.imageList = [...imageList];
     this.isContentChanged = true;
+    console.log('imageList', this.imageList);
     if (this.imageList.length === 0) {
       this.imageList = ['https://via.placeholder.com/450'];
       this.isContentChanged = false;

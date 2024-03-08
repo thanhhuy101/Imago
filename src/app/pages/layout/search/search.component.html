@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="search-bar">
+    <form class="b-form">
+      <tui-input
+        [formControl]="searchValue"
+        [tuiTextfieldCleaner]="true"
+        [tuiTextfieldLabelOutside]="true"
+        tuiTextfieldIconLeft="tuiIconSearch"
+        tuiTextfieldSize="l"
+      >
+        Search
+        <input placeholder="search" title="search-bar" tuiTextfield />
+      </tui-input>
+    </form>
+  </div>
+  <div class="tab-bar">
+    <tui-tabs tuiMobileTabs [(activeItemIndex)]="activeItemIndex">
+      <button
+        *ngFor="let item of items; let i = index"
+        tuiRipple="var(--tui-text-01)"
+        tuiTab
+        class="tab"
+        (click)="onActiveItemChange(i)"
+      >
+        <tui-svg [src]="item.icon" class="tui-space_right-2"></tui-svg>
+        {{ item.text }}
+      </button>
+    </tui-tabs>
+  </div>
+</div>
+<div class="contents">
+  <router-outlet></router-outlet>
+</div>

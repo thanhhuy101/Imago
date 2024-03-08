@@ -37,8 +37,11 @@ export class ImagesCarouselComponent implements OnInit {
   idTokenImage = '';
   uid = '';
   postId = '';
+
   linkOfImage: string[] = []
+
   storageState$ = this.store.select('storage', 'url');
+  isStorageUploading$ = this.store.select('storage', 'isUploading');
 
   constructor(
     private notificationService: NotificationService,
@@ -53,9 +56,7 @@ export class ImagesCarouselComponent implements OnInit {
 
       if (user) {
         const idToken = await user.getIdToken();
-        this.store.dispatch(
-          AuthActions.storeToken({ token: idToken }),
-        )
+
         this.uid = user.uid;
         this.idTokenImage = idToken;
         console.log('uid', user.uid);
@@ -65,16 +66,19 @@ export class ImagesCarouselComponent implements OnInit {
     this.postId = Math.floor(
       Math.random() * Math.floor(Math.random() * Date.now())
     ).toString();
-  }
 
+
+  }
   ngOnInit(): void {
 
     this.control.valueChanges.subscribe((response: File[] | null) => {
       if (response) {
+        this.files = response;
         if (response.length > 5) {
           this.notificationService.errorNotification(
             'Error: maximum limit - 5 files for upload',
           );
+          this.files = [];
           return;
         }
         response.forEach((file: File) => {
@@ -84,14 +88,7 @@ export class ImagesCarouselComponent implements OnInit {
             if (reader.result) {
               const blob = new Blob([reader.result], { type: 'image/png' });
               const url = URL.createObjectURL(blob);
-              this.tmpImageList.push(url);
-              this.files.push(file);
-              this.files.forEach((file: File) => {
-                // console.log('file', file)
-                this.store.dispatch(
-                  StorageActions.upLoadFile({ file: file, fileName: `${this.uid}/posts/${this.postId}`, idToken: this.idTokenImage })
-                );
-              });
+              this.tmpImageList.unshift(url);
               if (this.tmpImageList.length === response.length) {
                 this.imageList = this.tmpImageList;
                 this.responseChangeEvent.emit(this.imageList);
@@ -100,20 +97,22 @@ export class ImagesCarouselComponent implements OnInit {
             }
           };
         });
+
+
       }
     });
+
 
     this.storageState$.subscribe((url) => {
       if (url) {
-        this.linkOfImage.push(url)
-        // console.log('url', url)
-      } else {
-        console.log('no url')
+        url.forEach((url: string) => {
+          this.linkOfImage.push(url);
+        });
+        console.log('linkOfImage', this.linkOfImage)
       }
     });
-    console.log('linkOfImage', this.linkOfImage)
-
   }
+
 
   get rounded(): number {
     return Math.floor(this.index / this.itemsCount);
@@ -125,6 +124,8 @@ export class ImagesCarouselComponent implements OnInit {
 
   onReject(files: TuiFileLike | readonly TuiFileLike[]): void {
     this.rejectedFiles = [...this.rejectedFiles, ...(files as TuiFileLike[])];
+
+
   }
 
   deleteImage(index: number): void {
@@ -132,7 +133,8 @@ export class ImagesCarouselComponent implements OnInit {
 
     // delete file from the list
     this.control.setValue(this.control.value!.filter((_, i) => i !== index));
-
+    this.files.slice(index, 1);
+    console.log('filesRemove', this.files)
     this.responseChangeEvent.emit(this.imageList);
     if (this.imageList.length === 0) {
       this.imageList = ['https://via.placeholder.com/450'];
@@ -143,10 +145,21 @@ export class ImagesCarouselComponent implements OnInit {
     }
   }
 
-  numOfLink() {
-    console.log('linkOfImage', this.linkOfImage.length)
+  upLoadImage() {
+    this.files.forEach((file: File) => {
+      this.store.dispatch(
+        StorageActions.upLoadFile({
+          file: file,
+          fileName: `${this.uid}/posts/${this.postId}`,
+          idToken: this.idTokenImage,
+        }),
+      )
+      this.files = [];
+    });
+    ;
   }
 }
+
 export function maxFilesLength(maxLength: number): ValidatorFn {
   return ({ value }: AbstractControl) =>
     value.length > maxLength
