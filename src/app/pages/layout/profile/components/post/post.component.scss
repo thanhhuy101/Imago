@@ -5,6 +5,18 @@
   margin-right: 0.5rem;
 }
 
+.capPicture {
+  margin-top: 0.625rem;
+
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+}
+
+.name {
+  font-size: 1.1rem;
+}
+
 .main {
   display: flex;
   justify-content: center;
@@ -116,14 +128,6 @@
   justify-content: space-between;
 }
 
-.capPicture {
-  margin-top: 0.625rem;
-
-  display: flex;
-  align-items: center;
-  // justify-content: center;
-}
-
 ::ng-deep tui-svg {
   color: #262626 !important;
 }
@@ -134,18 +138,7 @@
     fill: #cc4647 !important;
   }
 }
-.name {
-  font-size: 1.1rem;
-}
-
-.photolist {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 1rem;
-}
-.pagination {
-  margin-top: 1rem;
+::ng-deep.t-item {
+  padding: 0 !important;
+  justify-content: flex-start !important;
 }
