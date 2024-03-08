@@ -146,6 +146,11 @@ export class PostComponent implements OnInit, OnDestroy {
   index = 0;
   ngOnInit(): void {
     this.subscription.push(
+      this.token$.subscribe((token) => {
+        if (token) {
+          this.store.dispatch(PostActions.getMine({ page: 1, size: 10 }));
+        }
+      }),
       this.loading$.subscribe((res) => {
         if (res) {
           this.loader = true;
@@ -163,18 +168,12 @@ export class PostComponent implements OnInit, OnDestroy {
         .subscribe((res) => {
           if (res) {
             this.loader = false;
-            console.log(res.data);
             this.list = res.data;
           }
         }),
       this.failure$.subscribe((res) => {
         if (res) {
           this.loader = false;
-        }
-      }),
-      this.token$.subscribe((token) => {
-        if (token) {
-          this.store.dispatch(PostActions.getMine({ page: 1, size: 10 }));
         }
       }),
     );
