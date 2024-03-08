@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
 
     this.isGetAuthSuccess$.subscribe((authCredential) => {
       if (authCredential.email) {
-        this.router.navigate(['/register']).then();
+        // this.router.navigate(['/register']).then();
       }
     });
     this.getAuthErrorResponse$.subscribe((error) => {
