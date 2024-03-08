@@ -142,3 +142,26 @@
   padding: 0 !important;
   justify-content: flex-start !important;
 }
+.btn_picture{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.photolist{
+ position: relative;
+  display: inline-block;
+  .btn_picture{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    padding: 5px;
+  }
+}
+.button{
+  background-color: rgba(255 ,255, 255,0.3);
+  border-radius: 50px;opacity: 1;
+}
+
