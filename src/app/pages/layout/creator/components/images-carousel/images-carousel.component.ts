@@ -45,7 +45,7 @@ export class ImagesCarouselComponent implements OnInit {
             if (reader.result) {
               const blob = new Blob([reader.result], { type: 'image/png' });
               const url = URL.createObjectURL(blob);
-              this.tmpImageList.push(url);
+              this.tmpImageList.unshift(url);
               if (this.tmpImageList.length === response.length) {
                 this.imageList = this.tmpImageList;
                 this.responseChangeEvent.emit(this.imageList);

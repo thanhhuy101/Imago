@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 import { ProfileState } from '../../../ngrx/profile/state/profile.state';
 import { Store } from '@ngrx/store';
 import * as ProfileActions from '../../../ngrx/profile/actions/profile.actions';
-import { AuthState } from '../../../ngrx/auth/state/auth.state';
 import { ProfileModel } from '../../model/profile.model';
 import { Subscription } from 'rxjs';
+import { AuthState } from '../../../ngrx/auth/auth.state';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +29,7 @@ import { Subscription } from 'rxjs';
 })
 export class RegisterComponent implements OnInit {
   regisForm = new FormGroup({
-    email: new FormControl(),
+    email: new FormControl(''),
     userName: new FormControl('', Validators.required),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
@@ -53,8 +53,8 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.subscription.push(
       this.store.select('auth', 'token').subscribe((token) => {
-        if (token != '') {
-          this.store.dispatch(ProfileActions.getProfile({ id: token }));
+        if (token != '' && token != undefined) {
+          this.store.dispatch(ProfileActions.getProfile({ token: token }));
         }
       }),
     );

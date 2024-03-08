@@ -1,18 +1,29 @@
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
-import { TuiRootModule, TUI_SANITIZER } from '@taiga-ui/core';
+import {
+  TuiRootModule,
+  TUI_SANITIZER,
+  TuiDialogModule,
+  TuiAlertModule,
+} from '@taiga-ui/core';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { TaigaModule } from './shared/taiga.module';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../ngrx/auth/state/auth.state';
+import { AuthState } from '../ngrx/auth/auth.state';
 
-import * as AuthActions from '../ngrx/auth/actions/auth.actions';
+import * as AuthActions from '../ngrx/auth/auth.actions';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TuiRootModule, TaigaModule],
+  imports: [
+    RouterOutlet,
+    TuiRootModule,
+    TaigaModule,
+    TuiDialogModule,
+    TuiAlertModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [
@@ -45,7 +56,7 @@ export class AppComponent implements OnInit {
 
         this.store.dispatch(AuthActions.storeToken({ token: idToken }));
       } else {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login']).then();
       }
     });
   }
@@ -60,7 +71,7 @@ export class AppComponent implements OnInit {
 
     this.isGetAuthSuccess$.subscribe((authCredential) => {
       if (authCredential.email) {
-        this.router.navigate(['/register']);
+        this.router.navigate(['/register']).then();
       }
     });
     this.getAuthErrorResponse$.subscribe((error) => {
@@ -71,7 +82,7 @@ export class AppComponent implements OnInit {
 
     this.isSignUpSuccess$.subscribe((isSignUpSuccess) => {
       if (isSignUpSuccess) {
-        this.router.navigate(['/register']);
+        this.router.navigate(['/register']).then();
       }
     });
   }

@@ -11,8 +11,8 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { authReducer } from '../ngrx/auth/reducer/auth.reducer';
-import { AuthEffects } from '../ngrx/auth/effects/auth.effects';
+import { authReducer } from '../ngrx/auth/auth.reducer';
+import { AuthEffects } from '../ngrx/auth/auth.effects';
 import { postReducer } from '../ngrx/post/post.reducer';
 import { PostEffect } from '../ngrx/post/post.effect';
 import { provideHttpClient } from '@angular/common/http';
@@ -22,6 +22,8 @@ import { dev_environment } from '../environments/environment.development';
 import { HttpClientAuth } from './util/http-client-auth';
 import { profileReducer } from '../ngrx/profile/reducer/profile.reducer';
 import { ProfileEffect } from '../ngrx/profile/effects/profile.effects';
+import { categoryReducer } from '../ngrx/category/category.reducer';
+import { CategoryEffect } from '../ngrx/category/category.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -40,7 +42,14 @@ export const appConfig: ApplicationConfig = {
     provideState({ name: 'post', reducer: postReducer }),
     provideState({ name: 'report', reducer: reportReducer }),
     provideState({ name: 'profile', reducer: profileReducer }),
-    provideEffects([AuthEffects, PostEffect, ReportEffect, ProfileEffect]),
+    provideState({ name: 'category', reducer: categoryReducer }),
+    provideEffects([
+      AuthEffects,
+      PostEffect,
+      ReportEffect,
+      ProfileEffect,
+      CategoryEffect,
+    ]),
     provideHttpClient(),
     HttpClientAuth,
   ],

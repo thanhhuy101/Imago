@@ -3,9 +3,9 @@ import { TaigaModule } from '../../shared/taiga.module';
 import { NgOptimizedImage } from '@angular/common';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../../ngrx/auth/state/auth.state';
+import { AuthState } from '../../../ngrx/auth/auth.state';
 
-import * as AuthActions from '../../../ngrx/auth/actions/auth.actions';
+import * as AuthActions from '../../../ngrx/auth/auth.actions';
 
 @Component({
   selector: 'app-login',

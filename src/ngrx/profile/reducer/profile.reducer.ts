@@ -2,21 +2,21 @@ import { createReducer, on } from '@ngrx/store';
 import { ProfileModel } from '../../../app/model/profile.model';
 import { ProfileState } from '../state/profile.state';
 import * as ProfileActions from '../actions/profile.actions';
+import { HttpErrorResponseModel } from '../../../app/model/http-error-response.model';
 
 export const initialState: ProfileState = {
   token: '',
   profile: <ProfileModel>{},
   profileList: [],
   loading: false,
-  error: '',
   isGetProfileSuccess: false,
-  getProfileErrorMessage: '',
+  getProfileErrorMessage: <HttpErrorResponseModel>{},
   isUpdateProfileSuccess: false,
-  updateProfileErrorMessage: '',
+  updateProfileErrorMessage: <HttpErrorResponseModel>{},
   isCreateProfileSuccess: false,
-  createProfileErrorMessage: '',
+  createProfileErrorMessage: <HttpErrorResponseModel>{},
   isGetAllProfilesSuccess: false,
-  getAllProfilesErrorMessage: '',
+  getAllProfilesErrorMessage: <HttpErrorResponseModel>{},
 };
 
 export const profileReducer = createReducer(
@@ -75,7 +75,6 @@ export const profileReducer = createReducer(
   //create profile
   on(ProfileActions.createProfile, (state, action) => {
     console.log(action.type);
-    console.log(state);
     return {
       ...state,
       profile: action.profile,
@@ -85,7 +84,7 @@ export const profileReducer = createReducer(
   //createProfileSuccess
   on(ProfileActions.createProfileSuccess, (state, action) => {
     console.log(action.type);
-    return <ProfileState>{
+    return {
       ...state,
       profile: action.profile,
       loading: false,
@@ -97,9 +96,9 @@ export const profileReducer = createReducer(
     ProfileActions.createProfileFailure,
     (state, { type, createProfileErrorMessage }) => {
       console.log(type);
-      return <ProfileState>{
+      return {
         ...state,
-        error: createProfileErrorMessage,
+        createProfileErrorMessage: createProfileErrorMessage,
         loading: false,
       };
     },

@@ -1,11 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/share.module';
 import { TuiAlertService } from '@taiga-ui/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ProfileState } from '../../../../ngrx/profile/state/profile.state';
-import * as ProfileActions from '../../../../ngrx/profile/actions/profile.actions';
 
 @Component({
   selector: 'app-profile',
@@ -14,10 +11,10 @@ import * as ProfileActions from '../../../../ngrx/profile/actions/profile.action
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
   readonly items = [
     {
-      text: 'post',
+      text: 'Post',
       router: '/post',
     },
     {
@@ -31,12 +28,10 @@ export class ProfileComponent implements OnInit {
   ];
 
   activeItemIndex = 0;
-  $profile = this.store.select((state) => state.profile.profile);
 
   constructor(
     @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
     private route: Router,
-    private store: Store<{ profile: ProfileState }>,
   ) {
     let path = window.location.href.split('?')[0];
     console.log(path);
@@ -45,9 +40,6 @@ export class ProfileComponent implements OnInit {
     } else if (path.includes('profile/mention')) {
       this.activeItemIndex = 2;
     }
-  }
-  ngOnInit(): void {
-    this.store.dispatch(ProfileActions.getProfile({ id: '' }));
   }
 
   onActiveItemChange(index: number) {

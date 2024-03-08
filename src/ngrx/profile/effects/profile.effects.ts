@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProfileService } from '../../../app/service/profile/profile.service';
 import * as ProfileActions from '../actions/profile.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
+import { ProfileModel } from '../../../app/model/profile.model';
 
 @Injectable()
 export class ProfileEffect {
@@ -60,7 +61,7 @@ export class ProfileEffect {
       switchMap((action) => {
         console.log(action.profile);
         return this.profileService.createProfile(action.profile).pipe(
-          map((profile) => {
+          map((profile: ProfileModel) => {
             console.log(profile);
             return ProfileActions.createProfileSuccess({ profile: profile });
           }),

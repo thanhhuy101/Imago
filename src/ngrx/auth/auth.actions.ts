@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthCredentialModel } from '../../../app/model/auth.model';
-import { HttpErrorResponseModel } from '../../../app/model/http-error-response.model';
+import { AuthCredentialModel } from '../../app/model/auth.model';
+import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 export const storeToken = createAction(
   '[Auth] Store Token',

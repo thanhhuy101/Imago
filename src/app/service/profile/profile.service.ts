@@ -21,48 +21,4 @@ export class ProfileService {
   updateProfile(profile: ProfileModel) {
     return this.httpClient.put('profile/mine', profile);
   }
-  // getAllProfiles(idToken: string) {
-  //   return this.httpClient.get(
-  //     `${dev_environment.baseUrl}/${dev_environment.baseVersion}/profile/list`,
-  //     {
-  //       headers: new HttpHeaders({
-  //         Authorization: `Bearer ${idToken}`,
-  //       }),
-  //     },
-  //   );
-  // }
-
-  // getProfile(idToken: string) {
-  //   return this.httpClient.get(
-  //     `${dev_environment.baseUrl}/${dev_environment.baseVersion}/profile/mine`,
-  //     {
-  //       headers: new HttpHeaders({
-  //         Authorization: `Bearer ${idToken}`,
-  //       }),
-  //     },
-  //   );
-  // }
-
-  // createProfile(idToken: string) {
-  //   return this.httpClient.post(
-  //     `${dev_environment.baseUrl}/${dev_environment.baseVersion}/profile/mine`,
-  //     {},
-  //     {
-  //       headers: new HttpHeaders({
-  //         Authorization: `Bearer ${idToken}`,
-  //       }),
-  //     },
-  //   );
-  // }
-
-  // updateProfile(idToken: string) {
-  //   return this.httpClient.put(
-  //     `${dev_environment.baseUrl}/${dev_environment.baseVersion}/profile/mine`,
-  //     {
-  //       headers: new HttpHeaders({
-  //         Authorization: `Bearer ${idToken}`,
-  //       }),
-  //     },
-  //   );
-  // }
 }

@@ -1,3 +1,4 @@
+import { HttpErrorResponseModel } from '../../../app/model/http-error-response.model';
 import { ProfileModel } from '../../../app/model/profile.model';
 
 export interface ProfileState {
@@ -7,20 +8,17 @@ export interface ProfileState {
   profile: ProfileModel;
   profileList: ProfileModel[];
   loading: boolean;
-  error: string;
+
   //get all profile
   isGetAllProfilesSuccess: boolean;
-  getAllProfilesErrorMessage: string;
-
+  getAllProfilesErrorMessage: HttpErrorResponseModel;
 
   isGetProfileSuccess: boolean;
-  getProfileErrorMessage: string;
-
+  getProfileErrorMessage: HttpErrorResponseModel;
 
   isCreateProfileSuccess: boolean;
-  createProfileErrorMessage: string;
+  createProfileErrorMessage: HttpErrorResponseModel;
 
- 
   isUpdateProfileSuccess: boolean;
-  updateProfileErrorMessage: string;
+  updateProfileErrorMessage: HttpErrorResponseModel;
 }

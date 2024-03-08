@@ -1,8 +1,8 @@
-import { AuthState } from '../state/auth.state';
-import { AuthCredentialModel } from '../../../app/model/auth.model';
+import { AuthState } from './auth.state';
+import { AuthCredentialModel } from '../../app/model/auth.model';
 import { createReducer, on } from '@ngrx/store';
-import * as AuthActions from '../actions/auth.actions';
-import { HttpErrorResponseModel } from '../../../app/model/http-error-response.model';
+import * as AuthActions from './auth.actions';
+import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 const initialState: AuthState = {
   token: '',
