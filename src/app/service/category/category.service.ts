@@ -12,7 +12,7 @@ export class CategoryService {
     return this.httpClient.get('category');
   }
 
-  getCategoryList(){
-    return this.httpClient.get('category/all');
+  getCategories(page: number){
+    return this.httpClient.get(`category/all?page=${page}`);
   }
 }

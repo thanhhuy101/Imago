@@ -6,6 +6,6 @@ export const getCategory = createAction('[Category] Get Category');
 export const getCategorySuccess = createAction('[Category] Get Category Success', props<{ category: CategoryModel }>());
 export const getCategoryFailure = createAction('[Category] Get Category Failure', props<{ error: HttpErrorResponseModel }>());
 
-export const getCategoryList = createAction('[Category] Get Category List');
+export const getCategoryList = createAction('[Category] Get Category List', props<{ page: number }>());
 export const getCategoryListSuccess = createAction('[Category] Get Category List Success', props<{ categoryList: CategoryModel[] }>());
 export const getCategoryListFailure = createAction('[Category] Get Category List Failure', props<{ error: HttpErrorResponseModel }>());
