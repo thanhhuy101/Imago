@@ -16,9 +16,9 @@ export class PostService {
 
   getAllPosts(token: string) {
     console.log('token', token);
-    const headers = { Authorization: `${token}` };
-    return this.httpClient.get('http://localhost:3000/v1/post/all', {
-      headers: headers,
+  
+    return this.httpClient.get('post/all', {
+    
     });
   }
 
