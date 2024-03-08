@@ -1,15 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { TaigaModule } from '../../shared/taiga.module';
 import { ShareModule } from '../../shared/share.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {
-  TUI_TEXTFIELD_APPEARANCE_DIRECTIVE,
-  tuiCheckboxOptionsProvider,
-} from '@taiga-ui/core';
+import { TUI_TEXTFIELD_APPEARANCE_DIRECTIVE } from '@taiga-ui/core';
 import { Router } from '@angular/router';
 
 @Component({

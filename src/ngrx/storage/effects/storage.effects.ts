@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import * as StorageActions from '../actions/storage.actions';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { StorageService } from "../../../app/service/storage/storage.service";
-import { catchError, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
+import { catchError, concatMap, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
 import { StorageModule } from "@angular/fire/storage";
 
 
@@ -14,7 +14,11 @@ export class StorageEffects {
     upLoadFile$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(StorageActions.upLoadFile),
-            switchMap((action) => {
+            mergeMap((action) => {    
+                //why dulicate the action
+                
+
+
                 return this.storageService.uploadFile(action.file, action.fileName, action.idToken).pipe(
                     map((url) => {
                         return StorageActions.upLoadFileSuccess({ url });
