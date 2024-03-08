@@ -14,7 +14,7 @@ import {Router, RouterOutlet} from "@angular/router";
 export class ProfileComponent {
   readonly items = [
     {
-      text: 'post',
+      text: 'Post',
       router: '/post',
     },
     {
