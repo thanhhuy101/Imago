@@ -1,8 +1,8 @@
-import {CategoryState} from "./category.state";
-import {HttpErrorResponseModel} from "../../app/model/http-error-response.model";
-import {createReducer, on} from "@ngrx/store";
-import * as CategoryActions from "./category.actions";
-import {CategoryModel} from "../../app/model/category.model";
+import { CategoryState } from './category.state';
+import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
+import { createReducer, on } from '@ngrx/store';
+import * as CategoryActions from './category.actions';
+import { CategoryModel } from '../../app/model/category.model';
 
 const initialState: CategoryState = {
   category: {} as CategoryModel,
@@ -14,8 +14,7 @@ const initialState: CategoryState = {
   isGettingCategoryList: false,
   getCategoryListSuccess: false,
   getCategoryListError: <HttpErrorResponseModel>{},
-}
-
+};
 
 export const categoryReducer = createReducer(
   initialState,
@@ -48,7 +47,7 @@ export const categoryReducer = createReducer(
   }),
 
   // get category list
-  on(CategoryActions.getCategoryList, (state) => {
+  on(CategoryActions.getCategoryList, (state, { type }) => {
     return {
       ...state,
       isGettingCategoryList: true,
@@ -56,16 +55,20 @@ export const categoryReducer = createReducer(
       getCategoryListError: <HttpErrorResponseModel>{},
     };
   }),
-  on(CategoryActions.getCategoryListSuccess, (state, { categoryList }) => {
-    return {
-      ...state,
-      categories: categoryList,
-      isGettingCategoryList: false,
-      getCategoryListSuccess: true,
-      getCategoryListError: <HttpErrorResponseModel>{},
-    };
-  }),
-  on(CategoryActions.getCategoryListFailure, (state, { error }) => {
+  on(
+    CategoryActions.getCategoryListSuccess,
+    (state, { type, categoryList }) => {
+      return {
+        ...state,
+        categories: categoryList,
+        isGettingCategoryList: false,
+        getCategoryListSuccess: true,
+        getCategoryListError: <HttpErrorResponseModel>{},
+      };
+    },
+  ),
+  on(CategoryActions.getCategoryListFailure, (state, { type, error }) => {
+    console.log(type);
     return {
       ...state,
       isGettingCategoryList: false,
@@ -73,5 +76,4 @@ export const categoryReducer = createReducer(
       getCategoryListError: error,
     };
   }),
-
 );
