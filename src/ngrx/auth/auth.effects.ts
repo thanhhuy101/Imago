@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AuthService } from '../../../app/service/auth/auth.service';
-import * as AuthActions from '../actions/auth.actions';
+import { AuthService } from '../../app/service/auth/auth.service';
+import * as AuthActions from './auth.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { HttpErrorResponseModel } from '../../../app/model/http-error-response.model';
-import { AuthCredentialModel } from '../../../app/model/auth.model';
+import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
+import { AuthCredentialModel } from '../../app/model/auth.model';
 
 @Injectable()
 export class AuthEffects {

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { PostModel } from '../../app/model/post.model';
+import { PostModel, PostResponse } from '../../app/model/post.model';
 
 export const getAllPost = createAction(
   '[Post] Get All Post',
@@ -19,7 +19,7 @@ export const getAllPostFailure = createAction(
 //create post
 export const createPost = createAction(
   '[Post] Create Post',
-  props<{ post: PostModel; token: string }>(),
+  props<{ post: PostModel }>(),
 );
 
 export const createPostSuccess = createAction(
@@ -35,12 +35,12 @@ export const createPostFailure = createAction(
 //get mine
 export const getMine = createAction(
   '[Post] Get Mine',
-  props<{ token: string; page: number; size: number }>(),
+  props<{ page: number; size: number }>(),
 );
 
 export const getMineSuccess = createAction(
   '[Post] Get Mine Success',
-  props<{ postList: PostModel[] }>(),
+  props<{ list: PostResponse }>(),
 );
 
 export const getMineFailure = createAction(

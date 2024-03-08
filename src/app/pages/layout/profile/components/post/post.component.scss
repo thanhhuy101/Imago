@@ -1,7 +1,8 @@
 .vegan {
-  color: blue;
-  Cursor: pointer;
+  color: #0081ff;
+  cursor: pointer;
   font-size: 1.1rem;
+  margin-right: 0.5rem;
 }
 
 .main {
@@ -12,7 +13,7 @@
 .allPost {
   width: 100%;
   height: 100%;
-  columns: 3 ;
+  columns: 3;
   column-gap: 30px;
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
@@ -22,7 +23,7 @@
   .allPost {
     width: 100%;
     height: 100%;
-    columns: 5 ;
+    columns: 5;
     column-gap: 30px;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
@@ -33,7 +34,7 @@
   .allPost {
     width: 100%;
     height: 100%;
-    columns: 4 ;
+    columns: 4;
     column-gap: 30px;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
@@ -44,7 +45,7 @@
   .allPost {
     width: 100%;
     height: 100%;
-    columns: 3 ;
+    columns: 3;
     column-gap: 30px;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
@@ -55,7 +56,7 @@
   .allPost {
     width: 100%;
     height: 100%;
-    columns: 2 ;
+    columns: 2;
     column-gap: 30px;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
@@ -66,7 +67,7 @@
   .allPost {
     width: 100%;
     height: 100%;
-    columns: 1 ;
+    columns: 1;
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
   }
@@ -76,7 +77,9 @@
   width: 100%;
   border-radius: 10px;
   margin-bottom: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.07);
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 4px 12px 0 rgba(0, 0, 0, 0.07);
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -89,7 +92,7 @@
 }
 
 .picture-post1 {
-  width : 100%;
+  width: 100%;
   cursor: pointer;
 }
 
@@ -104,7 +107,6 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
-
 }
 
 .tymAndCmt {
@@ -116,9 +118,13 @@
 
 .capPicture {
   margin-top: 0.625rem;
+
+  display: flex;
+  align-items: center;
+  // justify-content: center;
 }
 
-::ng-deep tui-svg{
+::ng-deep tui-svg {
   color: #262626 !important;
 }
 
@@ -128,8 +134,18 @@
     fill: #cc4647 !important;
   }
 }
-.name{
+.name {
   font-size: 1.1rem;
 }
 
-
+.photolist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1rem;
+}
+.pagination {
+  margin-top: 1rem;
+}

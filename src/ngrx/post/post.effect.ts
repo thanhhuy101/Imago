@@ -33,16 +33,14 @@ export class PostEffect {
     this.action$.pipe(
       ofType(PostActions.getMine),
       mergeMap((action) => {
-        return this.postService
-          .getMine(action.token, action.page, action.size)
-          .pipe(
-            map((postList: any) => {
-              return PostActions.getMineSuccess({ postList });
-            }),
-            catchError((error) => {
-              return of(PostActions.getMineFailure({ message: error }));
-            }),
-          );
+        return this.postService.getMine(action.page, action.size).pipe(
+          map((postList) => {
+            return PostActions.getMineSuccess({ list: postList });
+          }),
+          catchError((error) => {
+            return of(PostActions.getMineFailure({ message: error }));
+          }),
+        );
       }),
     ),
   );
@@ -51,7 +49,7 @@ export class PostEffect {
     this.action$.pipe(
       ofType(PostActions.createPost),
       switchMap((action) => {
-        return this.postService.createPost(action.post, action.token).pipe(
+        return this.postService.createPost(action.post).pipe(
           map((post: any) => {
             return PostActions.createPostSuccess({ post });
           }),

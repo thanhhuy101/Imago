@@ -1,5 +1,5 @@
-import { AuthCredentialModel } from '../../../app/model/auth.model';
-import { HttpErrorResponseModel } from '../../../app/model/http-error-response.model';
+import { AuthCredentialModel } from '../../app/model/auth.model';
+import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 export interface AuthState {
   token: string;

@@ -1,10 +1,11 @@
-import { PostModel } from './../../app/model/post.model';
+import { PostModel, PostResponse } from './../../app/model/post.model';
 import * as PostActions from './post.action';
 import { createReducer, on } from '@ngrx/store';
 import { PostState } from './post.state';
 
 const initialState: PostState = {
   postList: [] as PostModel[],
+  list: <PostResponse>{},
   Post: <PostModel>{},
   isSucces: false,
   isGetMineSucces: false,
@@ -74,15 +75,16 @@ export const postReducer = createReducer(
     console.log(type);
     return {
       ...state,
+      list: <PostResponse>{},
       loading: true,
     };
   }),
 
-  on(PostActions.getMineSuccess, (state, { postList, type }) => {
+  on(PostActions.getMineSuccess, (state, { list, type }) => {
     console.log(type);
     return {
       ...state,
-      postList: postList,
+      list: list,
       loading: false,
       isGetMineSucces: true,
     };

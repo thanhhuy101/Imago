@@ -15,7 +15,7 @@ import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { TuiDialogService } from '@taiga-ui/core';
 import { mergeMap, Subscription, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../../../../../ngrx/auth/state/auth.state';
+import { AuthState } from '../../../../../../ngrx/auth/auth.state';
 import { PostState } from '../../../../../../ngrx/post/post.state';
 import { PostModel } from '../../../../../model/post.model';
 import * as PostActions from '../../../../../../ngrx/post/post.action';
@@ -130,7 +130,7 @@ export class PostComponent implements OnInit, OnDestroy {
   loader: boolean = false;
   subscription: Subscription[] = [];
   token$ = this.store.select('auth', 'token');
-  postList$ = this.store.select('post', 'postList');
+  postList$ = this.store.select('post', 'list');
   loading$ = this.store.select('post', 'loading');
   success$ = this.store.select('post', 'isGetMineSucces');
   failure$ = this.store.select('post', 'error');
@@ -143,7 +143,7 @@ export class PostComponent implements OnInit, OnDestroy {
       auth: AuthState;
     }>,
   ) {}
-
+  index = 0;
   ngOnInit(): void {
     this.subscription.push(
       this.loading$.subscribe((res) => {
@@ -163,6 +163,8 @@ export class PostComponent implements OnInit, OnDestroy {
         .subscribe((res) => {
           if (res) {
             this.loader = false;
+            console.log(res.data);
+            this.list = res.data;
           }
         }),
       this.failure$.subscribe((res) => {
@@ -172,9 +174,7 @@ export class PostComponent implements OnInit, OnDestroy {
       }),
       this.token$.subscribe((token) => {
         if (token) {
-          this.store.dispatch(
-            PostActions.getMine({ token: token, page: 1, size: 10 }),
-          );
+          this.store.dispatch(PostActions.getMine({ page: 1, size: 10 }));
         }
       }),
     );
@@ -183,8 +183,6 @@ export class PostComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }
-  open = false;
-  openUpdate = false;
 
   // showDialog(i: any): void {
   //   this.selectedItem = this.list[i]
