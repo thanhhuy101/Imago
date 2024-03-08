@@ -4,7 +4,7 @@
   [overlay]="true"
   [showLoader]="loader"
 >
-  @if(list.length !=0){
+  @if(list.length ==0){
     <div class="noPost">
       <div class="circlePicture" [routerLink]="'/creator'" >
         <span class="material-symbols-outlined">
@@ -19,84 +19,84 @@
 
     <div class="allPost">
 
-<!--      @for (post of list; track post.id; let i = $index) {-->
-<!--        <div class="post">-->
-<!--          <div class="picture-post1">-->
-<!--            <tui-carousel  #carousel >-->
-<!--              <ng-container  *ngFor="let photo of post.photoUrl">-->
-<!--                <div class="photolist" *tuiItem>-->
-<!--                  <div class="btn_picture">-->
-<!--                    @if (post.photoUrl.length >= 2){-->
-<!--                      <button class="button"-->
-<!--                              appearance="custom"-->
-<!--                              icon="tuiIconChevronLeftLarge"-->
-<!--                              size="s"-->
-<!--                              tuiIconButton-->
-<!--                              type="button"-->
-<!--                              (click)="carousel.prev()"-->
-<!--                      ></button>-->
-<!--                      <button class="button"-->
-<!--                              appearance="custom"-->
-<!--                              icon="tuiIconChevronRightLarge"-->
-<!--                              size="s"-->
-<!--                              tuiIconButton-->
-<!--                              type="button"-->
-<!--                              (click)="carousel.next()"-->
-<!--                      ></button>-->
-<!--                    }-->
-<!--                  </div>-->
-<!--                  <img class="picture1" [src]="photo" alt="" />-->
-<!--                </div>-->
-<!--              </ng-container>-->
-<!--            </tui-carousel>-->
-<!--&lt;!&ndash;            <tui-pagination&ndash;&gt;-->
-<!--&lt;!&ndash;              size="s"&ndash;&gt;-->
-<!--&lt;!&ndash;              class="pagination"&ndash;&gt;-->
-<!--&lt;!&ndash;              [length]="post.photoUrl.length"&ndash;&gt;-->
-<!--&lt;!&ndash;              [(index)]="index"&ndash;&gt;-->
-<!--&lt;!&ndash;            ></tui-pagination>&ndash;&gt;-->
-<!--          </div>-->
+      @for (post of list; track post.id; let i = $index) {
+        <div class="post">
+          <div class="picture-post1">
+            <tui-carousel  #carousel >
+              <ng-container  *ngFor="let photo of post.photoUrl">
+                <div class="photolist" *tuiItem>
+                  <div class="btn_picture">
+                    @if (post.photoUrl.length >= 2){
+                      <button class="button"
+                              appearance="custom"
+                              icon="tuiIconChevronLeftLarge"
+                              size="s"
+                              tuiIconButton
+                              type="button"
+                              (click)="carousel.prev()"
+                      ></button>
+                      <button class="button"
+                              appearance="custom"
+                              icon="tuiIconChevronRightLarge"
+                              size="s"
+                              tuiIconButton
+                              type="button"
+                              (click)="carousel.next()"
+                      ></button>
+                    }
+                  </div>
+                  <img class="picture1" [src]="photo" alt="" />
+                </div>
+              </ng-container>
+            </tui-carousel>
+<!--            <tui-pagination-->
+<!--              size="s"-->
+<!--              class="pagination"-->
+<!--              [length]="post.photoUrl.length"-->
+<!--              [(index)]="index"-->
+<!--            ></tui-pagination>-->
+          </div>
 
-<!--          <div class="capAndReaction">-->
-<!--            <div class="capPicture">-->
-<!--              <p class="cap" *ngFor="let hashtag of post.hashtag">-->
-<!--                <span class="vegan"> #{{ hashtag }} </span>-->
-<!--              </p>-->
-<!--              <span class="name">-->
-<!--                {{ post.content }}-->
-<!--              </span>-->
-<!--            </div>-->
+          <div class="capAndReaction">
+            <div class="capPicture">
+              <p class="cap" *ngFor="let hashtag of post.hashtag">
+                <span class="vegan"> #{{ hashtag }} </span>
+              </p>
+              <span class="name">
+                {{ post.content }}
+              </span>
+            </div>
 
-<!--            <div class="reaction">-->
-<!--              <div class="tymAndCmt">-->
-<!--                <button-->
-<!--                  icon="tuiIconHeart"-->
-<!--                  tuiIconButton-->
-<!--                  appearance="flat"-->
-<!--                  type="button"-->
-<!--                  class="heartBtn tui-space_right-3 tui-space_bottom-3"-->
-<!--                ></button>-->
+            <div class="reaction">
+              <div class="tymAndCmt">
+                <button
+                  icon="tuiIconHeart"
+                  tuiIconButton
+                  appearance="flat"
+                  type="button"
+                  class="heartBtn tui-space_right-3 tui-space_bottom-3"
+                ></button>
 
-<!--                <button-->
-<!--                  icon="tuiIconMessageSquare"-->
-<!--                  tuiIconButton-->
-<!--                  appearance="flat"-->
-<!--                  type="button"-->
-<!--                  class="tui-space_right-3 tui-space_bottom-3"-->
-<!--                ></button>-->
-<!--              </div>-->
+                <button
+                  icon="tuiIconMessageSquare"
+                  tuiIconButton
+                  appearance="flat"
+                  type="button"
+                  class="tui-space_right-3 tui-space_bottom-3"
+                ></button>
+              </div>
 
-<!--              <button-->
-<!--                icon="tuiIconShare"-->
-<!--                tuiIconButton-->
-<!--                appearance="flat"-->
-<!--                type="button"-->
-<!--                class="tui-space_right-3 tui-space_bottom-3"-->
-<!--              ></button>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      }-->
+              <button
+                icon="tuiIconShare"
+                tuiIconButton
+                appearance="flat"
+                type="button"
+                class="tui-space_right-3 tui-space_bottom-3"
+              ></button>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   </div>
 </tui-loader>
