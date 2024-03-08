@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../../ngrx/auth/auth.state';
+import { AuthState } from '../../../ngrx/auth/auth.state'
 import { HttpClientAuth } from '../../util/http-client-auth';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class PostService {
   constructor(
     private httpClient: HttpClientAuth,
     private store: Store<{ auth: AuthState }>,
-  ) {}
+  ) { }
 
   getAllPosts(token: string) {
     console.log('token', token);

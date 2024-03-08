@@ -20,6 +20,8 @@ import { reportReducer } from '../ngrx/report/report.reducer';
 import { ReportEffect } from '../ngrx/report/report.effect';
 import { dev_environment } from '../environments/environment.development';
 import { HttpClientAuth } from './util/http-client-auth';
+import { storageReducer } from '../ngrx/storage/reducer/storage.reducer';
+import { StorageEffects } from '../ngrx/storage/effects/storage.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,11 +35,14 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(provideFirestore(() => getFirestore())),
     importProvidersFrom(provideDatabase(() => getDatabase())),
     importProvidersFrom(provideStorage(() => getStorage())),
-    provideStore(),
+    provideStore({
+
+    }),
     provideState({ name: 'auth', reducer: authReducer }),
     provideState({ name: 'post', reducer: postReducer }),
     provideState({ name: 'report', reducer: reportReducer }),
-    provideEffects([AuthEffects, PostEffect, ReportEffect]),
+    provideState({ name: 'storage', reducer: storageReducer }),
+    provideEffects([AuthEffects, PostEffect, ReportEffect, StorageEffects]),
     provideHttpClient(),
     HttpClientAuth,
   ],
