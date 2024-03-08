@@ -32,6 +32,9 @@ import * as AuthActions from '../ngrx/auth/auth.actions';
   ],
 })
 export class AppComponent implements OnInit {
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   uid = '';
 
   token$ = this.store.select('auth', 'token');
@@ -68,7 +71,7 @@ export class AppComponent implements OnInit {
 
     this.isGetAuthSuccess$.subscribe((authCredential) => {
       if (authCredential.email) {
-        // this.router.navigate(['/register']).then();
+        this.router.navigate(['/register']).then();
       }
     });
     this.getAuthErrorResponse$.subscribe((error) => {
