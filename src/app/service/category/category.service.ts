@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import {HttpClientAuth} from "../../util/http-client-auth";
+import { HttpClientAuth } from '../../util/http-client-auth';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryService {
+  constructor(private httpClient: HttpClientAuth) {}
 
-  constructor(private httpClient: HttpClientAuth) { }
-
-  getCategory(){
+  getCategory() {
     return this.httpClient.get('category');
   }
 
-  getCategoryList(){
-    return this.httpClient.get('category/all');
+  getCategories(page: number) {
+    return this.httpClient.get(`category/all?page=${page}`);
   }
 }

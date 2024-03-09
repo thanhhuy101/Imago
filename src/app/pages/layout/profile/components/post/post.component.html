@@ -4,25 +4,59 @@
   [overlay]="true"
   [showLoader]="loader"
 >
+  @if(list.length ==0){
+    <div class="noPost">
+      <div class="circlePicture" [routerLink]="'/creator'" >
+        <span class="material-symbols-outlined">
+      add_a_photo
+      </span>
+      </div>
+      <h2 class="titleNoPost"> Add a photo </h2>
+    </div>
+
+  }
   <div class="main">
+
     <div class="allPost">
+
       @for (post of list; track post.id; let i = $index) {
         <div class="post">
           <div class="picture-post1">
-            <tui-carousel [(index)]="index">
-              <ng-container *ngFor="let photo of post.photoUrl">
+            <tui-carousel  #carousel >
+              <ng-container  *ngFor="let photo of post.photoUrl">
                 <div class="photolist" *tuiItem>
+                  <div class="btn_picture">
+                    @if (post.photoUrl.length >= 2){
+                      <button class="button"
+                              appearance="custom"
+                              icon="tuiIconChevronLeftLarge"
+                              size="s"
+                              tuiIconButton
+                              type="button"
+                              (click)="carousel.prev()"
+                      ></button>
+                      <button class="button"
+                              appearance="custom"
+                              icon="tuiIconChevronRightLarge"
+                              size="s"
+                              tuiIconButton
+                              type="button"
+                              (click)="carousel.next()"
+                      ></button>
+                    }
+                  </div>
                   <img class="picture1" [src]="photo" alt="" />
                 </div>
               </ng-container>
             </tui-carousel>
-            <tui-pagination
-              size="s"
-              class="pagination"
-              [length]="post.photoUrl.length"
-              [(index)]="index"
-            ></tui-pagination>
+<!--            <tui-pagination-->
+<!--              size="s"-->
+<!--              class="pagination"-->
+<!--              [length]="post.photoUrl.length"-->
+<!--              [(index)]="index"-->
+<!--            ></tui-pagination>-->
           </div>
+
           <div class="capAndReaction">
             <div class="capPicture">
               <p class="cap" *ngFor="let hashtag of post.hashtag">

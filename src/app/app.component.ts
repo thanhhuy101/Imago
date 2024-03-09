@@ -32,6 +32,9 @@ import * as AuthActions from '../ngrx/auth/auth.actions';
   ],
 })
 export class AppComponent implements OnInit {
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   uid = '';
 
   token$ = this.store.select('auth', 'token');
