@@ -16,14 +16,14 @@ const initialState: PostState = {
 export const postReducer = createReducer(
   initialState,
   on(PostActions.getAllPost, (state, { type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       loading: true,
     };
   }),
   on(PostActions.getAllPostSuccess, (state, { postList, type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       postList: postList,
@@ -33,7 +33,7 @@ export const postReducer = createReducer(
   on(
     PostActions.getAllPostFailure,
     (state, { getAllPostErrorMessage, type }) => {
-      console.log(type);
+      // console.log(type);
       return {
         ...state,
         error: getAllPostErrorMessage,
@@ -43,7 +43,7 @@ export const postReducer = createReducer(
   ),
 
   on(PostActions.createPost, (state, { type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       loading: true,
@@ -51,7 +51,7 @@ export const postReducer = createReducer(
   }),
 
   on(PostActions.createPostSuccess, (state, { post, type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       Post: post,
@@ -61,7 +61,7 @@ export const postReducer = createReducer(
   }),
 
   on(PostActions.createPostFailure, (state, { message, type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       error: message,
@@ -72,7 +72,7 @@ export const postReducer = createReducer(
 
   //get mine
   on(PostActions.getMine, (state, { type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       list: <PostResponse>{},
@@ -81,7 +81,7 @@ export const postReducer = createReducer(
   }),
 
   on(PostActions.getMineSuccess, (state, { list, type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       list: list,
@@ -91,7 +91,7 @@ export const postReducer = createReducer(
   }),
 
   on(PostActions.getMineFailure, (state, { message, type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       error: message,

@@ -1,30 +1,20 @@
 import { Component } from '@angular/core';
+import { ShareModule } from '../../../../../shared/share.module';
+import { TaigaModule } from '../../../../../shared/taiga.module';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [],
+  imports: [ShareModule, TaigaModule],
   templateUrl: './comment.component.html',
-  styleUrl: './comment.component.scss'
+  styleUrl: './comment.component.scss',
 })
 export class CommentComponent {
-  listComment = [
+  comments = [
     {
-      id: 1,
-      name: 'Nguyễn Văn A',
-      avatar: '/assets/images/logo.png',
-      content: 'Lorem Ipsum is simply dummy text of printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-      image: '/assets/images/picture1.png',
-      time: 11,
+      name: '',
+      kind: '',
+      time: '',
     },
-    {
-      id: 2,
-      name: 'Nguyễn Văn B',
-      avatar: '/assets/images/logo.png',
-      content: 'Lorem Ipsum is simply dummy text of printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-      image: '/assets/images/picture2.png',
-      time: 12,
-    },
-
   ];
 }
