@@ -5,6 +5,7 @@ export interface PostState {
   list: PostResponse;
   Post: PostModel;
   isGetMineSucces: boolean;
+  isGetsucces: boolean;
   isSucces: boolean;
   loading: boolean;
   error: string;

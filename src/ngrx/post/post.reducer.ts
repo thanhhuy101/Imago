@@ -8,6 +8,7 @@ const initialState: PostState = {
   list: <PostResponse>{},
   Post: <PostModel>{},
   isSucces: false,
+  isGetsucces: false,
   isGetMineSucces: false,
   loading: false,
   error: '',
@@ -50,11 +51,11 @@ export const postReducer = createReducer(
     };
   }),
 
-  on(PostActions.createPostSuccess, (state, { post, type }) => {
+  on(PostActions.createPostSuccess, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      Post: post,
+
       loading: false,
       isSucces: true,
     };
@@ -97,6 +98,66 @@ export const postReducer = createReducer(
       error: message,
       loading: false,
       isGetMineSucces: false,
+    };
+  }),
+
+  //get by share
+  on(PostActions.getByShareId, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      list: <PostResponse>{},
+      loading: true,
+    };
+  }),
+
+  on(PostActions.getByShareIdSuccess, (state, { list, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      list: list,
+      loading: false,
+      isGetsucces: true,
+    };
+  }),
+
+  on(PostActions.getByShareIdFailure, (state, { message, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      error: message,
+      loading: false,
+      isGetsucces: false,
+    };
+  }),
+
+  //get by mention
+  on(PostActions.getByMentionId, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      list: <PostResponse>{},
+      loading: true,
+    };
+  }),
+
+  on(PostActions.getByMentionIdSuccess, (state, { list, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      list: list,
+      loading: false,
+      isGetsucces: true,
+    };
+  }),
+
+  on(PostActions.getByMentionIdFailure, (state, { message, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      error: message,
+      loading: false,
+      isGetsucces: false,
     };
   }),
 );

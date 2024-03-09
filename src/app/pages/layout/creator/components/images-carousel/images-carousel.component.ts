@@ -1,11 +1,17 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TaigaModule } from '../../../../../shared/taiga.module';
 import { ShareModule } from '../../../../../shared/share.module';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { TuiFileLike } from '@taiga-ui/kit';
 import { TuiValidationError } from '@taiga-ui/cdk';
 import { NotificationService } from '../../../../../service/notification/notification.service';
-import{ StorageService } from '../../../../../service/storage/storage.service';
+import { StorageService } from '../../../../../service/storage/storage.service';
 import { Store } from '@ngrx/store';
 import { StorageState } from '../../../../../../ngrx/storage/state/storage.state';
 import { AuthState } from '../../../../../../ngrx/auth/auth.state';
@@ -36,9 +42,9 @@ export class ImagesCarouselComponent implements OnInit {
   files: File[] = [];
   idTokenImage = '';
   uid = '';
-  postId= '';
+  postId = '';
 
-  linkOfImage : string[] = []
+  linkOfImage: string[] = [];
 
   storageState$ = this.store.select('storage', 'url');
   isStorageUploading$ = this.store.select('storage', 'isUploading');
@@ -51,24 +57,20 @@ export class ImagesCarouselComponent implements OnInit {
       storage: StorageState;
       auth: AuthState;
     }>,
-    ) {
-      onAuthStateChanged(this.auth, async (user) => {
-      
-        if (user) {
-          const idToken = await user.getIdToken();
-          
-          this.uid = user.uid;
-          this.idTokenImage = idToken;
-          console.log('uid', user.uid);
-          
-        }
-      });
-      this.postId = Math.floor(
-        Math.random() * Math.floor(Math.random() * Date.now())
-      ).toString();
-      
+  ) {
+    onAuthStateChanged(this.auth, async (user) => {
+      if (user) {
+        const idToken = await user.getIdToken();
 
-    }
+        this.uid = user.uid;
+        this.idTokenImage = idToken;
+        console.log('uid', user.uid);
+      }
+    });
+    this.postId = Math.floor(
+      Math.random() * Math.floor(Math.random() * Date.now()),
+    ).toString();
+  }
   ngOnInit(): void {
     this.control.valueChanges.subscribe((response: File[] | null) => {
       if (response) {
@@ -96,28 +98,21 @@ export class ImagesCarouselComponent implements OnInit {
             }
           };
         });
-       
-       
       }
     });
-    
-  
+
     //how to upload file[] to firebase storage
-  
 
-    this.storageState$.subscribe((url) => {
-      if (url) {
-        url.forEach((url: string) => {
-          this.linkOfImage.push(url);
-      });
-      console.log('linkOfImage', this.linkOfImage)
-      }
-    });
-   
-    
+    // this.storageState$.subscribe((url) => {
+    //   if (url) {
+    //     url.forEach((url: string) => {
+    //       this.linkOfImage.push(url);
+    //     });
+    //     console.log('linkOfImage', this.linkOfImage);
+    //     this.responseImageList.emit(this.linkOfImage);
+    //   }
+    // });
   }
-
- 
 
   get rounded(): number {
     return Math.floor(this.index / this.itemsCount);
@@ -129,8 +124,6 @@ export class ImagesCarouselComponent implements OnInit {
 
   onReject(files: TuiFileLike | readonly TuiFileLike[]): void {
     this.rejectedFiles = [...this.rejectedFiles, ...(files as TuiFileLike[])];
-   
-    
   }
 
   deleteImage(index: number): void {
@@ -139,7 +132,7 @@ export class ImagesCarouselComponent implements OnInit {
     // delete file from the list
     this.control.setValue(this.control.value!.filter((_, i) => i !== index));
     this.files.slice(index, 1);
-    console.log('filesRemove', this.files)
+    console.log('filesRemove', this.files);
     this.responseChangeEvent.emit(this.imageList);
     if (this.imageList.length === 0) {
       this.imageList = ['https://via.placeholder.com/450'];
@@ -150,7 +143,7 @@ export class ImagesCarouselComponent implements OnInit {
     }
   }
 
-  upLoadImage(){
+  upLoadImage() {
     this.files.forEach((file: File) => {
       this.store.dispatch(
         StorageActions.upLoadFile({
@@ -158,10 +151,9 @@ export class ImagesCarouselComponent implements OnInit {
           fileName: `${this.uid}/posts/${this.postId}`,
           idToken: this.idTokenImage,
         }),
-      )
+      );
       this.files = [];
-     });
-   ;
+    });
   }
 }
 
