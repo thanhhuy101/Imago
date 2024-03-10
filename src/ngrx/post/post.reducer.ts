@@ -24,8 +24,8 @@ export const postReducer = createReducer(
       loading: true,
     };
   }),
-  on(PostActions.getAllPostSuccess, (state, { list, type }) => {
-    // console.log(type);
+  on(PostActions.getAllPostSuccess, (state, { postList, type }) => {
+    console.log(type);
     return {
       ...state,
       list: list,
@@ -52,8 +52,8 @@ export const postReducer = createReducer(
     };
   }),
 
-  on(PostActions.createPostSuccess, (state, { type }) => {
-    // console.log(type);
+  on(PostActions.createPostSuccess, (state, { post, type }) => {
+    console.log(type);
     return {
       ...state,
 
