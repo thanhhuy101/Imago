@@ -34,44 +34,46 @@ export class ProfileEffect {
   // );
 
   //get profile
-  // getProfile$ = createEffect(() =>
-  //   this.action$.pipe(
-  //     ofType(ProfileActions.getProfile),
-  //     switchMap(() => {
-  //       return this.profileService.getProfile().pipe(
-  //         map((profile: any) => {
-  //           return ProfileActions.getProfileSuccess({ profile });
-  //         }),
-  //         catchError((error) => {
-  //           return of(
-  //             ProfileActions.getProfileFailure({
-  //               getProfileErrorMessage: error,
-  //             }),
-  //           );
-  //         }),
-  //       );
-  //     }),
-  //   ),
-  // );
+  getProfile$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ProfileActions.getProfile),
+      switchMap(() => {
+        return this.profileService.getProfile().pipe(
+          map((profile) => {
+            return ProfileActions.getProfileSuccess({ profile });
+          }),
+          catchError((error) =>
+            of(
+              ProfileActions.getProfileFailure({
+                getProfileErrorMessage: error,
+              }),
+            ),
+          ),
+        );
+      }),
+    ),
+  );
 
   //create profile
   createProfile$ = createEffect(() =>
     this.action$.pipe(
       ofType(ProfileActions.createProfile),
-      switchMap((action) => {
-        console.log(action.profile);
-        return this.profileService.createProfile(action.profile).pipe(
-          map((profile: ProfileModel) => {
-            console.log(profile);
-            return ProfileActions.createProfileSuccess({ profile: profile });
+      switchMap(({ profile }) => {
+        console.log(profile);
+        return this.profileService.createProfile(profile).pipe(
+          map((createProfile) => {
+            console.log(createProfile);
+            return ProfileActions.createProfileSuccess({
+              profile: createProfile,
+            });
           }),
-          catchError((error) => {
-            return of(
+          catchError((error) =>
+            of(
               ProfileActions.createProfileFailure({
                 createProfileErrorMessage: error,
               }),
-            );
-          }),
+            ),
+          ),
         );
       }),
     ),
@@ -81,18 +83,18 @@ export class ProfileEffect {
   updateProfile$ = createEffect(() =>
     this.action$.pipe(
       ofType(ProfileActions.updateProfile),
-      switchMap((action) => {
-        return this.profileService.updateProfile(action.profile).pipe(
+      switchMap(({ profile }) => {
+        return this.profileService.updateProfile(profile).pipe(
           map(() => {
             return ProfileActions.updateProfileSuccess();
           }),
-          catchError((error) => {
-            return of(
+          catchError((error) =>
+            of(
               ProfileActions.updateProfileFailure({
                 updateProfileErrorMessage: error,
               }),
-            );
-          }),
+            ),
+          ),
         );
       }),
     ),
