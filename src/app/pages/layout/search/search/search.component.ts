@@ -4,6 +4,7 @@ import { TuiTabsModule } from "@taiga-ui/kit";
 import { Router, RouterOutlet } from "@angular/router";
 import { TuiAlertService } from "@taiga-ui/core";
 import { TaigaModule } from "../../../../shared/taiga.module";
+import { ShareModule } from '../../../../shared/share.module';
 
 @Component({
   selector: 'app-search',
@@ -13,6 +14,7 @@ import { TaigaModule } from "../../../../shared/taiga.module";
     TuiTabsModule,
     RouterOutlet,
     TaigaModule,
+    ShareModule
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
@@ -71,4 +73,5 @@ export class SearchComponent {
     this.route.navigate(['/search' + this.items[i].router]);
 
   }
+  value = '';
 }

@@ -15,7 +15,7 @@ export class PostService {
   ) { }
 
   getAllPosts(token: string) {
-    console.log('token', token);
+
     return this.httpClient.get('post/all', {
 
     });

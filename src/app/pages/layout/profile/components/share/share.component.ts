@@ -127,7 +127,5 @@ export class ShareComponent {
   showDialog(i: any): void {
     this.selectedItem = this.list[i]
     this.open = true;
-
-
   }
 }

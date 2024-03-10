@@ -4,8 +4,21 @@
   [overlay]="true"
   [showLoader]="loader"
 >
+  @if(list.length ==0){
+    <div class="noPost">
+      <div class="circlePicture" [routerLink]="'/creator'" >
+        <span class="material-symbols-outlined">
+      add_a_photo
+      </span>
+      </div>
+      <h2 class="titleNoPost"> Add a photo </h2>
+    </div>
+
+  }
   <div class="main">
+
     <div class="allPost">
+
       @for (post of list; track post.id; let i = $index) {
         <div class="post">
           <div class="picture-post1">
