@@ -18,13 +18,13 @@ const initialState: PostState = {
 export const postReducer = createReducer(
   initialState,
   on(PostActions.getAllPost, (state, { type }) => {
-    // console.log(type);
+    console.log(type);
     return {
       ...state,
       loading: true,
     };
   }),
-  on(PostActions.getAllPostSuccess, (state, { postList, type }) => {
+  on(PostActions.getAllPostSuccess, (state, { list, type }) => {
     console.log(type);
     return {
       ...state,
@@ -52,7 +52,7 @@ export const postReducer = createReducer(
     };
   }),
 
-  on(PostActions.createPostSuccess, (state, { post, type }) => {
+  on(PostActions.createPostSuccess, (state, { type }) => {
     console.log(type);
     return {
       ...state,
