@@ -4,12 +4,21 @@
     <tui-scrollbar style="height: 100%" [hidden]="true">
       <div class="noti-container">
         @for (item of notifications; track item; let i = $index) {
-          <div class="item" (click)="viewNotification(i)">
-            <tui-avatar
-              size="l"
-              class="tui-space_right-5 tui-space_left-5"
+          <div class="item">
+            <tui-badged-content
+              contentBottom="{{ item.icon }}"
+              size="m"
+              class="tui-space_right-5"
               [rounded]="true"
-            ></tui-avatar>
+              colorBottom="black"
+            >
+              <tui-avatar
+                size="l"
+                class="tui-space_left-5"
+                [rounded]="true"
+                [avatarUrl]="aceHole"
+              ></tui-avatar>
+            </tui-badged-content>
             <div class="content">
               <p class="notifi" style="font-size: large">
                 <strong>{{ item.name }}</strong> {{ item.kind }}

@@ -1,0 +1,26 @@
+<div id="container">
+  <div id="left"></div>
+  <div id="main">
+    <tui-scrollbar style="height: 100%" [hidden]="true">
+      <div class="noti-container">
+        @for (item of likes; track item; let i = $index) {
+          <div class="item">
+            <tui-avatar
+              size="l"
+              class="tui-space_right-5 tui-space_left-5"
+              [rounded]="true"
+              [avatarUrl]="aceHole"
+            ></tui-avatar>
+            <div class="content">
+              <p class="notifi" style="font-size: large">
+                <strong>{{ item.name }}</strong> {{ item.kind }}
+              </p>
+              <p class="time" style="font-size: medium">{{ item.time }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </tui-scrollbar>
+  </div>
+  <div id="right"></div>
+</div>
