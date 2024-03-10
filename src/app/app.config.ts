@@ -26,6 +26,8 @@ import { profileReducer } from '../ngrx/profile/reducer/profile.reducer';
 import { ProfileEffect } from '../ngrx/profile/effects/profile.effects';
 import { categoryReducer } from '../ngrx/category/category.reducer';
 import { CategoryEffect } from '../ngrx/category/category.effects';
+import { notiReducer } from '../ngrx/noti/noti.reducer';
+import { NotiEffect } from '../ngrx/noti/noti.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,6 +48,7 @@ export const appConfig: ApplicationConfig = {
     provideState({ name: 'profile', reducer: profileReducer }),
     provideState({ name: 'storage', reducer: storageReducer }),
     provideState({ name: 'category', reducer: categoryReducer }),
+    provideState({ name: 'notification', reducer: notiReducer }),
     provideEffects([
       AuthEffects,
       PostEffect,
@@ -53,6 +56,7 @@ export const appConfig: ApplicationConfig = {
       CategoryEffect,
       StorageEffects,
       ProfileEffect,
+      NotiEffect,
     ]),
     provideHttpClient(),
     HttpClientAuth,
