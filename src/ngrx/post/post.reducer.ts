@@ -8,6 +8,7 @@ const initialState: PostState = {
   list: <PostResponse>{},
   Post: <PostModel>{},
   isSucces: false,
+  isCreateFailure: false,
   isGetsucces: false,
   isGetMineSucces: false,
   loading: false,
@@ -66,6 +67,7 @@ export const postReducer = createReducer(
     return {
       ...state,
       error: message,
+      isCreateFailure: true,
       loading: false,
       isSucces: false,
     };

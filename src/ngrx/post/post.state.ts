@@ -7,6 +7,7 @@ export interface PostState {
   isGetMineSucces: boolean;
   isGetsucces: boolean;
   isSucces: boolean;
+  isCreateFailure: boolean;
   loading: boolean;
   error: string;
 }

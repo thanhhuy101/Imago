@@ -36,7 +36,7 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
   linkOfImage: string[] = [];
   storageState$ = this.store.select('storage', 'url');
   isCreateSuccess$ = this.store.select('post', 'isSucces');
-  isCreateFailure$ = this.store.select('post', 'error');
+  isCreateFailure$ = this.store.select('post', 'isCreateFailure');
   authState$ = this.store.select('auth', 'isSignInWithGGSuccess');
   auth: AuthCredentialModel = <AuthCredentialModel>{};
   // add default image
@@ -80,6 +80,7 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
     });
     this.isCreateSuccess$.subscribe((isSuccess) => {
       if (isSuccess) {
+        this.isContentChanged = false;
         this.notificationService.successNotification('Post successfully');
         setTimeout(() => {
           this.route.navigate(['/profile/post']);

@@ -64,7 +64,7 @@ export const getByShareIdFailure = createAction(
 //get by mention
 export const getByMentionId = createAction(
   '[Post] Get By Mention Id',
-  props<{ mention: string; page: number; size: number }>(),
+  props<{ page: number; size: number }>(),
 );
 
 export const getByMentionIdSuccess = createAction(

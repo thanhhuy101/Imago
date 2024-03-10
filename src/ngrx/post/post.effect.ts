@@ -81,16 +81,14 @@ export class PostEffect {
     this.action$.pipe(
       ofType(PostActions.getByMentionId),
       mergeMap((action) => {
-        return this.postService
-          .getByMentionId(action.mention, action.page, action.size)
-          .pipe(
-            map((postList) => {
-              return PostActions.getByMentionIdSuccess({ list: postList });
-            }),
-            catchError((error) => {
-              return of(PostActions.getByMentionIdFailure({ message: error }));
-            }),
-          );
+        return this.postService.getByMentionId(action.page, action.size).pipe(
+          map((postList) => {
+            return PostActions.getByMentionIdSuccess({ list: postList });
+          }),
+          catchError((error) => {
+            return of(PostActions.getByMentionIdFailure({ message: error }));
+          }),
+        );
       }),
     ),
   );

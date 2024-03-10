@@ -32,9 +32,7 @@ export class PostService {
     return this.httpClient.get(`post/share?page=${page}&size=${size}`);
   }
 
-  getByMentionId(mention: string, page: number, size: number) {
-    return this.httpClient.get(
-      `post/mention/${mention}?page=${page}&size=${size}`,
-    );
+  getByMentionId(page: number, size: number) {
+    return this.httpClient.get(`post/mention/?page=${page}&size=${size}`);
   }
 }
