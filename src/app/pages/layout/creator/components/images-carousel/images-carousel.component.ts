@@ -40,34 +40,23 @@ export class ImagesCarouselComponent implements OnInit {
 
   linkOfImage : string[] = []
 
+  authState$ = this.store.select('auth', 'authCredential');
+
   storageState$ = this.store.select('storage', 'url');
   isStorageUploading$ = this.store.select('storage', 'isUploading');
 
   constructor(
     private notificationService: NotificationService,
     private storageService: StorageService,
-    private auth: Auth,
+  
     private store: Store<{
       storage: StorageState;
       auth: AuthState;
     }>,
     ) {
-      onAuthStateChanged(this.auth, async (user) => {
-      
-        if (user) {
-          const idToken = await user.getIdToken();
-          
-          this.uid = user.uid;
-          this.idTokenImage = idToken;
-          console.log('uid', user.uid);
-          
-        }
-      });
       this.postId = Math.floor(
         Math.random() * Math.floor(Math.random() * Date.now())
       ).toString();
-      
-
     }
   ngOnInit(): void {
     this.control.valueChanges.subscribe((response: File[] | null) => {
@@ -129,8 +118,6 @@ export class ImagesCarouselComponent implements OnInit {
 
   onReject(files: TuiFileLike | readonly TuiFileLike[]): void {
     this.rejectedFiles = [...this.rejectedFiles, ...(files as TuiFileLike[])];
-   
-    
   }
 
   deleteImage(index: number): void {

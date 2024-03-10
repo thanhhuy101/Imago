@@ -22,11 +22,11 @@ export const postReducer = createReducer(
       loading: true,
     };
   }),
-  on(PostActions.getAllPostSuccess, (state, { postList, type }) => {
+  on(PostActions.getAllPostSuccess, (state, { list, type }) => {
     console.log(type);
     return {
       ...state,
-      postList: postList,
+      list: list,
       loading: false,
     };
   }),
