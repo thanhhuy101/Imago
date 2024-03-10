@@ -1,79 +1,99 @@
 <div id="container">
-  <div id="category-container">
-    <div class="header">
-      <h1>
-        <span>Your</span>
-        <span style="color: #A7373A"> inclinations</span>
-      </h1>
-      <div class="notion">
-        <p style="font-weight: bold">Select categories which you want to explore on your own.</p>
+  <tui-loader
+    class="loader"
+    [inheritColor]="false"
+    [overlay]="true"
+    [showLoader]="!isLoading"
+    size="xxl"
+  >
+    <div id="category-container">
+      <div class="header">
+        <h1>
+          <span>Your</span>
+          <span style="color: #a7373a"> inclinations</span>
+        </h1>
+        <div class="notion">
+          <p style="font-weight: bold">
+            Select categories which you want to explore on your own.
+          </p>
+        </div>
+      </div>
+      <div class="main">
+        <tui-carousel
+          [itemsCount]="5"
+          [(index)]="index"
+          [style.--tui-carousel-padding]="0"
+          [draggable]="false"
+          style="margin-bottom: 30px"
+        >
+          <ng-container>
+            @for (item of items; track item; let i = $index) {
+              <div *tuiItem>
+                <div
+                  [ngClass]="{
+                    'category-item': !item.isActive,
+                    active: item.isActive
+                  }"
+                  (click)="toggleActive(item)"
+                >
+                  <span
+                    class="item-pic material-symbols-outlined"
+                    style="font-size: 60px"
+                    >{{ item.logo }}</span
+                  >
+                  <span class="item-name">{{ item.title }}</span>
+                </div>
+              </div>
+            }
+          </ng-container>
+        </tui-carousel>
+        <tui-carousel
+          [itemsCount]="5"
+          [(index)]="index"
+          [style.--tui-carousel-padding]="0"
+          [draggable]="false"
+          style="margin-bottom: 30px"
+        >
+          <ng-container>
+            @for (item of secondaryItems; track item; let i = $index) {
+              <div *tuiItem>
+                <div
+                  [ngClass]="{
+                    'category-item': !item.isActive,
+                    active: item.isActive
+                  }"
+                  (click)="toggleActive(item)"
+                >
+                  <span
+                    class="item-pic material-symbols-outlined"
+                    style="font-size: 60px"
+                    >{{ item.logo }}</span
+                  >
+                  <span class="item-name">{{ item.title }}</span>
+                </div>
+              </div>
+            }
+          </ng-container>
+        </tui-carousel>
+      </div>
+      <tui-pagination
+        size="s"
+        class="tui-space_top-4"
+        [index]="rounded"
+        [length]="6"
+        (indexChange)="onIndex($event)"
+      ></tui-pagination>
+      <div class="footer">
+        <button
+          tuiButton
+          type="button"
+          class="tui-space_right-3"
+          size="m"
+          (click)="next()"
+        >
+          Next
+        </button>
       </div>
     </div>
-    <div class="main">
-      <tui-carousel
-        [itemsCount]="5"
-        [(index)]="index"
-        [style.--tui-carousel-padding]="0"
-        [draggable]="false"
-        style="margin-bottom: 30px;"
-      >
-        <ng-container>
-          @for(item of items; track item; let i = $index){
-          <div *tuiItem >
-            <div [ngClass]="{'category-item': !item.isActive, 'active': item.isActive}" (click)="toggleActive(item)">
-              <span class="item-pic material-symbols-outlined" style="font-size: 60px">{{item.logo}}</span>
-              <span class="item-name">{{item.title}}</span>
-            </div>
-          </div>
-          }
-        </ng-container>
-      </tui-carousel>
-      <tui-carousel
-        [itemsCount]="5"
-        [(index)]="index"
-        [style.--tui-carousel-padding]="0"
-        [draggable]="false"
-        style="margin-bottom: 30px;"
-      >
-        <ng-container>
-          @for(item of secondaryItems; track item; let i = $index){
-            <div *tuiItem >
-              <div [ngClass]="{'category-item': !item.isActive, 'active': item.isActive}" (click)="toggleActive(item)">
-                <span class="item-pic material-symbols-outlined" style="font-size: 60px">{{item.logo}}</span>
-                <span class="item-name">{{item.title}}</span>
-              </div>
-            </div>
-          }
-        </ng-container>
-      </tui-carousel>
-
-    </div>
-    <tui-pagination
-      size="s"
-      class="tui-space_top-4"
-      [index]="rounded"
-      [length]="items.length / itemsCount"
-      (indexChange)="onIndex($event)"
-    ></tui-pagination>
-    <div class="footer">
-      <button
-        tuiButton
-        type="button"
-        class="tui-space_right-3"
-        size="m"
-        appearance="whiteblock-active"
-      >
-        Skip
-      </button>
-      <button
-        tuiButton
-        type="button"
-        class="tui-space_right-3"
-        size="m"
-      >
-        Next
-      </button>
-    </div>
-  </div>
+  </tui-loader>
 </div>
-

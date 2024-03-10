@@ -12,8 +12,12 @@ export interface PostModel {
   comments: CommentModel[];
   mention: string[];
   createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
+// export interface Post{
 
+// }
 export interface PostResponse {
   data: PostModel[];
   endpage: number;

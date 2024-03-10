@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExploreComponent } from './explore.component';
+import { HagtagComponent } from './hagtag.component';
 
-describe('ExploreComponent', () => {
-  let component: ExploreComponent;
-  let fixture: ComponentFixture<ExploreComponent>;
+describe('HagtagComponent', () => {
+  let component: HagtagComponent;
+  let fixture: ComponentFixture<HagtagComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExploreComponent]
+      imports: [HagtagComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ExploreComponent);
+    fixture = TestBed.createComponent(HagtagComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

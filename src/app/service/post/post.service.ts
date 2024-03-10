@@ -16,10 +16,7 @@ export class PostService {
 
   getAllPosts(token: string) {
     console.log('token', token);
-  
-    return this.httpClient.get('post/all', {
-    
-    });
+    return this.httpClient.get('post/all?page=1');
   }
 
   createPost(post: PostModel) {
@@ -28,5 +25,13 @@ export class PostService {
 
   getMine(page: number, size: number) {
     return this.httpClient.get(`post/mine?page=${page}&size=${size}`);
+  }
+
+  getByShareId(page: number, size: number) {
+    return this.httpClient.get(`post/share?page=${page}&size=${size}`);
+  }
+
+  getByMentionId(page: number, size: number) {
+    return this.httpClient.get(`post/mention/?page=${page}&size=${size}`);
   }
 }

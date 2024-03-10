@@ -142,15 +142,16 @@
   padding: 0 !important;
   justify-content: flex-start !important;
 }
-.btn_picture{
+.btn_picture {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.photolist{
- position: relative;
+.photolist {
+  z-index: 0;
+  position: relative;
   display: inline-block;
-  .btn_picture{
+  .btn_picture {
     position: absolute;
     display: flex;
     justify-content: space-between;
@@ -160,11 +161,12 @@
     padding: 5px;
   }
 }
-.button{
-  background-color: rgba(255 ,255, 255,0.3);
-  border-radius: 50px;opacity: 1;
+.button {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  opacity: 1;
 }
-.noPost{
+.noPost {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -173,7 +175,7 @@
   height: 100%;
   margin: 10rem 0rem;
 }
-.iconNoPicture{
+.iconNoPicture {
   width: 100%;
   height: 100%;
   display: flex;
@@ -181,19 +183,19 @@
   align-items: center;
   font-size: 10rem;
 }
-.titleNoPost{
+.titleNoPost {
   margin-block-end: 3rem;
   font-size: 2rem;
 }
-.btn_createPost{
+.btn_createPost {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.material-symbols-outlined{
+.material-symbols-outlined {
   font-size: 5rem;
 }
-.circlePicture{
+.circlePicture {
   border: 3px solid black;
   border-radius: 50%;
   width: 11rem;
@@ -203,9 +205,19 @@
   align-items: center;
   cursor: pointer;
 }
-.circlePicture:hover{
-  background-color:  #262626;
+.circlePicture:hover {
+  background-color: #262626;
   color: white;
 }
 
-
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  opacity: 0.6;
+  z-index: 1;
+  width: 2rem !important;
+  height: 2rem;
+  border-radius: 50%;
+}

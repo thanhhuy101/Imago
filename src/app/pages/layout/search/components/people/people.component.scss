@@ -1,218 +1,178 @@
-body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  font-family: "Noto Sans", sans-serif;
-}
-.container{
+.container {
   width: 100%;
   height: 100%;
-}
-.header{
-  height: 8%;
-  width: 100%;
-}
-.main{
-  height: 92%;
-  width: 100%;
-}
-.navBar{
-  height: 100%;
-  width: calc(100% - 200px);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 100px;
-}
-.logo{
-  height: 70px;
-  width: 70px;
-}
-.logo-img{
-  height: 50px;
-  width: 50px;
-}
-.navLinks{
-  height: 100%;
-  width: 25%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.search{
-  height: 55px;
-  border-bottom: 1px solid black;
-  display: flex;
-  align-items: center;
-}
-
-.boderSearch{
-  border: 1px solid rgb(219, 216, 216);
-  width: 65%;
-  height: 50px;
-  border-radius: 10px;
-  display: flex;
-  justify-items: center;
-  flex-direction: row;
-  align-items: center;
-  padding:0px 10px;
-  color: rgb(182, 182, 182);
-}
-input{
-  height: 30px;
-  width: 450px;
-  border:none;
-  font-size: 18px;
-  margin-left: 5px;
-}
-.searchAll{
-  display: flex;
-  flex-direction: row;
-  margin-top: 50px;
-}
-.left{
-  width: 50%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.filter{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 85%;
-  justify-content: space-around;
-  border-bottom: 1px solid rgb(219, 219, 219);
-
-}
-.post{
-  margin-left: 5px;
-}
-.people{
-  margin-left: 5px;
-}
-.group{
-  margin-left: 5px;
-}
-.explore{
-  margin-left: 5px;
-}
-.filter-post{
-  display: flex;
-  align-items: center;
-}
-
-.filter-group{
-  display: flex;
-  align-items: center;
-}
-
-.filter-explore{
-  display: flex;
-  align-items: center;
-}
-.right{
-  width: 50%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.filter-people{
-  height: 55px;
-  border-bottom: 1px solid blue;
-  display: flex;
-  align-items: center;
-}
-.avatarUser{
-  width: 60px;
-  height: 60px;
-}
-.avatar{
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-.infor{
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  align-items: center;
+
+  .col {
+    width: 50%;
+    margin-top: 1rem;
+    border-bottom: 1px solid #e1e1e1;
+    height: fit-content;
+  }
 }
-.detailInformation{
+::ng-deep.content {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-.inforUser{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-.name{
-  font-weight: bold;
-}
-
-.follow{
-  width: 87px;
-  height: 30px;
-  border-radius: 8px;
-  color: white;
-  background-color: black;
-  cursor: pointer;
-  font-weight: bold;
-}
-.follow:hover{
-  background-color: rgb(95, 95, 204);
-
-}
-.userCard{
-  background-color: rgb(249, 244, 244);
-  width: 412px;
-  height: max-content;
-  padding: 10px;
-  margin-right: 20px;
-  border-radius: 10px;
-}
-.follower-user {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.follower {
-  display: flex;
-  width: 80px;
-  height: 50px;
-  /* background-color: white; */
-  align-items: center;
-  font-weight: bold;
-}
-
-
-.follower-avatar1 {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-
-.follower-avatar2 {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  border: 1px solid white;
-  position: relative;
-  margin-left: -18px;
-}
-
-.bio-user{
-}
-.informationCard{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  outline: none;
   width: 100%;
-  padding: 0px 100px;
-  margin-top: 50px;
+}
+::ng-deep .tui-island {
+  position: static !important;
+}
+::ng-deep .tui_avatar1 {
+  width: 4rem !important;
+  height: 4rem !important;
+}
+::ng-deep .tui-island__content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+::ng-deep .tui-island_size_m {
+  padding: 0.25rem !important;
+}
+#flBtn {
+  background-color: #262626;
+  color: #fff;
+}
+.tui-island__category {
+  text-align: start;
+}
+#flBtn:hover {
+  background-color: #3f3f3f;
+}
+
+.top {
+  display: flex;
+  align-items: start;
+  margin-bottom: 1rem;
+  .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 1rem;
+    .tui-island__title {
+      width: 10rem;
+      font-size: 1.1rem;
+    }
+  }
+}
+@media (min-width: 750px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .col {
+      width: 60%;
+      margin-top: 1rem;
+      border-bottom: 1px solid #e1e1e1;
+      height: fit-content;
+    }
+  }
+}
+
+@media (min-width: 1000px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .col {
+      width: 50%;
+      margin-top: 1rem;
+      border-bottom: 1px solid #e1e1e1;
+      height: fit-content;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .col {
+      width: 70%;
+      margin-top: 1rem;
+      border-bottom: 1px solid #e1e1e1;
+      height: fit-content;
+    }
+  }
+}
+@media (min-width: 1500px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .col {
+      width: 45%;
+      margin-top: 1rem;
+      border-bottom: 1px solid #e1e1e1;
+      height: fit-content;
+    }
+  }
+}
+
+@media (min-width: 2000px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .col {
+      width: 35%;
+      margin-top: 1rem;
+      border-bottom: 1px solid #e1e1e1;
+      height: fit-content;
+    }
+  }
+}
+
+@media (min-width: 3000px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .col {
+      width: 30%;
+      margin-top: 1rem;
+      border-bottom: 1px solid #e1e1e1;
+      height: fit-content;
+    }
+  }
+}
+
+@media (min-width: 4000px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .col {
+      width: 25%;
+      margin-top: 1rem;
+      border-bottom: 1px solid #e1e1e1;
+      height: fit-content;
+    }
+  }
 }
