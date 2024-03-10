@@ -15,6 +15,7 @@ import { AuthState } from '../../../ngrx/auth/auth.state';
 import { CategoryModel } from '../../model/category.model';
 import { set } from '@firebase/database';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../service/notification/notification.service';
 
 type Category = {
   id: string;
@@ -62,6 +63,7 @@ export class InterestComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store<{ category: CategoryState; auth: AuthState }>,
+    private alertService: NotificationService,
   ) {
     for (let index = 0; index < 50; index++) {
       this.items[index] = {
@@ -183,9 +185,14 @@ export class InterestComponent implements OnInit, OnDestroy {
   }
 
   next() {
-    this.selectedItems.forEach((item: any) => {
-      console.log(item.id);
-    });
-    this.router.navigate(['/home']).then();
+    // this.selectedItems.forEach((item: any) => {
+    //   console.log(item.id);
+    // });
+    if (this.selectedItems.length > 0) {
+      this.alertService.successNotification("Let's get started!");
+      this.router.navigate(['/home']).then();
+    } else {
+      this.alertService.errorNotification('Please select at least 1 category');
+    }
   }
 }

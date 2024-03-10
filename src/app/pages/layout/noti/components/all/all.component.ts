@@ -11,102 +11,93 @@ import { TaigaModule } from '../../../../../shared/taiga.module';
   styleUrl: './all.component.scss',
 })
 export class AllComponent {
+  aceHole =
+    'https://qph.cf2.quoracdn.net/main-qimg-1c75fec28dcae94eadff9cd7899ae5f5-lq';
+
   notifications = [
-    // generate notifications for testing about 20 items
     {
-      name: 'John Doe',
+      name: 'Monkey D. Luffy',
+      time: '1 hour ago',
       kind: 'followed on you',
-      time: '2 hours ago',
+      icon: 'tuiIconUserCheck',
     },
     {
-      name: 'John Doe',
+      name: 'Roronoa Zoro',
+      time: '2 hours ago',
       kind: 'liked your post',
-      time: '2 hours ago',
+      icon: 'tuiIconThumbsUp',
     },
     {
-      name: 'John Doe',
+      name: 'Nami',
+      time: '3 hours ago',
       kind: 'commented on your post',
-      time: '2 hours ago',
+      icon: 'tuiIconMessageSquare',
     },
     {
-      name: 'John Doe',
+      name: 'Usopp',
+      time: '4 hours ago',
       kind: 'followed on you',
-      time: '2 hours ago',
+      icon: 'tuiIconUserCheck',
     },
     {
-      name: 'John Doe',
+      name: 'Sanji',
+      time: '5 hours ago',
       kind: 'liked your post',
-      time: '2 hours ago',
+      icon: 'tuiIconThumbsUp',
     },
     {
-      name: 'John Doe',
+      name: 'Tony Tony Chopper',
+      time: '6 hours ago',
       kind: 'commented on your post',
-      time: '2 hours ago',
+      icon: 'tuiIconMessageSquare',
     },
     {
-      name: 'John Doe',
+      name: 'Nico Robin',
+      time: '7 hours ago',
       kind: 'followed on you',
-      time: '2 hours ago',
+      icon: 'tuiIconUserCheck',
     },
     {
-      name: 'John Doe',
+      name: 'Franky',
+      time: '8 hours ago',
       kind: 'liked your post',
-      time: '2 hours ago',
+      icon: 'tuiIconThumbsUp',
     },
     {
-      name: 'John Doe',
+      name: 'Brook',
+      time: '9 hours ago',
       kind: 'commented on your post',
-      time: '2 hours ago',
+      icon: 'tuiIconMessageSquare',
     },
     {
-      name: 'John Doe',
+      name: 'Jinbe',
+      time: '10 hours ago',
       kind: 'followed on you',
-      time: '2 hours ago',
+      icon: 'tuiIconUserCheck',
     },
     {
-      name: 'John Doe',
+      name: 'Trafalgar D. Water Law',
+      time: '11 hours ago',
       kind: 'liked your post',
-      time: '2 hours ago',
+      icon: 'tuiIconThumbsUp',
     },
     {
-      name: 'John Doe',
+      name: 'Basil Hawkins',
+      time: '12 hours ago',
       kind: 'commented on your post',
-      time: '2 hours ago',
+      icon: 'tuiIconMessageSquare',
     },
     {
-      name: 'John Doe',
+      name: 'Scratchmen Apoo',
+      time: '13 hours ago',
       kind: 'followed on you',
-      time: '2 hours ago',
+      icon: 'tuiIconUserCheck',
     },
     {
-      name: 'John Doe',
+      name: 'Eustass Kid',
+      time: '14 hours ago',
       kind: 'liked your post',
-      time: '2 hours ago',
-    },
-    {
-      name: 'John Doe',
-      kind: 'commented on your post',
-      time: '2 hours ago',
-    },
-    {
-      name: 'John Doe',
-      kind: 'followed on you',
-      time: '2 hours ago',
-    },
-    {
-      name: 'John Doe',
-      kind: 'liked your post',
-      time: '2 hours ago',
-    },
-    {
-      name: 'John Doe',
-      kind: 'commented on your post',
-      time: '2 hours ago',
-    },
-    {
-      name: 'John Doe',
-      kind: 'followed on you',
-      time: '2 hours ago',
+      icon: 'tuiIconThumbsUp',
     },
   ];
 }
