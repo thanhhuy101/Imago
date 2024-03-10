@@ -109,4 +109,8 @@ export class AllComponent {
       time: '2 hours ago',
     },
   ];
+
+  viewNotification(index: any): void {
+    console.log('view notification', index);
+  }
 }
