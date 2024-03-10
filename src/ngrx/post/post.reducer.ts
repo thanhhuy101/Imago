@@ -35,7 +35,7 @@ export const postReducer = createReducer(
   on(
     PostActions.getAllPostFailure,
     (state, { getAllPostErrorMessage, type }) => {
-      console.log(type);
+      // console.log(type);
       return {
         ...state,
         error: getAllPostErrorMessage,
@@ -45,7 +45,7 @@ export const postReducer = createReducer(
   ),
 
   on(PostActions.createPost, (state, { type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       loading: true,
@@ -63,7 +63,7 @@ export const postReducer = createReducer(
   }),
 
   on(PostActions.createPostFailure, (state, { message, type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       error: message,
@@ -75,7 +75,7 @@ export const postReducer = createReducer(
 
   //get mine
   on(PostActions.getMine, (state, { type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       list: <PostResponse>{},
@@ -84,7 +84,7 @@ export const postReducer = createReducer(
   }),
 
   on(PostActions.getMineSuccess, (state, { list, type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       list: list,
@@ -94,7 +94,7 @@ export const postReducer = createReducer(
   }),
 
   on(PostActions.getMineFailure, (state, { message, type }) => {
-    console.log(type);
+    // console.log(type);
     return {
       ...state,
       error: message,
@@ -160,6 +160,34 @@ export const postReducer = createReducer(
       error: message,
       loading: false,
       isGetsucces: false,
+    };
+  }),
+
+  on(PostActions.resetPostState, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      list: <PostResponse>{},
+      isSucces: false,
+      isCreateFailure: false,
+      isGetsucces: false,
+      isGetMineSucces: false,
+      loading: false,
+      error: '',
+    };
+  }),
+
+  on(PostActions.resetPostState, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      list: <PostResponse>{},
+      isSucces: false,
+      isCreateFailure: false,
+      isGetsucces: false,
+      isGetMineSucces: false,
+      loading: false,
+      error: '',
     };
   }),
 );

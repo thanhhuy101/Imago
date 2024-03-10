@@ -1,30 +1,69 @@
 import { Component } from '@angular/core';
+import { ShareModule } from '../../../../../shared/share.module';
+import { TaigaModule } from '../../../../../shared/taiga.module';
+import { TuiBadgedContentComponent } from '@taiga-ui/kit';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [],
+  imports: [ShareModule, TaigaModule],
   templateUrl: './comment.component.html',
-  styleUrl: './comment.component.scss'
+  styleUrl: './comment.component.scss',
 })
 export class CommentComponent {
-  listComment = [
+  aceHole =
+    'https://qph.cf2.quoracdn.net/main-qimg-1c75fec28dcae94eadff9cd7899ae5f5-lq';
+  comments = [
+    // create 10 objects with data to be displayed with name, kind, time
     {
-      id: 1,
-      name: 'Nguyễn Văn A',
-      avatar: '/assets/images/logo.png',
-      content: 'Lorem Ipsum is simply dummy text of printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-      image: '/assets/images/picture1.png',
-      time: 11,
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
     },
     {
-      id: 2,
-      name: 'Nguyễn Văn B',
-      avatar: '/assets/images/logo.png',
-      content: 'Lorem Ipsum is simply dummy text of printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-      image: '/assets/images/picture2.png',
-      time: 12,
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
     },
-
+    {
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
+    },
+    {
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
+    },
+    {
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
+    },
+    {
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
+    },
+    {
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
+    },
+    {
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
+    },
+    {
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
+    },
+    {
+      name: 'John Doe',
+      kind: 'commented on your post',
+      time: '2 hours ago',
+    },
   ];
 }
