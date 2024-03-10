@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/share.module';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
@@ -9,6 +9,7 @@ import { Store, on } from '@ngrx/store';
 import { StorageState } from '../../../../ngrx/storage/state/storage.state';
 import * as AuthActions from '../../../../ngrx/auth/auth.actions';
 import * as PostActions from '../../../../ngrx/post/post.action';
+import * as StorageActions from '../../../../ngrx/storage/actions/storage.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { AuthCredentialModel } from '../../../model/auth.model';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
@@ -16,6 +17,7 @@ import { PostState } from '../../../../ngrx/post/post.state';
 import { PostModel } from '../../../model/post.model';
 import { error } from '@angular/compiler-cli/src/transformers/util';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-creator',
   standalone: true,
@@ -24,7 +26,9 @@ import { Router } from '@angular/router';
   styleUrl: './creator.component.less',
   encapsulation: ViewEncapsulation.None,
 })
-export class CreatorComponent implements OnInit, CanComponentDeactivate {
+export class CreatorComponent
+  implements OnInit, CanComponentDeactivate, OnDestroy
+{
   name: string = 'Lulu';
   statusValue: string = '';
 
@@ -41,7 +45,7 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
   auth: AuthCredentialModel = <AuthCredentialModel>{};
   // add default image
   imageList: string[] = ['https://via.placeholder.com/450'];
-
+  subscription: Subscription[] = [];
   constructor(
     private route: Router,
     private notificationService: NotificationService,
@@ -70,29 +74,36 @@ export class CreatorComponent implements OnInit, CanComponentDeactivate {
   }
 
   ngOnInit(): void {
-    this.storageState$.subscribe((url) => {
-      if (url) {
-        url.forEach((url: string) => {
-          this.linkOfImage.push(url);
-        });
-        console.log('linkOfImage', this.linkOfImage);
-      }
-    });
-    this.isCreateSuccess$.subscribe((isSuccess) => {
-      if (isSuccess) {
-        this.isContentChanged = false;
-        this.notificationService.successNotification('Post successfully');
-        setTimeout(() => {
-          this.route.navigate(['/profile/post']);
-        }, 3000);
-      }
-    });
-    this.isCreateFailure$.subscribe((error) => {
-      if (error) {
-        console.log('error', error);
-        this.notificationService.errorNotification('Post Fail');
-      }
-    });
+    this.subscription.push(
+      this.storageState$.subscribe((url) => {
+        if (url) {
+          url.forEach((url: string) => {
+            this.linkOfImage.push(url);
+          });
+          console.log('linkOfImage', this.linkOfImage);
+        }
+      }),
+      this.isCreateSuccess$.subscribe((isSuccess) => {
+        if (isSuccess) {
+          this.isContentChanged = false;
+          this.notificationService.successNotification('Post successfully');
+          setTimeout(() => {
+            this.route.navigate(['/profile/post']);
+          }, 3000);
+        }
+      }),
+      this.isCreateFailure$.subscribe((error) => {
+        if (error) {
+          console.log('error', error);
+          this.notificationService.errorNotification('Post Fail');
+        }
+      }),
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(PostActions.resetPostState());
+    this.store.dispatch(StorageActions.resetStorage());
   }
 
   handleImageListChange(imageList: string[]): void {
