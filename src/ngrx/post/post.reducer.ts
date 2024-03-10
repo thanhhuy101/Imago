@@ -162,4 +162,32 @@ export const postReducer = createReducer(
       isGetsucces: false,
     };
   }),
+
+  on(PostActions.resetPostState, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      list: <PostResponse>{},
+      isSucces: false,
+      isCreateFailure: false,
+      isGetsucces: false,
+      isGetMineSucces: false,
+      loading: false,
+      error: '',
+    };
+  }),
+
+  on(PostActions.resetPostState, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      list: <PostResponse>{},
+      isSucces: false,
+      isCreateFailure: false,
+      isGetsucces: false,
+      isGetMineSucces: false,
+      loading: false,
+      error: '',
+    };
+  }),
 );

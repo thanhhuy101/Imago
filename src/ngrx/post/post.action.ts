@@ -76,3 +76,6 @@ export const getByMentionIdFailure = createAction(
   '[Post] Get By Mention Id Failure',
   props<{ message: string }>(),
 );
+export const resetPostState = createAction('[Profile] Clear States');
+
+export const clearMessages = createAction('[Profile] Clear Messages');
