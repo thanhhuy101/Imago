@@ -93,12 +93,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
         }
       }),
     );
-
-    // this.store.select('profile', 'isSuccess').subscribe((isSuccess) => {
-    //   if (isSuccess) {
-    //     this.router.navigate(['/interest']).then();
-    //   }
-    // });
   }
 
   ngOnDestroy(): void {
