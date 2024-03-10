@@ -46,6 +46,8 @@ export class ImagesCarouselComponent implements OnInit {
 
   linkOfImage: string[] = [];
 
+  authState$ = this.store.select('auth', 'authCredential');
+
   storageState$ = this.store.select('storage', 'url');
   isStorageUploading$ = this.store.select('storage', 'isUploading');
 

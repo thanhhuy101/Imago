@@ -4,18 +4,20 @@ import { TuiTabsModule } from '@taiga-ui/kit';
 import { Router, RouterOutlet } from '@angular/router';
 import { TuiAlertService } from '@taiga-ui/core';
 import { TaigaModule } from '../../../../shared/taiga.module';
+import { FormControl } from '@angular/forms';
+import { ShareModule } from '../../../../shared/share.module';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [NgForOf, TuiTabsModule, RouterOutlet, TaigaModule],
+  imports: [NgForOf, TuiTabsModule, RouterOutlet, TaigaModule, ShareModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
 })
 export class SearchComponent {
   readonly items = [
     {
-      text: 'post',
+      text: 'Post',
       router: '/post',
       icon: 'tuiIconFileText',
     },
@@ -25,19 +27,14 @@ export class SearchComponent {
       icon: 'tuiIconUser',
     },
     {
-      text: 'Group',
-      router: '/group',
+      text: 'Tag',
+      router: '/hagtag',
       icon: 'tuiIconUsers',
-    },
-
-    {
-      text: 'Explore',
-      router: '/explore',
-      icon: 'tuiIconCompassLarge',
     },
   ];
 
   activeItemIndex = 0;
+  searchValue = new FormControl();
 
   constructor(
     @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
@@ -47,10 +44,8 @@ export class SearchComponent {
     console.log(path);
     if (path.includes('search/people')) {
       this.activeItemIndex = 1;
-    } else if (path.includes('search/group')) {
+    } else if (path.includes('search/hagtag')) {
       this.activeItemIndex = 2;
-    } else if (path.includes('search/explore')) {
-      this.activeItemIndex = 3;
     } else {
       this.activeItemIndex = 0;
     }
