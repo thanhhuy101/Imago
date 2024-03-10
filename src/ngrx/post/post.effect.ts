@@ -15,9 +15,11 @@ export class PostEffect {
     this.action$.pipe(
       ofType(PostActions.getAllPost),
       switchMap((action) => {
+        
         return this.postService.getAllPosts(action.token).pipe(
-          map((postList: any) => {
-            return PostActions.getAllPostSuccess({ postList });
+          map((list: any) => {
+            console.log('postList', list);
+            return PostActions.getAllPostSuccess({ list });
           }),
           catchError((error) => {
             return of(

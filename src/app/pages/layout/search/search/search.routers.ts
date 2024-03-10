@@ -15,13 +15,10 @@ export const SEARCH_ROUTERS: Routes = [
         loadComponent: () => import('../components/people/people.component').then((m) => m.PeopleComponent),
       },
       {
-        path: 'group',
-        loadComponent: () => import('../components/group/group.component').then((m) => m.GroupComponent),
+        path: 'hagtag',
+        loadComponent: () => import('../components/hagtag/hagtag.component').then((m) => m.HagtagComponent),
       },
-      {
-        path: 'explore',
-        loadComponent: () => import('../components/explore/explore.component').then((m) => m.ExploreComponent),
-      },
+     
       {
         path: '',
         redirectTo: 'post',

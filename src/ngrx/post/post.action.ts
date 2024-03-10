@@ -8,7 +8,7 @@ export const getAllPost = createAction(
 
 export const getAllPostSuccess = createAction(
   '[Post] Get All Post Success',
-  props<{ postList: PostModel[] }>(),
+  props<{ list: PostResponse }>(),
 );
 
 export const getAllPostFailure = createAction(

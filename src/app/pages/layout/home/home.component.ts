@@ -19,7 +19,7 @@ import { ReportModel } from '../../../model/report.model';
 import * as ReportAction from '../../../../ngrx/report/report.action';
 import { Subscription } from 'rxjs';
 import { ImagesCarouselComponent } from '../creator/components/images-carousel/images-carousel.component';
-
+import { PostModel, PostResponse } from '../../../model/post.model';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -34,8 +34,9 @@ import { ImagesCarouselComponent } from '../creator/components/images-carousel/i
 })
 export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
-  postList$ = this.store.select((state) => state.post.postList);
-
+  // postList$ = this.store.select((state) => state.post.postList);
+postList$ =  this.store.select('post', 'list');
+postList: PostResponse = { data: [], endpage: 0 };
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
@@ -44,7 +45,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       auth: AuthState;
       report: ReportState;
     }>,
-  ) {}
+  ) {
+    this.postList$.subscribe((data:PostResponse) => {
+      
+      //how to binding data
+      this.postList = data;
+      console.log('postList', typeof data.data);
+      console.log('data', data);
+      console.log('postList', this.postList);
+      
+    });
+
+  
+    
+
+  }
 
   index = 0;
 
@@ -56,6 +71,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }),
     );
+
+  
+      
+    
   }
 
   ngOnDestroy(): void {
