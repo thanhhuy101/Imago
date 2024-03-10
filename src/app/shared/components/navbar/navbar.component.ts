@@ -24,42 +24,36 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private store: Store<{ auth: AuthState }>,
   ) {
-   
-    if(this.router.url === '/home'){
+    if (this.router.url === '/home') {
       this.activeItemIndex = 0;
-     }else if(this.router.url.startsWith('/search')){
-       this.activeItemIndex = 1;
-     }
-       else if(this.router.url.startsWith('/creator')){
-       this.activeItemIndex = 2;
-       }
-       else if(this.router.url.startsWith('/notification')){
-       this.activeItemIndex = 3;
-       }
-       else if(this.router.url.startsWith('/profile')){
-       this.activeItemIndex = 4;
-       }
+    } else if (this.router.url.startsWith('/search')) {
+      this.activeItemIndex = 1;
+    } else if (this.router.url.startsWith('/creator')) {
+      this.activeItemIndex = 2;
+    } else if (this.router.url.startsWith('/notification')) {
+      this.activeItemIndex = 3;
+    } else if (this.router.url.startsWith('/profile')) {
+      this.activeItemIndex = 4;
+    }
   }
 
   ngOnInit(): void {
-    
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        const url = event.url; 
+        const url = event.url;
         if (url === '/home') {
           this.activeItemIndex = 0;
         } else if (url.startsWith('/search')) {
           this.activeItemIndex = 1;
-        } else if (url.startsWith('/creator')){
+        } else if (url.startsWith('/creator')) {
           this.activeItemIndex = 2;
-        }else if (url.startsWith('/profile')){
+        } else if (url.startsWith('/profile')) {
           this.activeItemIndex = 4;
-        }else if (url.startsWith('/notification')){
+        } else if (url.startsWith('/notification')) {
           this.activeItemIndex = 3;
         }
       }
     });
-  
   }
 
   onClick(): void {
