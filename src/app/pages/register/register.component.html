@@ -6,105 +6,61 @@
           <div class="tui-row tui-row_sme">
             <div class="tui-col_12">
               <h3
-                class="tui-form__header tui-form__header_margin-top_none tui-form__header_margin-bottom_small tui-text_h3"
-              >
+                class="tui-form__header tui-form__header_margin-top_none tui-form__header_margin-bottom_small tui-text_h3">
                 Personal Information
               </h3>
               <div class="tui-form__row">
                 <label tuiLabel="Email">
-                  <tui-input
-                    [readOnly]="true"
-                    formControlName="email"
-                    tuiTextfieldSize="l"
-                    [tuiTextfieldCleaner]="true"
-                    [tuiTextfieldLabelOutside]="true"
-                  >
-                    <input tuiTextfield />
+                  <tui-input [readOnly]="true" formControlName="email" tuiTextfieldSize="l" [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true">
+                    {{this.email}} <input tuiTextfield />
                   </tui-input>
-                  <tui-error
-                    formControlName="email"
-                    [error]="[] | tuiFieldError | async"
-                  ></tui-error>
+                  <tui-error formControlName="email" [error]="[] | tuiFieldError | async"></tui-error>
                 </label>
               </div>
 
               <div class="tui-form__row">
                 <label tuiLabel="Username">
-                  <tui-input
-                    formControlName="userName"
-                    tuiTextfieldSize="l"
-                    [tuiTextfieldCleaner]="true"
-                    [tuiTextfieldLabelOutside]="true"
-                  >
+                  <tui-input formControlName="userName" tuiTextfieldSize="l" [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true">
                     <input tuiTextfield />
                   </tui-input>
-                  <tui-error
-                    formControlName="userName"
-                    [error]="[] | tuiFieldError | async"
-                  ></tui-error>
+                  <tui-error formControlName="userName" [error]="[] | tuiFieldError | async"></tui-error>
                 </label>
               </div>
               <div class="tui-form__row">
                 <label tuiLabel="Last name">
-                  <tui-input
-                    formControlName="lastName"
-                    tuiTextfieldSize="l"
-                    [tuiTextfieldCleaner]="true"
-                    [tuiTextfieldLabelOutside]="true"
-                  >
+                  <tui-input formControlName="lastName" tuiTextfieldSize="l" [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true">
                     <input tuiTextfield />
                   </tui-input>
-                  <tui-error
-                    formControlName="lastName"
-                    [error]="[] | tuiFieldError | async"
-                  ></tui-error>
+                  <tui-error formControlName="lastName" [error]="[] | tuiFieldError | async"></tui-error>
                 </label>
               </div>
               <div class="tui-form__row">
                 <label tuiLabel="First name">
-                  <tui-input
-                    formControlName="firstName"
-                    tuiTextfieldSize="l"
-                    [tuiTextfieldCleaner]="true"
-                    [tuiTextfieldLabelOutside]="true"
-                  >
+                  <tui-input formControlName="firstName" tuiTextfieldSize="l" [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true">
                     <input tuiTextfield />
                   </tui-input>
-                  <tui-error
-                    formControlName="firstName"
-                    [error]="[] | tuiFieldError | async"
-                  ></tui-error>
+                  <tui-error formControlName="firstName" [error]="[] | tuiFieldError | async"></tui-error>
                 </label>
               </div>
               <div class="tui-form__row">
                 <div class="tui-form__field-checkbox">
-                  <tui-checkbox-labeled
-                    class="tui-space_top-6"
-                    formControlName="isCheck"
-                    size="l"
-                  >
-                    <a [pseudo]="true" class="link" tuiLink tuiMode="onDark"
-                      >Check here by accept the terms and conditions</a
-                    >
-                    <tui-tooltip
-                      tuiMode="onDark"
-                      content="Read the terms and conditions before checking the box to accept"
-                      describeId="button"
-                      direction="right"
-                      class="tui-space_left-2"
-                    ></tui-tooltip>
+                  <tui-checkbox-labeled class="tui-space_top-6" formControlName="isCheck" size="l">
+                    <a [pseudo]="true" class="link" tuiLink tuiMode="onDark">Check here by accept the terms and
+                      conditions</a>
+                    <tui-tooltip tuiMode="onDark"
+                      content="Read the terms and conditions before checking the box to accept" describeId="button"
+                      direction="right" class="tui-space_left-2"></tui-tooltip>
                   </tui-checkbox-labeled>
                 </div>
               </div>
 
               <div class="tui-form__buttons tui-form__buttons_align_center">
-                <button
-                  tuiButton
-                  appearance="accent"
-                  class="tui-form__button"
-                  [disabled]="regisForm.invalid"
-                  (click)="register()"
-                >
+                <button tuiButton appearance="accent" class="tui-form__button" [disabled]="regisForm.invalid"
+                  (click)="register()">
                   Next
                 </button>
               </div>

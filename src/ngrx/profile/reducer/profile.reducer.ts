@@ -5,27 +5,32 @@ import * as ProfileActions from '../actions/profile.actions';
 import { HttpErrorResponseModel } from '../../../app/model/http-error-response.model';
 
 export const initialState: ProfileState = {
-  token: '',
   profile: <ProfileModel>{},
+  isLoading: false,
+  isSuccess: false,
+  errorMessage: '',
+  updateIsLoading: false,
+  updateIsSuccess: false,
+  updateErrorMessage: '',
   profileList: [],
-  loading: false,
-  isGetProfileSuccess: false,
-  getProfileErrorMessage: <HttpErrorResponseModel>{},
-  isUpdateProfileSuccess: false,
-  updateProfileErrorMessage: <HttpErrorResponseModel>{},
-  isCreateProfileSuccess: false,
-  createProfileErrorMessage: <HttpErrorResponseModel>{},
-  isGetAllProfilesSuccess: false,
-  getAllProfilesErrorMessage: <HttpErrorResponseModel>{},
 };
 
 export const profileReducer = createReducer(
   initialState,
+  //storeAuthData
+  on(ProfileActions.storeAuthData, (state, { id, email, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      id: id,
+      email: email,
+    };
+  }),
   //getAllProfile
   on(ProfileActions.getAllProfile, (state) => {
     return {
       ...state,
-      loading: true,
+      isLoading: true,
     };
   }),
   //getAllProfileSuccess
@@ -33,18 +38,19 @@ export const profileReducer = createReducer(
     return {
       ...state,
       profileList: profileList,
-      loading: false,
-      isGetAllProfilesSuccess: true,
+      isLoading: false,
+      isSuccess: true,
     };
   }),
   //getAllProfileFailure
   on(
     ProfileActions.getAllProfileFailure,
-    (state, { getAllProfilesErrorMessage }) => {
+    (state, { getAllProfilesErrorMessage, type }) => {
+      console.log(type);
       return {
         ...state,
-        getAllProfilesErrorMessage: getAllProfilesErrorMessage,
-        loading: false,
+        errorMessage: getAllProfilesErrorMessage,
+        isLoading: false,
       };
     },
   ),
@@ -52,87 +58,76 @@ export const profileReducer = createReducer(
   on(ProfileActions.getProfile, (state) => {
     return {
       ...state,
-      loading: true,
+      isLoading: true,
+      isSuccess: false,
     };
   }),
   //get profile success
   on(ProfileActions.getProfileSuccess, (state, { profile }) => {
     return {
       ...state,
+      isLoading: false,
       profile: profile,
-      loading: false,
-      isGetProfileSuccess: true,
+      isSuccess: true,
     };
   }),
   //get profile failure
-  on(ProfileActions.getProfileFailure, (state, { getProfileErrorMessage }) => {
-    return {
-      ...state,
-      getProfileErrorMessage: getProfileErrorMessage,
-      loading: false,
-    };
-  }),
+  on(
+    ProfileActions.getProfileFailure,
+    (state, { getProfileErrorMessage, type }) => {
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        errorMessage: getProfileErrorMessage,
+      };
+    },
+  ),
   //create profile
   on(ProfileActions.createProfile, (state, action) => {
     console.log(action.type);
     return {
       ...state,
-      profile: action.profile,
-      loading: true,
+      isLoading: true,
+      isSuccess: false,
     };
   }),
   //createProfileSuccess
-  on(ProfileActions.createProfileSuccess, (state, action) => {
-    console.log(action.type);
+  on(ProfileActions.createProfileSuccess, (state, { profile, type }) => {
+    console.log(type);
     return {
       ...state,
-      profile: action.profile,
-      loading: false,
-      isCreateProfileSuccess: true,
+      profile: profile,
+      isLoading: false,
     };
   }),
   //createProfileFailure
   on(
     ProfileActions.createProfileFailure,
-    (state, { type, createProfileErrorMessage }) => {
+    (state, { createProfileErrorMessage, type }) => {
       console.log(type);
       return {
         ...state,
-        createProfileErrorMessage: createProfileErrorMessage,
-        loading: false,
+        isLoading: false,
+        isSuccess: false,
+        errorMessage: createProfileErrorMessage,
       };
     },
   ),
-  // getProfileSuccess
-  on(ProfileActions.getProfileSuccess, (state) => {
-    return {
-      ...state,
-      isGettingProfile: false,
-      isGetProfileSuccess: true,
-    };
-  }),
-  // getProfileFailure
-  on(ProfileActions.getProfileFailure, (state, { getProfileErrorMessage }) => {
-    return {
-      ...state,
-      getProfileErrorMessage: getProfileErrorMessage,
-      isGettingProfile: false,
-      isGetProfileSuccess: false,
-    };
-  }),
   // updateProfile
   on(ProfileActions.updateProfile, (state) => {
     return {
       ...state,
-      isUpdatingProfile: true,
+      updateIsLoading: true,
+      updateIsSuccess: false,
     };
   }),
   // updateProfileSuccess
   on(ProfileActions.updateProfileSuccess, (state) => {
     return {
       ...state,
-      isUpdatingProfile: false,
-      isUpdateProfileSuccess: true,
+      updateIsLoading: false,
+      updateIsSuccess: true,
     };
   }),
   // updateProfileFailure
@@ -141,9 +136,9 @@ export const profileReducer = createReducer(
     (state, { updateProfileErrorMessage }) => {
       return {
         ...state,
-        updateProfileErrorMessage: updateProfileErrorMessage,
-        isUpdatingProfile: false,
-        isUpdateProfileSuccess: false,
+        updateIsLoading: false,
+        updateIsSuccess: false,
+        updateErrorMessage: updateProfileErrorMessage,
       };
     },
   ),
