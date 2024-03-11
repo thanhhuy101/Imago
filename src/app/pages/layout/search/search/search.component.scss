@@ -56,7 +56,7 @@
   justify-content: center !important;
 }
 
-@media(max-width: 768px ) {
+@media(max-width: 769px ) {
   .main{
     width: 100%;
     display: flex;
@@ -114,7 +114,7 @@
     align-items: center;
   }
 }
-@media(max-width: 1024px ){
+@media(min-width:960px){
   .main{
     width: 100%;
     display: flex;
@@ -123,10 +123,10 @@
   
   }
   .left{
-    width: 60%;
+    width: 65%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
  
   }
   .search-bar{
@@ -136,18 +136,19 @@
     outline: none!important;
   }
   .tab-bar{
-    width: 50%;
+    width: 51%;
     display: flex;
     align-items: center;
+    
   }
   .tab-bar-peo{
     display: flex;
     flex-direction: row;
-  
+    justify-content: space-around;
     width: 100%;
   }
 }
-@media(max-width: 2560px ){
+@media(min-width: 2560px ){
   .main{
     width: 100%;
     display: flex;

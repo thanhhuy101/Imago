@@ -48,10 +48,9 @@ postList: PostResponse = { data: [], endpage: 0 };
   ) {
     this.postList$.subscribe((data:PostResponse) => {
       
-      //how to binding data
+     
       this.postList = data;
-      console.log('postList', typeof data.data);
-      console.log('data', data);
+      
       console.log('postList', this.postList);
       
     });
