@@ -8,6 +8,7 @@ import { AuthState } from '../../../../../../ngrx/auth/auth.state';
 import { PostState } from '../../../../../../ngrx/post/post.state';
 import { PostModel } from '../../../../../model/post.model';
 import * as PostActions from '../../../../../../ngrx/post/post.action';
+
 @Component({
   selector: 'app-post',
   standalone: true,
@@ -20,12 +21,6 @@ export class MentionComponent implements OnInit, OnDestroy {
   loader: boolean = false;
   subscription: Subscription[] = [];
 
-  token$ = this.store.select('auth', 'token');
-  shareList$ = this.store.select('post', 'list');
-  loading$ = this.store.select('post', 'loading');
-  success$ = this.store.select('post', 'isGetsucces');
-  failure$ = this.store.select('post', 'error');
-
   constructor(
     @Inject(TuiDialogService) private readonly dialogs: TuiDialogService,
     @Inject(Injector) private readonly injector: Injector,
@@ -35,37 +30,8 @@ export class MentionComponent implements OnInit, OnDestroy {
     }>,
   ) {}
 
-  ngOnInit(): void {
-    this.subscription.push(
-      this.token$.subscribe((token) => {
-        if (token) {
-          this.store.dispatch(
-            PostActions.getByMentionId({ page: 1, size: 10 }),
-          );
-        }
-      }),
-      this.loading$.subscribe((res) => {
-        if (res) {
-          this.loader = true;
-        }
-      }),
-      this.success$
-        .pipe(
-          switchMap((res) => {
-            if (res) {
-              return this.shareList$;
-            }
-            return [];
-          }),
-        )
-        .subscribe((res) => {
-          console.log('res', res.data);
+  ngOnInit(): void {}
 
-          this.mentionList = res.data;
-          this.loader = false;
-        }),
-    );
-  }
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }

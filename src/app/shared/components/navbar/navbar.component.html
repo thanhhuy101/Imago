@@ -5,7 +5,7 @@
     </div>
 
     <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
-      <button [disabled]="activeItemIndex === 0" [routerLink]="['']" routerLinkActive tuiTab>
+      <button [disabled]="activeItemIndex === 0" [routerLink]="['home']" routerLinkActive tuiTab>
         <span class="material-symbols-rounded">desktop_windows</span>
       </button>
       <button [disabled]="activeItemIndex === 1" [routerLink]="['search']" routerLinkActive tuiTab>
@@ -14,7 +14,7 @@
       <button [disabled]="activeItemIndex === 2" [routerLink]="['creator']" routerLinkActive tuiTab>
         <span class="material-symbols-rounded">edit_square</span>
       </button>
-      <button [disabled]="activeItemIndex === 3" [routerLink]="['notification']" routerLinkActive tuiTab>
+      <button [disabled]="activeItemIndex === 3" [routerLink]="['notification/all']" routerLinkActive tuiTab>
         <span class="material-symbols-rounded">local_fire_department</span>
       </button>
       <button [disabled]="activeItemIndex === 4" [routerLink]="['profile']" routerLinkActive tuiTab>
@@ -26,7 +26,7 @@
       [tuiDropdown]="dropdownContent" [tuiDropdownManual]="open" (click)="onClick()">
       <span class="material-symbols-rounded"> page_info </span>
       <ng-template #dropdownContent>
-        <button tuiButton appearance="flat"size="m" (click)="signOut()">
+        <button tuiButton appearance="flat" size="m" (click)="signOut()">
           Logout
         </button>
       </ng-template>

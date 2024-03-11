@@ -24,15 +24,15 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private store: Store<{ auth: AuthState }>,
   ) {
-    if (this.router.url === '/home') {
+    if (this.router.url.includes('/home')) {
       this.activeItemIndex = 0;
-    } else if (this.router.url.startsWith('/search')) {
+    } else if (this.router.url.includes('/search')) {
       this.activeItemIndex = 1;
-    } else if (this.router.url.startsWith('/creator')) {
+    } else if (this.router.url.includes('/creator')) {
       this.activeItemIndex = 2;
-    } else if (this.router.url.startsWith('/notification')) {
+    } else if (this.router.url.includes('/notification')) {
       this.activeItemIndex = 3;
-    } else if (this.router.url.startsWith('/profile')) {
+    } else if (this.router.url.includes('/profile')) {
       this.activeItemIndex = 4;
     }
   }

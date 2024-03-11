@@ -46,7 +46,6 @@ body {
   font-weight: bold;
   margin: 0;
   padding-top: 2px;
-
 }
 
 .userName {
@@ -151,29 +150,29 @@ body {
   font-weight: 550;
 }
 
-.framebtnEditProfile {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  height: 43px;
-  width: 86px;
-  border: 1px solid rgb(227, 225, 225);
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 15px;
-  margin-top: 12px;
-  font-weight: bold;
-}
+//.framebtnEditProfile {
+//  display: flex;
+//  justify-content: center;
+//  text-align: center;
+//  align-items: center;
+//  height: 43px;
+//  width: 86px;
+//  border: 1px solid rgb(227, 225, 225);
+//  border-radius: 10px;
+//  cursor: pointer;
+//  font-size: 15px;
+//  margin-top: 12px;
+//  font-weight: bold;
+//}
 
 .p {
   font-size: 12px;
   font-weight: 800;
 }
 
-.framebtnEditProfile:hover {
-  background-color: rgb(190, 186, 186);
-}
+//.framebtnEditProfile:hover {
+//  background-color: rgb(190, 186, 186);
+//}
 
 //.vegan {
 //  color: blue;
@@ -235,7 +234,6 @@ body {
 //  margin-top: 10px;
 //}
 
-
 @media screen and (max-width: 400px) {
   .main {
     padding: 0px 1rem;
@@ -295,5 +293,9 @@ body {
     justify-content: space-between;
     width: 100%;
     /* background-color: aqua; */
+  }
+
+  .t-close[_ngcontent-ng-c1591437670] {
+    display: none;
   }
 }

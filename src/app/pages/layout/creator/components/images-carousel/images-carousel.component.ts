@@ -1,25 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TaigaModule } from '../../../../../shared/taiga.module';
 import { ShareModule } from '../../../../../shared/share.module';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 import { TuiFileLike } from '@taiga-ui/kit';
 import { TuiValidationError } from '@taiga-ui/cdk';
 import { NotificationService } from '../../../../../service/notification/notification.service';
 import { StorageService } from '../../../../../service/storage/storage.service';
 import { Store } from '@ngrx/store';
-import { StorageState } from '../../../../../../ngrx/storage/state/storage.state';
+import { StorageState } from '../../../../../../ngrx/storage/storage.state';
 import { AuthState } from '../../../../../../ngrx/auth/auth.state';
 
-import * as StorageActions from '../../../../../../ngrx/storage/actions/storage.actions';
-import * as AuthActions from '../../../../../../ngrx/auth/auth.actions';
+import * as StorageActions from '../../../../../../ngrx/storage/storage.actions';
 import { Auth } from '@angular/fire/auth';
 import { onAuthStateChanged } from '@firebase/auth';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-images-carousel',
   standalone: true,
@@ -35,6 +30,7 @@ export class ImagesCarouselComponent implements OnInit {
 
   @Output() uploadImagesEvent = new EventEmitter<
     boolean>();
+  subscription: Subscription[] = [];
 
   control = new FormControl(new Array<File>(), [maxFilesLength(5)]);
   rejectedFiles: readonly TuiFileLike[] = [];
@@ -44,87 +40,65 @@ export class ImagesCarouselComponent implements OnInit {
   index = 0;
   itemsCount = 1;
   files: File[] = [];
-  idTokenImage = '';
   uid = '';
   postId = '';
 
-  linkOfImage: string[] = [];
-
-  authState$ = this.store.select('auth', 'authCredential');
-
-  storageState$ = this.store.select('storage', 'url');
-  isStorageUploading$ = this.store.select('storage', 'isUploading');
+  firebaseData$ = this.store.select('auth', 'firebaseData');
 
   constructor(
     private notificationService: NotificationService,
-    private storageService: StorageService,
-    private auth: Auth,
     private store: Store<{
       storage: StorageState;
       auth: AuthState;
     }>,
   ) {
-    onAuthStateChanged(this.auth, async (user) => {
-      if (user) {
-        const idToken = await user.getIdToken();
-
-        this.uid = user.uid;
-        this.idTokenImage = idToken;
-        console.log('uid', user.uid);
-      }
-    });
     this.postId = Math.floor(
       Math.random() * Math.floor(Math.random() * Date.now()),
     ).toString();
   }
+
   ngOnInit(): void {
-
-    this.control.valueChanges.subscribe((response: File[] | null) => {
-      if (response) {
-        this.files = response;
-        if (response.length > 5) {
-          this.notificationService.errorNotification(
-            'Error: maximum limit - 5 files for upload',
-          );
-          this.files = [];
-          return;
+    this.subscription.push(
+      this.firebaseData$.subscribe((value) => {
+        if (value) {
+          this.uid = value.uid;
         }
-        if (response.length === 0) {
-          this.isUploadImages = true;
-        } else {
-          this.isUploadImages = false;
+      }),
+      this.control.valueChanges.subscribe((response: File[] | null) => {
+        if (response) {
+          this.files = response;
+          if (response.length > 5) {
+            this.notificationService.errorNotification(
+              'Error: maximum limit - 5 files for upload',
+            );
+            this.files = [];
+            return;
+          }
+          if (response.length === 0) {
+            this.isUploadImages = true;
+          } else {
+            this.isUploadImages = false;
 
-        }
-        response.forEach((file: File) => {
-          const reader = new FileReader();
-          reader.readAsArrayBuffer(file);
-          reader.onload = () => {
-            if (reader.result) {
-              const blob = new Blob([reader.result], { type: 'image/png' });
-              const url = URL.createObjectURL(blob);
-              this.tmpImageList.unshift(url);
-              if (this.tmpImageList.length === response.length) {
-                this.imageList = this.tmpImageList;
-                this.responseChangeEvent.emit(this.imageList);
-                this.tmpImageList = [];
+          }
+          response.forEach((file: File) => {
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            reader.onload = () => {
+              if (reader.result) {
+                const blob = new Blob([reader.result], { type: 'image/png' });
+                const url = URL.createObjectURL(blob);
+                this.tmpImageList.unshift(url);
+                if (this.tmpImageList.length === response.length) {
+                  this.imageList = this.tmpImageList;
+                  this.responseChangeEvent.emit(this.imageList);
+                  this.tmpImageList = [];
+                }
               }
-            }
-          };
-        });
-      }
-    });
-
-    //how to upload file[] to firebase storage
-
-    // this.storageState$.subscribe((url) => {
-    //   if (url) {
-    //     url.forEach((url: string) => {
-    //       this.linkOfImage.push(url);
-    //     });
-    //     console.log('linkOfImage', this.linkOfImage);
-    //     this.responseImageList.emit(this.linkOfImage);
-    //   }
-    // });
+            };
+          });
+        }
+      }),
+    );
   }
 
   get rounded(): number {
@@ -161,10 +135,9 @@ export class ImagesCarouselComponent implements OnInit {
   upLoadImage() {
     this.files.forEach((file: File) => {
       this.store.dispatch(
-        StorageActions.upLoadFile({
+        StorageActions.uploadFile({
           file: file,
           fileName: `${this.uid}/posts/${this.postId}`,
-          idToken: this.idTokenImage,
         }),
       );
       this.files = [];

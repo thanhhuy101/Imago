@@ -8,6 +8,7 @@ import {
 } from '@taiga-ui/core';
 import {
   TuiAccordionModule,
+  TuiBadgedContentModule,
   TuiComboBoxModule,
   TuiInputDateRangeModule,
   TuiInputMonthModule,
@@ -121,6 +122,7 @@ const TaigaModules = [
   TuiToggleModule,
   TuiAlertModule,
   TuiBadgeModule,
+  TuiBadgedContentModule,
   TuiSvgModule,
   TuiAvatarModule,
   TuiGroupModule,

@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { StorageModel } from '../../model/storage.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
-
   constructor(private http: HttpClientAuth) { }
-  uploadFile(file: File, fileName: string, idToken: string) {
 
+  uploadFile(file: File, fileName: string) {
     const formData = new FormData();
     //formData ''
     formData.delete('files');
@@ -17,8 +16,6 @@ export class StorageService {
     formData.append('fileName', fileName);
     console.log('fileName', file);
 
-    return this.http.post(
-      `storage/upload`, formData);
+    return this.http.post(`storage/upload`, formData);
   }
 }
-

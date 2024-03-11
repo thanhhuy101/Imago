@@ -2,49 +2,95 @@
   <div class="profile">
     <div class="left">
       <div class="information">
-        <h2 class="name">Name</h2>
-        <span class="userName">&#64;username</span>
-        <span class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore
-          et dolore magna aliqua.</span>
-        <div class="info">
-          <div class="follower">
-            <img class="follower-avatar1"
-              src="https://www.bing.com/th?q=Random+People&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=3&pid=InlineBlock&mkt=en-WW&cc=VN&setlang=en&adlt=moderate&t=1&mw=247"
-              alt="">
-            <img class="follower-avatar2"
-              src="https://www.bing.com/th?q=Rich+People&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=3&pid=InlineBlock&mkt=en-WW&cc=VN&setlang=en&adlt=moderate&t=1&mw=247"
-              alt="">
+        <h2 class="name">{{ profile.firstName }} {{ profile.lastName }}</h2>
+        <span class="userName">{{ "@" + profile.userName }}</span>
+        <span class="bio">{{ profile.bio }}</span>
+        @if (profile.followers && profile.followers.length > 0) {
+          <div class="info">
+            <div class="follower">
+              <img
+                class="follower-avatar1"
+                src="https://www.bing.com/th?q=Random+People&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=3&pid=InlineBlock&mkt=en-WW&cc=VN&setlang=en&adlt=moderate&t=1&mw=247"
+                alt=""
+              />
+              <img
+                class="follower-avatar2"
+                src="https://www.bing.com/th?q=Rich+People&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=3&pid=InlineBlock&mkt=en-WW&cc=VN&setlang=en&adlt=moderate&t=1&mw=247"
+                alt=""
+              />
+            </div>
+            <div class="Numberoffollowers">
+              <p>{{ profile.followers.length }} followes</p>
+            </div>
           </div>
+        } @else {
           <div class="Numberoffollowers">
-            <p>
-              10 followes
-            </p>
+            <p>0 followes</p>
           </div>
-        </div>
+        }
       </div>
     </div>
     <div class="right">
       <div class="content">
         <div class="avatar">
-          <img class="avatar-user"
-               src="https://th.bing.com/th/id/R.efcd4871f4074b1035aa48ad593130d5?rik=9S17k0Bu8ca24g&riu=http%3a%2f%2fgekko.land%2fpeople%2fslides%2fpeople_017.jpg&ehk=1h32ztQnb9i9HGEJELcrZ2nEZltSS%2b7%2f0uY9DoXfBrw%3d&risl=&pid=ImgRaw&r=0"
-               alt="">
+          <!-- <tui-input-files accept="image/*" [multiple]="false" [formControl]="control" (reject)="onReject($event)"
+            style="border-radius: 46%;">
+
+          </tui-input-files> -->
+          <img class="avatar-user" [src]="profile.photoUrl" alt="" />
         </div>
         <div class="framebtnEditProfile">
-          <p class="p">
+          <button
+            tuiButton
+            appearance="outline"
+            size="m"
+            (click)="upLoadImage()"
+          >
             Edit
-          </p>
+          </button>
         </div>
       </div>
     </div>
   </div>
   <tui-tabs tuiMobileTabs [(activeItemIndex)]="activeItemIndex">
-    <button *ngFor="let item of items; let i = index" tuiRipple="var(--tui-text-01)" tuiTab class="post"
-      (click)="onActiveItemChange(i)">
+    <button
+      *ngFor="let item of items; let i = index"
+      tuiRipple="var(--tui-text-01)"
+      tuiTab
+      class="post"
+      (click)="onChangePage(i)"
+    >
       {{ item.text }}
     </button>
   </tui-tabs>
   <router-outlet></router-outlet>
 </div>
 
+<ng-template
+  [tuiDialogOptions]="{ label: 'Update profile', size: 's' }"
+  [(tuiDialog)]="this.openAddDialog"
+>
+  <form [formGroup]="updateForm" (ngSubmit)="submit()">
+    <p>
+      <tui-input formControlName="userName">User Name</tui-input>
+    </p>
+    <p>
+      <tui-input formControlName="firstName">First Name</tui-input>
+    </p>
+    <p>
+      <tui-input formControlName="lastName">Last Name</tui-input>
+    </p>
+    <p>
+      <tui-input formControlName="bio">Bio</tui-input>
+    </p>
+    <p>
+      <tui-input formControlName="photoUrl">Link Image</tui-input>
+    </p>
+    <p style="display: flex; justify-content: space-between">
+      <button tuiButton size="m" type="submit">Update</button>
+      <button tuiButton size="m" type="submit" (click)="closeDialog()">
+        Cancel
+      </button>
+    </p>
+  </form>
+</ng-template>

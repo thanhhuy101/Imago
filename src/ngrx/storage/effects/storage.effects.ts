@@ -16,7 +16,7 @@ export class StorageEffects {
       ofType(StorageActions.upLoadFile),
       mergeMap((action) => {
         //why dulicate the action
-        return this.storageService.uploadFile(action.file, action.fileName, action.idToken).pipe(
+        return this.storageService.uploadFile(action.file, action.fileName).pipe(
           map((url) => {
             return StorageActions.upLoadFileSuccess({ url });
           }),

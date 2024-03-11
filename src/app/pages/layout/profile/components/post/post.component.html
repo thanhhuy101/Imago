@@ -4,7 +4,7 @@
   [overlay]="true"
   [showLoader]="loader"
 >
-  @if (isObjectEmpty(list || {})) {
+  @if (postList.endPage === 0) {
     <div class="noPost">
       <div class="circlePicture" [routerLink]="'/creator'">
         <span class="material-symbols-outlined"> add_a_photo </span>
@@ -14,7 +14,7 @@
   }
   <div class="main">
     <div class="allPost">
-      @for (post of list; track post.id; let i = $index) {
+      @for (post of postList.data; track post.id; let i = $index) {
         <div class="post">
           <div class="picture-post1">
             <tui-carousel #carousel>
@@ -53,12 +53,6 @@
                 </div>
               </ng-container>
             </tui-carousel>
-            <!--            <tui-pagination-->
-            <!--              size="s"-->
-            <!--              class="pagination"-->
-            <!--              [length]="post.photoUrl.length"-->
-            <!--              [(index)]="index"-->
-            <!--            ></tui-pagination>-->
           </div>
 
           <div class="capAndReaction">

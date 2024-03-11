@@ -11,87 +11,111 @@ export class PostEffect {
     private postService: PostService,
   ) { }
 
-  getAllPost$ = createEffect(() =>
+  createPost$ = createEffect(() =>
     this.action$.pipe(
-      ofType(PostActions.getAllPost),
-      switchMap((action) => {
-        
-        return this.postService.getAllPosts(action.token).pipe(
-          map((list: any) => {
-            console.log('postList', list);
-            return PostActions.getAllPostSuccess({ list });
-          }),
-          catchError((error) => {
-            return of(
-              PostActions.getAllPostFailure({ getAllPostErrorMessage: error }),
-            );
-          }),
-        );
-      }),
+      ofType(PostActions.create),
+      switchMap((action) =>
+        this.postService.create(action.post).pipe(
+          map(() => PostActions.createSuccess()),
+          catchError((error) =>
+            of(PostActions.createFailure({ createErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  updatePost$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.update),
+      switchMap((action) =>
+        this.postService.update(action.post).pipe(
+          map(() => PostActions.updateSuccess()),
+          catchError((error) =>
+            of(PostActions.updateFailure({ updateErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  deletePost$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.deletePost),
+      switchMap((action) =>
+        this.postService.delete(action.id).pipe(
+          map(() => PostActions.deletePostSuccess()),
+          catchError((error) =>
+            of(PostActions.deletePostFailure({ deleteErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  getAll$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.getAll),
+      switchMap(() =>
+        this.postService.getAll().pipe(
+          map((postResponse) => PostActions.getAllSuccess({ postResponse })),
+          catchError((error) =>
+            of(PostActions.getAllFailure({ errorGetAllMessage: error })),
+          ),
+        ),
+      ),
     ),
   );
 
   getMine$ = createEffect(() =>
     this.action$.pipe(
       ofType(PostActions.getMine),
-      mergeMap((action) => {
-        return this.postService.getMine(action.page, action.size).pipe(
-          map((postList) => {
-            return PostActions.getMineSuccess({ list: postList });
-          }),
-          catchError((error) => {
-            return of(PostActions.getMineFailure({ message: error }));
-          }),
-        );
-      }),
+      switchMap((action) =>
+        this.postService.getMine(action.page, action.size).pipe(
+          map((postResponse) => PostActions.getMineSuccess({ postResponse })),
+          catchError((error) =>
+            of(PostActions.getMineFailure({ errorGetMineMessage: error })),
+          ),
+        ),
+      ),
     ),
   );
 
-  createPost$ = createEffect(() =>
+  getByShare$ = createEffect(() =>
     this.action$.pipe(
-      ofType(PostActions.createPost),
-      switchMap((action) => {
-        return this.postService.createPost(action.post).pipe(
-          map(() => {
-            return PostActions.createPostSuccess();
-          }),
-          catchError((error) => {
-            return of(PostActions.createPostFailure({ message: error }));
-          }),
-        );
-      }),
+      ofType(PostActions.getByShare),
+      switchMap((action) =>
+        this.postService.getByShare(action.page, action.size).pipe(
+          map((postResponse) =>
+            PostActions.getByShareSuccess({ postResponse }),
+          ),
+          catchError((error) =>
+            of(
+              PostActions.getByShareFailure({ errorGetByShareMessage: error }),
+            ),
+          ),
+        ),
+      ),
     ),
   );
 
-  getByShareId$ = createEffect(() =>
+  getByMention$ = createEffect(() =>
     this.action$.pipe(
-      ofType(PostActions.getByShareId),
-      mergeMap((action) => {
-        return this.postService.getByShareId(action.page, action.size).pipe(
-          map((postList) => {
-            return PostActions.getByShareIdSuccess({ list: postList });
-          }),
-          catchError((error) => {
-            return of(PostActions.getByShareIdFailure({ message: error }));
-          }),
-        );
-      }),
-    ),
-  );
-
-  getByMentionId$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(PostActions.getByMentionId),
-      mergeMap((action) => {
-        return this.postService.getByMentionId(action.page, action.size).pipe(
-          map((postList) => {
-            return PostActions.getByMentionIdSuccess({ list: postList });
-          }),
-          catchError((error) => {
-            return of(PostActions.getByMentionIdFailure({ message: error }));
-          }),
-        );
-      }),
+      ofType(PostActions.getByMention),
+      switchMap((action) =>
+        this.postService.getByMention(action.page, action.size).pipe(
+          map((postResponse) =>
+            PostActions.getByMentionSuccess({ postResponse }),
+          ),
+          catchError((error) =>
+            of(
+              PostActions.getByMentionFailure({
+                errorGetByMentionMessage: error,
+              }),
+            ),
+          ),
+        ),
+      ),
     ),
   );
 }

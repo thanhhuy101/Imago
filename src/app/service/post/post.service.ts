@@ -14,24 +14,31 @@ export class PostService {
     private store: Store<{ auth: AuthState }>,
   ) { }
 
-  getAllPosts(token: string) {
-    console.log('token', token);
+  getAll() {
     return this.httpClient.get('post/all?page=1');
   }
 
-  createPost(post: PostModel) {
+  create(post: PostModel) {
     return this.httpClient.post('post', post);
+  }
+
+  update(post: PostModel) {
+    return this.httpClient.put(`post`, post);
+  }
+
+  delete(id: string) {
+    return this.httpClient.delete(`post?id=${id}`);
   }
 
   getMine(page: number, size: number) {
     return this.httpClient.get(`post/mine?page=${page}&size=${size}`);
   }
 
-  getByShareId(page: number, size: number) {
+  getByShare(page: number, size: number) {
     return this.httpClient.get(`post/share?page=${page}&size=${size}`);
   }
 
-  getByMentionId(page: number, size: number) {
+  getByMention(page: number, size: number) {
     return this.httpClient.get(`post/mention/?page=${page}&size=${size}`);
   }
 }

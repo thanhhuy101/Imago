@@ -9,29 +9,44 @@ export class NotificationService {
     @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
   ) {}
 
-  infoNotification(message: string) {
+  infoNotification(
+    message: string,
+    autoClose: boolean | number = true ?? 3000,
+    header: string | null = null,
+  ) {
     this.alerts
       .open(message, {
+        label: header,
         status: 'info',
-        autoClose: 3000,
+        autoClose: autoClose,
       })
       .subscribe();
   }
 
-  successNotification(message: string) {
+  successNotification(
+    message: string,
+    autoClose: boolean | number = true ?? 3000,
+    header: string | null = null,
+  ) {
     this.alerts
       .open(message, {
+        label: header,
         status: 'success',
-        autoClose: 3000,
+        autoClose: autoClose,
       })
       .subscribe();
   }
 
-  errorNotification(message: string) {
+  errorNotification(
+    message: any,
+    autoClose: boolean | number = true ?? 3000,
+    header: string | null = null,
+  ) {
     this.alerts
       .open(message, {
+        label: header,
         status: 'error',
-        autoClose: 3000,
+        autoClose: autoClose,
       })
       .subscribe();
   }

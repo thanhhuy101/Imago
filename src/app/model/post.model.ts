@@ -16,10 +16,11 @@ export interface PostModel {
   updatedAt: Date;
   deletedAt: Date;
 }
+
 // export interface Post{
 
 // }
 export interface PostResponse {
   data: PostModel[];
-  endpage: number;
+  endPage: number;
 }
