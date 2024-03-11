@@ -6,8 +6,8 @@ import { Router, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ProfileModel } from '../../../model/profile.model';
 import { Store } from '@ngrx/store';
-import { ProfileState } from '../../../../ngrx/profile/state/profile.state';
-import * as ProfileActions from '../../../../ngrx/profile/actions/profile.actions';
+import { ProfileState } from '../../../../ngrx/profile/profile.state';
+import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { Subscription } from 'rxjs';
 import { StorageState } from '../../../../ngrx/storage/state/storage.state';
@@ -15,6 +15,7 @@ import * as StorageActions from '../../../../ngrx/storage/actions/storage.action
 import { maxFilesLength } from '../creator/components/images-carousel/images-carousel.component';
 import { TuiFileLike } from '@taiga-ui/kit';
 import { NotificationService } from '../../../service/notification/notification.service';
+
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -45,10 +46,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   token: string = '';
   token$ = this.store.select('auth', 'token');
   profile$ = this.store.select((state) => state.profile.profile);
-  isSuccess$ = this.store.select('profile', 'isSuccess');
-  errorMessage$ = this.store.select('profile', 'errorMessage');
-  updateIsSuccess$ = this.store.select('profile', 'updateIsSuccess');
-  updateErrorMessage$ = this.store.select('profile', 'updateErrorMessage');
+  // isSuccess$ = this.store.select('profile', 'isSuccess');
+  // errorMessage$ = this.store.select('profile', 'errorMessage');
+  // updateIsSuccess$ = this.store.select('profile', 'updateIsSuccess');
+  // updateErrorMessage$ = this.store.select('profile', 'updateErrorMessage');
 
   files: File[] = [];
   rejectedFiles: readonly TuiFileLike[] = [];
@@ -89,82 +90,84 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.control.valueChanges.subscribe((response: File[] | null) => {
-      if (response) {
-        this.files = response;
-        if (response.length > 5) {
-          this.notificationService.errorNotification(
-            'Error: maximum limit - 5 files for upload',
-          );
-          this.files = [];
-          return;
-        }
-        response.forEach((file: File) => {
-          const reader = new FileReader();
-          reader.readAsArrayBuffer(file);
-          reader.onload = () => {
-            if (reader.result) {
-              const blob = new Blob([reader.result], { type: 'image/png' });
-              const url = URL.createObjectURL(blob);
-              this.tmpImageList.unshift(url);
-              if (this.tmpImageList.length === response.length) {
-                this.imageList = this.tmpImageList;
-                // this.responseChangeEvent.emit(this.imageList);
-                this.tmpImageList = [];
-              }
-            }
-          };
-        });
-      }
-    });
-    this.subscription.push(
-      this.token$.subscribe((token) => {
-        if (token != '') {
-          this.store.dispatch(ProfileActions.getProfile());
-        }
-      }),
-      this.profile$.subscribe((profile) => {
-        if (profile) {
-          this.formupdate.patchValue({
-            userName: profile.userName,
-            firstName: profile.firstName,
-            lastName: profile.lastName,
-            bio: profile.bio,
-            photoUrl: profile.photoURL,
-          });
-        }
-      }),
-      this.storageState$.subscribe((url) => {
-        if (url) {
-          console.log(url);
-          url.forEach((url: string) => {
-            this.formupdate.patchValue({
-              photoUrl: url,
-            });
-          });
-        }
-      }),
-
-      this.updateIsSuccess$.subscribe((updateProfileSuccess) => {
-        if (updateProfileSuccess) {
-          console.log(updateProfileSuccess);
-        }
-      }),
-      this.updateErrorMessage$.subscribe((updateErrorMessage) => {
-        if (updateErrorMessage) {
-          console.log(updateErrorMessage);
-        }
-      }),
-    );
+    // this.control.valueChanges.subscribe((response: File[] | null) => {
+    //   if (response) {
+    //     this.files = response;
+    //     if (response.length > 5) {
+    //       this.notificationService.errorNotification(
+    //         'Error: maximum limit - 5 files for upload',
+    //       );
+    //       this.files = [];
+    //       return;
+    //     }
+    //     response.forEach((file: File) => {
+    //       const reader = new FileReader();
+    //       reader.readAsArrayBuffer(file);
+    //       reader.onload = () => {
+    //         if (reader.result) {
+    //           const blob = new Blob([reader.result], { type: 'image/png' });
+    //           const url = URL.createObjectURL(blob);
+    //           this.tmpImageList.unshift(url);
+    //           if (this.tmpImageList.length === response.length) {
+    //             this.imageList = this.tmpImageList;
+    //             // this.responseChangeEvent.emit(this.imageList);
+    //             this.tmpImageList = [];
+    //           }
+    //         }
+    //       };
+    //     });
+    //   }
+    // });
+    // this.subscription.push(
+    //   this.token$.subscribe((token) => {
+    //     if (token != '') {
+    //       this.store.dispatch(ProfileActions.getProfile());
+    //     }
+    //   }),
+    //   this.profile$.subscribe((profile) => {
+    //     if (profile) {
+    //       this.formupdate.patchValue({
+    //         userName: profile.userName,
+    //         firstName: profile.firstName,
+    //         lastName: profile.lastName,
+    //         bio: profile.bio,
+    //         photoUrl: profile.photoURL,
+    //       });
+    //     }
+    //   }),
+    //   this.storageState$.subscribe((url) => {
+    //     if (url) {
+    //       console.log(url);
+    //       url.forEach((url: string) => {
+    //         this.formupdate.patchValue({
+    //           photoUrl: url,
+    //         });
+    //       });
+    //     }
+    //   }),
+    //   this.updateIsSuccess$.subscribe((updateProfileSuccess) => {
+    //     if (updateProfileSuccess) {
+    //       console.log(updateProfileSuccess);
+    //     }
+    //   }),
+    //   this.updateErrorMessage$.subscribe((updateErrorMessage) => {
+    //     if (updateErrorMessage) {
+    //       console.log(updateErrorMessage);
+    //     }
+    //   }),
+    // );
   }
+
   onReject(files: TuiFileLike | readonly TuiFileLike[]): void {
     this.rejectedFiles = [...this.rejectedFiles, ...(files as TuiFileLike[])];
   }
+
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => {
       sub.unsubscribe();
     });
   }
+
   onActiveItemChange(index: number) {
     this.onChangePage(index);
   }
@@ -176,6 +179,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   //Dialog for profile
   openAddDialog = false;
+
   openDialog() {
     console.log('open');
     //this.upLoadImage();
@@ -201,20 +205,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
     lastName: '',
     photoURL: '',
   };
+
   submit() {
-    this.updateData = {
-      userName: this.formupdate.value.userName ?? '',
-      firstName: this.formupdate.value.firstName ?? '',
-      lastName: this.formupdate.value.lastName ?? '',
-      bio: this.formupdate.value.bio ?? '',
-      photoURL: this.formupdate.value.photoUrl ?? '',
-    };
-    this.store.dispatch(
-      ProfileActions.updateProfile({
-        profile: this.formupdate.value,
-      }),
-    );
-    this.openAddDialog = false;
+    // this.updateData = {
+    //   userName: this.formupdate.value.userName ?? '',
+    //   firstName: this.formupdate.value.firstName ?? '',
+    //   lastName: this.formupdate.value.lastName ?? '',
+    //   bio: this.formupdate.value.bio ?? '',
+    //   photoURL: this.formupdate.value.photoUrl ?? '',
+    // };
+    // this.store.dispatch(
+    //   ProfileActions.updateProfile({
+    //     profile: this.formupdate.value,
+    //   }),
+    // );
+    // this.openAddDialog = false;
   }
 
   upLoadImage() {

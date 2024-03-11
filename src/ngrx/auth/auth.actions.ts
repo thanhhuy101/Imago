@@ -1,10 +1,18 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthCredentialModel } from '../../app/model/auth.model';
+import {
+  AuthCredentialModel,
+  FirebaseDataModel,
+} from '../../app/model/auth.model';
 import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 export const storeToken = createAction(
   '[Auth] Store Token',
   props<{ token: string }>(),
+);
+
+export const storeFirebaseData = createAction(
+  '[Auth] Store Firebase Data',
+  props<{ firebaseData: FirebaseDataModel }>(),
 );
 
 export const clearMessages = createAction('[Auth] Clear Message');

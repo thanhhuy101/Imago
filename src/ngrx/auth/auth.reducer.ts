@@ -1,11 +1,15 @@
 import { AuthState } from './auth.state';
-import { AuthCredentialModel } from '../../app/model/auth.model';
+import {
+  AuthCredentialModel,
+  FirebaseDataModel,
+} from '../../app/model/auth.model';
 import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
 import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 const initialState: AuthState = {
   token: '',
+  firebaseData: <FirebaseDataModel>{},
 
   //google
   isSigningInWithGG: false,
@@ -144,6 +148,14 @@ export const authReducer = createReducer(
     return {
       ...state,
       token: token,
+    };
+  }),
+
+  // storeFirebaseData
+  on(AuthActions.storeFirebaseData, (state, { firebaseData }) => {
+    return {
+      ...state,
+      firebaseData: firebaseData,
     };
   }),
 

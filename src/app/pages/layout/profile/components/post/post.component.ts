@@ -37,6 +37,7 @@ export class PostComponent implements OnInit, OnDestroy {
   success$ = this.store.select('post', 'isGetMineSucces');
   failure$ = this.store.select('post', 'error');
   list: PostModel[] = [];
+
   constructor(
     @Inject(TuiDialogService) private readonly dialogs: TuiDialogService,
     @Inject(Injector) private readonly injector: Injector,
@@ -50,39 +51,41 @@ export class PostComponent implements OnInit, OnDestroy {
   isObjectEmpty(objectName: {}) {
     return Object.keys(objectName).length === 0;
   }
+
   ngOnInit(): void {
-    this.subscription.push(
-      this.token$.subscribe((token) => {
-        if (token != '') {
-          this.store.dispatch(PostActions.getMine({ page: 1, size: 10 }));
-        }
-      }),
-      this.loading$.subscribe((res) => {
-        if (res) {
-          this.loader = true;
-        }
-      }),
-      this.success$
-        .pipe(
-          mergeMap((res) => {
-            if (res) {
-              return this.postList$;
-            }
-            return [];
-          }),
-        )
-        .subscribe((res) => {
-          if (res) {
-            this.loader = false;
-            this.list = res.data;
-          }
-        }),
-      this.failure$.subscribe((res) => {
-        if (res) {
-          this.loader = false;
-        }
-      }),
-    );
+    this.subscription
+      .push
+      // this.token$.subscribe((token) => {
+      //   if (token != '') {
+      //     this.store.dispatch(PostActions.getMine({ page: 1, size: 10 }));
+      //   }
+      // }),
+      // this.loading$.subscribe((res) => {
+      //   if (res) {
+      //     this.loader = true;
+      //   }
+      // }),
+      // this.success$
+      //   .pipe(
+      //     mergeMap((res) => {
+      //       if (res) {
+      //         return this.postList$;
+      //       }
+      //       return [];
+      //     }),
+      //   )
+      //   .subscribe((res) => {
+      //     if (res) {
+      //       this.loader = false;
+      //       this.list = res.data;
+      //     }
+      //   }),
+      // this.failure$.subscribe((res) => {
+      //   if (res) {
+      //     this.loader = false;
+      //   }
+      // }),
+      ();
   }
 
   ngOnDestroy(): void {

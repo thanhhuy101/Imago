@@ -35,8 +35,9 @@ import { PostModel, PostResponse } from '../../../model/post.model';
 export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   // postList$ = this.store.select((state) => state.post.postList);
-postList$ =  this.store.select('post', 'list');
-postList: PostResponse = { data: [], endpage: 0 };
+
+  postList$ = this.store.select('post', 'list');
+  postList: PostResponse = { data: [], endpage: 0 };
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
@@ -46,19 +47,13 @@ postList: PostResponse = { data: [], endpage: 0 };
       report: ReportState;
     }>,
   ) {
-    this.postList$.subscribe((data:PostResponse) => {
-      
+    this.postList$.subscribe((data: PostResponse) => {
       //how to binding data
       this.postList = data;
       console.log('postList', typeof data.data);
       console.log('data', data);
       console.log('postList', this.postList);
-      
     });
-
-  
-    
-
   }
 
   index = 0;
@@ -71,10 +66,6 @@ postList: PostResponse = { data: [], endpage: 0 };
         }
       }),
     );
-
-  
-      
-    
   }
 
   ngOnDestroy(): void {

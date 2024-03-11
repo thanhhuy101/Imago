@@ -22,8 +22,8 @@ import { reportReducer } from '../ngrx/report/report.reducer';
 import { ReportEffect } from '../ngrx/report/report.effect';
 import { dev_environment } from '../environments/environment.development';
 import { HttpClientAuth } from './util/http-client-auth';
-import { profileReducer } from '../ngrx/profile/reducer/profile.reducer';
-import { ProfileEffect } from '../ngrx/profile/effects/profile.effects';
+import { profileReducer } from '../ngrx/profile/profile.reducer';
+import { ProfileEffect } from '../ngrx/profile/profile.effects';
 import { categoryReducer } from '../ngrx/category/category.reducer';
 import { CategoryEffect } from '../ngrx/category/category.effects';
 import { notiReducer } from '../ngrx/noti/noti.reducer';
@@ -34,7 +34,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideRouter(routes),
     importProvidersFrom(
-      provideFirebaseApp(() => initializeApp(dev_environment.firebase)),
+      provideFirebaseApp(() => initializeApp(dev_environment.firebase_backup)),
       TuiRootModule,
     ),
     importProvidersFrom(provideAuth(() => getAuth())),

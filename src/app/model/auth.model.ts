@@ -7,3 +7,9 @@ export interface AuthCredentialModel {
   createdAt: Date;
   isBanned: boolean;
 }
+
+export interface FirebaseDataModel {
+  uid: string;
+  email: string;
+  photoURL: string;
+}
