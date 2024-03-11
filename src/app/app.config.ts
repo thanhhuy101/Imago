@@ -12,8 +12,8 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 
-import { storageReducer } from '../ngrx/storage/reducer/storage.reducer';
-import { StorageEffects } from '../ngrx/storage/effects/storage.effects';
+import { storageReducer } from '../ngrx/storage/storage.reducer';
+import { StorageEffects } from '../ngrx/storage/storage.effects';
 import { authReducer } from '../ngrx/auth/auth.reducer';
 import { AuthEffects } from '../ngrx/auth/auth.effects';
 import { postReducer } from '../ngrx/post/post.reducer';

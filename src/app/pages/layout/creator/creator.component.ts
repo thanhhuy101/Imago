@@ -6,10 +6,10 @@ import { NotificationService } from '../../../service/notification/notification.
 import { CanComponentDeactivate } from '../../../guard/can-deactive.guard';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, on } from '@ngrx/store';
-import { StorageState } from '../../../../ngrx/storage/state/storage.state';
+import { StorageState } from '../../../../ngrx/storage/storage.state';
 import * as AuthActions from '../../../../ngrx/auth/auth.actions';
 import * as PostActions from '../../../../ngrx/post/post.action';
-import * as StorageActions from '../../../../ngrx/storage/actions/storage.actions';
+import * as StorageActions from '../../../../ngrx/storage/storage.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { AuthCredentialModel } from '../../../model/auth.model';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
@@ -18,6 +18,7 @@ import { PostModel } from '../../../model/post.model';
 import { error } from '@angular/compiler-cli/src/transformers/util';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-creator',
   standalone: true,
@@ -39,13 +40,13 @@ export class CreatorComponent
 
   linkOfImage: string[] = [];
   storageState$ = this.store.select('storage', 'url');
-  isCreateSuccess$ = this.store.select('post', 'isSucces');
-  isCreateFailure$ = this.store.select('post', 'isCreateFailure');
-  authState$ = this.store.select('auth', 'isSignInWithGGSuccess');
-  auth: AuthCredentialModel = <AuthCredentialModel>{};
-  // add default image
+  isCreateSuccess$ = this.store.select('post', 'isCreateSuccess');
+  createErrorMessage$ = this.store.select('post', 'createErrorMessage');
+  firebaseData$ = this.store.select('auth', 'firebaseData');
   imageList: string[] = ['https://via.placeholder.com/450'];
   subscription: Subscription[] = [];
+  uid = '';
+
   constructor(
     private route: Router,
     private notificationService: NotificationService,
@@ -55,26 +56,23 @@ export class CreatorComponent
       auth: AuthState;
       post: PostState;
     }>,
-  ) {
-    onAuthStateChanged(this.authFirebase, async (user) => {
-      if (user) {
-        console.log('uid', user.uid);
-        this.auth.uid = user.uid;
-      }
-    });
-  }
+  ) {}
 
   canDeactivate(): boolean {
     if (this.isContentChanged) {
       this.notificationService.errorNotification('Your content will be lost!');
       return false;
     }
-
     return true;
   }
 
   ngOnInit(): void {
     this.subscription.push(
+      this.firebaseData$.subscribe((data) => {
+        if (data) {
+          this.uid = data.uid;
+        }
+      }),
       this.storageState$.subscribe((url) => {
         if (url) {
           url.forEach((url: string) => {
@@ -87,22 +85,22 @@ export class CreatorComponent
         if (isSuccess) {
           this.isContentChanged = false;
           this.notificationService.successNotification('Post successfully');
-          setTimeout(() => {
-            this.route.navigate(['/profile/post']);
-          }, 3000);
+          this.store.dispatch(PostActions.clearCreateState());
+          this.route.navigate(['/profile/post']).then();
         }
       }),
-      this.isCreateFailure$.subscribe((error) => {
-        if (error) {
-          console.log('error', error);
+      this.createErrorMessage$.subscribe((error) => {
+        if (error.status) {
           this.notificationService.errorNotification('Post Fail');
+          this.store.dispatch(PostActions.clearCreateState());
         }
       }),
     );
   }
+
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
-    this.store.dispatch(PostActions.resetPostState());
+    this.store.dispatch(PostActions.clearMessages());
     this.store.dispatch(StorageActions.resetStorage());
   }
 
@@ -128,6 +126,7 @@ export class CreatorComponent
   clearStatus(): void {
     this.statusValue = '';
   }
+
   extractHashtags(inputString: string): {
     hashtag: string[];
     remaining: string;
@@ -158,13 +157,13 @@ export class CreatorComponent
       share: [],
       cateId: [],
       comments: [],
-      creatorId: this.auth.uid,
+      creatorId: this.uid,
       createdAt: new Date(),
       updatedAt: new Date(),
       deletedAt: new Date(),
-      id: this.auth.uid.slice(0, 10) + Date.now().toString(),
+      id: this.uid.slice(0, 10) + Date.now().toString(),
     };
     console.log('newPost', newPost);
-    this.store.dispatch(PostActions.createPost({ post: newPost }));
+    this.store.dispatch(PostActions.create({ post: newPost }));
   }
 }

@@ -2,192 +2,272 @@ import { PostModel, PostResponse } from './../../app/model/post.model';
 import * as PostActions from './post.action';
 import { createReducer, on } from '@ngrx/store';
 import { PostState } from './post.state';
+import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 const initialState: PostState = {
-  postList: [] as PostModel[],
-  list: <PostResponse>{},
-  Post: <PostModel>{},
-  isSucces: false,
-  isCreateFailure: false,
-  isGetsucces: false,
-  isGetMineSucces: false,
-  loading: false,
-  error: '',
+  postResponse: <PostResponse>{},
+  postDetail: <PostModel>{},
+
+  isCreating: false,
+  isCreateSuccess: false,
+  createErrorMessage: <HttpErrorResponseModel>{},
+
+  isUpdating: false,
+  isUpdateSuccess: false,
+  updateErrorMessage: <HttpErrorResponseModel>{},
+
+  isDeleting: false,
+  isDeleteSuccess: false,
+  deleteErrorMessage: <HttpErrorResponseModel>{},
+
+  isGettingAll: false,
+  errorGetAllMessage: <HttpErrorResponseModel>{},
+
+  isGettingMine: false,
+  errorGetMineMessage: <HttpErrorResponseModel>{},
+
+  isGettingByShare: false,
+  errorGetByShareMessage: <HttpErrorResponseModel>{},
+
+  isGettingByMention: false,
+  errorGetByMentionMessage: <HttpErrorResponseModel>{},
 };
 
 export const postReducer = createReducer(
   initialState,
-  on(PostActions.getAllPost, (state, { type }) => {
+
+  // Create
+  on(PostActions.create, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      loading: true,
+      isCreating: true,
     };
   }),
-  on(PostActions.getAllPostSuccess, (state, { list, type }) => {
+  on(PostActions.createSuccess, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      list: list,
-      loading: false,
+      isCreating: false,
+      isCreateSuccess: true,
+    };
+  }),
+  on(PostActions.createFailure, (state, { createErrorMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isCreating: false,
+      createErrorMessage: createErrorMessage,
+    };
+  }),
+
+  // Update
+  on(PostActions.update, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isUpdating: true,
+    };
+  }),
+  on(PostActions.updateSuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isUpdating: false,
+      isUpdateSuccess: true,
+    };
+  }),
+  on(PostActions.updateFailure, (state, { updateErrorMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isUpdating: false,
+      updateErrorMessage: updateErrorMessage,
+    };
+  }),
+
+  // Delete
+  on(PostActions.deletePost, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isDeleting: true,
+    };
+  }),
+  on(PostActions.deletePostSuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isDeleting: false,
+      isDeleteSuccess: true,
+    };
+  }),
+  on(PostActions.deletePostFailure, (state, { deleteErrorMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isDeleting: false,
+      deleteErrorMessage: deleteErrorMessage,
+    };
+  }),
+
+  // Get All
+  on(PostActions.getAll, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingAll: true,
+    };
+  }),
+  on(PostActions.getAllSuccess, (state, { postResponse, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingAll: false,
+      postResponse: postResponse,
+    };
+  }),
+  on(PostActions.getAllFailure, (state, { errorGetAllMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingAll: false,
+      errorGetAllMessage: errorGetAllMessage,
+    };
+  }),
+
+  // Get Mine
+  on(PostActions.getMine, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingMine: true,
+    };
+  }),
+  on(PostActions.getMineSuccess, (state, { postResponse, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingMine: false,
+      postResponse: postResponse,
+    };
+  }),
+  on(PostActions.getMineFailure, (state, { errorGetMineMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingMine: false,
+      errorGetMineMessage: errorGetMineMessage,
+    };
+  }),
+
+  // Get By Share
+  on(PostActions.getByShare, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingByShare: true,
+    };
+  }),
+  on(PostActions.getByShareSuccess, (state, { postResponse, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingByShare: false,
+      postResponse: postResponse,
     };
   }),
   on(
-    PostActions.getAllPostFailure,
-    (state, { getAllPostErrorMessage, type }) => {
-      // console.log(type);
+    PostActions.getByShareFailure,
+    (state, { errorGetByShareMessage, type }) => {
+      console.log(type);
       return {
         ...state,
-        error: getAllPostErrorMessage,
-        loading: false,
+        isGettingByShare: false,
+        errorGetByShareMessage: errorGetByShareMessage,
       };
     },
   ),
 
-  on(PostActions.createPost, (state, { type }) => {
-    // console.log(type);
-    return {
-      ...state,
-      loading: true,
-    };
-  }),
-
-  on(PostActions.createPostSuccess, (state, { type }) => {
+  // Get By Mention
+  on(PostActions.getByMention, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-
-      loading: false,
-      isSucces: true,
+      isGettingByMention: true,
     };
   }),
-
-  on(PostActions.createPostFailure, (state, { message, type }) => {
-    // console.log(type);
-    return {
-      ...state,
-      error: message,
-      isCreateFailure: true,
-      loading: false,
-      isSucces: false,
-    };
-  }),
-
-  //get mine
-  on(PostActions.getMine, (state, { type }) => {
-    // console.log(type);
-    return {
-      ...state,
-      list: <PostResponse>{},
-      loading: true,
-    };
-  }),
-
-  on(PostActions.getMineSuccess, (state, { list, type }) => {
-    // console.log(type);
-    return {
-      ...state,
-      list: list,
-      loading: false,
-      isGetMineSucces: true,
-    };
-  }),
-
-  on(PostActions.getMineFailure, (state, { message, type }) => {
-    // console.log(type);
-    return {
-      ...state,
-      error: message,
-      loading: false,
-      isGetMineSucces: false,
-    };
-  }),
-
-  //get by share
-  on(PostActions.getByShareId, (state, { type }) => {
+  on(PostActions.getByMentionSuccess, (state, { postResponse, type }) => {
     console.log(type);
     return {
       ...state,
-      list: <PostResponse>{},
-      loading: true,
+      isGettingByMention: false,
+      postResponse: postResponse,
     };
   }),
+  on(
+    PostActions.getByMentionFailure,
+    (state, { errorGetByMentionMessage, type }) => {
+      console.log(type);
+      return {
+        ...state,
+        isGettingByMention: false,
+        errorGetByMentionMessage: errorGetByMentionMessage,
+      };
+    },
+  ),
 
-  on(PostActions.getByShareIdSuccess, (state, { list, type }) => {
+  // Clear
+  on(PostActions.clearMessages, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      list: list,
-      loading: false,
-      isGetsucces: true,
+      createErrorMessage: <HttpErrorResponseModel>{},
+      updateErrorMessage: <HttpErrorResponseModel>{},
+      deleteErrorMessage: <HttpErrorResponseModel>{},
+      errorGetAllMessage: <HttpErrorResponseModel>{},
+      errorGetMineMessage: <HttpErrorResponseModel>{},
+      errorGetByShareMessage: <HttpErrorResponseModel>{},
+      errorGetByMentionMessage: <HttpErrorResponseModel>{},
     };
   }),
 
-  on(PostActions.getByShareIdFailure, (state, { message, type }) => {
+  on(PostActions.clearCreateState, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      error: message,
-      loading: false,
-      isGetsucces: false,
+      isCreateSuccess: false,
+      isCreating: false,
     };
   }),
 
-  //get by mention
-  on(PostActions.getByMentionId, (state, { type }) => {
+  on(PostActions.clearUpdateState, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      list: <PostResponse>{},
-      loading: true,
+      isUpdateSuccess: false,
+      isUpdating: false,
     };
   }),
 
-  on(PostActions.getByMentionIdSuccess, (state, { list, type }) => {
+  on(PostActions.clearDeleteState, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      list: list,
-      loading: false,
-      isGetsucces: true,
+      isDeleteSuccess: false,
+      isDeleting: false,
     };
   }),
 
-  on(PostActions.getByMentionIdFailure, (state, { message, type }) => {
+  on(PostActions.clearGetState, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      error: message,
-      loading: false,
-      isGetsucces: false,
-    };
-  }),
-
-  on(PostActions.resetPostState, (state, { type }) => {
-    console.log(type);
-    return {
-      ...state,
-      list: <PostResponse>{},
-      isSucces: false,
-      isCreateFailure: false,
-      isGetsucces: false,
-      isGetMineSucces: false,
-      loading: false,
-      error: '',
-    };
-  }),
-
-  on(PostActions.resetPostState, (state, { type }) => {
-    console.log(type);
-    return {
-      ...state,
-      list: <PostResponse>{},
-      isSucces: false,
-      isCreateFailure: false,
-      isGetsucces: false,
-      isGetMineSucces: false,
-      loading: false,
-      error: '',
+      postResponse: <PostResponse>{},
+      isGettingAll: false,
+      isGettingMine: false,
+      isGettingByShare: false,
+      isGettingByMention: false,
     };
   }),
 );

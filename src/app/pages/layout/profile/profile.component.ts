@@ -8,11 +8,11 @@ import { ProfileModel } from '../../../model/profile.model';
 import { Store } from '@ngrx/store';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
+import * as PostActions from '../../../../ngrx/post/post.action';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { Subscription } from 'rxjs';
-import { StorageState } from '../../../../ngrx/storage/state/storage.state';
-import * as StorageActions from '../../../../ngrx/storage/actions/storage.actions';
-import { maxFilesLength } from '../creator/components/images-carousel/images-carousel.component';
+import { StorageState } from '../../../../ngrx/storage/storage.state';
+import * as StorageActions from '../../../../ngrx/storage/storage.actions';
 import { TuiFileLike } from '@taiga-ui/kit';
 import { NotificationService } from '../../../service/notification/notification.service';
 
@@ -43,25 +43,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profile: ProfileModel = <ProfileModel>{};
   activeItemIndex = 0;
 
-  token: string = '';
-  token$ = this.store.select('auth', 'token');
-  profile$ = this.store.select((state) => state.profile.profile);
-  // isSuccess$ = this.store.select('profile', 'isSuccess');
-  // errorMessage$ = this.store.select('profile', 'errorMessage');
-  // updateIsSuccess$ = this.store.select('profile', 'updateIsSuccess');
-  // updateErrorMessage$ = this.store.select('profile', 'updateErrorMessage');
+  profile$ = this.store.select('profile', 'profile');
 
   files: File[] = [];
   rejectedFiles: readonly TuiFileLike[] = [];
-  tmpImageList: string[] = [];
-  imageList: string[] = ['https://via.placeholder.com/450'];
-  idTokenImage = '';
-  uid = '';
-  storageState$ = this.store.select('storage', 'url');
-  control = new FormControl(new Array<File>(), [maxFilesLength(1)]);
+  uid: string = '';
 
   constructor(
-    @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
     private route: Router,
     private notificationService: NotificationService,
     private store: Store<{
@@ -70,93 +58,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
       storage: StorageState;
     }>,
   ) {
-    let path = window.location.href.split('?')[0];
-    console.log(path);
-    if (path.includes('profile/share')) {
+    if (route.url.includes('profile/share')) {
       this.activeItemIndex = 1;
-    } else if (path.includes('profile/mention')) {
+    } else if (route.url.includes('profile/mention')) {
       this.activeItemIndex = 2;
     }
-    this.token$.subscribe((value) => {
-      if (value) {
-        this.token = value;
-      }
-    });
+
     this.profile$.subscribe((value) => {
-      if (value) {
+      if (value.email) {
         this.profile = value;
+        console.log(this.profile);
       }
     });
   }
 
-  ngOnInit(): void {
-    // this.control.valueChanges.subscribe((response: File[] | null) => {
-    //   if (response) {
-    //     this.files = response;
-    //     if (response.length > 5) {
-    //       this.notificationService.errorNotification(
-    //         'Error: maximum limit - 5 files for upload',
-    //       );
-    //       this.files = [];
-    //       return;
-    //     }
-    //     response.forEach((file: File) => {
-    //       const reader = new FileReader();
-    //       reader.readAsArrayBuffer(file);
-    //       reader.onload = () => {
-    //         if (reader.result) {
-    //           const blob = new Blob([reader.result], { type: 'image/png' });
-    //           const url = URL.createObjectURL(blob);
-    //           this.tmpImageList.unshift(url);
-    //           if (this.tmpImageList.length === response.length) {
-    //             this.imageList = this.tmpImageList;
-    //             // this.responseChangeEvent.emit(this.imageList);
-    //             this.tmpImageList = [];
-    //           }
-    //         }
-    //       };
-    //     });
-    //   }
-    // });
-    // this.subscription.push(
-    //   this.token$.subscribe((token) => {
-    //     if (token != '') {
-    //       this.store.dispatch(ProfileActions.getProfile());
-    //     }
-    //   }),
-    //   this.profile$.subscribe((profile) => {
-    //     if (profile) {
-    //       this.formupdate.patchValue({
-    //         userName: profile.userName,
-    //         firstName: profile.firstName,
-    //         lastName: profile.lastName,
-    //         bio: profile.bio,
-    //         photoUrl: profile.photoURL,
-    //       });
-    //     }
-    //   }),
-    //   this.storageState$.subscribe((url) => {
-    //     if (url) {
-    //       console.log(url);
-    //       url.forEach((url: string) => {
-    //         this.formupdate.patchValue({
-    //           photoUrl: url,
-    //         });
-    //       });
-    //     }
-    //   }),
-    //   this.updateIsSuccess$.subscribe((updateProfileSuccess) => {
-    //     if (updateProfileSuccess) {
-    //       console.log(updateProfileSuccess);
-    //     }
-    //   }),
-    //   this.updateErrorMessage$.subscribe((updateErrorMessage) => {
-    //     if (updateErrorMessage) {
-    //       console.log(updateErrorMessage);
-    //     }
-    //   }),
-    // );
-  }
+  ngOnInit(): void {}
 
   onReject(files: TuiFileLike | readonly TuiFileLike[]): void {
     this.rejectedFiles = [...this.rejectedFiles, ...(files as TuiFileLike[])];
@@ -168,13 +84,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  onActiveItemChange(index: number) {
-    this.onChangePage(index);
-  }
-
   onChangePage(i: number) {
-    console.log(this.items[i].router);
-    this.route.navigate(['/profile' + this.items[i].router]);
+    this.route.navigate(['/profile' + this.items[i].router]).then();
   }
 
   //Dialog for profile
@@ -190,7 +101,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.openAddDialog = true;
   }
 
-  formupdate: FormGroup = new FormGroup({
+  updateForm: FormGroup = new FormGroup({
     userName: new FormControl(''),
     firstName: new FormControl(''),
     lastName: new FormControl(''),
@@ -225,10 +136,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   upLoadImage() {
     this.files.forEach((file: File) => {
       this.store.dispatch(
-        StorageActions.upLoadFile({
+        StorageActions.uploadFile({
           file: file,
           fileName: `${this.uid}/avatar/`,
-          idToken: this.idTokenImage,
         }),
       );
       this.files = [];

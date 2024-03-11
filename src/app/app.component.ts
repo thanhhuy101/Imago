@@ -87,25 +87,30 @@ export class AppComponent implements OnInit {
       this.isGetProfileSuccess$,
       this.getAuthErrorResponse$,
     ]).subscribe(([authCredential, profile, error]) => {
-      if (authCredential.email && !profile.email) {
-        this.router.navigate(['/register']).then();
-      }
       if (
         authCredential.email &&
         profile.email &&
         profile.category.length !== 0
       ) {
-        this.router.navigate(['/home']).then();
-      }
-      if (
+        if (
+          this.router.url === '/login' ||
+          this.router.url === '/register' ||
+          this.router.url === '/interest'
+        ) {
+          this.router.navigate(['/home']).then();
+        } else {
+          this.router.navigate([this.router.url]).then();
+        }
+      } else if (error.status === 404) {
+        this.store.dispatch(AuthActions.signUp());
+      } else if (authCredential.email && !profile.email) {
+        this.router.navigate(['/register']).then();
+      } else if (
         authCredential.email &&
         profile.email &&
         profile.category.length === 0
       ) {
         this.router.navigate(['/interest']).then();
-      }
-      if (error.status === 404) {
-        this.store.dispatch(AuthActions.signUp());
       }
     });
 

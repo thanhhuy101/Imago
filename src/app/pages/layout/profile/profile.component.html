@@ -40,7 +40,14 @@
           <img class="avatar-user" [src]="profile.photoUrl" alt="" />
         </div>
         <div class="framebtnEditProfile">
-          <p class="p" (click)="upLoadImage()">Edit</p>
+          <button
+            tuiButton
+            appearance="outline"
+            size="m"
+            (click)="upLoadImage()"
+          >
+            Edit
+          </button>
         </div>
       </div>
     </div>
@@ -51,7 +58,7 @@
       tuiRipple="var(--tui-text-01)"
       tuiTab
       class="post"
-      (click)="onActiveItemChange(i)"
+      (click)="onChangePage(i)"
     >
       {{ item.text }}
     </button>
@@ -63,7 +70,7 @@
   [tuiDialogOptions]="{ label: 'Update profile', size: 's' }"
   [(tuiDialog)]="this.openAddDialog"
 >
-  <form [formGroup]="formupdate" (ngSubmit)="submit()">
+  <form [formGroup]="updateForm" (ngSubmit)="submit()">
     <p>
       <tui-input formControlName="userName">User Name</tui-input>
     </p>
