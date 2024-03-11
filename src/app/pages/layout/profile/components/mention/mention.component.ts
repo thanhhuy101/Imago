@@ -7,7 +7,7 @@ import { Subscription, switchMap } from 'rxjs';
 import { AuthState } from '../../../../../../ngrx/auth/auth.state';
 import { PostState } from '../../../../../../ngrx/post/post.state';
 import { PostModel } from '../../../../../model/post.model';
-import * as PostActions from '../../../../../../ngrx/post/post.action';
+import * as PostActions from '../../../../../../ngrx/post/post.actions';
 
 @Component({
   selector: 'app-post',

@@ -1,4 +1,4 @@
-import * as ReportActions from './report.action';
+import * as ReportActions from './report.actions';
 import { createReducer, on } from '@ngrx/store';
 
 const initialState = {

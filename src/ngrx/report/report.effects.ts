@@ -1,4 +1,4 @@
-import * as reportActions from './report.action';
+import * as reportActions from './report.actions';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap } from 'rxjs/operators';

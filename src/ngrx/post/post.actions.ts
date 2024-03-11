@@ -83,8 +83,19 @@ export const getByMentionFailure = createAction(
   props<{ errorGetByMentionMessage: HttpErrorResponseModel }>(),
 );
 
+export const search = createAction('[Post] Search', props<{ query: string }>());
+export const searchSuccess = createAction(
+  '[Post] Search Success',
+  props<{ postSearchResult: PostModel[] }>(),
+);
+export const searchFailure = createAction(
+  '[Post] Search Failure',
+  props<{ errorSearchMessage: HttpErrorResponseModel }>(),
+);
+
 export const clearMessages = createAction('[Post] Clear Message');
 export const clearCreateState = createAction('[Post] Clear Create State');
 export const clearUpdateState = createAction('[Post] Clear Update State');
 export const clearGetState = createAction('[Post] Clear Get State');
 export const clearDeleteState = createAction('[Post] Clear Delete State');
+export const clearSearchState = createAction('[Post] Clear Search State');

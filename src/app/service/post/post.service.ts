@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../../ngrx/auth/auth.state'
+import { AuthState } from '../../../ngrx/auth/auth.state';
 import { HttpClientAuth } from '../../util/http-client-auth';
 import { PostModel } from '../../model/post.model';
 
@@ -12,7 +12,7 @@ export class PostService {
   constructor(
     private httpClient: HttpClientAuth,
     private store: Store<{ auth: AuthState }>,
-  ) { }
+  ) {}
 
   getAll(page: number, size: number) {
     return this.httpClient.get(`post/all?page=${page}&size=${size}`);
@@ -40,5 +40,9 @@ export class PostService {
 
   getByMention(page: number, size: number) {
     return this.httpClient.get(`post/mention/?page=${page}&size=${size}`);
+  }
+
+  search(query: string) {
+    return this.httpClient.get(`post/search?query=${query}`);
   }
 }

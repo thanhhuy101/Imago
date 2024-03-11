@@ -1,5 +1,5 @@
 import { PostModel, PostResponse } from './../../app/model/post.model';
-import * as PostActions from './post.action';
+import * as PostActions from './post.actions';
 import { createReducer, on } from '@ngrx/store';
 import { PostState } from './post.state';
 import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
@@ -31,6 +31,10 @@ const initialState: PostState = {
 
   isGettingByMention: false,
   errorGetByMentionMessage: <HttpErrorResponseModel>{},
+
+  isSearching: false,
+  postSearchResult: [],
+  errorSearchMessage: <HttpErrorResponseModel>{},
 };
 
 export const postReducer = createReducer(
@@ -268,6 +272,42 @@ export const postReducer = createReducer(
       isGettingMine: false,
       isGettingByShare: false,
       isGettingByMention: false,
+    };
+  }),
+
+  //search
+  on(PostActions.search, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSearching: true,
+      postSearchResult: [],
+    };
+  }),
+  on(PostActions.searchSuccess, (state, { postSearchResult, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSearching: false,
+      postSearchResult: postSearchResult,
+    };
+  }),
+  on(PostActions.searchFailure, (state, { errorSearchMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSearching: false,
+      errorSearchMessage: errorSearchMessage,
+    };
+  }),
+
+  on(PostActions.clearSearchState, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSearching: false,
+      postSearchResult: [],
+      errorSearchMessage: <HttpErrorResponseModel>{},
     };
   }),
 );
