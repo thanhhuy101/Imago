@@ -9,6 +9,16 @@ export const environment = {
     measurementId: 'G-7TVCQGP8RS',
   },
 
+  firebase_backup: {
+    projectId: 'imago-backup',
+    appId: '1:696714901988:web:bf1a18143a4e8e59d5aff1',
+    storageBucket: 'imago-backup.appspot.com',
+    locationId: 'asia-east1',
+    apiKey: 'AIzaSyCD0zl34Cf5BLILWPaDu4CK-ilHIlEMww8',
+    authDomain: 'imago-backup.firebaseapp.com',
+    messagingSenderId: '696714901988',
+  },
+
   production: true,
 
   baseUrl: 'http://localhost:3000',

@@ -8,6 +8,7 @@ import { PostState } from '../../../../../../ngrx/post/post.state';
 import { PostModel } from '../../../../../model/post.model';
 import { Subscription, switchMap } from 'rxjs';
 import * as PostActions from '../../../../../../ngrx/post/post.action';
+
 @Component({
   selector: 'app-post',
   standalone: true,
@@ -20,12 +21,6 @@ export class ShareComponent implements OnInit, OnDestroy {
   loader: boolean = false;
   subscription: Subscription[] = [];
 
-  token$ = this.store.select('auth', 'token');
-  shareList$ = this.store.select('post', 'list');
-  loading$ = this.store.select('post', 'loading');
-  success$ = this.store.select('post', 'isGetsucces');
-  failure$ = this.store.select('post', 'error');
-
   constructor(
     @Inject(TuiDialogService) private readonly dialogs: TuiDialogService,
     @Inject(Injector) private readonly injector: Injector,
@@ -33,37 +28,9 @@ export class ShareComponent implements OnInit, OnDestroy {
       post: PostState;
       auth: AuthState;
     }>,
-  ) {}
+  ) { }
 
-  ngOnInit(): void {
-    this.subscription.push(
-      this.token$.subscribe((token) => {
-        if (token) {
-          this.store.dispatch(PostActions.getByShareId({ page: 1, size: 10 }));
-        }
-      }),
-      this.loading$.subscribe((res) => {
-        if (res) {
-          this.loader = true;
-        }
-      }),
-      this.success$
-        .pipe(
-          switchMap((res) => {
-            if (res) {
-              return this.shareList$;
-            }
-            return [];
-          }),
-        )
-        .subscribe((res) => {
-          console.log('res', res.data);
-
-          this.shareList = res.data;
-          this.loader = false;
-        }),
-    );
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());

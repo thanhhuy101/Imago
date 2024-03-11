@@ -8,17 +8,19 @@ import { ProfileModel } from '../../model/profile.model';
 export class ProfileService {
   constructor(private httpClient: HttpClientAuth) {}
 
-  getAllProfiles() {
+  getAll() {
     return this.httpClient.get('profile/list');
   }
-  getProfile() {
+
+  getMine() {
     return this.httpClient.get('profile/mine');
   }
-  createProfile(profile: ProfileModel) {
-    console.log(profile);
+
+  createMine(profile: ProfileModel) {
     return this.httpClient.post('profile/mine', profile);
   }
-  updateProfile(profile: ProfileModel) {
+
+  updateMine(profile: ProfileModel) {
     return this.httpClient.put('profile/mine', profile);
   }
 }

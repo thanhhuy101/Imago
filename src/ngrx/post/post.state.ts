@@ -1,13 +1,31 @@
 import { PostModel, PostResponse } from '../../app/model/post.model';
+import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 export interface PostState {
-  postList: PostModel[];
-  list: PostResponse;
-  Post: PostModel;
-  isGetMineSucces: boolean;
-  isGetsucces: boolean;
-  isSucces: boolean;
-  isCreateFailure: boolean;
-  loading: boolean;
-  error: string;
+  postResponse: PostResponse;
+  postDetail: PostModel;
+
+  isCreating: boolean;
+  isCreateSuccess: boolean;
+  createErrorMessage: HttpErrorResponseModel;
+
+  isUpdating: boolean;
+  isUpdateSuccess: boolean;
+  updateErrorMessage: HttpErrorResponseModel;
+
+  isDeleting: boolean;
+  isDeleteSuccess: boolean;
+  deleteErrorMessage: HttpErrorResponseModel;
+
+  isGettingAll: boolean;
+  errorGetAllMessage: HttpErrorResponseModel;
+
+  isGettingMine: boolean;
+  errorGetMineMessage: HttpErrorResponseModel;
+
+  isGettingByShare: boolean;
+  errorGetByShareMessage: HttpErrorResponseModel;
+
+  isGettingByMention: boolean;
+  errorGetByMentionMessage: HttpErrorResponseModel;
 }

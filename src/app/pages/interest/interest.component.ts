@@ -6,16 +6,17 @@ import {
 } from '@angular/core';
 import { ShareModule } from '../../shared/share.module';
 import { TaigaModule } from '../../shared/taiga.module';
-import { CategoryService } from '../../service/category/category.service';
 import { CategoryState } from '../../../ngrx/category/category.state';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as CategoryActions from '../../../ngrx/category/category.actions';
+import * as ProfileActions from '../../../ngrx/profile/profile.actions';
 import { AuthState } from '../../../ngrx/auth/auth.state';
 import { CategoryModel } from '../../model/category.model';
-import { set } from '@firebase/database';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../service/notification/notification.service';
+import { ProfileState } from '../../../ngrx/profile/profile.state';
+import { ProfileModel } from '../../model/profile.model';
 
 type Category = {
   id: string;
@@ -47,6 +48,8 @@ export class InterestComponent implements OnInit, OnDestroy {
   );
   categories$ = this.store.select('category', 'categories');
 
+  isGetProfileSuccess$ = this.store.select('profile', 'profile');
+
   // category
   categories: CategoryModel[] = [];
 
@@ -60,9 +63,28 @@ export class InterestComponent implements OnInit, OnDestroy {
   // items
   selectedItems: any = [];
 
+  profile: ProfileModel = {
+    email: '',
+    userName: '',
+    firstName: '',
+    lastName: '',
+    id: '',
+    bio: '',
+    photoUrl: '',
+    followers: [],
+    following: [],
+    phone: '',
+    category: [],
+    gender: '',
+  };
+
   constructor(
     private router: Router,
-    private store: Store<{ category: CategoryState; auth: AuthState }>,
+    private store: Store<{
+      category: CategoryState;
+      auth: AuthState;
+      profile: ProfileState;
+    }>,
     private alertService: NotificationService,
   ) {
     for (let index = 0; index < 50; index++) {
@@ -88,10 +110,16 @@ export class InterestComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription.push(
       this.token$.subscribe((token) => {
-        if (token != '' && token != undefined) {
+        if (token) {
           this.store.dispatch(
             CategoryActions.getCategoryList({ page: this.page }),
           );
+        }
+      }),
+
+      this.isGetProfileSuccess$.subscribe((profile) => {
+        if (profile) {
+          this.profile = profile;
         }
       }),
 
@@ -185,11 +213,15 @@ export class InterestComponent implements OnInit, OnDestroy {
   }
 
   next() {
-    // this.selectedItems.forEach((item: any) => {
-    //   console.log(item.id);
-    // });
-    if (this.selectedItems.length > 0) {
-      this.alertService.successNotification("Let's get started!");
+    let listCategory = this.selectedItems.map((item: any) => item.id);
+
+    let profile: ProfileModel = {
+      ...this.profile,
+      category: listCategory,
+    };
+
+    if (listCategory.length > 0) {
+      this.store.dispatch(ProfileActions.updateMine({ profile: profile }));
       this.router.navigate(['/home']).then();
     } else {
       this.alertService.errorNotification('Please select at least 1 category');

@@ -5,7 +5,7 @@ export interface ProfileModel {
   lastName: string;
   email: string;
   bio: string;
-  photoURL: string;
+  photoUrl: string;
   followers: string[];
   following: string[];
   phone: string;

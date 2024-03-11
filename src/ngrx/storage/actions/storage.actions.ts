@@ -1,8 +1,9 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction, props } from "@ngrx/store";
+
 
 export const upLoadFile = createAction(
   '[Storage] Upload File',
-  props<{ file: File; fileName: string; idToken: string }>(),
+  props<{ file: File, fileName: string, idToken: string }>(),
 );
 
 export const upLoadFileFailure = createAction(
@@ -15,5 +16,3 @@ export const upLoadFileSuccess = createAction(
   '[Storage] Upload File Success',
   props<{ url: any }>(),
 );
-
-export const resetStorage = createAction('[Profile] Clear States');
