@@ -178,8 +178,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   openAddDialog = false;
   openDialog() {
     console.log('open');
-    this.upLoadImage();
-    //this.openAddDialog = true;
+    //this.upLoadImage();
+    this.openAddDialog = true;
   }
 
   closeDialog() {

@@ -35,10 +35,11 @@
     <div class="right">
       <div class="content">
         <div class="avatar">
-          <tui-input-files accept="image/*" [multiple]="false" [formControl]="control" (reject)="onReject($event)">
-            <img class="avatar-user" [src]="profile.photoURL" alt="">
-          </tui-input-files>
-
+          <!-- <tui-input-files accept="image/*" [multiple]="false" [formControl]="control" (reject)="onReject($event)"
+            style="border-radius: 46%;">
+           
+          </tui-input-files> -->
+          <img class="avatar-user" [src]="profile.photoURL" alt="">
         </div>
         <div class="framebtnEditProfile">
           <p class="p" (click)="upLoadImage()">
