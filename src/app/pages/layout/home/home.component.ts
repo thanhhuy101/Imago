@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       auth: AuthState;
       report: ReportState;
     }>,
-  ) {}
+  ) { }
 
   index = 0;
 

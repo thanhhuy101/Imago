@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TaigaModule } from '../../../../../shared/taiga.module';
 import { ShareModule } from '../../../../../shared/share.module';
 import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
@@ -23,10 +23,13 @@ import { Subscription } from 'rxjs';
   styleUrl: './images-carousel.component.scss',
 })
 export class ImagesCarouselComponent implements OnInit {
+  @Input() isUploadImages = true;
   @Output() responseChangeEvent: EventEmitter<string[]> = new EventEmitter<
     string[]
   >();
 
+  @Output() uploadImagesEvent = new EventEmitter<
+    boolean>();
   subscription: Subscription[] = [];
 
   control = new FormControl(new Array<File>(), [maxFilesLength(5)]);
@@ -70,6 +73,12 @@ export class ImagesCarouselComponent implements OnInit {
             );
             this.files = [];
             return;
+          }
+          if (response.length === 0) {
+            this.isUploadImages = true;
+          } else {
+            this.isUploadImages = false;
+
           }
           response.forEach((file: File) => {
             const reader = new FileReader();
@@ -119,6 +128,8 @@ export class ImagesCarouselComponent implements OnInit {
     if (index === this.imageList.length) {
       this.index = index;
     }
+    this.isUploadImages = true;
+    this.uploadImagesEvent.emit(true);
   }
 
   upLoadImage() {
@@ -132,15 +143,20 @@ export class ImagesCarouselComponent implements OnInit {
       this.files = [];
     });
   }
+
+  onUploadImage(event: any) {
+    // console.log('event', event);
+    this.uploadImagesEvent.emit(false);
+  }
 }
 
 export function maxFilesLength(maxLength: number): ValidatorFn {
   return ({ value }: AbstractControl) =>
     value.length > maxLength
       ? {
-          maxLength: new TuiValidationError(
-            'Error: maximum limit - 5 files for upload',
-          ),
-        }
+        maxLength: new TuiValidationError(
+          'Error: maximum limit - 5 files for upload',
+        ),
+      }
       : null;
 }

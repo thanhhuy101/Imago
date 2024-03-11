@@ -28,7 +28,7 @@ export class ShareComponent implements OnInit, OnDestroy {
       post: PostState;
       auth: AuthState;
     }>,
-  ) {}
+  ) { }
 
   ngOnInit(): void {}
 

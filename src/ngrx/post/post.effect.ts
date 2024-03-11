@@ -9,7 +9,7 @@ export class PostEffect {
   constructor(
     private action$: Actions,
     private postService: PostService,
-  ) {}
+  ) { }
 
   createPost$ = createEffect(() =>
     this.action$.pipe(
