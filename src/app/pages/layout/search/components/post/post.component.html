@@ -1,5 +1,5 @@
-<div class="main">
-  <div class="allPost">
+<div [ngClass]="list.length > 0 ? 'main' : 'main-empty'">
+  <div class="allPost" *ngIf="list.length > 0; else noResult">
     @for (post of list; track post.id; let i = $index) {
       <div class="post">
         <div class="picture-post1" (click)="showDialog(i)">
@@ -50,6 +50,9 @@
       </div>
     }
   </div>
+  <ng-template #noResult>
+    <div class="tui-text_body-xl">No result match</div>
+  </ng-template>
 </div>
 <ng-template
   let-observer
