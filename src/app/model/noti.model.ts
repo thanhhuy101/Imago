@@ -13,7 +13,9 @@ export interface FollowNotiModel {
   id: string;
   createdAt: Date;
   uid: string;
+  postId: string;
   sender: string;
+  isFollow: boolean;
 }
 
 export interface LikeNotiModel {
@@ -22,6 +24,7 @@ export interface LikeNotiModel {
   uid: string;
   postId: string;
   sender: string;
+  isLike: boolean;
 }
 
 export interface CommentNotiModel {
@@ -30,4 +33,5 @@ export interface CommentNotiModel {
   uid: string;
   postId: string;
   sender: string;
+  isComment: boolean;
 }

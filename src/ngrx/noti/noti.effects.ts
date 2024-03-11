@@ -11,11 +11,27 @@ export class NotiEffect {
     private notiService: NotiService,
   ) {}
 
+  createNotification$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(NotiActions.createNotification),
+      switchMap((action) => {
+        return this.notiService.createNotification(action.notification).pipe(
+          map(() => {
+            return NotiActions.createNotificationSuccess();
+          }),
+          catchError((error) => {
+            return of(NotiActions.createNotificationFailure({ error }));
+          }),
+        );
+      }),
+    );
+  });
+
   getNotifications$ = createEffect(() => {
     return this.action$.pipe(
       ofType(NotiActions.getNotifications),
-      switchMap(() => {
-        return this.notiService.getNotifications().pipe(
+      switchMap((action) => {
+        return this.notiService.getNotifications(action.uid).pipe(
           map((response) => {
             return NotiActions.getNotificationsSuccess({
               notifications: response,
@@ -32,8 +48,8 @@ export class NotiEffect {
   getFollowNotifications$ = createEffect(() => {
     return this.action$.pipe(
       ofType(NotiActions.getFollowNotifications),
-      switchMap(() => {
-        return this.notiService.getFollowNotifications().pipe(
+      switchMap((action) => {
+        return this.notiService.getFollowNotifications(action.uid).pipe(
           map((response) => {
             return NotiActions.getFollowNotificationsSuccess({
               followNotifications: response,
@@ -50,8 +66,8 @@ export class NotiEffect {
   getLikeNotifications$ = createEffect(() => {
     return this.action$.pipe(
       ofType(NotiActions.getLikeNotifications),
-      switchMap(() => {
-        return this.notiService.getLikeNotifications().pipe(
+      switchMap((action) => {
+        return this.notiService.getLikeNotifications(action.uid).pipe(
           map((response) => {
             return NotiActions.getLikeNotificationsSuccess({
               likeNotifications: response,
@@ -68,8 +84,8 @@ export class NotiEffect {
   getCommentNotifications$ = createEffect(() => {
     return this.action$.pipe(
       ofType(NotiActions.getCommentNotifications),
-      switchMap(() => {
-        return this.notiService.getCommentNotifications().pipe(
+      switchMap((action) => {
+        return this.notiService.getCommentNotifications(action.uid).pipe(
           map((response) => {
             return NotiActions.getCommentNotificationsSuccess({
               commentNotifications: response,
