@@ -1,24 +1,26 @@
 <div class="main">
-
   <div class="left">
-    <!-- <div class="boderSearch">
-      <span style=" font-size: 28px" class="material-symbols-outlined">
-        search
-      </span>
-      <input type="text" placeholder="Search">
-    </div> -->
-
-    <tui-input tuiHintDirection="bottom-left" tuiTextfieldIconLeft="tuiIconSearchLarge" class="input"
-      [tuiTextfieldCleaner]="true" [(ngModel)]="value">
-      Search
-    </tui-input>
-
-  </div>
-  <div class="right">
-    <div class="filter">
-      <tui-tabs class="tuitab" tuiMobileTabs [(activeItemIndex)]="activeItemIndex">
-        <button *ngFor="let item of items; let i = index" tuiRipple="var(--tui-text-01)" tuiTab class="post"
-          (click)="onActiveItemChange(i)">
+    <div class="search-bar">
+      <form class="b-form">
+        <tui-input
+          [formControl]="searchValue"
+          tuiTextfieldIconLeft="tuiIconSearch"
+          [tuiTextfieldLabelOutside]="true"
+        >
+          Search
+          <input inputmode="text" tuiTextfield />
+        </tui-input>
+      </form>
+    </div>
+    <div class="tab-bar">
+      <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tab-bar-peo">
+        <button
+          *ngFor="let item of items; let i = index"
+          tuiRipple="var(--tui-text-01)"
+          tuiTab
+          class="tab"
+          (click)="onActiveItemChange(i)"
+        >
           <tui-svg [src]="item.icon" class="tui-space_right-2"></tui-svg>
           {{ item.text }}
         </button>

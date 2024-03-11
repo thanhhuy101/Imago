@@ -15,9 +15,11 @@ export class PostEffect {
     this.action$.pipe(
       ofType(PostActions.getAllPost),
       switchMap((action) => {
+        
         return this.postService.getAllPosts(action.token).pipe(
-          map((postList: any) => {
-            return PostActions.getAllPostSuccess({ postList });
+          map((list: any) => {
+            console.log('postList', list);
+            return PostActions.getAllPostSuccess({ list });
           }),
           catchError((error) => {
             return of(
@@ -50,11 +52,43 @@ export class PostEffect {
       ofType(PostActions.createPost),
       switchMap((action) => {
         return this.postService.createPost(action.post).pipe(
-          map((post: any) => {
-            return PostActions.createPostSuccess({ post });
+          map(() => {
+            return PostActions.createPostSuccess();
           }),
           catchError((error) => {
             return of(PostActions.createPostFailure({ message: error }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  getByShareId$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.getByShareId),
+      mergeMap((action) => {
+        return this.postService.getByShareId(action.page, action.size).pipe(
+          map((postList) => {
+            return PostActions.getByShareIdSuccess({ list: postList });
+          }),
+          catchError((error) => {
+            return of(PostActions.getByShareIdFailure({ message: error }));
+          }),
+        );
+      }),
+    ),
+  );
+
+  getByMentionId$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.getByMentionId),
+      mergeMap((action) => {
+        return this.postService.getByMentionId(action.page, action.size).pipe(
+          map((postList) => {
+            return PostActions.getByMentionIdSuccess({ list: postList });
+          }),
+          catchError((error) => {
+            return of(PostActions.getByMentionIdFailure({ message: error }));
           }),
         );
       }),

@@ -5,9 +5,9 @@
         <h4 class="tui-text_h4">Create Post</h4>
       </div>
       <div id="create-card">
-
         <div class="input_form-cover">
-          <app-images-carousel (responseChangeEvent)="handleImageListChange($event)"></app-images-carousel>
+          <app-images-carousel [isUploadImages]="isUploadImages" (uploadImagesEvent)="onChangeValue($event)"
+            (responseChangeEvent)="handleImageListChange($event)"></app-images-carousel>
         </div>
         <div class="info_cover tui-space_bottom-4">
           <tui-avatar [text]="name" [autoColor]="true" size="xl"></tui-avatar>
@@ -27,11 +27,10 @@
           <button tuiButton type="button" appearance="flat" size="m" (click)="clearStatus()" class="tui-space_right-4">
             Clear
           </button>
-          <button tuiButton type="button" appearance="accent" size="m">
+          <button tuiButton type="button" appearance="accent" size="m" (click)="publicPost()" [disabled]="isDisabled">
             Publish
           </button>
         </div>
-
       </div>
     </div>
     <div id="preview-container">

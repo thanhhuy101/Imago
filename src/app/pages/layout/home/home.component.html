@@ -1,6 +1,6 @@
 <div class="main">
   <div class="allPost">
-    @for (item of postList$ | async; track item) {
+    @for (item of postList.data; track item) {
     <div class="post">
       <!--  Picture post -->
       <div class="picture-post">

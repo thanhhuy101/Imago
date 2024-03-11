@@ -19,8 +19,8 @@ import { AuthState } from '../../../../../../ngrx/auth/auth.state';
 import { PostState } from '../../../../../../ngrx/post/post.state';
 import { PostModel } from '../../../../../model/post.model';
 import * as PostActions from '../../../../../../ngrx/post/post.action';
-import {routes} from "../../../../../app.routes";
-import {RouterLink} from "@angular/router";
+import { routes } from '../../../../../app.routes';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-post',
   standalone: true,
@@ -46,10 +46,14 @@ export class PostComponent implements OnInit, OnDestroy {
     }>,
   ) {}
   index = 0;
+
+  isObjectEmpty(objectName: {}) {
+    return Object.keys(objectName).length === 0;
+  }
   ngOnInit(): void {
     this.subscription.push(
       this.token$.subscribe((token) => {
-        if (token) {
+        if (token != '') {
           this.store.dispatch(PostActions.getMine({ page: 1, size: 10 }));
         }
       }),

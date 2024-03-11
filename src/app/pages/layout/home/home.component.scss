@@ -181,11 +181,13 @@
   //justify-content: space-between;
   height: fit-content;
 }
+
 .content-dialog {
-  height:fit-content;
+  height: fit-content;
   width: 100%;
   display: flex;
 }
+
 .storie-inside {
   width: 4rem;
 }
@@ -210,7 +212,8 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.bottom-dialog{
+
+.bottom-dialog {
   padding: 20px 20px;
   display: flex;
   flex-direction: column;
@@ -308,18 +311,20 @@
     flex-direction: column;
     justify-content: space-between;
     height: 537px
-
   }
 }
-.detail-dialog{
+
+.detail-dialog {
   width: 537px;
   height: 537px;
 }
-.img-dialog{
+
+.img-dialog {
   width: 100%;
   height: 90%;
   object-fit: cover
 }
+
 @media screen and (max-width: 1200px) {
   .postDetail {
     width: 100%;
@@ -332,15 +337,18 @@
     //height: 100% !important;
 
   }
+
   .detail-dialog {
     width: 100%;
     height: 100%;
   }
+
   .img-dialog {
     width: 100%;
     height: 100%;
     object-fit: cover
   }
+
   .description-preview {
     font-size: 14px;
   }
@@ -350,15 +358,18 @@
       width: 100%;
       height: fit-content;
     }
+
     .detail-dialog {
       width: 100%;
       height: 100%;
     }
+
     .img-dialog {
       width: 100%;
       height: 100%;
       object-fit: cover
     }
+
     .description-preview {
       font-size: 20px;
     }
@@ -373,15 +384,18 @@
       align-items: center;
       justify-content: space-evenly;
     }
+
     .detail-dialog {
       width: 100%;
       height: 100%;
     }
+
     .img-dialog {
       width: 100%;
       height: 100%;
       object-fit: cover
     }
+
     .description-preview {
       font-size: 12px;
     }
@@ -397,18 +411,22 @@
       justify-content: center;
       margin-right: 150px;
     }
+
     .detail-dialog {
       width: 100%;
       height: 100%;
     }
+
     .img-dialog {
       width: 100%;
       height: 100%;
       object-fit: cover
     }
+
     .description-preview {
       font-size: 8px;
     }
+
     .bottom-dialog {
       //padding: 20px 20px;
       display: flex;
@@ -416,7 +434,8 @@
       justify-content: space-between;
       width: 100%;
     }
-    ::ng-deep .ng-trigger{
+
+    ::ng-deep .ng-trigger {
       margin: auto 0 !important;
       border: 0.5px solid #d2d0d0 !important;
       border-radius: 10px !important;
@@ -425,18 +444,3 @@
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

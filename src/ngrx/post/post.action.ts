@@ -8,7 +8,7 @@ export const getAllPost = createAction(
 
 export const getAllPostSuccess = createAction(
   '[Post] Get All Post Success',
-  props<{ postList: PostModel[] }>(),
+  props<{ list: PostResponse }>(),
 );
 
 export const getAllPostFailure = createAction(
@@ -22,10 +22,7 @@ export const createPost = createAction(
   props<{ post: PostModel }>(),
 );
 
-export const createPostSuccess = createAction(
-  '[Post] Create Post Success',
-  props<{ post: PostModel }>(),
-);
+export const createPostSuccess = createAction('[Post] Create Post Success');
 
 export const createPostFailure = createAction(
   '[Post] Create Post Failure',
@@ -45,5 +42,37 @@ export const getMineSuccess = createAction(
 
 export const getMineFailure = createAction(
   '[Post] Get Mine Failure',
+  props<{ message: string }>(),
+);
+
+//get by share
+export const getByShareId = createAction(
+  '[Post] Get By Share Id',
+  props<{ page: number; size: number }>(),
+);
+
+export const getByShareIdSuccess = createAction(
+  '[Post] Get By Share Id Success',
+  props<{ list: PostResponse }>(),
+);
+
+export const getByShareIdFailure = createAction(
+  '[Post] Get By Share Id Failure',
+  props<{ message: string }>(),
+);
+
+//get by mention
+export const getByMentionId = createAction(
+  '[Post] Get By Mention Id',
+  props<{ page: number; size: number }>(),
+);
+
+export const getByMentionIdSuccess = createAction(
+  '[Post] Get By Mention Id Success',
+  props<{ list: PostResponse }>(),
+);
+
+export const getByMentionIdFailure = createAction(
+  '[Post] Get By Mention Id Failure',
   props<{ message: string }>(),
 );

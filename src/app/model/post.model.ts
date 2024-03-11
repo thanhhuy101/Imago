@@ -1,7 +1,7 @@
 import { CommentModel } from './comment.model';
 
 export interface PostModel {
-  isLiked: boolean;
+  // isLiked: boolean;
   id: string;
   creatorId: string;
   share: string[];
@@ -13,8 +13,12 @@ export interface PostModel {
   comments: CommentModel[];
   mention: string[];
   createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
+// export interface Post{
 
+// }
 export interface PostResponse {
   data: PostModel[];
   endpage: number;

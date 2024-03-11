@@ -3,190 +3,57 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  //justify-content: space-between;
-  padding: 0 5rem;
+
 }
 
-
-.search {
-  height: 55px;
-  border-bottom: 1px solid black;
-  display: flex;
-  align-items: center;
-}
-
-.boderSearch {
-  border: 1px solid rgb(219, 216, 216);
-  height: 45px;
-  width: 465px;
-  border-radius: 10px;
-  display: flex;
-  justify-items: center;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px 12px;
-  color: rgb(182, 182, 182);
-}
-
-input {
-  height: 30px;
-  width: 450px;
-  border: none;
-  outline: none;
-  font-size: 18px;
-  margin-left: 5px;
-}
-
-//.searchAll{
-//  display: flex;
-//  flex-direction: row;
-//  align-items: center;
-//  margin-top: 20px;
-//}
-.left {
-  width: 51%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.filter {
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  border-bottom: 1px solid rgb(219, 219, 219);
-}
-
-.right {
+.search-bar {
   width: 45%;
   display: flex;
-  flex-direction: row;
-  float: left;
   align-items: center;
+  outline: none !important;
 }
 
-.filter-people {
-  height: 55px;
-  border-bottom: 1px solid blue;
-  display: flex;
-  align-items: center;
-}
-
-.avatarUser {
-  width: 60px;
-  height: 60px;
-}
-
-.avatar {
+.search-bar-outside {
   width: 100%;
-  height: 100%;
-  border-radius: 50%;
 }
 
-.infor {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
+.b-form {
+  width: 100%;
 }
 
-.detailInformation {
+::ng-deep .tui-autofill _focused {
+  outline: none !important;
+}
+
+.left {
+  width: 60%;
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.tab-bar-peo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.tab-bar {
+  width: 45%;
+  display: flex;
   align-items: center;
 }
 
-.inforUser {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
+.tab {
+  width: 6rem;
 
-.name {
-  font-weight: bold;
-}
-
-.follow {
-  width: 87px;
-  height: 30px;
-  border-radius: 8px;
-  color: white;
-  background-color: black;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.follow:hover {
-  background-color: rgb(95, 95, 204);
-
-}
-
-.userCard {
-  background-color: rgb(249, 244, 244);
-  width: 412px;
-  height: 200px;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.follower-user {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.follower {
-  display: flex;
-  width: 80px;
-  height: 50px;
-  /* background-color: white; */
-  align-items: center;
-  font-weight: bold;
-}
-
-
-.follower-avatar1 {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-
-.follower-avatar2 {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  border: 1px solid white;
-  position: relative;
-  margin-left: -18px;
-}
-
-.bio-user {
-  margin-top: 10px;
-}
-
-.informationCard {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: calc(100% - 200px);
-  padding: 0px 100px;
-  margin-top: 50px;
-}
-
-.post {
-  width: 20%;
 }
 
 .tuitab {
-
   width: 100%;
   display: flex;
-  //gap: 50px;
-  //justify-content: space-around;
+
 }
 
 ::ng-deep .t-highlight {
@@ -196,8 +63,180 @@ input {
   justify-content: center !important;
 }
 
-.input {
-  width: 32rem;
-  direction: ltr;
-  text-align: left;
+@media(max-width: 768px) {
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+
+  .left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-bar {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    outline: none !important;
+  }
+
+  .tab-bar {
+    width: 70%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media(max-width: 960px) {
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+
+  .left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-bar {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    outline: none !important;
+  }
+
+  .tab-bar {
+    width: 70%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media(max-width: 1024px) {
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+
+  .left {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+  }
+
+  .search-bar {
+    width: 45%;
+    display: flex;
+    align-items: center;
+    outline: none !important;
+  }
+
+  .tab-bar {
+    width: 50%;
+    display: flex;
+    align-items: center;
+  }
+
+  .tab-bar-peo {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+  }
+}
+
+@media(max-width: 2560px) {
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+
+  .left {
+    width: 45%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+  }
+
+  .search-bar {
+    width: 45%;
+    display: flex;
+    align-items: center;
+    outline: none !important;
+  }
+
+  .tab-bar {
+    width: 50%;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .tab-bar-peo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+
+}
+
+@media (min-width: 3000px) {
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+
+  .left {
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+  }
+
+  .tab-bar {
+    width: 40%;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .tab-bar-peo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .search-bar {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    outline: none !important;
+  }
 }
