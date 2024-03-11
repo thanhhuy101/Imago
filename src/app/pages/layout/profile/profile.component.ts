@@ -8,7 +8,7 @@ import { ProfileModel } from '../../../model/profile.model';
 import { Store } from '@ngrx/store';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
-import * as PostActions from '../../../../ngrx/post/post.action';
+import * as PostActions from '../../../../ngrx/post/post.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { Subscription } from 'rxjs';
 import { StorageState } from '../../../../ngrx/storage/storage.state';

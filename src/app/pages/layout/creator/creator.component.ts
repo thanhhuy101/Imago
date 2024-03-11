@@ -1,4 +1,10 @@
-import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/share.module';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
@@ -8,7 +14,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, on } from '@ngrx/store';
 import { StorageState } from '../../../../ngrx/storage/storage.state';
 import * as AuthActions from '../../../../ngrx/auth/auth.actions';
-import * as PostActions from '../../../../ngrx/post/post.action';
+import * as PostActions from '../../../../ngrx/post/post.actions';
 import * as StorageActions from '../../../../ngrx/storage/storage.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { AuthCredentialModel } from '../../../model/auth.model';
@@ -28,7 +34,8 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class CreatorComponent
-  implements OnInit, CanComponentDeactivate, OnDestroy {
+  implements OnInit, CanComponentDeactivate, OnDestroy
+{
   isUploadImages = true;
   @Input() isDisabled = this.isUploadImages;
   name: string = 'Lulu';
@@ -57,7 +64,7 @@ export class CreatorComponent
       auth: AuthState;
       post: PostState;
     }>,
-  ) { }
+  ) {}
 
   canDeactivate(): boolean {
     if (this.isContentChanged) {
@@ -169,6 +176,6 @@ export class CreatorComponent
   }
 
   onChangeValue(event: any): void {
-    this.isDisabled = event
+    this.isDisabled = event;
   }
 }
