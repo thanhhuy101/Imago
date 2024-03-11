@@ -35,15 +35,27 @@ export class NotiComponent {
 
   constructor(
     @Inject(TuiAlertService) private readonly alerts: TuiAlertService,
-    private route: Router,
-  ) {}
+    private router: Router,
+  ) {
+    if (this.router.url.includes('/all')) {
+      this.activeItemIndex = 0;
+    }
+    if (this.router.url.includes('/like')) {
+      this.activeItemIndex = 1;
+    }
+    if (this.router.url.includes('/comment')) {
+      this.activeItemIndex = 2;
+    }
+    if (this.router.url.includes('/follow')) {
+      this.activeItemIndex = 3;
+    }
+  }
 
   onActiveItemChange(index: number) {
     this.onChangePage(index);
   }
 
   onChangePage(i: number) {
-    console.log(this.items[i].router);
-    this.route.navigate(['/noti' + this.items[i].router]);
+    this.router.navigate(['/notification' + this.items[i].router]);
   }
 }

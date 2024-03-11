@@ -7,7 +7,7 @@
     <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
       <button
         [disabled]="activeItemIndex === 0"
-        [routerLink]="['']"
+        [routerLink]="['home']"
         routerLinkActive
         tuiTab
       >
@@ -31,7 +31,7 @@
       </button>
       <button
         [disabled]="activeItemIndex === 3"
-        [routerLink]="['notification']"
+        [routerLink]="['notification/all']"
         routerLinkActive
         tuiTab
       >
@@ -58,7 +58,7 @@
     >
       <span class="material-symbols-rounded"> page_info </span>
       <ng-template #dropdownContent>
-        <button tuiButton appearance="flat"size="m" (click)="signOut()">
+        <button tuiButton appearance="flat" size="m" (click)="signOut()">
           Logout
         </button>
       </ng-template>

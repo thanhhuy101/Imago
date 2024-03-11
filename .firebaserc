@@ -6,9 +6,16 @@
           "itss-imago-0000"
         ]
       }
+    },
+    "imago-backup": {
+      "hosting": {
+        "imago": [
+          "imago-backup"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "itss-imago-0000"
+    "default": "imago-backup"
   }
 }

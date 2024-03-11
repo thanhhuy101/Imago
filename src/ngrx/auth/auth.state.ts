@@ -1,8 +1,12 @@
-import { AuthCredentialModel } from '../../app/model/auth.model';
+import {
+  AuthCredentialModel,
+  FirebaseDataModel,
+} from '../../app/model/auth.model';
 import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 export interface AuthState {
   token: string;
+  firebaseData: FirebaseDataModel;
 
   //google
   isSigningInWithGG: boolean;

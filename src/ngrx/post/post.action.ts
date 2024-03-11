@@ -1,78 +1,88 @@
 import { createAction, props } from '@ngrx/store';
 import { PostModel, PostResponse } from '../../app/model/post.model';
+import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
-export const getAllPost = createAction(
-  '[Post] Get All Post',
-  props<{ token: string }>(),
-);
-
-export const getAllPostSuccess = createAction(
-  '[Post] Get All Post Success',
-  props<{ list: PostResponse }>(),
-);
-
-export const getAllPostFailure = createAction(
-  '[Post] Get All Post Failure',
-  props<{ getAllPostErrorMessage: string }>(),
-);
-
-//create post
-export const createPost = createAction(
-  '[Post] Create Post',
+export const create = createAction(
+  '[Post] Create',
   props<{ post: PostModel }>(),
 );
-
-export const createPostSuccess = createAction('[Post] Create Post Success');
-
-export const createPostFailure = createAction(
-  '[Post] Create Post Failure',
-  props<{ message: string }>(),
+export const createSuccess = createAction('[Post] Create Success');
+export const createFailure = createAction(
+  '[Post] Create Failure',
+  props<{ createErrorMessage: HttpErrorResponseModel }>(),
 );
 
-//get mine
+export const update = createAction(
+  '[Post] Update',
+  props<{ post: PostModel }>(),
+);
+export const updateSuccess = createAction('[Post] Update Success');
+export const updateFailure = createAction(
+  '[Post] Update Failure',
+  props<{ updateErrorMessage: HttpErrorResponseModel }>(),
+);
+
+export const deletePost = createAction(
+  '[Post] Delete',
+  props<{ id: string }>(),
+);
+export const deletePostSuccess = createAction('[Post] Delete Success');
+export const deletePostFailure = createAction(
+  '[Post] Delete Failure',
+  props<{ deleteErrorMessage: HttpErrorResponseModel }>(),
+);
+
+export const getAll = createAction('[Post] Get All');
+export const getAllSuccess = createAction(
+  '[Post] Get All Success',
+  props<{ postResponse: PostResponse }>(),
+);
+export const getAllFailure = createAction(
+  '[Post] Get All Failure',
+  props<{ errorGetAllMessage: HttpErrorResponseModel }>(),
+);
+
 export const getMine = createAction(
   '[Post] Get Mine',
   props<{ page: number; size: number }>(),
 );
-
 export const getMineSuccess = createAction(
   '[Post] Get Mine Success',
-  props<{ list: PostResponse }>(),
+  props<{ postResponse: PostResponse }>(),
 );
-
 export const getMineFailure = createAction(
   '[Post] Get Mine Failure',
-  props<{ message: string }>(),
+  props<{ errorGetMineMessage: HttpErrorResponseModel }>(),
 );
 
-//get by share
-export const getByShareId = createAction(
-  '[Post] Get By Share Id',
+export const getByShare = createAction(
+  '[Post] Get By Share',
   props<{ page: number; size: number }>(),
 );
-
-export const getByShareIdSuccess = createAction(
-  '[Post] Get By Share Id Success',
-  props<{ list: PostResponse }>(),
+export const getByShareSuccess = createAction(
+  '[Post] Get By Share Success',
+  props<{ postResponse: PostResponse }>(),
+);
+export const getByShareFailure = createAction(
+  '[Post] Get By Share Failure',
+  props<{ errorGetByShareMessage: HttpErrorResponseModel }>(),
 );
 
-export const getByShareIdFailure = createAction(
-  '[Post] Get By Share Id Failure',
-  props<{ message: string }>(),
-);
-
-//get by mention
-export const getByMentionId = createAction(
-  '[Post] Get By Mention Id',
+export const getByMention = createAction(
+  '[Post] Get By Mention',
   props<{ page: number; size: number }>(),
 );
-
-export const getByMentionIdSuccess = createAction(
-  '[Post] Get By Mention Id Success',
-  props<{ list: PostResponse }>(),
+export const getByMentionSuccess = createAction(
+  '[Post] Get By Mention Success',
+  props<{ postResponse: PostResponse }>(),
+);
+export const getByMentionFailure = createAction(
+  '[Post] Get By Mention Failure',
+  props<{ errorGetByMentionMessage: HttpErrorResponseModel }>(),
 );
 
-export const getByMentionIdFailure = createAction(
-  '[Post] Get By Mention Id Failure',
-  props<{ message: string }>(),
-);
+export const clearMessages = createAction('[Post] Clear Message');
+export const clearCreateState = createAction('[Post] Clear Create State');
+export const clearUpdateState = createAction('[Post] Clear Update State');
+export const clearGetState = createAction('[Post] Clear Get State');
+export const clearDeleteState = createAction('[Post] Clear Delete State');
