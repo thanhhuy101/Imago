@@ -59,4 +59,5 @@ export class SearchComponent {
     console.log(this.items[i].router);
     this.route.navigate(['/search' + this.items[i].router]);
   }
+  value = '';
 }

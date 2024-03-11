@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/share.module';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
@@ -28,8 +28,9 @@ import { Subscription } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
 })
 export class CreatorComponent
-  implements OnInit, CanComponentDeactivate, OnDestroy
-{
+  implements OnInit, CanComponentDeactivate, OnDestroy {
+  isUploadImages = true;
+  @Input() isDisabled = this.isUploadImages;
   name: string = 'Lulu';
   statusValue: string = '';
 
@@ -56,7 +57,7 @@ export class CreatorComponent
       auth: AuthState;
       post: PostState;
     }>,
-  ) {}
+  ) { }
 
   canDeactivate(): boolean {
     if (this.isContentChanged) {
@@ -165,5 +166,9 @@ export class CreatorComponent
     };
     console.log('newPost', newPost);
     this.store.dispatch(PostActions.create({ post: newPost }));
+  }
+
+  onChangeValue(event: any): void {
+    this.isDisabled = event
   }
 }

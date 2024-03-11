@@ -6,7 +6,7 @@ import { StorageModel } from '../../model/storage.model';
   providedIn: 'root',
 })
 export class StorageService {
-  constructor(private http: HttpClientAuth) {}
+  constructor(private http: HttpClientAuth) { }
 
   uploadFile(file: File, fileName: string) {
     const formData = new FormData();

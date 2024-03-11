@@ -1,4 +1,4 @@
 export interface StorageModel {
-    fileName: string;
-    urls: string;
+  fileName: string;
+  urls: string;
 }

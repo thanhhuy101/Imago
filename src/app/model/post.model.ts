@@ -1,6 +1,7 @@
 import { CommentModel } from './comment.model';
 
 export interface PostModel {
+  // isLiked: boolean;
   id: string;
   creatorId: string;
   share: string[];
