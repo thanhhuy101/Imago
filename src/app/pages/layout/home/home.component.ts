@@ -17,10 +17,10 @@ import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { ReportState } from '../../../../ngrx/report/report.state';
 import { ReportModel } from '../../../model/report.model';
 import * as ReportAction from '../../../../ngrx/report/report.action';
-import { Subscription } from 'rxjs';
+import { Subscription, mergeMap } from 'rxjs';
 import { ImagesCarouselComponent } from '../creator/components/images-carousel/images-carousel.component';
 import { PostModel, PostResponse } from '../../../model/post.model';
-
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -29,6 +29,7 @@ import { PostModel, PostResponse } from '../../../model/post.model';
     TaigaModule,
     TuiDataListDropdownManagerModule,
     ImagesCarouselComponent,
+    InfiniteScrollModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   token$ = this.store.select('auth', 'token');
 
   postList$ = this.store.select('post', 'postResponse');
+ 
   postList: PostResponse = { data: [], endPage: 0 };
 
   constructor(
@@ -52,11 +54,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   index = 0;
+  currentPage = 1;
+
+  throttle = 1000;
+  scrollDistance = 3;
+  scrollUpDistance = 1;
+  size = 10;
+  onScrollDown(ev: any) {
+    console.log('scrolled down!!', ev);
+   
+    // this.store.dispatch(PostActions.getAll({page: this.currentPage, size: 2}));
+  }
 
   ngOnInit(): void {
     this.subscription.push(
       this.postList$.subscribe((data: PostResponse) => {
-        //how to binding data
+      
         if (data.endPage > 0) {
           this.postList = data;
           console.log('postList', this.postList);
@@ -64,10 +77,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       }),
       this.token$.subscribe((token) => {
         if (token) {
-          this.store.dispatch(PostActions.getAll());
+          this.store.dispatch(PostActions.getAll({page: 1, size: 10}));
         }
       }),
-    );
+     
+  );
+  
   }
 
   ngOnDestroy(): void {

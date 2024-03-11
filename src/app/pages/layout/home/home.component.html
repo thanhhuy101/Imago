@@ -1,5 +1,7 @@
 <div class="main">
-  <div class="allPost">
+  <div class="allPost"
+  
+    >
     @for (item of postList.data; track item) {
     <div class="post">
       <!--  Picture post -->
@@ -89,11 +91,9 @@
         <div class="content">
           <p class="description-preview">
             @for (item of item.hashtag; track $index) {
-
             <span style="color: #0081FF; margin-left: 2px">{{ item }}</span>
             }
             {{ item.content }}
-
           </p>
         </div>
         <div class="reaction">
@@ -125,7 +125,7 @@
                 <div class="user-info">
                   <!-- avatar-user -->
                   <div class="avatar-user">
-                    <img class="avatar" src="./assets/avatar.png" alt="">
+                    <img class="avatar" src="../../../../assets/images/avatar.png" alt="">
                   </div>
                   <!-- info-user -->
                   <div class="info-post">
