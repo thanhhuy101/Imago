@@ -42,7 +42,8 @@ export class CreatorComponent
   @Input() isDisabled = this.isUploadImages;
   name: string = 'Lulu';
   statusValue: string = '';
-
+  //createAt . date.now
+  createAt = new Date();
   index = 0;
   itemsCount = 1;
 

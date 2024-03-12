@@ -41,15 +41,15 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         const url = event.url;
-        if (url === '/home') {
+        if (url.includes('/home')) {
           this.activeItemIndex = 0;
-        } else if (url.startsWith('/search')) {
+        } else if (url.includes('/search')) {
           this.activeItemIndex = 1;
-        } else if (url.startsWith('/creator')) {
+        } else if (url.includes('/creator')) {
           this.activeItemIndex = 2;
-        } else if (url.startsWith('/profile')) {
+        } else if (url.includes('/profile')) {
           this.activeItemIndex = 4;
-        } else if (url.startsWith('/notification')) {
+        } else if (url.includes('/notification')) {
           this.activeItemIndex = 3;
         }
       }

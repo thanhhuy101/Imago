@@ -76,4 +76,21 @@ export const categoryReducer = createReducer(
       getCategoryListError: error,
     };
   }),
+
+  // upload user category
+  on(CategoryActions.uploadUserCategory, (state) => {
+    return {
+      ...state,
+    };
+  }),
+  on(CategoryActions.uploadUserCategorySuccess, (state) => {
+    return {
+      ...state,
+    };
+  }),
+  on(CategoryActions.uploadUserCategoryFailure, (state, { error }) => {
+    return {
+      ...state,
+    };
+  }),
 );
