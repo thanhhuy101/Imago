@@ -71,4 +71,20 @@ export class ProfileEffect {
       ),
     ),
   );
+
+  search$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ProfileActions.search),
+      switchMap((action) =>
+        this.profileService.search(action.query).pipe(
+          map((res) =>
+            ProfileActions.searchSuccess({ profileSearchResult: res.items }),
+          ),
+          catchError((error) =>
+            of(ProfileActions.searchFailure({ searchErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
 }

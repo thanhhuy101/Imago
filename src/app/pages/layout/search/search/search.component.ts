@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { PostState } from '../../../../../ngrx/post/post.state';
 import { Subscription, debounceTime } from 'rxjs';
 import * as PostActions from '../../../../../ngrx/post/post.actions';
-import { PostModel } from '../../../../model/post.model';
+import * as ProfileActions from '../../../../../ngrx/profile/profile.actions';
 
 @Component({
   selector: 'app-search',
@@ -68,6 +68,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         .subscribe((value) => {
           if (value == '') {
             this.store.dispatch(PostActions.search({ query: value }));
+            this.store.dispatch(ProfileActions.search({ query: value }));
           } else {
             if (value?.includes('/')) {
               this.alerts.open(
@@ -79,6 +80,7 @@ export class SearchComponent implements OnInit, OnDestroy {
               );
             } else {
               this.store.dispatch(PostActions.search({ query: value }));
+              this.store.dispatch(ProfileActions.search({ query: value }));
             }
           }
         }),
@@ -86,7 +88,6 @@ export class SearchComponent implements OnInit, OnDestroy {
         .select((state) => state.post.isSearching)
         .subscribe((res) => {
           this.isSearching = res;
-       
         }),
     );
   }

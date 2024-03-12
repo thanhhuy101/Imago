@@ -19,6 +19,10 @@ export const initialState: ProfileState = {
 
   isGettingById: false,
   getErrorMessageById: <HttpErrorResponseModel>{},
+
+  profileSearchResult: [],
+  isSearching: false,
+  searchErrorMessage: <HttpErrorResponseModel>{},
 };
 
 export const profileReducer = createReducer(
@@ -168,6 +172,41 @@ export const profileReducer = createReducer(
       isGetting: false,
       isGettingById: false,
       profile: <ProfileModel>{},
+    };
+  }),
+
+  //search
+  on(ProfileActions.search, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSearching: true,
+      profileSearchResult: [],
+      searchErrorMessage: <HttpErrorResponseModel>{},
+    };
+  }),
+  on(ProfileActions.searchSuccess, (state, { profileSearchResult, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      profileSearchResult: profileSearchResult,
+      isSearching: false,
+    };
+  }),
+  on(ProfileActions.searchFailure, (state, { searchErrorMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      searchErrorMessage: searchErrorMessage,
+      isSearching: false,
+    };
+  }),
+  on(ProfileActions.clearSearchState, (state) => {
+    return {
+      ...state,
+      profileSearchResult: [],
+      isSearching: false,
+      searchErrorMessage: <HttpErrorResponseModel>{},
     };
   }),
 );

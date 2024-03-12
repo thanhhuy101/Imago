@@ -16,4 +16,8 @@ export interface ProfileState {
 
   isGettingById: boolean;
   getErrorMessageById: HttpErrorResponseModel;
+
+  profileSearchResult: ProfileModel[];
+  isSearching: boolean;
+  searchErrorMessage: HttpErrorResponseModel;
 }
