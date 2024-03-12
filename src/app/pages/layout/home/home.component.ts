@@ -12,11 +12,11 @@ import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostState } from '../../../../ngrx/post/post.state';
 import { Store } from '@ngrx/store';
-import * as PostActions from '../../../../ngrx/post/post.action';
+import * as PostActions from '../../../../ngrx/post/post.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { ReportState } from '../../../../ngrx/report/report.state';
 import { ReportModel } from '../../../model/report.model';
-import * as ReportAction from '../../../../ngrx/report/report.action';
+import * as ReportAction from '../../../../ngrx/report/report.actions';
 import { Subscription } from 'rxjs';
 import { ImagesCarouselComponent } from '../creator/components/images-carousel/images-carousel.component';
 import { PostModel, PostResponse } from '../../../model/post.model';
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       auth: AuthState;
       report: ReportState;
     }>,
-  ) { }
+  ) {}
 
   index = 0;
 

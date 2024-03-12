@@ -41,4 +41,8 @@ export class PostService {
   getByMention(page: number, size: number) {
     return this.httpClient.get(`post/mention/?page=${page}&size=${size}`);
   }
+
+  search(query: string) {
+    return this.httpClient.get(`post/search?query=${query}`);
+  }
 }
