@@ -13,4 +13,7 @@ export interface ProfileState {
 
   isGetting: boolean;
   getErrorMessage: HttpErrorResponseModel;
+
+  isGettingById: boolean;
+  getErrorMessageById: HttpErrorResponseModel;
 }

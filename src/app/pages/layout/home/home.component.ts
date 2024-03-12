@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   token$ = this.store.select('auth', 'token');
 
   postList$ = this.store.select('post', 'postResponse');
-  postList: PostResponse = { data: [], endPage: 0 };
+  postList = <PostResponse>{};
 
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
