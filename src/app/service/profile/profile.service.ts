@@ -27,4 +27,8 @@ export class ProfileService {
   updateMine(profile: ProfileModel) {
     return this.httpClient.put('profile/mine', profile);
   }
+
+  search(query: string) {
+    return this.httpClient.get(`profile/search?query=${query}`);
+  }
 }

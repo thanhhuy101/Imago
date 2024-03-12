@@ -152,19 +152,37 @@ export class CreatorComponent
     hashtag: string[];
     remaining: string;
   } {
-    // Tách chuỗi thành mảng các từ
-    const words = inputString.split(' ');
+    // Tìm và tách các hashtag bằng biểu thức chính quy
+    const hashtagRegex = /#(\w+)/g;
+    const hashtags = [];
+    let remainingWords = [];
 
-    // Lọc ra các từ chứa dấu #
-    const hashtag = words.filter((word) => word.includes('#'));
-    const remainingWords = words.filter((word) => !word.includes('#'));
-    // Loại bỏ dấu # ở đầu từ và trả về kết quả
-    const hashtagsWithoutHash = hashtag.map((hashtag) =>
-      hashtag.replace('#', ''),
-    );
-    const remainingString = remainingWords.join(' ');
+    let match;
+    let lastIndex = 0;
 
-    return { hashtag: hashtagsWithoutHash, remaining: remainingString };
+    while ((match = hashtagRegex.exec(inputString)) !== null) {
+      // Lấy từng hashtag và từng từ còn lại của chuỗi
+      const hashtag = match[1];
+      const wordBeforeHashtag = inputString.substring(lastIndex, match.index);
+      lastIndex = hashtagRegex.lastIndex;
+
+      // Thêm từ còn lại vào mảng
+      if (wordBeforeHashtag.trim() !== '') {
+        remainingWords.push(wordBeforeHashtag.trim());
+      }
+
+      // Thêm hashtag vào mảng
+      hashtags.push(hashtag);
+    }
+
+    // Lấy từ còn lại sau hashtag cuối cùng
+    const remainingString = inputString.substring(lastIndex).trim();
+    if (remainingString !== '') {
+      remainingWords.push(remainingString);
+    }
+
+    // Trả về kết quả
+    return { hashtag: hashtags, remaining: remainingWords.join(' ') };
   }
 
   publicPost(): void {
@@ -187,6 +205,10 @@ export class CreatorComponent
       deletedAt: <DateTime>{},
       id: this.uid.slice(0, 10) + Date.now().toString(),
     };
+    if (result.remaining == '') {
+      this.notificationService.errorNotification('Content cannot be empty');
+      return;
+    }
     console.log('newPost', newPost);
     this.store.dispatch(PostActions.create({ post: newPost }));
   }

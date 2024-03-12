@@ -4,6 +4,8 @@ import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { Store } from '@ngrx/store';
 import { TaigaModule } from '../../../../../shared/taiga.module';
 import { ShareModule } from '../../../../../shared/share.module';
+import { Subscription } from 'rxjs';
+import { ProfileModel } from '../../../../../model/profile.model';
 
 @Component({
   selector: 'app-people',
@@ -13,48 +15,27 @@ import { ShareModule } from '../../../../../shared/share.module';
   styleUrl: './people.component.scss',
 })
 export class PeopleComponent implements OnInit {
-  users = [
-    {
-      uid: 1,
-      name: 'Alex Born',
-      bio: 'alex',
-      description:
-        ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-      img: '',
-      follower: ['John', 'Kim', 'Jan'],
-      followed: true,
-    },
-    {
-      uid: 2,
-      name: 'John Doe',
-      bio: 'John',
-      description:
-        ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-      img: '',
-      follower: ['Kim', 'Jan'],
-      followed: false,
-    },
-    {
-      uid: 3,
-      name: 'John Doe',
-      bio: 'John',
-      img: '',
-      follower: ['Kim', 'Jan'],
-      followed: false,
-    },
-  ];
+  users: ProfileModel[] = [];
 
   // $profiles = this.store.select((state) => state.profiles.profileList);
+  subscriptions: Subscription[] = [];
+  constructor(private store: Store<{ profile: ProfileState }>) {}
 
-  constructor(private store: Store<{ profiles: ProfileState }>) {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.store
+        .select((state) => state.profile.profileSearchResult)
+        .subscribe((res) => {
+          this.users = res;
+        }),
+    );
+  }
 
   followUser(id: number) {
-    for (let i = 0; i < this.users.length; i++) {
-      if (this.users[i].uid === id) {
-        this.users[i].followed = !this.users[i].followed;
-      }
-    }
+    // for (let i = 0; i < this.users.length; i++) {
+    //   if (this.users[i].uid === id) {
+    //     this.users[i].followed = !this.users[i].followed;
+    //   }
+    // }
   }
 }

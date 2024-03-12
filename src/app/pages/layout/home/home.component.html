@@ -156,7 +156,9 @@
           <div class="content">
             <p class="description-preview">
               @for (item of item.hashtag; track $index) {
-                <span style="color: #0081ff; margin-left: 2px">{{ item }}</span>
+                <span style="color: #0081ff; margin-left: 2px"
+                  >#{{ item }}</span
+                >
               }
               {{ item.content }}
             </p>

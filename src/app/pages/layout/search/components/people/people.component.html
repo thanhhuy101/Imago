@@ -1,19 +1,18 @@
-<div [ngClass]="users.length < 0 ? 'container' : 'main-empty'">
+<div [ngClass]="users.length > 0 ? 'container' : 'main-empty'">
   <tui-scrollbar> </tui-scrollbar>
-  @if (users.length < 0) {
-    @for (item of users; track item) {
+  @if (users.length > 0) {
+    @for (user of users; track user) {
       <div class="col">
         <tui-island size="m" class="content">
           <div class="tui-island__content">
             <div class="tui-island__figure">
-              @if (item.followed == false) {
+              @if (user) {
                 <button
                   tuiButton
                   type="button"
                   size="m"
                   id="flBtn"
                   appearance="custom"
-                  (click)="followUser(item.uid)"
                   class="tui-space_right-3 tui-space_bottom-3"
                 >
                   Follow
@@ -23,7 +22,6 @@
                   tuiButton
                   type="button"
                   size="m"
-                  (click)="followUser(item.uid)"
                   appearance="outline"
                   class="tui-space_right-3 tui-space_bottom-3"
                 >
@@ -37,14 +35,17 @@
                   class="tui_avatar1"
                   [round]="true"
                   text="alex inkin"
+                  [src]="user.photoUrl"
                 ></tui-avatar>
                 <div class="left">
                   <div class="top_left">
-                    <h3 class="tui-island__title">jiu</h3>
-                    <p class="tui-island__category">&#64;huy</p>
+                    <h3 class="tui-island__title">{{ user.userName }}</h3>
+                    <p class="tui-island__category">&#64;{{ user.email }}</p>
                   </div>
 
-                  <h4 class="tui-island__category">14 followers</h4>
+                  <h4 class="tui-island__category">
+                    {{ user.followers.length }} followers
+                  </h4>
                 </div>
               </div>
             </div>
