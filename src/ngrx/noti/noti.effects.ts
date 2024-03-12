@@ -11,75 +11,83 @@ export class NotiEffect {
     private notiService: NotiService,
   ) {}
 
-  getNotifications$ = createEffect(() => {
-    return this.action$.pipe(
+  createNotification$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(NotiActions.createNotification),
+      switchMap(({ notification }) =>
+        this.notiService.createNotification(notification).pipe(
+          map(() => NotiActions.createNotificationSuccess()),
+          catchError((error) =>
+            of(NotiActions.createNotificationFailure({ error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  getNotifications$ = createEffect(() =>
+    this.action$.pipe(
       ofType(NotiActions.getNotifications),
-      switchMap(() => {
-        return this.notiService.getNotifications().pipe(
-          map((response) => {
-            return NotiActions.getNotificationsSuccess({
-              notifications: response,
-            });
-          }),
-          catchError((error) => {
-            return of(NotiActions.getNotificationsFailure({ error }));
-          }),
-        );
-      }),
-    );
-  });
+      switchMap(({ uid }) =>
+        this.notiService.getNotifications(uid).pipe(
+          map((notifications) =>
+            NotiActions.getNotificationsSuccess({ notifications }),
+          ),
+          catchError((error) =>
+            of(NotiActions.getNotificationsFailure({ error })),
+          ),
+        ),
+      ),
+    ),
+  );
 
-  getFollowNotifications$ = createEffect(() => {
-    return this.action$.pipe(
+  getFollowNotifications$ = createEffect(() =>
+    this.action$.pipe(
       ofType(NotiActions.getFollowNotifications),
-      switchMap(() => {
-        return this.notiService.getFollowNotifications().pipe(
-          map((response) => {
-            return NotiActions.getFollowNotificationsSuccess({
-              followNotifications: response,
-            });
-          }),
-          catchError((error) => {
-            return of(NotiActions.getFollowNotificationsFailure({ error }));
-          }),
-        );
-      }),
-    );
-  });
+      switchMap(({ uid }) =>
+        this.notiService.getFollowNotifications(uid).pipe(
+          map((followNotifications) =>
+            NotiActions.getFollowNotificationsSuccess({ followNotifications }),
+          ),
+          catchError((error) =>
+            of(NotiActions.getFollowNotificationsFailure({ error })),
+          ),
+        ),
+      ),
+    ),
+  );
 
-  getLikeNotifications$ = createEffect(() => {
-    return this.action$.pipe(
+  getLikeNotifications$ = createEffect(() =>
+    this.action$.pipe(
       ofType(NotiActions.getLikeNotifications),
-      switchMap(() => {
-        return this.notiService.getLikeNotifications().pipe(
-          map((response) => {
-            return NotiActions.getLikeNotificationsSuccess({
-              likeNotifications: response,
-            });
-          }),
-          catchError((error) => {
-            return of(NotiActions.getLikeNotificationsFailure({ error }));
-          }),
-        );
-      }),
-    );
-  });
+      switchMap(({ uid }) =>
+        this.notiService.getLikeNotifications(uid).pipe(
+          map((likeNotifications) =>
+            NotiActions.getLikeNotificationsSuccess({ likeNotifications }),
+          ),
+          catchError((error) =>
+            of(NotiActions.getLikeNotificationsFailure({ error })),
+          ),
+        ),
+      ),
+    ),
+  );
 
-  getCommentNotifications$ = createEffect(() => {
-    return this.action$.pipe(
+  getCommentNotifications$ = createEffect(() =>
+    this.action$.pipe(
       ofType(NotiActions.getCommentNotifications),
-      switchMap(() => {
-        return this.notiService.getCommentNotifications().pipe(
-          map((response) => {
-            return NotiActions.getCommentNotificationsSuccess({
-              commentNotifications: response,
-            });
-          }),
-          catchError((error) => {
-            return of(NotiActions.getCommentNotificationsFailure({ error }));
-          }),
-        );
-      }),
-    );
-  });
+      switchMap(({ uid }) =>
+        this.notiService.getCommentNotifications(uid).pipe(
+          map((commentNotifications) =>
+            NotiActions.getCommentNotificationsSuccess({
+              commentNotifications,
+            }),
+          ),
+          catchError((error) =>
+            of(NotiActions.getCommentNotificationsFailure({ error })),
+          ),
+        ),
+      ),
+    ),
+  );
 }

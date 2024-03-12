@@ -7,26 +7,27 @@ import {
 
 export interface NotiState {
   // noti
-  notifications: NotiModel[];
   isGettingNotifications: boolean;
-  getNotificationsSuccess: boolean;
+  getNotificationsSuccess: NotiModel[];
   getNotificationsError: string;
 
   //follow noti
-  followNotifications: FollowNotiModel[];
   isGettingFollowNotifications: boolean;
-  getFollowNotificationsSuccess: boolean;
+  getFollowNotificationsSuccess: FollowNotiModel[];
   getFollowNotificationsError: string;
 
   //like noti
-  likeNotifications: LikeNotiModel[];
   isGettingLikeNotifications: boolean;
-  getLikeNotificationsSuccess: boolean;
+  getLikeNotificationsSuccess: LikeNotiModel[];
   getLikeNotificationsError: string;
 
   //comment noti
-  commentNotifications: CommentNotiModel[];
   isGettingCommentNotifications: boolean;
-  getCommentNotificationsSuccess: boolean;
+  getCommentNotificationsSuccess: CommentNotiModel[];
   getCommentNotificationsError: string;
+
+  //create notification
+  isCreatingNotification: boolean;
+  createNotificationSuccess: boolean;
+  createNotificationError: string;
 }
