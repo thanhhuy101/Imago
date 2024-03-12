@@ -13,7 +13,7 @@ export class NotiService {
   }
 
   getNotifications(uid: string) {
-    return this.httpClient.get(`notifitication?uid=${uid}`);
+    return this.httpClient.get(`notification/all?uid=${uid}`);
   }
 
   getFollowNotifications(uid: string) {
