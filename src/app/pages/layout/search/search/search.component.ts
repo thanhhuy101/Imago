@@ -49,7 +49,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     private store: Store<{ post: PostState }>,
   ) {}
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(PostActions.clearSearchState());
+    this.store.dispatch(ProfileActions.clearSearchState());
+  }
 
   ngOnInit(): void {
     let path = window.location.href.split('?')[0];
