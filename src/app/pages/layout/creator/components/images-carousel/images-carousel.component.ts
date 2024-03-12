@@ -5,16 +5,17 @@ import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 import { TuiFileLike } from '@taiga-ui/kit';
 import { TuiValidationError } from '@taiga-ui/cdk';
 import { NotificationService } from '../../../../../service/notification/notification.service';
-import { StorageService } from '../../../../../service/storage/storage.service';
+
 import { Store } from '@ngrx/store';
 import { StorageState } from '../../../../../../ngrx/storage/storage.state';
 import { AuthState } from '../../../../../../ngrx/auth/auth.state';
 
 import * as StorageActions from '../../../../../../ngrx/storage/storage.actions';
-import { Auth } from '@angular/fire/auth';
-import { onAuthStateChanged } from '@firebase/auth';
+
 import { Subscription } from 'rxjs';
 
+import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
+import { ProfileModel } from '../../../../../model/profile.model';
 @Component({
   selector: 'app-images-carousel',
   standalone: true,
@@ -45,11 +46,14 @@ export class ImagesCarouselComponent implements OnInit {
 
   firebaseData$ = this.store.select('auth', 'firebaseData');
 
+  profileState$ = this.store.select('profile', 'profile');
+  profile: ProfileModel = <ProfileModel>{};
   constructor(
     private notificationService: NotificationService,
     private store: Store<{
       storage: StorageState;
       auth: AuthState;
+      profile: ProfileState;
     }>,
   ) {
     this.postId = Math.floor(
@@ -96,6 +100,13 @@ export class ImagesCarouselComponent implements OnInit {
               }
             };
           });
+        }
+      }),
+
+      this.profileState$.subscribe((profile) => {
+        if (profile) {
+          this.profile = profile;
+          console.log('profile', this.profile);
         }
       }),
     );

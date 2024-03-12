@@ -1,13 +1,51 @@
 <div class="main">
-  <div class="allPost"
-  
-    >
+  <div class="allPost" >
     @for (item of postList.data; track item) {
     <div class="post">
       <!--  Picture post -->
       <div class="picture-post">
-        <div class="image-post" (click)="showDialogDetail(templateDetail)">
-          <img class="detail-image" [src]="item.photoUrl[0]" alt="">
+        <div class="image-post" >
+          <tui-carousel #carousel  [style.--tui-carousel-padding]="0" style="height: 100%" >
+            <ng-container *ngFor="let photo of item.photoUrl; let i = index" >
+              <div class="photolist" *tuiItem >
+                
+                <div class="btn_picture">
+
+                @if(i ===0){
+
+                }
+                  @if (item.photoUrl.length >= 2) {
+                   
+                    <button
+                      class="button"
+                      appearance="custom"
+                      icon="tuiIconChevronLeftLarge"
+                      size="s"
+                      tuiIconButton
+                      type="button"
+                      (click)="carousel.prev()"
+                      [hidden]="i === 0"
+
+                    ></button>
+                    <button
+                      class="button"
+                      appearance="custom"
+                      icon="tuiIconChevronRightLarge"
+                      size="s"
+                      tuiIconButton
+                      type="button"
+
+                      [hidden]="i === item.photoUrl.length - 1"
+                      
+                      (click)="carousel.next()"
+                    ></button>
+                  }
+                </div>
+                <img class="picture1" [src]="photo" alt="" (click)="showDialogDetail(templateDetail)" />
+              </div>
+            </ng-container>
+          </tui-carousel>
+         
         </div>
       </div>
       <!--  Bottom post -->
@@ -16,7 +54,7 @@
           <div class="user-info">
             <!-- avatar-user -->
             <div class="avatar-user">
-              <img class="avatar" src="./assets/avatar.png" alt="">
+              <img class="avatar" src="{{item.creatorId}}" alt="">
             </div>
             <!-- info-user -->
             <div class="info-post">

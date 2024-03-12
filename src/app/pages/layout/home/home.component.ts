@@ -35,6 +35,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  currentIndex = 0;
   subscription: Subscription[] = [];
 
   token$ = this.store.select('auth', 'token');
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
  
   postList: PostResponse = { data: [], endPage: 0 };
 
+  itemsCount = 1;
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
@@ -77,7 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }),
       this.token$.subscribe((token) => {
         if (token) {
-          this.store.dispatch(PostActions.getAll({page: 1, size: 10}));
+          this.store.dispatch(PostActions.getAll({page: 1, size: 50}));
         }
       }),
      
@@ -168,4 +170,5 @@ export class HomeComponent implements OnInit, OnDestroy {
       testValue7: new FormControl(false),
     });
   }
+
 }

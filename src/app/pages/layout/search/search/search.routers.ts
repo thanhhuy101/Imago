@@ -15,7 +15,7 @@ export const SEARCH_ROUTERS: Routes = [
         loadComponent: () => import('../components/people/people.component').then((m) => m.PeopleComponent),
       },
       {
-        path: 'hagtag',
+        path: 'category',
         loadComponent: () => import('../components/hagtag/hagtag.component').then((m) => m.HagtagComponent),
       },
      

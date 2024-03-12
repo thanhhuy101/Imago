@@ -1,39 +1,47 @@
-<div class="container">
+<div [ngClass]="users.length < 0 ? 'container' : 'main-empty'">
   <tui-scrollbar> </tui-scrollbar>
+@if(users.length < 0){
   @for (item of users; track item) {
-  <div class="col">
-    <tui-island size="m" class="content">
-      <div class="tui-island__content">
-        <div class="tui-island__figure">
-          @if (item.followed == false) {
-          <button tuiButton type="button" size="m" id="flBtn" appearance="custom" (click)="followUser(item.uid)"
-            class="tui-space_right-3 tui-space_bottom-3">
-            Follow
-          </button>
-          } @else {
-          <button tuiButton type="button" size="m" (click)="followUser(item.uid)" appearance="outline"
-            class="tui-space_right-3 tui-space_bottom-3">
-            following
-          </button>
-          }
-        </div>
-        <div class="all_left">
-          <div class="top">
-            <tui-avatar class="tui_avatar1" [rounded]="true" text="alex inkin"></tui-avatar>
-            <div class="left">
-              <div class="top_left">
-                <h3 class="tui-island__title">{{ item.name }}</h3>
-                <p class="tui-island__category">&#64;{{ item.bio }}</p>
+    <div class="col">
+      <tui-island size="m" class="content">
+        <div class="tui-island__content">
+          <div class="tui-island__figure">
+            @if (item.followed == false) {
+            <button tuiButton type="button" size="m" id="flBtn" appearance="custom" (click)="followUser(item.uid)"
+              class="tui-space_right-3 tui-space_bottom-3">
+              Follow
+            </button>
+            } @else {
+            <button tuiButton type="button" size="m" (click)="followUser(item.uid)" appearance="outline"
+              class="tui-space_right-3 tui-space_bottom-3">
+              following
+            </button>
+            }
+          </div>
+          <div class="all_left">
+            <div class="top">
+              <tui-avatar class="tui_avatar1" [rounded]="true" text="alex inkin"></tui-avatar>
+              <div class="left">
+                <div class="top_left">
+                  <h3 class="tui-island__title">jiu</h3>
+                  <p class="tui-island__category">&#64;huy</p>
+                </div>
+  
+                <h4 class="tui-island__category">
+                  14 followers
+                </h4>
               </div>
-
-              <h4 class="tui-island__category">
-                {{ item.follower.length }} followers
-              </h4>
             </div>
           </div>
         </div>
-      </div>
-    </tui-island>
-  </div>
-  }
-</div>
+      </tui-island>
+    </div>
+    }
+}@else {
+  <ng-container>
+    <div class="tui-text_body-xl">No result match</div>
+  </ng-container>
+
+}
+    </div> 
+
