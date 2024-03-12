@@ -1,8 +1,14 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/share.module';
 import { TuiAlertService, TuiSizeXS, TuiSizeXXL } from '@taiga-ui/core';
-import { Router, RouterOutlet } from '@angular/router';
+import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ProfileModel } from '../../../model/profile.model';
 import { Store } from '@ngrx/store';
@@ -19,13 +25,14 @@ import { NotificationService } from '../../../service/notification/notification.
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [TaigaModule, ShareModule, RouterOutlet],
+  imports: [TaigaModule, ShareModule, RouterOutlet, RouterLink],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss',
+  styleUrl: './profile.component.less',
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  readonly names = ['Jason Statham', 'Silvester Stallone', 'Jackie Chan'];
-  readonly sizes: ReadonlyArray<TuiSizeXS | TuiSizeXXL> = ['l', 'm'];
+  readonly names = ['Jason Statham', 'Jackie Chan'];
+  readonly sizes: ReadonlyArray<TuiSizeXS | TuiSizeXXL> = ['l'];
   readonly items = [
     {
       text: 'Post',

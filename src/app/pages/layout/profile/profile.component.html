@@ -1,43 +1,69 @@
 <div id="profile-container">
   <div class="profile">
     <div class="left">
-      <h3 class="tui-text_h3">Name</h3>
-      <h5 class="tui-text_body-xl">&#64;username</h5>
-      <p class="tui-text_body-l">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </p>
-      <tui-avatar-stack
-        *ngFor="let size of sizes; let odd = odd"
-        class="tui-space_vertical-4"
-        [direction]="odd ? 'left' : 'right'"
-      >
-        <tui-avatar
-          *ngFor="let name of names"
-          [round]="odd"
-          [size]="size"
-        ></tui-avatar>
-        <tui-avatar size="l" [round]="odd" [size]="size"> 99+ </tui-avatar>
-      </tui-avatar-stack>
+      <div class="user-info">
+        <h3 class="tui-text_h3">
+          {{ profile.lastName }} {{ profile.firstName }}
+        </h3>
+        <h5 class="tui-text_body-xl">&#64;{{ profile.userName }}</h5>
+        <p class="tui-text_body-m">
+          A picture is worth a thousand words. Share your story here.
+        </p>
+      </div>
+
+      <div class="follow">
+        <tui-avatar-stack class="tui-space_vertical-4" [direction]="'right'">
+          <tui-avatar
+            *ngFor="let name of names"
+            [round]="true"
+            [size]="'m'"
+          ></tui-avatar>
+          <tui-avatar size="m" [round]="true"> 99+</tui-avatar>
+        </tui-avatar-stack>
+        <p class="tui-text_body-m tui-space_left-2">100+ followers</p>
+      </div>
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <div class="avatar">
+        <tui-avatar [src]="profile.photoUrl" size="xxl"></tui-avatar>
+      </div>
+
+      <div class="edit-btn">
+        <button tuiButton appearance="outline" size="m">Edit</button>
+      </div>
+    </div>
   </div>
-  <div class="tabs"></div>
-  <div class="content"></div>
-
-  <!-- <tui-tabs tuiMobileTabs [(activeItemIndex)]="activeItemIndex">
-    <button
-      *ngFor="let item of items; let i = index"
-      tuiRipple="var(--tui-text-01)"
-      tuiTab
-      class="post"
-      (click)="onChangePage(i)"
-    >
-      {{ item.text }}
-    </button>
-  </tui-tabs> -->
-
-  <!-- <router-outlet></router-outlet> -->
+  <div class="tabs">
+    <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
+      <button
+        [disabled]="activeItemIndex === 0"
+        [routerLink]="['post']"
+        routerLinkActive
+        tuiTab
+      >
+        Posts
+      </button>
+      <button
+        [disabled]="activeItemIndex === 1"
+        [routerLink]="['share']"
+        routerLinkActive
+        tuiTab
+      >
+        Share
+      </button>
+      <button
+        [disabled]="activeItemIndex === 2"
+        [routerLink]="['mention']"
+        routerLinkActive
+        tuiTab
+      >
+        Mentor
+      </button>
+    </tui-tabs>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 <ng-template

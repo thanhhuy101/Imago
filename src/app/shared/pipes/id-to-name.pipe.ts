@@ -15,7 +15,7 @@ export class IdToNamePipe implements PipeTransform {
   transform(id: string): Observable<string> {
     return this.profileService.getById(id).pipe(
       map((profile: ProfileModel) => {
-        return '@' + profile.userName;
+        return profile.userName;
       }),
     );
   }
