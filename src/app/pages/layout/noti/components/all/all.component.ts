@@ -33,8 +33,9 @@ export class AllComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  //notification
-  // allNotifications: NotiModel[] = [];
+  isLoading = false;
+
+
 
   // observable
   token$ = this.store.select('auth', 'token');
@@ -60,7 +61,7 @@ export class AllComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(
       this.profile$.subscribe((profile) => {
-        // console.log('profile', profile.id);
+        console.log('profile', profile.id);
         if (profile.email) {
           this.store.dispatch(
             NotificationActions.getNotifications({
@@ -72,7 +73,7 @@ export class AllComponent implements OnInit, OnDestroy {
 
       this.isGettingNotifications$.subscribe((loading) => {
         if (loading) {
-          // console.log('loading', loading);
+          this.isLoading = true;
         }
       }),
 

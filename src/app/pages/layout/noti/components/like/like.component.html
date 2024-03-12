@@ -1,7 +1,27 @@
 <div id="container">
   <div id="left"></div>
+  <tui-loader id="main" [inheritColor]="false" [overlay]="true" [showLoader]="!isLoading" size="xxl">
+    @if (likes.length === 0) {
+    <ng-container *ngTemplateOutlet="noResult"></ng-container>
+    }
+    @else {
+    <ng-container *ngTemplateOutlet="result"></ng-container>
+    }
+  </tui-loader>
+  <div id="right"></div>
+</div>
+
+<ng-template #noResult>
+  <div class="imageNoResult">
+    <img
+      src="https://static.vecteezy.com/system/resources/previews/014/814/039/non_2x/a-well-designed-flat-icon-of-no-notification-yet-vector.jpg"
+      alt="No result" style="height: 256px; width: 256px;" />
+  </div>
+</ng-template>
+
+<ng-template #result>
   <div id="main">
-    <tui-scrollbar style="height: 100%" [hidden]="true">
+    <tui-scrollbar style="height: 100%; width: 250%;" [hidden]="true">
       <div class="noti-container">
         @for (item of likes; track item; let i = $index) {
         <div class="item">
@@ -18,5 +38,4 @@
       </div>
     </tui-scrollbar>
   </div>
-  <div id="right"></div>
-</div>
+</ng-template>

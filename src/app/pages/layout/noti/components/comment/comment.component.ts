@@ -34,6 +34,7 @@ export class CommentComponent {
   ) { }
   comments: Comment[] = [];
   subscriptions: Subscription[] = [];
+  isLoading = false;
   isGettingCommentNotifications$ = this.store.select(
     'notification',
     'isGettingCommentNotifications',
@@ -56,7 +57,11 @@ export class CommentComponent {
           );
         }
       }),
-
+      this.isGettingCommentNotifications$.subscribe((loading) => {
+        if (loading) {
+          this.isLoading = true;
+        }
+      }),
       this.comments$.subscribe((notifications) => {
         this.processCommentNotifications(notifications);
       }),

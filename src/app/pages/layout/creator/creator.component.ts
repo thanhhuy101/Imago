@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
 import { ProfileModel } from '../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
-import {DateToStringPipe} from "../../../shared/pipes/date-to-string.pipe";
+import { DateToStringPipe } from "../../../shared/pipes/date-to-string.pipe";
 @Component({
   selector: 'app-creator',
   standalone: true,
@@ -80,6 +80,7 @@ export class CreatorComponent
     return true;
   }
 
+
   ngOnInit(): void {
     this.subscription.push(
       this.firebaseData$.subscribe((data) => {
@@ -106,7 +107,7 @@ export class CreatorComponent
       }),
       this.createErrorMessage$.subscribe((error) => {
         if (error.status) {
-          this.notificationService.errorNotification('Post Fail');
+          this.notificationService.errorNotification('Please input status!');
           this.store.dispatch(PostActions.clearCreateState());
         }
       }),

@@ -1,4 +1,4 @@
-#container{
+#container {
   width: 100%;
   height: 100%;
   background-image: url('../../../assets/images/category-background.png');
@@ -10,7 +10,7 @@
   opacity: 200%;
 
   // category container
-  #category-container{
+  #category-container {
     width: 1000px;
     height: 600px;
     background-color: white;
@@ -20,21 +20,23 @@
     flex-direction: column;
 
     //header
-    .header{
+    .header {
       margin-bottom: 15px;
-      .notion{
+
+      .notion {
         width: 262px;
         height: 48px;
       }
     }
 
     //main
-    .main{
+    .main {
       width: 957px;
       height: 350px;
 
-      .category-item{
-        width: 160px; height: 160px;
+      .category-item {
+        width: 160px;
+        height: 160px;
         background: #F5F5F5;
         border-radius: 8px;
         margin-right: 30px;
@@ -42,28 +44,28 @@
         flex-direction: column;
         cursor: pointer;
 
-      .item-pic{
-        width:100%;
-        height: 80%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+        .item-pic {
+          width: 100%;
+          height: 80%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
 
-      .item-name{
-        width: 100%;
-        height: 20%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 16px;
-        font-weight: bold;
+        .item-name {
+          width: 100%;
+          height: 20%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 16px;
+          font-weight: bold;
+        }
       }
-    }
     }
 
     //footer
-    .footer{
+    .footer {
       width: 100%;
       height: 100%;
       display: flex;
@@ -74,10 +76,18 @@
   }
 }
 
+#logo {
+  font-size: 60px;
+}
+
+.inclinations {
+  color: #a7373a
+}
 
 // ngClass
-.category-item{
-  width: 160px; height: 160px;
+.category-item {
+  width: 160px;
+  height: 160px;
   background: #F5F5F5;
   border-radius: 8px;
   margin-right: 30px;
@@ -86,8 +96,13 @@
   cursor: pointer;
 }
 
-.active{
-  width: 160px; height: 160px;
+.cate-des {
+  font-weight: bold;
+}
+
+.active {
+  width: 160px;
+  height: 160px;
   background: #262626;
   border-radius: 8px;
   margin-right: 30px;
@@ -95,8 +110,8 @@
   flex-direction: column;
   cursor: pointer;
 
-  .item-pic{
-    width:100%;
+  .item-pic {
+    width: 100%;
     height: 80%;
     display: flex;
     justify-content: center;
@@ -104,7 +119,7 @@
     color: white;
   }
 
-  .item-name{
+  .item-name {
     width: 100%;
     height: 20%;
     display: flex;
@@ -117,5 +132,54 @@
   }
 }
 
+// @media (max-width: 4000px) {
+//   #container {
+//     #category-container {
+//       width: 130rem;
+//       height: 80rem;
+//       padding: 60px;
 
+//       .header {
+//         height: 20rem;
+//       }
 
+//       .main {
+//         width: 130rem;
+
+//         .category-item {
+//           .item-pic {
+//             height: 100%;
+//           }
+
+//           .item-name {
+//             font-size: 60px;
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   .inclinations {
+//     font-size: 60px;
+//   }
+
+//   .your {
+//     font-size: 60px;
+
+//   }
+
+//   .cate-des {
+//     font-size: 30px;
+//     line-height: 2rem;
+//     width: 40rem;
+
+//   }
+
+//   .item-pic material-symbols-outlined {
+//     font-size: 60px;
+//   }
+
+//   #logo {
+//     font-size: 10rem;
+//   }
+// }

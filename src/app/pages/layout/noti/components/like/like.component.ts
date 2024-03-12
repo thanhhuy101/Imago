@@ -32,6 +32,7 @@ export class LikeComponent {
       profile: ProfileState;
     }>,
   ) { }
+  isLoading = false;
   likes: Like[] = [];
   subscriptions: Subscription[] = [];
   token$ = this.store.select('auth', 'token');
@@ -59,7 +60,7 @@ export class LikeComponent {
       }),
       this.isGettingLikeNotifications$.subscribe((loading) => {
         if (loading) {
-          // console.log('loading', loading);
+          this.isLoading = true;
         }
       }),
 

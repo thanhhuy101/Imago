@@ -32,6 +32,7 @@ export class FollowComponent {
       profile: ProfileState;
     }>,
   ) { }
+  isLoading = false;
   follows: Follow[] = [];
   subscriptions: Subscription[] = [];
   token$ = this.store.select('auth', 'token');
@@ -59,7 +60,7 @@ export class FollowComponent {
       }),
       this.isGettingFollowNotifications$.subscribe((loading) => {
         if (loading) {
-          // console.log('loading', loading);
+          this.isLoading = true;
         }
       }),
 
