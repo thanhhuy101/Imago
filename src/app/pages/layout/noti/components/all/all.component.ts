@@ -15,6 +15,8 @@ type Notification = {
   time: string;
   kind: string;
   icon: string;
+  avatar?: string;
+  color: string;
 };
 @Component({
   selector: 'app-all',
@@ -53,11 +55,12 @@ export class AllComponent implements OnInit, OnDestroy {
       auth: AuthState;
       profile: ProfileState;
     }>,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.subscriptions.push(
       this.profile$.subscribe((profile) => {
+        // console.log('profile', profile.id);
         if (profile.email) {
           this.store.dispatch(
             NotificationActions.getNotifications({
@@ -88,7 +91,7 @@ export class AllComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 
   viewNotification(index: any): void {
     // console.log('view notification', index);
@@ -122,6 +125,7 @@ export class AllComponent implements OnInit, OnDestroy {
           time: timeString,
           kind: 'followed on you',
           icon: 'tuiIconUserCheck',
+          color: 'green',
         });
       }
 
@@ -131,6 +135,7 @@ export class AllComponent implements OnInit, OnDestroy {
           time: timeString,
           kind: 'liked your post',
           icon: 'tuiIconHeart',
+          color: 'red',
         });
       }
 
@@ -140,6 +145,7 @@ export class AllComponent implements OnInit, OnDestroy {
           time: timeString,
           kind: 'commented on your post',
           icon: 'tuiIconMessageCircle',
+          color: 'blue',
         });
       }
     });
