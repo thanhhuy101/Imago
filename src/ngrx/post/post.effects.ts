@@ -56,8 +56,8 @@ export class PostEffect {
   getAll$ = createEffect(() =>
     this.action$.pipe(
       ofType(PostActions.getAll),
-      switchMap(() =>
-        this.postService.getAll().pipe(
+      switchMap((action) =>
+        this.postService.getAll(action.page, action.size).pipe(
           map((postResponse) => PostActions.getAllSuccess({ postResponse })),
           catchError((error) =>
             of(PostActions.getAllFailure({ errorGetAllMessage: error })),

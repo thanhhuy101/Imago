@@ -9,6 +9,8 @@ import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { Subscription } from 'rxjs';
 import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 import { FollowNotiModel } from '../../../../../model/noti.model';
+import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
+import { IdToNamePipe } from "../../../../../shared/pipes/id-to-name.pipe";
 type Follow = {
   name: string;
   time: string;
@@ -18,14 +20,11 @@ type Follow = {
 @Component({
   selector: 'app-follow',
   standalone: true,
-  imports: [TaigaModule, ShareModule],
   templateUrl: './follow.component.html',
   styleUrl: './follow.component.scss',
+  imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe]
 })
 export class FollowComponent {
-  aceHole =
-    'https://qph.cf2.quoracdn.net/main-qimg-1c75fec28dcae94eadff9cd7899ae5f5-lq';
-
   constructor(
     private store: Store<{
       notification: NotiState;

@@ -24,47 +24,53 @@ import { PostModel } from '../../../model/post.model';
 import { error } from '@angular/compiler-cli/src/transformers/util';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
+import { ProfileModel } from '../../../model/profile.model';
+import { ProfileState } from '../../../../ngrx/profile/profile.state';
+import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
+import {DateToStringPipe} from "../../../shared/pipes/date-to-string.pipe";
 @Component({
   selector: 'app-creator',
   standalone: true,
-  imports: [TaigaModule, ShareModule, ImagesCarouselComponent],
+  imports: [TaigaModule, ShareModule, ImagesCarouselComponent, DateToStringPipe],
   templateUrl: './creator.component.html',
   styleUrl: './creator.component.less',
   encapsulation: ViewEncapsulation.None,
 })
 export class CreatorComponent
-  implements OnInit, CanComponentDeactivate, OnDestroy
-{
+  implements OnInit, CanComponentDeactivate, OnDestroy {
   isUploadImages = true;
   @Input() isDisabled = this.isUploadImages;
   name: string = 'Lulu';
   statusValue: string = '';
-
+  //createAt . date.now
+  createAt = new Date();
   index = 0;
   itemsCount = 1;
 
   isContentChanged = false;
-
+  profile: ProfileModel = <ProfileModel>{}
   linkOfImage: string[] = [];
   storageState$ = this.store.select('storage', 'url');
   isCreateSuccess$ = this.store.select('post', 'isCreateSuccess');
   createErrorMessage$ = this.store.select('post', 'createErrorMessage');
   firebaseData$ = this.store.select('auth', 'firebaseData');
+  profile$ = this.store.select('profile', 'profile');
   imageList: string[] = ['https://via.placeholder.com/450'];
   subscription: Subscription[] = [];
   uid = '';
 
+
   constructor(
     private route: Router,
     private notificationService: NotificationService,
-    private authFirebase: Auth,
+
     private store: Store<{
       storage: StorageState;
       auth: AuthState;
       post: PostState;
+      profile: ProfileState;
     }>,
-  ) {}
+  ) { }
 
   canDeactivate(): boolean {
     if (this.isContentChanged) {
@@ -85,6 +91,7 @@ export class CreatorComponent
         if (url) {
           url.forEach((url: string) => {
             this.linkOfImage.push(url);
+            this.notificationService.successNotification('Upload image success');
           });
           console.log('linkOfImage', this.linkOfImage);
         }
@@ -101,6 +108,11 @@ export class CreatorComponent
         if (error.status) {
           this.notificationService.errorNotification('Post Fail');
           this.store.dispatch(PostActions.clearCreateState());
+        }
+      }),
+      this.profile$.subscribe((profile) => {
+        if (profile) {
+          this.profile = profile;
         }
       }),
     );

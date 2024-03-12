@@ -12,6 +12,10 @@ export class ProfileService {
     return this.httpClient.get('profile/list');
   }
 
+  getById(id: string) {
+    return this.httpClient.get(`profile?id=${id}`);
+  }
+
   getMine() {
     return this.httpClient.get('profile/mine');
   }

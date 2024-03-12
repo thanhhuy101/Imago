@@ -4,8 +4,26 @@
     <div class="post">
       <!--  Picture post -->
       <div class="picture-post">
-        <div class="image-post" (click)="showDialogDetail(templateDetail)">
-          <img class="detail-image" [src]="item.photoUrl[0]" alt="">
+        <div class="image-post">
+          <tui-carousel #carousel [style.--tui-carousel-padding]="0" style="height: 100%">
+            <ng-container *ngFor="let photo of item.photoUrl; let i = index">
+              <div class="photolist" *tuiItem>
+
+                <div class="btn_picture">
+
+                  @if (item.photoUrl.length >= 2) {
+
+                  <button class="button" appearance="custom" icon="tuiIconChevronLeftLarge" size="s" tuiIconButton
+                    type="button" (click)="carousel.prev()" [hidden]="i === 0"></button>
+                  <button class="button" appearance="custom" icon="tuiIconChevronRightLarge" size="s" tuiIconButton
+                    type="button" [hidden]="i === item.photoUrl.length - 1" (click)="carousel.next()"></button>
+                  }
+                </div>
+                <img class="picture1" [src]="photo" alt="" (click)="showDialogDetail(templateDetail)" />
+              </div>
+            </ng-container>
+          </tui-carousel>
+
         </div>
       </div>
       <!--  Bottom post -->
@@ -14,12 +32,12 @@
           <div class="user-info">
             <!-- avatar-user -->
             <div class="avatar-user">
-              <img class="avatar" src="./assets/avatar.png" alt="">
+              <img class="avatar" src="{{item.creatorId | idToAvatar | async}}" alt="">
             </div>
             <!-- info-user -->
             <div class="info-post">
-              <span class="name-user">GoVegan</span>
-              <span class="date">on 15 Oct 2019</span>
+              <span class="name-user">{{item.creatorId| idToName| async}}</span>
+              <span class="date">{{item.createdAt | dateToString}}</span>
             </div>
           </div>
 
@@ -89,11 +107,9 @@
         <div class="content">
           <p class="description-preview">
             @for (item of item.hashtag; track $index) {
-
             <span style="color: #0081FF; margin-left: 2px">{{ item }}</span>
             }
             {{ item.content }}
-
           </p>
         </div>
         <div class="reaction">
@@ -125,7 +141,7 @@
                 <div class="user-info">
                   <!-- avatar-user -->
                   <div class="avatar-user">
-                    <img class="avatar" src="./assets/avatar.png" alt="">
+                    <img class="avatar" src="../../../../assets/images/avatar.png" alt="">
                   </div>
                   <!-- info-user -->
                   <div class="info-post">

@@ -9,6 +9,8 @@ import { AuthState } from '../../../../../../ngrx/auth/auth.state';
 import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { NotiModel } from '../../../../../model/noti.model';
+import { IdToNamePipe } from '../../../../../shared/pipes/id-to-name.pipe';
+import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
 
 type Notification = {
   name: string;
@@ -21,13 +23,11 @@ type Notification = {
 @Component({
   selector: 'app-all',
   standalone: true,
-  imports: [ShareModule, TaigaModule],
   templateUrl: './all.component.html',
   styleUrl: './all.component.scss',
+  imports: [ShareModule, TaigaModule, IdToNamePipe, IdToAvatarPipe],
 })
 export class AllComponent implements OnInit, OnDestroy {
-  aceHole =
-    'https://qph.cf2.quoracdn.net/main-qimg-1c75fec28dcae94eadff9cd7899ae5f5-lq';
 
   notifications: Notification[] = [];
 

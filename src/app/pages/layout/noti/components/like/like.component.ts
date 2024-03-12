@@ -9,22 +9,21 @@ import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { Subscription } from 'rxjs';
 import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 import { LikeNotiModel } from '../../../../../model/noti.model';
+import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
+import { IdToNamePipe } from "../../../../../shared/pipes/id-to-name.pipe";
 type Like = {
   name: string;
   time: string;
   kind: string;
-  avatar?: string;
 };
 @Component({
   selector: 'app-like',
   standalone: true,
-  imports: [TaigaModule, ShareModule],
   templateUrl: './like.component.html',
   styleUrl: './like.component.scss',
+  imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe]
 })
 export class LikeComponent {
-  aceHole =
-    'https://qph.cf2.quoracdn.net/main-qimg-1c75fec28dcae94eadff9cd7899ae5f5-lq';
 
   constructor(
     private store: Store<{

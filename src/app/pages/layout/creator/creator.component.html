@@ -10,10 +10,10 @@
             (responseChangeEvent)="handleImageListChange($event)"></app-images-carousel>
         </div>
         <div class="info_cover tui-space_bottom-4">
-          <tui-avatar [text]="name" [autoColor]="true" size="xl"></tui-avatar>
+          <tui-avatar [autoColor]="true" [avatarUrl]="this.profile.photoUrl" size="xl"></tui-avatar>
           <div class="info tui-space_left-4">
-            <h6 class="tui-text_h6">{{ name }}</h6>
-            <p class="tui-text_body-s-2">on 15 Oct 2019</p>
+            <h6 class="tui-text_h6">{{ this.profile.userName }}</h6>
+            <p class="tui-text_body-s-2">{{createAt | dateToString }}</p>
           </div>
         </div>
 
@@ -48,10 +48,11 @@
             [length]="imageList.length / itemsCount" (indexChange)="onIndex($event)"></tui-pagination>
         </div>
         <div class="info_cover">
-          <tui-avatar [text]="name" class="tui-space_top-1" [autoColor]="true" size="xl"></tui-avatar>
+          <tui-avatar class="tui-space_top-1" [autoColor]="true" size="xl"
+            [avatarUrl]="this.profile.photoUrl"></tui-avatar>
           <div class="info tui-space_left-4">
-            <h6 class="tui-text_h6">{{ name }}</h6>
-            <p class="tui-text_body-s-2">on 15 Oct 2019</p>
+            <h6 class="tui-text_h6">{{ this.profile.userName }}</h6>
+            <p class="tui-text_body-s-2">{{createAt | dateToString}}</p>
           </div>
         </div>
         <div class="status-cover" *ngIf="statusValue != ''">

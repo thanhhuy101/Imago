@@ -6,10 +6,10 @@
         @for (item of comments; track item; let i = $index) {
         <div class="item">
           <tui-avatar size="l" class="tui-space_right-5 tui-space_left-5" [rounded]="true"
-            [avatarUrl]="aceHole"></tui-avatar>
+            [avatarUrl]="item.name | idToAvatar | async"></tui-avatar>
           <div class="content">
             <p class="notifi" style="font-size: large">
-              <strong>{{ item.name }}</strong> {{ item.kind }}
+              <strong>{{ item.name | idToName | async}}</strong> {{ item.kind }}
             </p>
             <p class="time" style="font-size: medium">{{ item.time }}</p>
           </div>

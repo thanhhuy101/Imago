@@ -55,4 +55,20 @@ export class ProfileEffect {
       ),
     ),
   );
+
+  getById$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ProfileActions.getById),
+      switchMap((action) =>
+        this.profileService.getById(action.id).pipe(
+          map((profile: ProfileModel) =>
+            ProfileActions.getByIdSuccess({ profile }),
+          ),
+          catchError((error) =>
+            of(ProfileActions.getByIdFailure({ getErrorMessageById: error })),
+          ),
+        ),
+      ),
+    ),
+  );
 }
