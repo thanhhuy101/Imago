@@ -32,7 +32,9 @@ export const deletePostFailure = createAction(
   props<{ deleteErrorMessage: HttpErrorResponseModel }>(),
 );
 
-export const getAll = createAction('[Post] Get All');
+export const getAll = createAction(
+  '[Post] Get All',
+  props<{ page: number; size: number }>(),);
 export const getAllSuccess = createAction(
   '[Post] Get All Success',
   props<{ postResponse: PostResponse }>(),

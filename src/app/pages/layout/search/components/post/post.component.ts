@@ -38,6 +38,7 @@ export class PostComponent {
     this.subscription.push(
       this.postSearchResult$.subscribe((res) => {
         this.list = res;
+        console.log('search list',this.list);
       }),
     );
   }
