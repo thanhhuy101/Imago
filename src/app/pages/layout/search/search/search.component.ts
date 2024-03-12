@@ -32,9 +32,9 @@ export class SearchComponent implements OnInit, OnDestroy {
       icon: 'tuiIconUser',
     },
     {
-      text: 'Tag',
-      router: '/hagtag',
-      icon: 'tuiIconUsers',
+      text: 'category',
+      router: '/category',
+      icon: 'tuiIconCommand',
     },
   ];
 
@@ -56,7 +56,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     // console.log(path);
     if (path.includes('search/people')) {
       this.activeItemIndex = 1;
-    } else if (path.includes('search/hagtag')) {
+    } else if (path.includes('search/category')) {
       this.activeItemIndex = 2;
     } else {
       this.activeItemIndex = 0;
@@ -86,6 +86,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         .select((state) => state.post.isSearching)
         .subscribe((res) => {
           this.isSearching = res;
+       
         }),
     );
   }

@@ -14,8 +14,8 @@ export class PostService {
     private store: Store<{ auth: AuthState }>,
   ) {}
 
-  getAll() {
-    return this.httpClient.get('post/all?page=1?size=10');
+  getAll(page: number, size: number) {
+    return this.httpClient.get(`post/all?page=${page}&size=${size}`);
   }
 
   create(post: PostModel) {

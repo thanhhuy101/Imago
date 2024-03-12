@@ -1,5 +1,5 @@
 import { CommentModel } from './comment.model';
-
+import { ProfileModel } from './profile.model';
 export interface PostModel {
   // isLiked: boolean;
   id: string;
