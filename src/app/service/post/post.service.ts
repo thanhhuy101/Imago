@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
-import { AuthState } from '../../../ngrx/auth/auth.state';
 import { HttpClientAuth } from '../../util/http-client-auth';
 import { PostModel } from '../../model/post.model';
 
@@ -9,10 +6,7 @@ import { PostModel } from '../../model/post.model';
   providedIn: 'root',
 })
 export class PostService {
-  constructor(
-    private httpClient: HttpClientAuth,
-    private store: Store<{ auth: AuthState }>,
-  ) {}
+  constructor(private httpClient: HttpClientAuth) {}
 
   getAll(page: number, size: number) {
     return this.httpClient.get(`post/all?page=${page}&size=${size}`);

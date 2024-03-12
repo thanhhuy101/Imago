@@ -30,7 +30,7 @@ import { TuiAutoFocusModule } from '@taiga-ui/cdk';
 import { TuiInputModule } from '@taiga-ui/kit';
 import { TuiSvgModule } from '@taiga-ui/core';
 import { TuiButtonModule } from '@taiga-ui/core';
-import { TuiAvatarModule } from '@taiga-ui/kit';
+// import { TuiAvatarModule } from '@taiga-ui/kit';
 import { TuiGroupModule } from '@taiga-ui/core';
 import { TuiCarouselModule } from '@taiga-ui/kit';
 import { TuiIslandModule } from '@taiga-ui/kit';
@@ -86,6 +86,8 @@ import {
   TuiSurfaceModule,
   TuiFadeModule,
   TuiButtonCloseModule,
+  TuiAvatarStackModule,
+  TuiAvatarModule,
 } from '@taiga-ui/experimental';
 
 const TaigaModules = [
@@ -124,7 +126,7 @@ const TaigaModules = [
   TuiBadgeModule,
   TuiBadgedContentModule,
   TuiSvgModule,
-  TuiAvatarModule,
+  // TuiAvatarModule,
   TuiGroupModule,
   TuiCarouselModule,
   TuiIslandModule,
@@ -177,6 +179,8 @@ const TaigaModules = [
   TuiTitleModule,
   TuiFadeModule,
   TuiButtonCloseModule,
+  TuiAvatarStackModule,
+  TuiAvatarModule,
 ];
 
 @NgModule({

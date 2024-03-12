@@ -87,30 +87,26 @@ export class AppComponent implements OnInit {
       this.isGetProfileSuccess$,
       this.getAuthErrorResponse$,
     ]).subscribe(([authCredential, profile, error]) => {
-      if (
-        authCredential.email &&
-        profile.email &&
-        profile.category.length !== 0
-      ) {
-        if (
-          this.router.url === '/login' ||
-          this.router.url === '/register' ||
-          this.router.url === '/interest'
-        ) {
-          this.router.navigate(['/home']).then();
+      const { email: authEmail } = authCredential;
+      const { email: profileEmail, category } = profile;
+
+      if (authEmail && profileEmail) {
+        if (category.length !== 0) {
+          const isAuthRoute = ['/login', '/register', '/interest'].includes(
+            this.router.url,
+          );
+          const route = isAuthRoute ? '/home' : this.router.url;
+          console.log(isAuthRoute ? 'home' : 'reload');
+          this.router.navigate([route]).then();
         } else {
-          this.router.navigate([this.router.url]).then();
+          console.log('interest');
+          this.router.navigate(['/interest']).then();
         }
+      } else if (authEmail && !profileEmail) {
+        console.log('register');
+        this.router.navigate(['/register']).then();
       } else if (error.status === 404) {
         this.store.dispatch(AuthActions.signUp());
-      } else if (authCredential.email && !profile.email) {
-        this.router.navigate(['/register']).then();
-      } else if (
-        authCredential.email &&
-        profile.email &&
-        profile.category.length === 0
-      ) {
-        this.router.navigate(['/interest']).then();
       }
     });
 
