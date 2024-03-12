@@ -44,6 +44,7 @@ export class CreatorComponent
   statusValue: string = '';
   //createAt . date.now
   createAt = new Date();
+  
   index = 0;
   itemsCount = 1;
 

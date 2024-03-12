@@ -20,7 +20,7 @@
           </div>
           <div class="all_left">
             <div class="top">
-              <tui-avatar class="tui_avatar1" [rounded]="true" text="alex inkin"></tui-avatar>
+              <tui-avatar class="tui_avatar1" [avatarUrl]="this.users" [rounded]="true" text="alex inkin"></tui-avatar>
               <div class="left">
                 <div class="top_left">
                   <h3 class="tui-island__title">jiu</h3>
@@ -39,9 +39,9 @@
     }
 }@else {
   <ng-container>
+    <img class="search_icon" src="../../../../../../assets/images/searchPerson.png" alt="">
     <div class="tui-text_body-xl">No result match</div>
   </ng-container>
-
 }
     </div> 
 

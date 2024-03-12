@@ -8,11 +8,9 @@
           <tui-carousel #carousel  [style.--tui-carousel-padding]="0" style="height: 100%" >
             <ng-container *ngFor="let photo of item.photoUrl; let i = index" >
               <div class="photolist" *tuiItem >
-                
-                <div class="btn_picture">
-
+                <div class="btn_picture"
+                >
                   @if (item.photoUrl.length >= 2) {
-                   
                     <button
                       class="button"
                       appearance="custom"
@@ -22,7 +20,6 @@
                       type="button"
                       (click)="carousel.prev()"
                       [hidden]="i === 0"
-
                     ></button>
                     <button
                       class="button"
@@ -31,14 +28,14 @@
                       size="s"
                       tuiIconButton
                       type="button"
-
-                      [hidden]="i === item.photoUrl.length - 1"
-                      
                       (click)="carousel.next()"
                     ></button>
                   }
                 </div>
-                <img class="picture1" [src]="photo" alt="" (click)="showDialogDetail(templateDetail)" />
+                
+                <img class="picture1" [src]="photo" alt=""   />
+               
+                
               </div>
             </ng-container>
           </tui-carousel>
@@ -46,9 +43,9 @@
         </div>
       </div>
       <!--  Bottom post -->
-      <div class="bottom">
+      <div class="bottom" >
         <div class="userInfoReport">
-          <div class="user-info">
+          <div class="user-info" (click)="showDialogDetail(templateDetail)">
             <!-- avatar-user -->
             <div class="avatar-user">
               <img class="avatar" src="{{item.creatorId}}" alt="">
@@ -133,23 +130,56 @@
         </div>
         <div class="reaction">
           <div class="tymAndCmt">
-            <button icon="tuiIconHeart" tuiIconButton [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
-              appearance="flat" type="button" (click)="like()"
-              class="heartBtn tui-space_right-3 tui-space_bottom-3"></button>
-            <button icon="tuiIconMessageSquare" tuiIconButton appearance="flat" type="button"
-              class="tui-space_right-3 tui-space_bottom-3"></button>
+            <button class="reaction_button" icon="tuiIconHeart" tuiIconButton [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
+            appearance="custom" type="button" (click)="like()"
+            class="reaction_button"></button>
+            <button icon="tuiIconMessageSquare" tuiIconButton appearance="custom" type="button"
+            class="reaction_button"></button>
           </div>
-          <button icon="tuiIconShare" tuiIconButton appearance="flat" type="button"
-            class="tui-space_right-3 tui-space_bottom-3"></button>
+          <button icon="tuiIconShare" tuiIconButton appearance="custom" type="button"
+          class="reaction_button"></button>
         </div>
       </div>
     </div>
 
-    <ng-template #templateDetail>
+     <ng-template #templateDetail>
       <div class="postDetail">
         <div class="left">
           <div class="detail-dialog">
-            <img class="img-dialog" [src]="item.photoUrl[0]" alt="">
+            <tui-carousel #carousel  [style.--tui-carousel-padding]="0" style="height: 100%" >
+              <ng-container *ngFor="let photo of item.photoUrl; let i = index" >
+                <div class="photolist" *tuiItem >
+                  <div class="btn_picture"
+                  >
+                    @if (item.photoUrl.length >= 2) {
+                      <button
+                        class="button"
+                        appearance="custom"
+                        icon="tuiIconChevronLeftLarge"
+                        size="s"
+                        tuiIconButton
+                        type="button"
+                        (click)="carousel.prev()"
+                        [hidden]="i === 0"
+                      ></button>
+                      <button
+                        class="button"
+                        appearance="custom"
+                        icon="tuiIconChevronRightLarge"
+                        size="s"
+                        tuiIconButton
+                        type="button"
+                        (click)="carousel.next()"
+                      ></button>
+                    }
+                  </div>
+                  
+                  <img class="picture1" [src]="photo" alt=""   />
+                 
+                  
+                </div>
+              </ng-container>
+            </tui-carousel>
           </div>
         </div>
 
@@ -171,8 +201,8 @@
 
                 <!-- report-->
                 <div class="more">
-                  <tui-hosted-dropdown #dropdown [content]="content" [open]="false">
-                    <button appearance="flat" icon="tuiIconMoreVertical" tuiIconButton type="button"
+                  <tui-hosted-dropdown #dropdown [content]="content" [open]="false" >
+                    <button  appearance="primary" icon="tuiIconMoreVertical" tuiIconButton type="button"
                       [pseudoHover]="dropdown.open || null"></button>
                   </tui-hosted-dropdown>
                   <ng-template #content let-activeZone>

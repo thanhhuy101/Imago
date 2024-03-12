@@ -1,152 +1,490 @@
-.vegan {
-    color: blue;
-    Cursor: pointer;
-}
-
 .main {
-    display: flex;
-    justify-content: center;
-    padding: 0 6rem;
-}
-.main-empty {
-    display: flex;
-    justify-content: center;
-    padding: 0 6rem;
-    margin-top: 5rem;
-  }
-
-.allPost {
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .picture-post {
+    width: 100%;
+  }
+  .search_icon{
+    width:  5rem;
+    height: 5rem;
+  }
+ 
+  .tui-text_body-xl{
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  .main-empty {
+    height: 80vh;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+   
+   
+  }
+  .allPost {
+    width: 85%;
+    height: fit-content;
     columns: 3;
-    column-gap: 30px;
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
-}
-
-@media (max-width: 4000px) {
-    .allPost {
-        width: 100%;
-        height: 100%;
-        columns: 5;
-        column-gap: 30px;
-        margin-top: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
-
-    .name {
-        font-size: 25px;
-    }
-
-    .vegan {
-        font-size: 25px;
-    }
-}
-
-@media (max-width: 3000px) {
-    .allPost {
-        width: 100%;
-        height: 100%;
-        columns: 4;
-        column-gap: 30px;
-        margin-top: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
-
-    .name {
-        font-size: 15px;
-    }
-
-    .vegan {
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 2000px) {
-    .allPost {
-        width: 100%;
-        height: 100%;
-        columns: 3;
-        column-gap: 30px;
-        margin-top: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
-}
-
-@media (max-width: 1400px) {
-    .allPost {
-        width: 100%;
-        height: 100%;
-        columns: 2;
-        column-gap: 30px;
-        margin-top: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    .allPost {
-        width: 100%;
-        height: 100%;
-        columns: 1;
-        margin-top: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
-}
-
-.post {
+  }
+  
+  .post {
     width: 100%;
     border-radius: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.07);
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     height: fit-content;
     break-inside: avoid;
-}
-
-.capAndReaction {
-    padding: 0 15px;
-}
-
-.picture-post1 {
-    width: 100%;
     cursor: pointer;
-}
-
-.picture1 {
+  }
+  .photolist {
+    z-index: 0;
+    position: relative;
+    display: inline-block;
+    height: fit-content;
+    .btn_picture {
+      position: absolute;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      padding: 5px;
+    }
+  }
+  .button {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    opacity: 1;
+  }
+  .picture1 {
     object-fit: cover;
     width: 100%;
+    height: 50vh;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
-
-.reaction {
+  }
+  
+  @media (max-width: 4000px) {
+    .allPost {
+      width: 85%;
+      height: fit-content;
+  
+      columns: 5;
+      padding-bottom: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 3000px) {
+    .allPost {
+      width: 85%;
+      height: fit-content;
+      columns: 4;
+      padding-bottom: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 2000px) {
+    .allPost {
+      width: 85%;
+      height: fit-content;
+      columns: 3;
+      padding-bottom: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 1400px) {
+    .allPost {
+      width: 85%;
+      height: fit-content;
+      columns: 2;
+      padding-bottom: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .allPost {
+      width: 85%;
+      height: fit-content;
+      columns: 1;
+      padding-bottom: 2.5rem;
+    }
+  }
+  
+  
+  .btn-star {
+    width: 56px;
+    height: 56px;
+    background-color: black;
+    border-radius: 12px;
+  }
+  
+  .description-preview {
+    font-size: 16px;
+  }
+  
+  .star {
+    display: flex;
+    justify-self: flex-end;
+  }
+  
+  #star {
+    color: white;
+  }
+  
+  .image-post {
+    width: 100%;
+    height: 50%;
+  }
+  
+  .detail-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  
+  #paragraph {
+    color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .paragraph-preview {
+    text-align: justify;
+    font-size: 14px;
+  }
+  
+  .user-info {
+    width: 82%;
+    height: 24%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .name-user {
+    font-weight: bold;
+  }
+  
+  .date {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 12px;
+  }
+  
+  .user-img {
+    width: 90px;
+    height: 90px;
+    align-items: start;
+    margin-left: 30px;
+  }
+  
+  .avatar-user {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 17px;
+  }
+  
+  .info-post {
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+  }
+  
+  .info {
+    line-height: 3px;
+    margin-top: 30px;
+    margin-left: 3px;
+  }
+  
+  .preview-name {
+    margin-left: 10px;
+  }
+  
+  .paragraph-preview {
+    text-align: justify;
+    font-size: 14px;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-between;
+    height: fit-content;
+  }
+  
+  .content-dialog {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+  }
+  
+  .storie-inside {
+    width: 4rem;
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+    justify-content: space-between;
+  
+  }
+  
+  .icon1 {
+    display: flex;
+    width: 35%;
+  }
+  
+  .bottom {
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .bottom-dialog {
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+  
+  }
+  
+  .reaction {
     display: flex;
     width: 100%;
     justify-content: space-between;
-
-}
-
-.tymAndCmt {
+  }
+  
+  .tymAndCmt {
     display: flex;
     width: 30%;
     /* background-color: red; */
     justify-content: space-between;
-}
-
-.capPicture {
+  }
+  
+  .capPicture {
     margin-top: 0.625rem;
-}
-
-::ng-deep tui-svg {
+  }
+  
+  ::ng-deep tui-svg {
     color: #262626 !important;
-}
-
-.heartBtnActive {
+  }
+  
+  .heartBtnActive {
     ::ng-deep tui-svg {
-        color: #cc4647 !important;
-        fill: #cc4647 !important;
+      color: #cc4647 !important;
+      fill: #cc4647 !important;
     }
-}
+  }
+  
+  .userInfoReport {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .checkbox {
+    margin: 20px 0;
+  }
+  
+  .btn-report {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 25px 0;
+  }
+  
+  .selectProblem {
+    margin: 60px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .reportTitle {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .line {
+    width: 100%;
+    height: 1px;
+    border: solid 1px #d2d0d0;
+    display: flex;
+    align-self: center;
+    margin-bottom: 20px;
+  }
+  
+  .check {
+    display: flex;
+    align-items: center;
+  }
+  
+  .postDetail {
+    display: flex;
+    width: 1100px;
+  
+    .left {
+      width: 50%;
+    }
+  
+    .right {
+      width: 50%;
+      height: 100%;
+    }
+  
+    .bottom {
+      padding: 0 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 537px
+    }
+  }
+  
+  .detail-dialog {
+    width: 537px;
+    height: 537px;
+  }
+  
+  .img-dialog {
+    width: 100%;
+    height: 90%;
+    object-fit: cover
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .postDetail {
+      width: 100%;
+      height: fit-content;
+      //display: flex;
+      //flex-direction: column;
+      //align-items: center;
+      ////justify-content: space-evenly;
+      ////position: fixed;
+      //height: 100% !important;
+  
+    }
+  
+    .detail-dialog {
+      width: 100%;
+      height: 100%;
+    }
+  
+    .img-dialog {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+  
+    .description-preview {
+      font-size: 14px;
+    }
+  
+    @media screen and (max-width: 1024px) {
+      .postDetail {
+        width: 100%;
+        height: fit-content;
+      }
+  
+      .detail-dialog {
+        width: 100%;
+        height: 100%;
+      }
+  
+      .img-dialog {
+        width: 100%;
+        height: 100%;
+        object-fit: cover
+      }
+  
+      .description-preview {
+        font-size: 20px;
+      }
+    }
+  
+    @media screen and (max-width: 768px) {
+      .postDetail {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+  
+      .detail-dialog {
+        width: 100%;
+        height: 100%;
+      }
+  
+      .img-dialog {
+        width: 100%;
+        height: 100%;
+        object-fit: cover
+      }
+  
+      .description-preview {
+        font-size: 12px;
+      }
+    }
+  
+    @media screen and (max-width: 670px) {
+      .postDetail {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-right: 150px;
+      }
+  
+      .detail-dialog {
+        width: 100%;
+        height: 100%;
+      }
+  
+      .img-dialog {
+        width: 100%;
+        height: 100%;
+        object-fit: cover
+      }
+  
+      .description-preview {
+        font-size: 8px;
+      }
+  
+      .bottom-dialog {
+        //padding: 20px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+      }
+  
+      ::ng-deep .ng-trigger {
+        margin: auto 0 !important;
+        border: 0.5px solid #d2d0d0 !important;
+        border-radius: 10px !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+    }
+  }
