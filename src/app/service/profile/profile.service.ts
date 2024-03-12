@@ -8,8 +8,12 @@ import { ProfileModel } from '../../model/profile.model';
 export class ProfileService {
   constructor(private httpClient: HttpClientAuth) {}
 
+  // getAll() {
+  //   return this.httpClient.get('profile/list');
+  // }
+
   getAll() {
-    return this.httpClient.get('profile/list');
+    return this.httpClient.get('profile/listexceptmine');
   }
 
   getById(id: string) {
@@ -26,5 +30,20 @@ export class ProfileService {
 
   updateMine(profile: ProfileModel) {
     return this.httpClient.put('profile/mine', profile);
+  }
+
+  follow(id: string, otherId: string) {
+    console.log(id, otherId);
+    return this.httpClient.put(
+      `profile/follow?profileId=${id}&otherProfileId=${otherId}`,
+      {},
+    );
+  }
+
+  unFollow(id: string, otherId: string) {
+    return this.httpClient.put(
+      `profile/unfollow?profileId=${id}&otherProfileId=${otherId}`,
+      {},
+    );
   }
 }

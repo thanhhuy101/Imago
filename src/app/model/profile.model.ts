@@ -1,5 +1,4 @@
 export interface ProfileModel {
-  
   id: string;
   userName: string;
   firstName: string;

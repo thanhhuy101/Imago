@@ -40,6 +40,22 @@ export class ProfileEffect {
     ),
   );
 
+  getAll$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ProfileActions.getList),
+      switchMap(() =>
+        this.profileService.getAll().pipe(
+          map((profiles: ProfileModel[]) =>
+            ProfileActions.getListSuccess({ profiles }),
+          ),
+          catchError((error) =>
+            of(ProfileActions.getListFailure({ getErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
   getMine$ = createEffect(() =>
     this.action$.pipe(
       ofType(ProfileActions.getMine),
@@ -66,6 +82,34 @@ export class ProfileEffect {
           ),
           catchError((error) =>
             of(ProfileActions.getByIdFailure({ getErrorMessageById: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  follow$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ProfileActions.follow),
+      switchMap((action) =>
+        this.profileService.follow(action.id, action.otherId).pipe(
+          map(() => ProfileActions.followSuccess()),
+          catchError((error) =>
+            of(ProfileActions.followFailure({ followErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  unFollow$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ProfileActions.unFollow),
+      switchMap((action) =>
+        this.profileService.unFollow(action.id, action.otherId).pipe(
+          map(() => ProfileActions.unFollowSuccess()),
+          catchError((error) =>
+            of(ProfileActions.unFollowFailure({ unFollowErrorMessage: error })),
           ),
         ),
       ),

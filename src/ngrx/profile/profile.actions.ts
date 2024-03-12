@@ -32,6 +32,16 @@ export const getMineFailure = createAction(
   props<{ getErrorMessage: HttpErrorResponseModel }>(),
 );
 
+export const getList = createAction('[Profile] Get List Profiles');
+export const getListSuccess = createAction(
+  '[Profile] Get List Profiles Success',
+  props<{ profiles: ProfileModel[] }>(),
+);
+export const getListFailure = createAction(
+  '[Profile] Get List Profiles Failure',
+  props<{ getErrorMessage: HttpErrorResponseModel }>(),
+);
+
 export const getById = createAction(
   '[Profile] Get By Id',
   props<{ id: string }>(),
@@ -51,3 +61,25 @@ export const clearCreateState = createAction('[Profile] Clear Create State');
 export const clearUpdateState = createAction('[Profile] Clear Update State');
 
 export const clearGetState = createAction('[Profile] Clear Get State');
+
+//follow
+export const follow = createAction(
+  '[Profile] Follow',
+  props<{ id: string; otherId: string }>(),
+);
+export const followSuccess = createAction('[Profile] Follow Success');
+export const followFailure = createAction(
+  '[Profile] Follow Failure',
+  props<{ followErrorMessage: HttpErrorResponseModel }>(),
+);
+
+//unfollow
+export const unFollow = createAction(
+  '[Profile] UnFollow',
+  props<{ id: string; otherId: string }>(),
+);
+export const unFollowSuccess = createAction('[Profile] UnFollow Success');
+export const unFollowFailure = createAction(
+  '[Profile] UnFollow Failure',
+  props<{ unFollowErrorMessage: HttpErrorResponseModel }>(),
+);

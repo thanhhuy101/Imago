@@ -6,6 +6,8 @@ import { HttpErrorResponseModel } from '../../app/model/http-error-response.mode
 
 export const initialState: ProfileState = {
   profile: <ProfileModel>{},
+  profiles: [],
+
   isCreating: false,
   isCreateSuccess: false,
   createErrorMessage: <HttpErrorResponseModel>{},
@@ -19,6 +21,12 @@ export const initialState: ProfileState = {
 
   isGettingById: false,
   getErrorMessageById: <HttpErrorResponseModel>{},
+  isFollowing: false,
+  isFollowSuccess: false,
+  followErrorMessage: <HttpErrorResponseModel>{},
+  isUnFollowing: false,
+  isUnFollowSuccess: false,
+  unFollowErrorMessage: <HttpErrorResponseModel>{},
 };
 
 export const profileReducer = createReducer(
@@ -107,6 +115,31 @@ export const profileReducer = createReducer(
     };
   }),
 
+  // getList
+  on(ProfileActions.getList, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGetting: true,
+    };
+  }),
+  on(ProfileActions.getListSuccess, (state, { profiles, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      profiles: profiles,
+      isGetting: false,
+    };
+  }),
+  on(ProfileActions.getListFailure, (state, { getErrorMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      getErrorMessage: getErrorMessage,
+      isGetting: false,
+    };
+  }),
+
   // getById
   on(ProfileActions.getById, (state, { type }) => {
     console.log(type);
@@ -168,6 +201,49 @@ export const profileReducer = createReducer(
       isGetting: false,
       isGettingById: false,
       profile: <ProfileModel>{},
+    };
+  }),
+
+  // follow
+  on(ProfileActions.follow, (state) => {
+    return {
+      ...state,
+      isFollowing: true,
+    };
+  }),
+  on(ProfileActions.followSuccess, (state) => {
+    return {
+      ...state,
+      isFollowing: false,
+      isFollowSuccess: true,
+    };
+  }),
+  on(ProfileActions.followFailure, (state, { followErrorMessage }) => {
+    return {
+      ...state,
+      isFollowing: false,
+      followErrorMessage: followErrorMessage,
+    };
+  }),
+  // unfollow
+  on(ProfileActions.unFollow, (state) => {
+    return {
+      ...state,
+      isUnFollowing: true,
+    };
+  }),
+  on(ProfileActions.unFollowSuccess, (state) => {
+    return {
+      ...state,
+      isUnFollowing: false,
+      isUnFollowSuccess: true,
+    };
+  }),
+  on(ProfileActions.unFollowFailure, (state, { unFollowErrorMessage }) => {
+    return {
+      ...state,
+      isUnFollowing: false,
+      unFollowErrorMessage: unFollowErrorMessage,
     };
   }),
 );
