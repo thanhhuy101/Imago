@@ -31,11 +31,8 @@
                       (click)="carousel.next()"
                     ></button>
                   }
-                </div>
-                
-                <img class="picture1" [src]="photo" alt=""   />
-               
-                
+                </div>            
+                <img class="picture1" [src]="photo" alt=""   />      
               </div>
             </ng-container>
           </tui-carousel>
@@ -48,12 +45,14 @@
           <div class="user-info" (click)="showDialogDetail(templateDetail)">
             <!-- avatar-user -->
             <div class="avatar-user">
-              <img class="avatar" src="{{item.creatorId}}" alt="">
+              <img class="avatar" src="{{ item.creatorId | idToAvatar | async }}" alt="">
             </div>
             <!-- info-user -->
             <div class="info-post">
-              <span class="name-user">GoVegan</span>
-              <span class="date">on 15 Oct 2019</span>
+              <span class="name-user">{{
+                item.creatorId | idToName | async
+              }}</span>
+              <span class="date">{{ item.createdAt._seconds * 1000 | date: "medium" }}</span>
             </div>
           </div>
 
@@ -190,19 +189,21 @@
                 <div class="user-info">
                   <!-- avatar-user -->
                   <div class="avatar-user">
-                    <img class="avatar" src="../../../../assets/images/avatar.png" alt="">
+                    <img class="avatar" src="{{ item.creatorId | idToAvatar | async }}" alt="">
                   </div>
                   <!-- info-user -->
                   <div class="info-post">
-                    <span class="name-user">GoVegan</span>
-                    <span class="date">on 15 Oct 2019</span>
+                    <span class="name-user">{{
+                      item.creatorId | idToName | async
+                    }}</span>
+                    <span class="date">{{ item.createdAt._seconds * 1000 | date: "medium" }}</span>
                   </div>
                 </div>
 
                 <!-- report-->
                 <div class="more">
                   <tui-hosted-dropdown #dropdown [content]="content" [open]="false" >
-                    <button  appearance="primary" icon="tuiIconMoreVertical" tuiIconButton type="button"
+                    <button class="reaction_button"  appearance="custom" icon="tuiIconMoreVertical" tuiIconButton type="button"
                       [pseudoHover]="dropdown.open || null"></button>
                   </tui-hosted-dropdown>
                   <ng-template #content let-activeZone>

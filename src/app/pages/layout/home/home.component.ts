@@ -60,15 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   index = 0;
   currentPage = 1;
 
-  throttle = 1000;
-  scrollDistance = 3;
-  scrollUpDistance = 1;
-  size = 10;
-  onScrollDown(ev: any) {
-    console.log('scrolled down!!', ev);
-
-    // this.store.dispatch(PostActions.getAll({page: this.currentPage, size: 2}));
-  }
+  
 
   ngOnInit(): void {
     this.subscription.push(
