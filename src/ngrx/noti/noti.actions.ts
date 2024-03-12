@@ -6,7 +6,22 @@ import {
   NotiModel,
 } from '../../app/model/noti.model';
 
-export const getNotifications = createAction('[Noti] Get Notifications');
+export const createNotification = createAction(
+  '[Noti] Create Notification',
+  props<{ notification: NotiModel }>(),
+);
+export const createNotificationSuccess = createAction(
+  '[Noti] Create Notification Success',
+);
+export const createNotificationFailure = createAction(
+  '[Noti] Create Notification Failure',
+  props<{ error: string }>(),
+);
+
+export const getNotifications = createAction(
+  '[Noti] Get Notifications',
+  props<{ uid: string }>(),
+);
 export const getNotificationsSuccess = createAction(
   '[Noti] Get Notifications Success',
   props<{ notifications: NotiModel[] }>(),
@@ -18,6 +33,7 @@ export const getNotificationsFailure = createAction(
 
 export const getFollowNotifications = createAction(
   '[Noti] Get Follow Notifications',
+  props<{ uid: string }>(),
 );
 export const getFollowNotificationsSuccess = createAction(
   '[Noti] Get Follow Notifications Success',
@@ -30,6 +46,7 @@ export const getFollowNotificationsFailure = createAction(
 
 export const getLikeNotifications = createAction(
   '[Noti] Get Like Notifications',
+  props<{ uid: string }>(),
 );
 export const getLikeNotificationsSuccess = createAction(
   '[Noti] Get Like Notifications Success',
@@ -42,6 +59,7 @@ export const getLikeNotificationsFailure = createAction(
 
 export const getCommentNotifications = createAction(
   '[Noti] Get Comment Notifications',
+  props<{ uid: string }>(),
 );
 export const getCommentNotificationsSuccess = createAction(
   '[Noti] Get Comment Notifications Success',

@@ -1,54 +1,61 @@
-
-.main{
+.main {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
 
 }
-.search-bar{
+
+.search-bar {
   width: 45%;
   display: flex;
   align-items: center;
-  outline: none!important;
-}
-.search-bar-outside{
-  width: 100%;
-}
-.b-form{
-  width: 100%;
-}
-::ng-deep .tui-autofill _focused{
-  outline: none!important;
+  outline: none !important;
 }
 
-.left{
+.search-bar-outside {
+  width: 100%;
+}
+
+.b-form {
+  width: 100%;
+}
+
+::ng-deep .tui-autofill _focused {
+  outline: none !important;
+}
+
+.left {
   width: 60%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
-.tab-bar-peo{
+
+.tab-bar-peo {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   width: 100%;
 }
-.tab-bar{
+
+.tab-bar {
   width: 45%;
   display: flex;
   align-items: center;
 }
+
 .tab {
   width: 6rem;
 
 }
 
-.tuitab{
+.tuitab {
   width: 100%;
   display: flex;
 
 }
+
 ::ng-deep .t-highlight {
   display: inline-flex;
   width: 100%;
@@ -56,125 +63,133 @@
   justify-content: center !important;
 }
 
-@media(max-width: 768px ) {
+@media(max-width: 769px ) {
   .main{
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-  
+
   }
-  
-  .left{
+
+  .left {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
-  .search-bar{
+
+  .search-bar {
     width: 70%;
     display: flex;
     align-items: center;
-    outline: none!important;
+    outline: none !important;
   }
 
-  .tab-bar{
+  .tab-bar {
     width: 70%;
     display: flex;
     align-items: center;
   }
 }
-@media(max-width: 960px ) {
-  .main{
+
+@media(max-width: 960px) {
+  .main {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-  
+
   }
-  
-  .left{
+
+  .left {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
-  .search-bar{
+
+  .search-bar {
     width: 70%;
     display: flex;
     align-items: center;
-    outline: none!important;
+    outline: none !important;
   }
 
-  .tab-bar{
+  .tab-bar {
     width: 70%;
     display: flex;
     align-items: center;
   }
 }
-@media(max-width: 1024px ){
+@media(min-width:960px){
   .main{
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-  
+
   }
   .left{
-    width: 60%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
- 
-  }
-  .search-bar{
-    width: 45%;
-    display: flex;
-    align-items: center;
-    outline: none!important;
-  }
-  .tab-bar{
-    width: 50%;
-    display: flex;
-    align-items: center;
-  }
-  .tab-bar-peo{
-    display: flex;
-    flex-direction: row;
-  
-    width: 100%;
-  }
-}
-@media(max-width: 2560px ){
-  .main{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  
-  }
-  .left{
-    width: 45%;
+    width: 65%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
  
   }
-  .search-bar{
+
+  .search-bar {
     width: 45%;
     display: flex;
     align-items: center;
-    outline: none!important;
+    outline: none !important;
   }
   .tab-bar{
-    width: 50%;
+    width: 51%;
     display: flex;
     align-items: center;
     
   }
-  .tab-bar-peo{
+
+  .tab-bar-peo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+}
+@media(min-width: 2560px ){
+  .main{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+
+  .left {
+    width: 45%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+  }
+
+  .search-bar {
+    width: 45%;
+    display: flex;
+    align-items: center;
+    outline: none !important;
+  }
+
+  .tab-bar {
+    width: 50%;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .tab-bar-peo {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -183,39 +198,42 @@
 
 
 }
-@media (min-width: 3000px){
-  .main{
+
+@media (min-width: 3000px) {
+  .main {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-  
+
   }
-  .left{
+
+  .left {
     width: 35%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
- 
+
   }
 
-  .tab-bar{
+  .tab-bar {
     width: 40%;
     display: flex;
     align-items: center;
-    
+
   }
-  .tab-bar-peo{
+
+  .tab-bar-peo {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
   }
 
-  .search-bar{
+  .search-bar {
     width: 40%;
     display: flex;
     align-items: center;
-    outline: none!important;
+    outline: none !important;
   }
 }

@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { AuthState } from '../../../../../../ngrx/auth/auth.state';
 import { PostState } from '../../../../../../ngrx/post/post.state';
 import { PostResponse } from '../../../../../model/post.model';
-import * as PostActions from '../../../../../../ngrx/post/post.action';
+import * as PostActions from '../../../../../../ngrx/post/post.actions';
 import { RouterLink } from '@angular/router';
 
 @Component({

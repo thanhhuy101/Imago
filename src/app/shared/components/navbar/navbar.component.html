@@ -58,7 +58,7 @@
     >
       <span class="material-symbols-rounded"> page_info </span>
       <ng-template #dropdownContent>
-        <button tuiButton appearance="flat" size="m" (click)="signOut()">
+        <button tuiButton [appearance]="'accent'" size="m" (click)="signOut()">
           Logout
         </button>
       </ng-template>

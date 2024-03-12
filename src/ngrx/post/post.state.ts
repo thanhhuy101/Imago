@@ -28,4 +28,8 @@ export interface PostState {
 
   isGettingByMention: boolean;
   errorGetByMentionMessage: HttpErrorResponseModel;
+
+  isSearching: boolean;
+  postSearchResult: PostModel[];
+  errorSearchMessage: HttpErrorResponseModel;
 }

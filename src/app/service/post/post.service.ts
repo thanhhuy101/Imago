@@ -15,7 +15,7 @@ export class PostService {
   ) {}
 
   getAll() {
-    return this.httpClient.get('post/all?page=1');
+    return this.httpClient.get('post/all?page=1?size=10');
   }
 
   create(post: PostModel) {
@@ -40,5 +40,9 @@ export class PostService {
 
   getByMention(page: number, size: number) {
     return this.httpClient.get(`post/mention/?page=${page}&size=${size}`);
+  }
+
+  search(query: string) {
+    return this.httpClient.get(`post/search?query=${query}`);
   }
 }

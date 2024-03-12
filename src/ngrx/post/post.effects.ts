@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
 import { PostService } from '../../app/service/post/post.service';
-import * as PostActions from './post.action';
+import * as PostActions from './post.actions';
 
 @Injectable()
 export class PostEffect {
@@ -113,6 +113,22 @@ export class PostEffect {
                 errorGetByMentionMessage: error,
               }),
             ),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  search$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.search),
+      switchMap((action) =>
+        this.postService.search(action.query).pipe(
+          map((result) =>
+            PostActions.searchSuccess({ postSearchResult: result.items }),
+          ),
+          catchError((error) =>
+            of(PostActions.searchFailure({ errorSearchMessage: error })),
           ),
         ),
       ),
