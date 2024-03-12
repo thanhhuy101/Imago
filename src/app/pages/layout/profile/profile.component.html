@@ -1,58 +1,31 @@
-<div class="main">
+<div id="profile-container">
   <div class="profile">
     <div class="left">
-      <div class="information">
-        <h2 class="name">{{ profile.firstName }} {{ profile.lastName }}</h2>
-        <span class="userName">{{ "@" + profile.userName }}</span>
-        <span class="bio">{{ profile.bio }}</span>
-        @if (profile.followers && profile.followers.length > 0) {
-          <div class="info">
-            <div class="follower">
-              <img
-                class="follower-avatar1"
-                src="https://www.bing.com/th?q=Random+People&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=3&pid=InlineBlock&mkt=en-WW&cc=VN&setlang=en&adlt=moderate&t=1&mw=247"
-                alt=""
-              />
-              <img
-                class="follower-avatar2"
-                src="https://www.bing.com/th?q=Rich+People&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=3&pid=InlineBlock&mkt=en-WW&cc=VN&setlang=en&adlt=moderate&t=1&mw=247"
-                alt=""
-              />
-            </div>
-            <div class="Numberoffollowers">
-              <p>{{ profile.followers.length }} followes</p>
-            </div>
-          </div>
-        } @else {
-          <div class="Numberoffollowers">
-            <p>0 followes</p>
-          </div>
-        }
-      </div>
+      <h3 class="tui-text_h3">Name</h3>
+      <h5 class="tui-text_body-xl">&#64;username</h5>
+      <p class="tui-text_body-l">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <tui-avatar-stack
+        *ngFor="let size of sizes; let odd = odd"
+        class="tui-space_vertical-4"
+        [direction]="odd ? 'left' : 'right'"
+      >
+        <tui-avatar
+          *ngFor="let name of names"
+          [round]="odd"
+          [size]="size"
+        ></tui-avatar>
+        <tui-avatar size="l" [round]="odd" [size]="size"> 99+ </tui-avatar>
+      </tui-avatar-stack>
     </div>
-    <div class="right">
-      <div class="content">
-        <div class="avatar">
-          <!-- <tui-input-files accept="image/*" [multiple]="false" [formControl]="control" (reject)="onReject($event)"
-            style="border-radius: 46%;">
-
-          </tui-input-files> -->
-          <img class="avatar-user" [src]="profile.photoUrl" alt="" />
-        </div>
-        <div class="framebtnEditProfile">
-          <button
-            tuiButton
-            appearance="outline"
-            size="m"
-            (click)="upLoadImage()"
-          >
-            Edit
-          </button>
-        </div>
-      </div>
-    </div>
+    <div class="right"></div>
   </div>
-  <tui-tabs tuiMobileTabs [(activeItemIndex)]="activeItemIndex">
+  <div class="tabs"></div>
+  <div class="content"></div>
+
+  <!-- <tui-tabs tuiMobileTabs [(activeItemIndex)]="activeItemIndex">
     <button
       *ngFor="let item of items; let i = index"
       tuiRipple="var(--tui-text-01)"
@@ -62,8 +35,9 @@
     >
       {{ item.text }}
     </button>
-  </tui-tabs>
-  <router-outlet></router-outlet>
+  </tui-tabs> -->
+
+  <!-- <router-outlet></router-outlet> -->
 </div>
 
 <ng-template
