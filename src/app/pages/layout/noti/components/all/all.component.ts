@@ -101,6 +101,8 @@ export class AllComponent {
     },
   ];
 
+  constructor() {}
+
   viewNotification(index: any): void {
     console.log('view notification', index);
   }
