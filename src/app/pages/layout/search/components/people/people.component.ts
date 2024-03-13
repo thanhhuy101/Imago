@@ -18,23 +18,23 @@ import { NotificationService } from '../../../../../service/notification/notific
   styleUrl: './people.component.scss',
 })
 export class PeopleComponent implements OnInit, OnDestroy {
-  users = [
-    {
-      id: 1,
-      userName: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      bio: '',
-      photoUrl: '',
-      followers: [],
-      following: [],
-      phone: '',
-      gender: '',
-      category: [],
-      followed: true,
-    },
-  ];
+  // users = [
+  //   {
+  //     id: 1,
+  //     userName: '',
+  //     firstName: '',
+  //     lastName: '',
+  //     email: '',
+  //     bio: '',
+  //     photoUrl: '',
+  //     followers: [],
+  //     following: [],
+  //     phone: '',
+  //     gender: '',
+  //     category: [],
+  //     followed: true,
+  //   },
+  // ];
   subscription: Subscription[] = [];
   loader = false;
   followed = true;
