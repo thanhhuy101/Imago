@@ -125,7 +125,11 @@ export class CreatorComponent
           this.isContentChanged = false;
           this.notificationService.successNotification('Post successfully');
           this.store.dispatch(PostActions.clearCreateState());
-          this.route.navigate(['/profile/post']).then();
+          this.route
+            .navigate(['/profile/post'], {
+              queryParams: { uid: this.profile.id },
+            })
+            .then();
         }
       }),
       this.createErrorMessage$.subscribe((error) => {

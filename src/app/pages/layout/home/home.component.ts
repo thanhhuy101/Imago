@@ -47,6 +47,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   size = 10;
   tempArr: PostModel[] = [];
 
+  commentValue = '';
+
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
@@ -55,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       auth: AuthState;
       report: ReportState;
     }>,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.subscription.push(

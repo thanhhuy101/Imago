@@ -30,14 +30,15 @@ import * as PostActions from '../../../../ngrx/post/post.actions';
 import { TuiFileLike } from '@taiga-ui/kit';
 import { NotificationService } from '../../../service/notification/notification.service';
 import { PostState } from '../../../../ngrx/post/post.state';
+import { IdToAvatarPipe } from '../../../shared/pipes/id-to-avatar.pipe';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [TaigaModule, ShareModule, RouterOutlet, RouterLink],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.less',
   encapsulation: ViewEncapsulation.None,
+  imports: [TaigaModule, ShareModule, RouterOutlet, RouterLink, IdToAvatarPipe],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   readonly names = ['Jason Statham', 'Jackie Chan'];

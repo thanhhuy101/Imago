@@ -14,18 +14,32 @@
 
         <div class="follow">
           @if (profile.followers.length > 0) {
-            <tui-avatar-stack
-              class="tui-space_vertical-4"
-              [direction]="'right'"
-            >
-              <tui-avatar
-                *ngFor="let name of profile.followers | slice: 0 : 2"
-                [size]="'m'"
-              ></tui-avatar>
-              <tui-avatar size="m">
-                {{ profile.followers.length - 2 }}+
-              </tui-avatar>
-            </tui-avatar-stack>
+            @if (profile.followers.length > 2) {
+              <tui-avatar-stack
+                class="tui-space_vertical-4"
+                [direction]="'right'"
+              >
+                <tui-avatar
+                  *ngFor="let id of profile.followers | slice: 0 : 2"
+                  [size]="'m'"
+                  [src]="id | idToAvatar | async"
+                ></tui-avatar>
+                <tui-avatar size="m">
+                  {{ profile.followers.length - 2 }}+
+                </tui-avatar>
+              </tui-avatar-stack>
+            } @else {
+              <tui-avatar-stack
+                class="tui-space_vertical-4"
+                [direction]="'right'"
+              >
+                <tui-avatar
+                  *ngFor="let id of profile.followers"
+                  [size]="'m'"
+                  [src]="id | idToAvatar | async"
+                ></tui-avatar>
+              </tui-avatar-stack>
+            }
             <p class="tui-text_body-m tui-space_left-2">
               {{ profile.followers.length }} followers
             </p>

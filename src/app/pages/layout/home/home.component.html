@@ -25,24 +25,22 @@
           <!--  Bottom post -->
           <div class="bottom">
             <div class="userInfoReport">
-              <div class="user-info" (click)="showDialogDetail(templateDetail)">
-                <!-- avatar-user -->
-                <div class="avatar-user">
-                  <img
-                    class="avatar"
-                    src="{{ item.creatorId | idToAvatar | async }}"
-                    alt=""
-                  />
-                </div>
+              <div class="user-info">
+                <tui-avatar
+                  class="tui-space_top-1"
+                  [round]="false"
+                  [src]="item.creatorId | idToAvatar | async"
+                  size="xl"
+                ></tui-avatar>
+
                 <!-- info-user -->
                 <div class="info-post">
-                  <span class="name-user">{{
-                    item.creatorId | idToName | async
-                  }}</span>
-                  <span class="date"
-                    >on
-                    {{ item.createdAt._seconds * 1000 | date: "medium" }}</span
-                  >
+                  <h6 class="tui-text_h6">
+                    {{ item.creatorId | idToName | async }}
+                  </h6>
+                  <p class="tui-text_body-s-2">
+                    {{ item.createdAt._seconds * 1000 | date: "medium" }}
+                  </p>
                 </div>
               </div>
 
@@ -146,30 +144,29 @@
               </p>
             </div>
             <div class="reaction">
-              <div class="tymAndCmt">
-                <button
-                  icon="tuiIconHeart"
-                  tuiIconButton
-                  [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
-                  appearance="custom"
-                  type="button"
-                  (click)="like()"
-                  class="reaction_button"
-                ></button>
-                <button
-                  icon="tuiIconMessageSquare"
-                  tuiIconButton
-                  appearance="custom"
-                  type="button"
-                  class="reaction_button"
-                ></button>
-              </div>
               <button
-                icon="tuiIconShare"
                 tuiIconButton
-                appearance="custom"
                 type="button"
                 class="reaction_button"
+                appearance="custom"
+                icon="tuiIconHeartLarge"
+                size="m"
+              ></button>
+              <button
+                tuiIconButton
+                type="button"
+                appearance="custom"
+                class="reaction_button"
+                icon="tuiIconMessageCircleLarge"
+                size="m"
+              ></button>
+              <button
+                tuiIconButton
+                type="button"
+                class="reaction_button"
+                appearance="custom"
+                icon="tuiIconNavigationLarge"
+                size="m"
               ></button>
             </div>
           </div>
@@ -347,37 +344,33 @@
                 </div>
 
                 <div class="reaction">
-                  <div class="tymAndCmt">
-                    <button
-                      id="heart"
-                      icon="tuiIconHeart"
-                      tuiIconButton
-                      [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
-                      appearance="custom"
-                      type="button"
-                      (click)="like()"
-                      class="reaction_button"
-                    ></button>
-                    <button
-                      id="comment"
-                      icon="tuiIconMessageSquare"
-                      tuiIconButton
-                      appearance="custom"
-                      type="button"
-                      class="reaction_button"
-                    ></button>
-                  </div>
                   <button
-                    id="share"
-                    icon="tuiIconShare"
                     tuiIconButton
-                    appearance="custom"
                     type="button"
                     class="reaction_button"
+                    appearance="custom"
+                    icon="tuiIconHeartLarge"
+                    size="m"
+                  ></button>
+                  <button
+                    tuiIconButton
+                    type="button"
+                    appearance="custom"
+                    class="reaction_button"
+                    icon="tuiIconMessageCircleLarge"
+                    size="m"
+                  ></button>
+                  <button
+                    tuiIconButton
+                    type="button"
+                    class="reaction_button"
+                    appearance="custom"
+                    icon="tuiIconNavigationLarge"
+                    size="m"
                   ></button>
                 </div>
                 <tui-input
-                  formControlName="testValue"
+                  [(ngModel)]="commentValue"
                   [tuiTextfieldCleaner]="true"
                   [tuiTextfieldLabelOutside]="true"
                 >
