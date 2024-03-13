@@ -13,7 +13,7 @@
           <tui-avatar autoColor="true" [src]="this.profile.photoUrl" size="xl"></tui-avatar>
           <div class="info tui-space_left-4">
             <h6 class="tui-text_h6">{{ this.profile.userName }}</h6>
-            <p class="tui-text_body-s-2">{{createAt | dateToString }}</p>
+            <p class="tui-text_body-s-2">{{createAt | date: "medium" }}</p>
           </div>
         </div>
 
@@ -51,7 +51,7 @@
           <tui-avatar class="tui-space_top-1" autoColor="true" size="xl" [src]="this.profile.photoUrl"></tui-avatar>
           <div class="info tui-space_left-4">
             <h6 class="tui-text_h6">{{ this.profile.userName }}</h6>
-            <p class="tui-text_body-s-2">{{createAt | dateToString}}</p>
+            <p class="tui-text_body-s-2">{{createAt | date: "medium"}}</p>
           </div>
         </div>
         <div class="status-cover" *ngIf="statusValue != ''">
