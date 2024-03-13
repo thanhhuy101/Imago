@@ -8,6 +8,7 @@ import * as ProfileActions from '../../../../../../ngrx/profile/profile.actions'
 import { ProfileModel } from '../../../../../model/profile.model';
 import { AuthService } from '../../../../../service/auth/auth.service';
 import { Subscription } from 'rxjs';
+import { NotificationService } from '../../../../../service/notification/notification.service';
 
 @Component({
   selector: 'app-people',
@@ -17,37 +18,25 @@ import { Subscription } from 'rxjs';
   styleUrl: './people.component.scss',
 })
 export class PeopleComponent implements OnInit, OnDestroy {
-  // users = [
-  //   {
-  //     uid: 1,
-  //     name: 'Alex Born',
-  //     bio: 'alex',
-  //     description:
-  //       ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-  //     img: '',
-  //     follower: ['John', 'Kim', 'Jan'],
-  //     followed: true,
-  //   },
-  //   {
-  //     uid: 2,
-  //     name: 'John Doe',
-  //     bio: 'John',
-  //     description:
-  //       ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-  //     img: '',
-  //     follower: ['Kim', 'Jan'],
-  //     followed: false,
-  //   },
-  //   {
-  //     uid: 3,
-  //     name: 'John Doe',
-  //     bio: 'John',
-  //     img: '',
-  //     follower: ['Kim', 'Jan'],
-  //     followed: false,
-  //   },
-  // ];
+  users = [
+    {
+      id: 1,
+      userName: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      bio: '',
+      photoUrl: '',
+      followers: [],
+      following: [],
+      phone: '',
+      gender: '',
+      category: [],
+      followed: true,
+    },
+  ];
   subscription: Subscription[] = [];
+  loader = false;
   followed = true;
   $profiles = this.store.select((state) => state.profile.profiles);
   $follow = this.store.select((state) => state.profile.isFollowing);
@@ -63,7 +52,10 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   currentUser: ProfileModel = <ProfileModel>{};
 
-  constructor(private store: Store<{ profile: ProfileState }>) {
+  constructor(
+    private notificationService: NotificationService,
+    private store: Store<{ profile: ProfileState }>,
+  ) {
     this.store.dispatch(ProfileActions.getList());
     this.subscription.push(
       this.store
@@ -78,44 +70,55 @@ export class PeopleComponent implements OnInit, OnDestroy {
       this.profile$.subscribe((value) => {
         this.currentUser = value;
       }),
-      this.isFollowingSuccess$.subscribe((value) => {
-        ProfileActions.clearGetState();
-        if (value) {
-          this.store.dispatch(ProfileActions.getList());
-        }
-      }),
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isFollowingSuccess$.subscribe((success) => {
+      if (success) {
+        this.loader = false;
+        //window.location.reload();
+      }
+    });
+  }
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }
-  // followUser(id: number) {
+  // followUser(otherId: string) {
   //   for (let i = 0; i < this.users.length; i++) {
-  //     if (this.users[i].uid === id) {
+  //     if (this.profiles[i].id === otherId) {
   //       this.users[i].followed = !this.users[i].followed;
+
   //     }
   //   }
   // }
 
   //create funciton to follow user
   followUser(otherId: string) {
-    ProfileActions.clearGetState();
+    this.loader = true;
     this.store.dispatch(
       ProfileActions.follow({ id: this.currentUser.id, otherId }),
     );
-
-    // this.currentUser.following = [...this.currentUser.following, otherId];
+    const profile = this.profiles.find((p) => p.id === otherId);
+    if (profile) {
+      this.notificationService.successNotification(
+        `Follow ${profile.userName} successfully`,
+      );
+    }
   }
 
   //create function to unfollow user
   unFollowUser(otherId: string) {
-    ProfileActions.clearGetState();
-
     this.store.dispatch(
       ProfileActions.unFollow({ id: this.currentUser.id, otherId }),
     );
+    const profile = this.profiles.find((p) => p.id === otherId);
+    if (profile) {
+      this.notificationService.successNotification(
+        `Unfollowing ${profile.userName} successfully`,
+      );
+    }
+    ProfileActions.clearUpdateState();
   }
 }
