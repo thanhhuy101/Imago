@@ -54,10 +54,11 @@
       tuiDropdownDirection="bottom"
       [tuiDropdown]="dropdownContent"
       [tuiDropdownManual]="open"
-      (click)="onClick()"
+      
     >
-      <span class="material-symbols-rounded"> page_info </span>
-      <ng-template #dropdownContent>
+      <span class="material-symbols-rounded" (click)="onClick()" > page_info </span>
+      <ng-template #dropdownContent >
+        
         <button tuiButton [appearance]="'accent'" size="m" (click)="signOut()">
           Logout
         </button>

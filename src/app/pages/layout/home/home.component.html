@@ -152,7 +152,7 @@
                   icon="tuiIconHeart"
                   tuiIconButton
                   [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
-                  appearance="flat"
+                  appearance="custom"
                   type="button"
                   (click)="like()"
                   class="reaction_button"
@@ -214,12 +214,14 @@
                         ></button>
                       }
                     </div>
+                   
                     <img
                       class="pictureDetail"
                       [src]="photo"
                       alt=""
               
                     />
+                  
                   </div>
                 </ng-container>
               </tui-carousel>
@@ -340,7 +342,7 @@
                   <div class="content-dialog">
                     <p class="description-preview">
                       @for (item of item.hashtag; track $index) {
-                        <span style="color: #0081ff; margin-left: 2px">{{
+                        <span style="color: #0081ff; margin-left: 2px">#{{
                           item
                         }}</span>
                       }

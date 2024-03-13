@@ -5,44 +5,7 @@
       <!--  Picture post -->
       <div class="picture-post">
         <div class="image-post" >
-          <tui-carousel #carousel  [style.--tui-carousel-padding]="0" style="height: 100%" >
-            <ng-container *ngFor="let photo of item.photoUrl; let i = index" >
-              <div class="photolist" *tuiItem >
-                
-                <div class="btn_picture">
-
-                  @if (item.photoUrl.length >= 2) {
-                   
-                    <button
-                      class="button"
-                      appearance="custom"
-                      icon="tuiIconChevronLeftLarge"
-                      size="s"
-                      tuiIconButton
-                      type="button"
-                      (click)="carousel.prev()"
-                      [hidden]="i === 0"
-
-                    ></button>
-                    <button
-                      class="button"
-                      appearance="custom"
-                      icon="tuiIconChevronRightLarge"
-                      size="s"
-                      tuiIconButton
-                      type="button"
-
-                      [hidden]="i === item.photoUrl.length - 1"
-                      
-                      (click)="carousel.next()"
-                    ></button>
-                  }
-                </div>
-                <img class="picture1" [src]="photo" alt="" (click)="showDialogDetail(templateDetail)" />
-              </div>
-            </ng-container>
-          </tui-carousel>
-         
+          <img class="picture1" [src]="item.photoUrl[0]" alt="" (click)="showDialogDetail(templateDetail)" />
         </div>
       </div>
       <!--  Bottom post -->
@@ -58,14 +21,14 @@
               <span class="name-user">{{
                 item.creatorId | idToName | async
               }}</span>
-              <span class="date">{{ item.createdAt._seconds * 1000 | date: "medium" }}</span>
+              <span class="date"> on{{ item.createdAt._seconds * 1000 | date: "medium" }}</span>
             </div>
           </div>
 
           <!-- report-->
           <div class="more">
             <tui-hosted-dropdown #dropdown [content]="content" [open]="false">
-              <button class="reaction_button" appearance="flat" icon="tuiIconMoreVertical" tuiIconButton type="button"
+              <button class="reaction_button" appearance="cusstom" icon="tuiIconMoreVertical" tuiIconButton type="button"
                 [pseudoHover]="dropdown.open || null"></button>
             </tui-hosted-dropdown>
             <ng-template #content let-activeZone>
@@ -125,7 +88,7 @@
         <div class="content">
           <p class="description-preview">
             @for (item of item.hashtag; track $index) {
-            <span style="color: #0081FF; margin-left: 2px">{{ item }}</span>
+            <span style="color: #0081FF; margin-left: 2px">#{{ item }}</span>
             }
             {{ item.content }}
           </p>
@@ -133,12 +96,12 @@
         <div class="reaction">
           <div class="tymAndCmt">
             <button icon="tuiIconHeart" tuiIconButton [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
-              appearance="flat" type="button" (click)="like()"
+              appearance="custom" type="button" (click)="like()"
               cclass="reaction_button"></button>
-            <button icon="tuiIconMessageSquare" tuiIconButton appearance="flat" type="button"
+            <button icon="tuiIconMessageSquare" tuiIconButton appearance="custom" type="button"
             class="reaction_button"></button>
           </div>
-          <button icon="tuiIconShare" tuiIconButton appearance="flat" type="button"
+          <button icon="tuiIconShare" tuiIconButton appearance="custom" type="button"
           class="reaction_button"></button>
         </div>
       </div>
@@ -182,7 +145,7 @@
                       }
                     </div>
                     <img
-                      class="picture1"
+                      class="pictureDetail"
                       [src]="photo"
                       alt=""
                       (click)="showDialogDetail(templateDetail)"
@@ -277,7 +240,7 @@
                 <p class="description-preview">
                   @for (item of item.hashtag; track $index) {
 
-                  <span style="color: #0081FF; margin-left: 2px">{{ item }}</span>
+                  <span style="color: #0081FF; margin-left: 2px">#{{ item }}</span>
                   }
                   {{ item.content }}
 
