@@ -11,13 +11,15 @@ import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { PostModel } from '../../../../../model/post.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReportModel } from '../../../../../model/report.model';
+import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
+import { IdToNamePipe } from "../../../../../shared/pipes/id-to-name.pipe";
 
 @Component({
-  selector: 'app-post',
-  standalone: true,
-  imports: [TaigaModule, ShareModule],
-  templateUrl: './post.component.html',
-  styleUrl: './post.component.scss',
+    selector: 'app-post',
+    standalone: true,
+    templateUrl: './post.component.html',
+    styleUrl: './post.component.scss',
+    imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe]
 })
 export class PostComponent {
   subscription: Subscription[] = [];

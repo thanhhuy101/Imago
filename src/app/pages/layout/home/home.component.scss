@@ -1,3 +1,8 @@
+.scroll-container {
+  width: 100%;
+  height: 100%;
+}
+
 .main {
   width: 100%;
   height: 100%;
@@ -7,12 +12,11 @@
 
 .picture-post {
   width: 100%;
-
 }
 
 .allPost {
   width: 85%;
-  // height: fit-content;
+  height: fit-content;
   columns: 3;
 
 }
@@ -21,22 +25,23 @@
   width: 100%;
   border-radius: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.07);
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 4px 12px 0 rgba(0, 0, 0, 0.07);
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  // height: fit-content;
+  height: fit-content;
   break-inside: avoid;
   cursor: pointer;
 }
+
 .photolist {
   z-index: 0;
   position: relative;
   display: inline-block;
-  height: 100%;
- 
+  height: fit-content;
 
-  // height: fit-content;
   .btn_picture {
     position: absolute;
     display: flex;
@@ -47,23 +52,29 @@
     padding: 5px;
   }
 }
+
 .button {
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 50px;
   opacity: 1;
 }
+
 .picture1 {
-  object-fit: contain;
+  object-fit: cover;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 .reaction_button{
   cursor: pointer;
- 
 }
-
+.pictureDetail {
+  object-fit: contain;
+  width: 100%;
+  height: 100%  ;
+ border-radius: 12px;
+}
 
 .reaction_button:hover{
   background-color: #e6e6e6;
@@ -113,7 +124,6 @@
     padding-bottom: 2.5rem;
   }
 }
-
 
 .btn-star {
   width: 56px;
@@ -236,7 +246,6 @@
   width: 100%;
   height: 10%;
   justify-content: space-between;
-
 }
 
 .icon1 {
@@ -257,7 +266,6 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-
 }
 
 .reaction {
@@ -332,14 +340,18 @@
 
 .postDetail {
   display: flex;
-  width: 1100px;
+  width: 60vw;
 
   .left {
-    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
   }
 
   .right {
-    width: 50%;
+    width: 40%;
     height: 100%;
   }
 
@@ -348,20 +360,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 537px
+    height: 537px;
   }
 }
 
 .detail-dialog {
-  width: 537px;
-  height: 537px;
+  width: 100%;
+ 
 }
 
-.img-dialog {
-  width: 100%;
-  height: 90%;
-  object-fit: cover
-}
+
 
 @media screen and (max-width: 1200px) {
   .postDetail {
@@ -373,7 +381,6 @@
     ////justify-content: space-evenly;
     ////position: fixed;
     //height: 100% !important;
-
   }
 
   .detail-dialog {
@@ -384,7 +391,7 @@
   .img-dialog {
     width: 100%;
     height: 100%;
-    object-fit: cover
+    object-fit: cover;
   }
 
   .description-preview {
@@ -405,7 +412,7 @@
     .img-dialog {
       width: 100%;
       height: 100%;
-      object-fit: cover
+      object-fit: cover;
     }
 
     .description-preview {
@@ -431,7 +438,7 @@
     .img-dialog {
       width: 100%;
       height: 100%;
-      object-fit: cover
+      object-fit: cover;
     }
 
     .description-preview {
@@ -458,7 +465,7 @@
     .img-dialog {
       width: 100%;
       height: 100%;
-      object-fit: cover
+      object-fit: cover;
     }
 
     .description-preview {

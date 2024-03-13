@@ -5,6 +5,13 @@
   justify-content: center;
   margin-top: 1rem;
 }
+.reaction_button{
+  cursor: pointer;
+}
+
+.reaction_button:hover{
+  background-color: #e6e6e6;
+}
 
 .picture-post {
   width: 100%;

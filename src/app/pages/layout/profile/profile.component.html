@@ -13,19 +13,19 @@
 
       <div class="follow">
         <tui-avatar-stack class="tui-space_vertical-4" [direction]="'right'">
-          <tui-avatar
-            *ngFor="let name of names"
-            [round]="true"
-            [size]="'m'"
-          ></tui-avatar>
-          <tui-avatar size="m" [round]="true"> 99+</tui-avatar>
+          <tui-avatar *ngFor="let name of names" [size]="'m'"></tui-avatar>
+          <tui-avatar size="m"> 99+</tui-avatar>
         </tui-avatar-stack>
         <p class="tui-text_body-m tui-space_left-2">100+ followers</p>
       </div>
     </div>
     <div class="right">
       <div class="avatar">
-        <tui-avatar [src]="profile.photoUrl" size="xxl"></tui-avatar>
+        <tui-avatar
+          [src]="profile.photoUrl"
+          [round]="false"
+          size="xxl"
+        ></tui-avatar>
       </div>
 
       <div class="edit-btn">
