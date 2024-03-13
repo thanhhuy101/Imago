@@ -24,7 +24,8 @@
         </div>
 
         <div class="cover-btn">
-          <button tuiButton type="button" appearance="flat" size="m" (click)="clearStatus()" class="tui-space_right-4">
+          <button tuiButton type="button" appearance="custom" class="reaction_button_clear" size="m"
+            (click)="clearStatus()">
             Clear
           </button>
           <button tuiButton type="button" appearance="accent" size="m" (click)="publicPost()" [disabled]="isDisabled">
@@ -60,9 +61,12 @@
           </tui-textarea>
         </div>
         <div class="reactions tui-space_top-4">
-          <button tuiIconButton type="button" appearance="flat" icon="tuiIconHeartLarge" size="m"></button>
-          <button tuiIconButton type="button" appearance="flat" icon="tuiIconMessageCircleLarge" size="m"></button>
-          <button tuiIconButton type="button" appearance="flat" icon="tuiIconNavigationLarge" size="m"></button>
+          <button tuiIconButton type="button" class="reaction_button" appearance="custom" icon="tuiIconHeartLarge"
+            size="m"></button>
+          <button tuiIconButton type="button" appearance="custom" class="reaction_button"
+            icon="tuiIconMessageCircleLarge" size="m"></button>
+          <button tuiIconButton type="button" class="reaction_button" appearance="custom" icon="tuiIconNavigationLarge"
+            size="m"></button>
         </div>
       </div>
     </div>
