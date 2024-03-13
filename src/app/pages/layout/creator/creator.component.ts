@@ -10,23 +10,17 @@ import { ShareModule } from '../../../shared/share.module';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
 import { NotificationService } from '../../../service/notification/notification.service';
 import { CanComponentDeactivate } from '../../../guard/can-deactive.guard';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store, on } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { StorageState } from '../../../../ngrx/storage/storage.state';
-import * as AuthActions from '../../../../ngrx/auth/auth.actions';
 import * as PostActions from '../../../../ngrx/post/post.actions';
 import * as StorageActions from '../../../../ngrx/storage/storage.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
-import { AuthCredentialModel } from '../../../model/auth.model';
-import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { PostState } from '../../../../ngrx/post/post.state';
 import { DateTime, PostModel } from '../../../model/post.model';
-import { error } from '@angular/compiler-cli/src/transformers/util';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProfileModel } from '../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
-import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 
 @Component({
   selector: 'app-creator',
@@ -41,9 +35,7 @@ export class CreatorComponent
 {
   isUploadImages = true;
   @Input() isDisabled = this.isUploadImages;
-  name: string = 'Lulu';
   statusValue: string = '';
-  //createAt . date.now
   createAt = Date.now();
   index = 0;
   itemsCount = 1;
@@ -138,7 +130,7 @@ export class CreatorComponent
       }),
       this.createErrorMessage$.subscribe((error) => {
         if (error.status) {
-          this.notificationService.errorNotification('Post Fail');
+          this.notificationService.errorNotification('Please input status!');
           this.store.dispatch(PostActions.clearCreateState());
         }
       }),

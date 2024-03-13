@@ -14,76 +14,35 @@
           <!--  Picture post -->
           <div class="picture-post">
             <div class="image-post">
-              <tui-carousel
-                #carousel
-                [style.--tui-carousel-padding]="0"
-                style="height: 100%"
-              >
-                <ng-container
-                  *ngFor="let photo of item.photoUrl; let i = index"
-                >
-                  <div class="photolist" *tuiItem>
-                    <div class="btn_picture">
-                      @if (item.photoUrl.length >= 2) {
-                        <button
-                          class="button"
-                          appearance="custom"
-                          icon="tuiIconChevronLeftLarge"
-                          size="s"
-                          tuiIconButton
-                          type="button"
-                          (click)="carousel.prev()"
-                          [hidden]="i === 0"
-                        ></button>
-                        <button
-                          class="button"
-                          appearance="custom"
-                          icon="tuiIconChevronRightLarge"
-                          size="s"
-                          tuiIconButton
-                          type="button"
-                          [hidden]="i === item.photoUrl.length - 1"
-                          (click)="carousel.next()"
-                        ></button>
-                      }
-                    </div>
-                    <img
-                      class="picture1"
-                      [src]="photo"
-                      alt=""
-                      (click)="showDialogDetail(templateDetail)"
-                    />
-                  </div>
-                </ng-container>
-              </tui-carousel>
+              <img
+                class="picture1"
+                [src]="item.photoUrl[0]"
+                alt=""
+                (click)="showDialogDetail(templateDetail)"
+              />
             </div>
           </div>
           <!--  Bottom post -->
           <div class="bottom">
             <div class="userInfoReport">
-              <div class="user-info">
+              <div class="user-info" (click)="showDialogDetail(templateDetail)">
                 <!-- avatar-user -->
-                <tui-avatar
-                  src="{{ item.creatorId | idToAvatar | async }}"
-                  size="xl"
-                  [round]="false"
-                ></tui-avatar>
-                <!--                <div class="avatar-user">-->
-                <!--                  <img-->
-                <!--                    class="avatar"-->
-                <!--                    src="{{ item.creatorId | idToAvatar | async }}"-->
-                <!--                    alt=""-->
-                <!--                  />-->
-                <!--                </div>-->
+                <div class="avatar-user">
+                  <img
+                    class="avatar"
+                    src="{{ item.creatorId | idToAvatar | async }}"
+                    alt=""
+                  />
+                </div>
                 <!-- info-user -->
                 <div class="info-post">
-                  <h6 class="tui-text_h6">
-                    {{ item.creatorId | idToName | async }}
-                  </h6>
-
-                  <p class="tui-text_body-s-2">
-                    on {{ item.createdAt._seconds * 1000 | date: "medium" }}
-                  </p>
+                  <span class="name-user">{{
+                    item.creatorId | idToName | async
+                  }}</span>
+                  <span class="date"
+                    >on
+                    {{ item.createdAt._seconds * 1000 | date: "medium" }}</span
+                  >
                 </div>
               </div>
 
@@ -95,11 +54,12 @@
                   [open]="false"
                 >
                   <button
-                    appearance="flat"
+                    appearance="custom"
                     icon="tuiIconMoreVertical"
                     tuiIconButton
                     type="button"
                     [pseudoHover]="dropdown.open || null"
+                    class="reaction_button"
                   ></button>
                 </tui-hosted-dropdown>
                 <ng-template #content let-activeZone>
@@ -185,27 +145,31 @@
                 {{ item.content }}
               </p>
             </div>
-            <div class="reaction tui-space_top-4">
+            <div class="reaction">
+              <div class="tymAndCmt">
+                <button
+                  icon="tuiIconHeart"
+                  tuiIconButton
+                  [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
+                  appearance="custom"
+                  type="button"
+                  (click)="like()"
+                  class="reaction_button"
+                ></button>
+                <button
+                  icon="tuiIconMessageSquare"
+                  tuiIconButton
+                  appearance="custom"
+                  type="button"
+                  class="reaction_button"
+                ></button>
+              </div>
               <button
+                icon="tuiIconShare"
                 tuiIconButton
+                appearance="custom"
                 type="button"
-                appearance="flat"
-                icon="tuiIconHeartLarge"
-                size="m"
-              ></button>
-              <button
-                tuiIconButton
-                type="button"
-                appearance="flat"
-                icon="tuiIconMessageCircleLarge"
-                size="m"
-              ></button>
-              <button
-                tuiIconButton
-                type="button"
-                appearance="flat"
-                icon="tuiIconNavigationLarge"
-                size="m"
+                class="reaction_button"
               ></button>
             </div>
           </div>
@@ -215,7 +179,45 @@
           <div class="postDetail">
             <div class="left">
               <div class="detail-dialog">
-                <img class="img-dialog" [src]="item.photoUrl[0]" alt="" />
+                <tui-carousel
+                  #carousel
+                  [style.--tui-carousel-padding]="0"
+                  style="height: 100%"
+                  class="blurred-background"
+                >
+                  <ng-container
+                    *ngFor="let photo of item.photoUrl; let i = index"
+                  >
+                    <div class="photolist" *tuiItem>
+                      <div class="btn_picture">
+                        @if (item.photoUrl.length >= 2) {
+                          <button
+                            class="button"
+                            appearance="custom"
+                            icon="tuiIconChevronLeftLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.prev()"
+                            [hidden]="i === 0"
+                          ></button>
+                          <button
+                            class="button"
+                            appearance="custom"
+                            icon="tuiIconChevronRightLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            [hidden]="i === item.photoUrl.length - 1"
+                            (click)="carousel.next()"
+                          ></button>
+                        }
+                      </div>
+
+                      <img class="pictureDetail" [src]="photo" alt="" />
+                    </div>
+                  </ng-container>
+                </tui-carousel>
               </div>
             </div>
 
@@ -228,14 +230,18 @@
                       <div class="avatar-user">
                         <img
                           class="avatar"
-                          src="../../../../assets/images/avatar.png"
+                          src="{{ item.creatorId | idToAvatar | async }}"
                           alt=""
                         />
                       </div>
                       <!-- info-user -->
                       <div class="info-post">
-                        <span class="name-user">GoVegan</span>
-                        <span class="date">on 15 Oct 2019</span>
+                        <span class="name-user">{{
+                          item.creatorId | idToName | async
+                        }}</span>
+                        <span class="date">{{
+                          item.createdAt._seconds * 1000 | date: "medium"
+                        }}</span>
                       </div>
                     </div>
 
@@ -247,8 +253,9 @@
                         [open]="false"
                       >
                         <button
-                          appearance="flat"
+                          appearance="custom"
                           icon="tuiIconMoreVertical"
+                          class="reaction_button"
                           tuiIconButton
                           type="button"
                           [pseudoHover]="dropdown.open || null"
@@ -330,9 +337,9 @@
                   <div class="content-dialog">
                     <p class="description-preview">
                       @for (item of item.hashtag; track $index) {
-                        <span style="color: #0081ff; margin-left: 2px">{{
-                          item
-                        }}</span>
+                        <span style="color: #0081ff; margin-left: 2px"
+                          >#{{ item }}</span
+                        >
                       }
                       {{ item.content }}
                     </p>
@@ -346,27 +353,27 @@
                       icon="tuiIconHeart"
                       tuiIconButton
                       [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
-                      appearance="flat"
+                      appearance="custom"
                       type="button"
                       (click)="like()"
-                      class="heartBtn tui-space_right-3 tui-space_bottom-3"
+                      class="reaction_button"
                     ></button>
                     <button
                       id="comment"
                       icon="tuiIconMessageSquare"
                       tuiIconButton
-                      appearance="flat"
+                      appearance="custom"
                       type="button"
-                      class="tui-space_right-3 tui-space_bottom-3"
+                      class="reaction_button"
                     ></button>
                   </div>
                   <button
                     id="share"
                     icon="tuiIconShare"
                     tuiIconButton
-                    appearance="flat"
+                    appearance="custom"
                     type="button"
-                    class="tui-space_right-3 tui-space_bottom-3"
+                    class="reaction_button"
                   ></button>
                 </div>
                 <tui-input

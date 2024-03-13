@@ -44,10 +44,10 @@
           <button
             tuiButton
             type="button"
-            appearance="flat"
+            appearance="custom"
+            class="reaction_button_clear"
             size="m"
             (click)="clearStatus()"
-            class="tui-space_right-4"
           >
             Clear
           </button>
@@ -90,11 +90,20 @@
           ></tui-pagination>
         </div>
         <div class="info_cover">
+          <<<<<<< HEAD
           <tui-avatar
             [round]="false"
             [src]="this.profile.photoUrl"
             size="xl"
           ></tui-avatar>
+          =======
+          <tui-avatar
+            class="tui-space_top-1"
+            autoColor="true"
+            size="xl"
+            [src]="this.profile.photoUrl"
+          ></tui-avatar>
+          >>>>>>> 31f4f0fe43fdba1c4899eb061b2339ca513d8755
           <div class="info tui-space_left-4">
             <h6 class="tui-text_h6">{{ this.profile.userName }}</h6>
             <p class="tui-text_body-s-2">{{ createAt | date: "medium" }}</p>
@@ -114,21 +123,24 @@
           <button
             tuiIconButton
             type="button"
-            appearance="flat"
+            class="reaction_button"
+            appearance="custom"
             icon="tuiIconHeartLarge"
             size="m"
           ></button>
           <button
             tuiIconButton
             type="button"
-            appearance="flat"
+            appearance="custom"
+            class="reaction_button"
             icon="tuiIconMessageCircleLarge"
             size="m"
           ></button>
           <button
             tuiIconButton
             type="button"
-            appearance="flat"
+            class="reaction_button"
+            appearance="custom"
             icon="tuiIconNavigationLarge"
             size="m"
           ></button>
