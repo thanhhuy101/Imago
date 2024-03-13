@@ -9,6 +9,9 @@ import { ProfileModel } from '../../../../../model/profile.model';
 import { AuthService } from '../../../../../service/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { NotificationService } from '../../../../../service/notification/notification.service';
+import { NotiState } from '../../../../../../ngrx/noti/noti.state';
+import { or } from '@firebase/firestore';
+import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 
 @Component({
   selector: 'app-people',
@@ -18,21 +21,16 @@ import { NotificationService } from '../../../../../service/notification/notific
   styleUrl: './people.component.scss',
 })
 export class PeopleComponent implements OnInit, OnDestroy {
-  users = [
+  peoples = [
     {
-      id: 1,
+      id: '',
       userName: '',
       firstName: '',
       lastName: '',
-      email: '',
-      bio: '',
       photoUrl: '',
-      followers: [],
-      following: [],
-      phone: '',
-      gender: '',
-      category: [],
-      followed: true,
+      followers: [] as string[],
+      followed: false,
+      numberOfFollowers: 0,
     },
   ];
   subscription: Subscription[] = [];
@@ -50,11 +48,13 @@ export class PeopleComponent implements OnInit, OnDestroy {
   profiles: ProfileModel[] = [];
   profile$ = this.store.select((state) => state.profile.profile);
 
+  // observable
+
   currentUser: ProfileModel = <ProfileModel>{};
 
   constructor(
     private notificationService: NotificationService,
-    private store: Store<{ profile: ProfileState }>,
+    private store: Store<{ profile: ProfileState; notification: NotiState }>,
   ) {
     this.store.dispatch(ProfileActions.getList());
     this.subscription.push(
@@ -64,7 +64,26 @@ export class PeopleComponent implements OnInit, OnDestroy {
           this.profiles = res;
         }),
       this.$profiles.subscribe((value) => {
-        this.profiles = value;
+        if (value) {
+          this.profiles = value;
+
+          for (let i = 0; i < this.profiles.length; i++) {
+            this.peoples.push({
+              id: this.profiles[i].id,
+              userName: this.profiles[i].userName,
+              firstName: this.profiles[i].firstName,
+              lastName: this.profiles[i].lastName,
+              photoUrl: this.profiles[i].photoUrl,
+              followers: this.profiles[i].followers,
+              followed: this.profiles[i].followers.includes(
+                this.currentUser.id,
+              ),
+              numberOfFollowers: this.profiles[i].followers.length,
+            });
+          }
+        }
+
+        // console.log('peoples', this.peoples);
       }),
 
       this.profile$.subscribe((value) => {
@@ -95,8 +114,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
   // }
 
   //create funciton to follow user
-  followUser(otherId: string) {
-    this.loader = true;
+  followUser(user: any, otherId: string) {
     this.store.dispatch(
       ProfileActions.follow({ id: this.currentUser.id, otherId }),
     );
@@ -106,10 +124,28 @@ export class PeopleComponent implements OnInit, OnDestroy {
         `Follow ${profile.userName} successfully`,
       );
     }
+
+    let newNotification = {
+      id: '',
+      uid: otherId,
+      postId: new Date().toString(),
+      createdAt: new Date().toString(),
+      sender: this.currentUser.id,
+      isFollow: true,
+      isLike: false,
+      isComment: false,
+    };
+
+    user.followed = !user.followed;
+    user.numberOfFollowers++;
+
+    this.store.dispatch(
+      NotificationActions.createNotification({ notification: newNotification }),
+    );
   }
 
   //create function to unfollow user
-  unFollowUser(otherId: string) {
+  unFollowUser(user: any, otherId: string) {
     this.store.dispatch(
       ProfileActions.unFollow({ id: this.currentUser.id, otherId }),
     );
@@ -119,6 +155,10 @@ export class PeopleComponent implements OnInit, OnDestroy {
         `Unfollowing ${profile.userName} successfully`,
       );
     }
+
+    user.followed = !user.followed;
+    user.numberOfFollowers--;
+
     ProfileActions.clearUpdateState();
   }
 }

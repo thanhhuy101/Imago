@@ -9,8 +9,8 @@ import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { Subscription } from 'rxjs';
 import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 import { LikeNotiModel } from '../../../../../model/noti.model';
-import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
-import { IdToNamePipe } from "../../../../../shared/pipes/id-to-name.pipe";
+import { IdToAvatarPipe } from '../../../../../shared/pipes/id-to-avatar.pipe';
+import { IdToNamePipe } from '../../../../../shared/pipes/id-to-name.pipe';
 type Like = {
   name: string;
   time: string;
@@ -21,17 +21,16 @@ type Like = {
   standalone: true,
   templateUrl: './like.component.html',
   styleUrl: './like.component.scss',
-  imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe]
+  imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe],
 })
 export class LikeComponent {
-
   constructor(
     private store: Store<{
       notification: NotiState;
       auth: AuthState;
       profile: ProfileState;
     }>,
-  ) { }
+  ) {}
   isLoading = false;
   likes: Like[] = [];
   subscriptions: Subscription[] = [];
@@ -60,7 +59,9 @@ export class LikeComponent {
       }),
       this.isGettingLikeNotifications$.subscribe((loading) => {
         if (loading) {
-          this.isLoading = true;
+          setTimeout(() => {
+            this.isLoading = true;
+          }, 1000);
         }
       }),
 

@@ -1,58 +1,75 @@
-<tui-loader class="loader" [inheritColor]="true" [overlay]="true" [showLoader]="loader">
-  <div [ngClass]="profiles.length > 0 ? 'container' : 'main-empty'">
-    <tui-scrollbar> </tui-scrollbar>
-    @if(profiles.length > 0){
-    @for (item of $profiles|async; track item.id) {
-    <div class="col">
-      <tui-island size="m" class="content">
-        <div class="tui-island__content">
-          <div class="tui-island__figure">
-            @if ( !currentUser.following.includes(item.id) ) {
-            <button tuiButton type="button" size="m" id="flBtn" appearance="custom" (click)="followUser(item.id);  "
-              class="tui-space_right-3 tui-space_bottom-3">
-              Follow
-            </button>
-            } @else {
-            <button tuiButton type="button" size="m" (click)="unFollowUser(item.id)" appearance="outline"
-              class="tui-space_right-3 tui-space_bottom-3">
-              Following
-            </button>
-            }
-          </div>
-          <div class="all_left">
-            <div class="top">
-              <tui-avatar class="tui_avatar1" text="alex inkin" [src]="item.photoUrl"></tui-avatar>
-              <div class="left">
-                <div class="top_left">
-                  <h3 class="tui-island__title">{{item.firstName}} {{item.lastName}}</h3>
-                  <p class="tui-island__category">&#64;{{item.userName}}</p>
+<div [ngClass]="profiles.length > 0 ? 'container' : 'main-empty'">
+  <tui-scrollbar> </tui-scrollbar>
+  @if (profiles.length > 0) {
+    @for (item of this.peoples; track item.id) {
+      <div class="col">
+        <tui-island size="m" class="content">
+          <div class="tui-island__content">
+            <div class="tui-island__figure">
+              @if (!item.followed) {
+                <button
+                  tuiButton
+                  type="button"
+                  size="m"
+                  id="flBtn"
+                  appearance="custom"
+                  (click)="followUser(item, item.id)"
+                  class="tui-space_right-3 tui-space_bottom-3"
+                >
+                  Follow
+                </button>
+              } @else {
+                <button
+                  tuiButton
+                  type="button"
+                  size="m"
+                  (click)="unFollowUser(item, item.id)"
+                  appearance="outline"
+                  class="tui-space_right-3 tui-space_bottom-3"
+                >
+                  Following
+                </button>
+              }
+            </div>
+            <div class="all_left">
+              <div class="top">
+                <tui-avatar
+                  class="tui_avatar1"
+                  text="alex inkin"
+                  [src]="item.photoUrl"
+                ></tui-avatar>
+                <div class="left">
+                  <div class="top_left">
+                    <h3 class="tui-island__title">
+                      {{ item.firstName }} {{ item.lastName }}
+                    </h3>
+                    <p class="tui-island__category">&#64;{{ item.userName }}</p>
+                  </div>
+                  @if (item.numberOfFollowers > 1) {
+                    <h4 class="tui-island__category">
+                      {{ item.numberOfFollowers }} followers
+                    </h4>
+                  } @else if (item.numberOfFollowers == 1) {
+                    <h4 class="tui-island__category">
+                      {{ item.numberOfFollowers }} follower
+                    </h4>
+                  } @else {
+                    <h4 class="tui-island__category">0 follower</h4>
+                  }
                 </div>
-                @if (item.followers && item.followers.length > 1) {
-                <h4 class="tui-island__category">
-                  {{item.followers.length}} followers
-                </h4>
-                } @else if ( item.followers && item.followers.length == 1) {
-                <h4 class="tui-island__category">
-                  {{item.followers.length}} follower
-                </h4>
-                }@else {
-                <h4 class="tui-island__category">
-                  0 follower
-                </h4>
-                }
               </div>
             </div>
           </div>
-        </div>
-      </tui-island>
-    </div>
+        </tui-island>
+      </div>
     }
-    }@else {
+  } @else {
     <ng-container>
-      <img class="search_icon" src="../../../../../../assets/images/searchPerson.png">
+      <img
+        class="search_icon"
+        src="../../../../../../assets/images/searchPerson.png"
+      />
       <div class="tui-text_body-xl">No result match</div>
     </ng-container>
-
-    }
-  </div>
-</tui-loader>
+  }
+</div>

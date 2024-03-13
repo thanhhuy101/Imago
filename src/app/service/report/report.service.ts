@@ -16,7 +16,7 @@ export class ReportService {
 
   createReport(token: string, report: ReportModel) {
     const headers = { Authorization: `${token}` };
-    return this.httpClient.post('http://localhost:3000/v1/report', report, {
+    return this.httpClient.post('report', report, {
       headers: headers,
     });
   }
