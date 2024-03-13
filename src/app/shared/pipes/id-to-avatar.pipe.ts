@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {ProfileService} from "../../service/profile/profile.service";
-import {ProfileModel} from "../../model/profile.model";
-import {map, Observable} from "rxjs";
+import { ProfileService } from "../../service/profile/profile.service";
+import { ProfileModel } from "../../model/profile.model";
+import { map, Observable } from "rxjs";
 
 @Pipe({
   name: 'idToAvatar',

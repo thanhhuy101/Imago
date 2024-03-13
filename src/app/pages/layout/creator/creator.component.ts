@@ -27,17 +27,18 @@ import { Subscription } from 'rxjs';
 import { ProfileModel } from '../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
+import { DateToStringPipe } from "../../../shared/pipes/date-to-string.pipe";
+
 @Component({
   selector: 'app-creator',
   standalone: true,
-  imports: [TaigaModule, ShareModule, ImagesCarouselComponent],
+  imports: [TaigaModule, ShareModule, ImagesCarouselComponent, DateToStringPipe],
   templateUrl: './creator.component.html',
   styleUrl: './creator.component.less',
   encapsulation: ViewEncapsulation.None,
 })
 export class CreatorComponent
-  implements OnInit, CanComponentDeactivate, OnDestroy
-{
+  implements OnInit, CanComponentDeactivate, OnDestroy {
   isUploadImages = true;
   @Input() isDisabled = this.isUploadImages;
   name: string = 'Lulu';
@@ -69,7 +70,7 @@ export class CreatorComponent
       post: PostState;
       profile: ProfileState;
     }>,
-  ) {}
+  ) { }
 
   canDeactivate(): boolean {
     if (this.isContentChanged) {
@@ -78,6 +79,7 @@ export class CreatorComponent
     }
     return true;
   }
+
 
   ngOnInit(): void {
     this.subscription.push(
@@ -107,7 +109,7 @@ export class CreatorComponent
       }),
       this.createErrorMessage$.subscribe((error) => {
         if (error.status) {
-          this.notificationService.errorNotification('Post Fail');
+          this.notificationService.errorNotification('Please input status!');
           this.store.dispatch(PostActions.clearCreateState());
         }
       }),
