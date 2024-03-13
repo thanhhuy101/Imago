@@ -35,9 +35,8 @@ export class ProfileService {
   search(query: string) {
     return this.httpClient.get(`profile/search?query=${query}`);
   }
-  
+
   follow(id: string, otherId: string) {
-    console.log(id, otherId);
     return this.httpClient.put(
       `profile/follow?profileId=${id}&otherProfileId=${otherId}`,
       {},

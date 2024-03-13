@@ -10,19 +10,19 @@ import { Subscription } from 'rxjs';
 import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 import { CommentModel } from '../../../../../model/comment.model';
 import { CommentNotiModel } from '../../../../../model/noti.model';
-import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
-import { IdToNamePipe } from "../../../../../shared/pipes/id-to-name.pipe";
+import { IdToAvatarPipe } from '../../../../../shared/pipes/id-to-avatar.pipe';
+import { IdToNamePipe } from '../../../../../shared/pipes/id-to-name.pipe';
 type Comment = {
   name: string;
   time: string;
   kind: string;
-}
+};
 @Component({
   selector: 'app-comment',
   standalone: true,
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.scss',
-  imports: [ShareModule, TaigaModule, IdToAvatarPipe, IdToNamePipe]
+  imports: [ShareModule, TaigaModule, IdToAvatarPipe, IdToNamePipe],
 })
 export class CommentComponent {
   constructor(
@@ -31,7 +31,7 @@ export class CommentComponent {
       auth: AuthState;
       profile: ProfileState;
     }>,
-  ) { }
+  ) {}
   comments: Comment[] = [];
   subscriptions: Subscription[] = [];
   isLoading = false;
@@ -39,7 +39,10 @@ export class CommentComponent {
     'notification',
     'isGettingCommentNotifications',
   );
-  comments$ = this.store.select('notification', 'getCommentNotificationsSuccess');
+  comments$ = this.store.select(
+    'notification',
+    'getCommentNotificationsSuccess',
+  );
   getCommentsError$ = this.store.select(
     'notification',
     'getCommentNotificationsError',
@@ -59,7 +62,9 @@ export class CommentComponent {
       }),
       this.isGettingCommentNotifications$.subscribe((loading) => {
         if (loading) {
-          this.isLoading = true;
+          setTimeout(() => {
+            this.isLoading = true;
+          }, 1000);
         }
       }),
       this.comments$.subscribe((notifications) => {
@@ -70,7 +75,6 @@ export class CommentComponent {
           console.error(error);
         }
       }),
-
     );
   }
 
@@ -100,9 +104,7 @@ export class CommentComponent {
         name: notification.sender,
         time: timeString,
         kind: 'commented on your post',
-
       });
-    }
-    );
+    });
   }
 }

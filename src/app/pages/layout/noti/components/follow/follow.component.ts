@@ -9,8 +9,8 @@ import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { Subscription } from 'rxjs';
 import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 import { FollowNotiModel } from '../../../../../model/noti.model';
-import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
-import { IdToNamePipe } from "../../../../../shared/pipes/id-to-name.pipe";
+import { IdToAvatarPipe } from '../../../../../shared/pipes/id-to-avatar.pipe';
+import { IdToNamePipe } from '../../../../../shared/pipes/id-to-name.pipe';
 type Follow = {
   name: string;
   time: string;
@@ -22,7 +22,7 @@ type Follow = {
   standalone: true,
   templateUrl: './follow.component.html',
   styleUrl: './follow.component.scss',
-  imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe]
+  imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe],
 })
 export class FollowComponent {
   constructor(
@@ -31,7 +31,7 @@ export class FollowComponent {
       auth: AuthState;
       profile: ProfileState;
     }>,
-  ) { }
+  ) {}
   isLoading = false;
   follows: Follow[] = [];
   subscriptions: Subscription[] = [];
@@ -60,7 +60,9 @@ export class FollowComponent {
       }),
       this.isGettingFollowNotifications$.subscribe((loading) => {
         if (loading) {
-          this.isLoading = true;
+          setTimeout(() => {
+            this.isLoading = true;
+          }, 1000);
         }
       }),
 

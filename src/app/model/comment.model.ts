@@ -4,3 +4,8 @@ export interface CommentModel {
   postId: string;
   authorId: string;
 }
+
+export interface CommentResponseModel {
+  data: CommentModel[];
+  endpage: number;
+}
