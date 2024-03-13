@@ -1,22 +1,23 @@
-import {
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/share.module';
-import { TuiAlertService, TuiSizeXS, TuiSizeXXL } from '@taiga-ui/core';
-import {Router, RouterLink, RouterOutlet} from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfileModel } from '../../../model/profile.model';
 import { Store } from '@ngrx/store';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
-import * as PostActions from '../../../../ngrx/post/post.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
-import { Subscription } from 'rxjs';
+import {
+  finalize,
+  map,
+  Observable,
+  of,
+  Subject,
+  Subscription,
+  switchMap,
+  timer,
+} from 'rxjs';
 import { StorageState } from '../../../../ngrx/storage/storage.state';
 import * as StorageActions from '../../../../ngrx/storage/storage.actions';
 import { TuiFileLike } from '@taiga-ui/kit';
@@ -32,7 +33,6 @@ import { NotificationService } from '../../../service/notification/notification.
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   readonly names = ['Jason Statham', 'Jackie Chan'];
-  readonly sizes: ReadonlyArray<TuiSizeXS | TuiSizeXXL> = ['l'];
   readonly items = [
     {
       text: 'Post',
@@ -54,9 +54,36 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   profile$ = this.store.select('profile', 'profile');
 
+  isUploading$ = this.store.select('storage', 'isUploading');
+  isUploadSuccess$ = this.store.select('storage', 'url');
+  uploadError$ = this.store.select('storage', 'uploadError');
+
   files: File[] = [];
-  rejectedFiles: readonly TuiFileLike[] = [];
   uid: string = '';
+  photoUrl: string = '';
+
+  updateForm: FormGroup = new FormGroup({
+    userName: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    bio: new FormControl(''),
+    photoUrl: new FormControl(''),
+  });
+
+  updateData: ProfileModel = {
+    id: '',
+    userName: '',
+    firstName: '',
+    lastName: '',
+    bio: '',
+    photoUrl: '',
+    gender: '',
+    email: '',
+    phone: '',
+    category: [],
+    followers: [],
+    following: [],
+  };
 
   constructor(
     private route: Router,
@@ -67,24 +94,64 @@ export class ProfileComponent implements OnInit, OnDestroy {
       storage: StorageState;
     }>,
   ) {
-    if (route.url.includes('profile/share')) {
+    if (this.route.url.includes('profile/share')) {
       this.activeItemIndex = 1;
-    } else if (route.url.includes('profile/mention')) {
+    } else if (this.route.url.includes('profile/mention')) {
       this.activeItemIndex = 2;
     }
-
-    this.profile$.subscribe((value) => {
-      if (value.email) {
-        this.profile = value;
-        console.log(this.profile);
-      }
-    });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription.push(
+      this.profile$.subscribe((value) => {
+        if (value.email) {
+          this.profile = value;
+          this.photoUrl = this.profile.photoUrl;
 
-  onReject(files: TuiFileLike | readonly TuiFileLike[]): void {
-    this.rejectedFiles = [...this.rejectedFiles, ...(files as TuiFileLike[])];
+          this.updateForm.setValue({
+            userName: this.profile.userName,
+            firstName: this.profile.firstName,
+            lastName: this.profile.lastName,
+            bio: this.profile.bio,
+            photoUrl: this.profile.photoUrl,
+          });
+
+          this.updateData = {
+            ...this.profile,
+          };
+        }
+      }),
+
+      this.imageControl.valueChanges.subscribe((file) => {
+        if (file) {
+          this.store.dispatch(
+            StorageActions.uploadFile({
+              file: file,
+              fileName: `${this.profile.id}/avatars/`,
+            }),
+          );
+        }
+      }),
+
+      this.isUploading$.subscribe((value) => {
+        if (value) {
+          this.notificationService.infoNotification('Uploading...');
+        }
+      }),
+      this.isUploadSuccess$.subscribe((value) => {
+        if (value.length > 0) {
+          this.notificationService.successNotification('Upload success');
+          this.photoUrl = value[0];
+          this.imageControl.setValue(null);
+        }
+      }),
+      this.uploadError$.subscribe((value) => {
+        if (value.status) {
+          this.notificationService.errorNotification('Upload failed');
+          this.imageControl.setValue(null);
+        }
+      }),
+    );
   }
 
   ngOnDestroy(): void {
@@ -93,64 +160,74 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  onChangePage(i: number) {
-    this.route.navigate(['/profile' + this.items[i].router]).then();
-  }
-
   //Dialog for profile
-  openAddDialog = false;
+  openDialog = false;
 
-  openDialog() {
-    console.log('open');
-    //this.upLoadImage();
-    this.openAddDialog = true;
+  toggleDialog(toggle: boolean) {
+    this.openDialog = toggle;
   }
 
-  closeDialog() {
-    this.openAddDialog = true;
-  }
+  readonly imageControl = new FormControl();
+  readonly rejectedFiles$ = new Subject<TuiFileLike | null>();
+  readonly loadingFiles$ = new Subject<TuiFileLike | null>();
+  readonly loadedFiles$ = this.imageControl.valueChanges.pipe(
+    switchMap((file) => (file ? this.makeRequest(file) : of(null))),
+  );
 
-  updateForm: FormGroup = new FormGroup({
-    userName: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    bio: new FormControl(''),
-    photoUrl: new FormControl(''),
-  });
-
-  updateData = {
-    bio: '',
-    userName: '',
-    firstName: '',
-    lastName: '',
-    photoURL: '',
+  uploadData = {
+    file: <File>{},
+    fileName: '',
   };
 
-  submit() {
-    // this.updateData = {
-    //   userName: this.formupdate.value.userName ?? '',
-    //   firstName: this.formupdate.value.firstName ?? '',
-    //   lastName: this.formupdate.value.lastName ?? '',
-    //   bio: this.formupdate.value.bio ?? '',
-    //   photoURL: this.formupdate.value.photoUrl ?? '',
-    // };
-    // this.store.dispatch(
-    //   ProfileActions.updateProfile({
-    //     profile: this.formupdate.value,
-    //   }),
-    // );
-    // this.openAddDialog = false;
+  onReject(file: TuiFileLike | readonly TuiFileLike[]): void {
+    this.rejectedFiles$.next(file as TuiFileLike);
   }
 
-  upLoadImage() {
-    this.files.forEach((file: File) => {
-      this.store.dispatch(
-        StorageActions.uploadFile({
-          file: file,
-          fileName: `${this.uid}/avatar/`,
-        }),
-      );
-      this.files = [];
-    });
+  removeFile(): void {
+    this.imageControl.setValue(null);
+    this.uploadData = {
+      file: <File>{},
+      fileName: 'users/' + this.profile.id + '/',
+    };
+  }
+
+  clearRejected(): void {
+    this.removeFile();
+    this.rejectedFiles$.next(null);
+  }
+
+  saveChanges() {
+    this.updateData = {
+      ...this.updateData,
+      userName: this.updateForm.get('userName')?.value,
+      firstName: this.updateForm.get('firstName')?.value,
+      lastName: this.updateForm.get('lastName')?.value,
+      bio: this.updateForm.get('bio')?.value,
+      photoUrl: this.photoUrl,
+    };
+
+    this.store.dispatch(
+      ProfileActions.updateMine({
+        profile: this.updateData,
+      }),
+    );
+  }
+
+  makeRequest(file: TuiFileLike): Observable<TuiFileLike | null> {
+    this.loadingFiles$.next(file);
+    return timer(1000).pipe(
+      map(() => {
+        //check if file size is greater than 1MB
+        if (file.size) {
+          if (file.size > 3145728) {
+            this.rejectedFiles$.next(file);
+          } else {
+            return file;
+          }
+        }
+        return null;
+      }),
+      finalize(() => this.loadingFiles$.next(null)),
+    );
   }
 }
