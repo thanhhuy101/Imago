@@ -10,7 +10,7 @@ import { ProfileModel } from '../../model/profile.model';
   standalone: true,
 })
 export class IdToNamePipe implements PipeTransform {
-  constructor(private profileService: ProfileService) {}
+  constructor(private profileService: ProfileService) { }
 
   transform(id: string): Observable<string> {
     return this.profileService.getById(id).pipe(

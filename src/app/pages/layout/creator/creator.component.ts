@@ -10,23 +10,18 @@ import { ShareModule } from '../../../shared/share.module';
 import { ImagesCarouselComponent } from './components/images-carousel/images-carousel.component';
 import { NotificationService } from '../../../service/notification/notification.service';
 import { CanComponentDeactivate } from '../../../guard/can-deactive.guard';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store, on } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { StorageState } from '../../../../ngrx/storage/storage.state';
-import * as AuthActions from '../../../../ngrx/auth/auth.actions';
 import * as PostActions from '../../../../ngrx/post/post.actions';
 import * as StorageActions from '../../../../ngrx/storage/storage.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
-import { AuthCredentialModel } from '../../../model/auth.model';
-import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { PostState } from '../../../../ngrx/post/post.state';
 import { DateTime, PostModel } from '../../../model/post.model';
-import { error } from '@angular/compiler-cli/src/transformers/util';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProfileModel } from '../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
-import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
+
 @Component({
   selector: 'app-creator',
   standalone: true,
@@ -40,9 +35,7 @@ export class CreatorComponent
 {
   isUploadImages = true;
   @Input() isDisabled = this.isUploadImages;
-  name: string = 'Lulu';
   statusValue: string = '';
-  //createAt . date.now
   createAt = Date.now();
   index = 0;
   itemsCount = 1;
@@ -50,11 +43,18 @@ export class CreatorComponent
   isContentChanged = false;
   profile: ProfileModel = <ProfileModel>{};
   linkOfImage: string[] = [];
-  storageState$ = this.store.select('storage', 'url');
+
+  storage$ = this.store.select('storage', 'url');
+  isUploading$ = this.store.select('storage', 'isUploading');
+  uploadError$ = this.store.select('storage', 'uploadError');
+
+  isCreating$ = this.store.select('post', 'isCreating');
   isCreateSuccess$ = this.store.select('post', 'isCreateSuccess');
   createErrorMessage$ = this.store.select('post', 'createErrorMessage');
+
   firebaseData$ = this.store.select('auth', 'firebaseData');
   profile$ = this.store.select('profile', 'profile');
+
   imageList: string[] = ['https://via.placeholder.com/450'];
   subscription: Subscription[] = [];
   uid = '';
@@ -62,7 +62,6 @@ export class CreatorComponent
   constructor(
     private route: Router,
     private notificationService: NotificationService,
-
     private store: Store<{
       storage: StorageState;
       auth: AuthState;
@@ -79,6 +78,10 @@ export class CreatorComponent
     return true;
   }
 
+  uploadedImages = 0;
+  loader = false;
+  isCreating = false;
+
   ngOnInit(): void {
     this.subscription.push(
       this.firebaseData$.subscribe((data) => {
@@ -86,28 +89,52 @@ export class CreatorComponent
           this.uid = data.uid;
         }
       }),
-      this.storageState$.subscribe((url) => {
+
+      this.isUploading$.subscribe((isUploading) => {
+        this.loader = isUploading;
+      }),
+      this.storage$.subscribe((url) => {
         if (url) {
           url.forEach((url: string) => {
             this.linkOfImage.push(url);
-            this.notificationService.successNotification(
-              'Upload image success',
-            );
+            this.uploadedImages++;
+
+            if (this.uploadedImages === this.imageList.length) {
+              this.notificationService.successNotification(
+                'All images uploaded successfully',
+              );
+              this.loader = false;
+            }
           });
+
           console.log('linkOfImage', this.linkOfImage);
         }
+      }),
+      this.uploadError$.subscribe((error) => {
+        if (error.status) {
+          this.notificationService.errorNotification('Upload Fail');
+          this.loader = false;
+        }
+      }),
+
+      this.isCreating$.subscribe((isCreating) => {
+        this.isCreating = isCreating;
       }),
       this.isCreateSuccess$.subscribe((isSuccess) => {
         if (isSuccess) {
           this.isContentChanged = false;
           this.notificationService.successNotification('Post successfully');
           this.store.dispatch(PostActions.clearCreateState());
-          this.route.navigate(['/profile/post']).then();
+          this.route
+            .navigate(['/profile/post'], {
+              queryParams: { uid: this.profile.id },
+            })
+            .then();
         }
       }),
       this.createErrorMessage$.subscribe((error) => {
         if (error.status) {
-          this.notificationService.errorNotification('Post Fail');
+          this.notificationService.errorNotification('Please input status!');
           this.store.dispatch(PostActions.clearCreateState());
         }
       }),
@@ -123,12 +150,13 @@ export class CreatorComponent
     this.subscription.forEach((sub) => sub.unsubscribe());
     this.store.dispatch(PostActions.clearMessages());
     this.store.dispatch(StorageActions.resetStorage());
+    this.store.dispatch(PostActions.clearCreateState());
   }
 
   handleImageListChange(imageList: string[]): void {
     this.imageList = [...imageList];
     this.isContentChanged = true;
-    // console.log('imageList', this.imageList);
+
     if (this.imageList.length === 0) {
       this.imageList = ['https://via.placeholder.com/450'];
       this.isContentChanged = false;

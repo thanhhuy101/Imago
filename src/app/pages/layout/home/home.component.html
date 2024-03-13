@@ -31,24 +31,22 @@
           <!--  Bottom post -->
           <div class="bottom">
             <div class="userInfoReport">
-              <div class="user-info" (click)="showDialogDetail(templateDetail)">
-                <!-- avatar-user -->
-                <div class="avatar-user">
-                  <img
-                    class="avatar"
-                    src="{{ item.creatorId | idToAvatar | async }}"
-                    alt=""
-                  />
-                </div>
+              <div class="user-info">
+                <tui-avatar
+                  class="tui-space_top-1"
+                  [round]="false"
+                  [src]="item.creatorId | idToAvatar | async"
+                  size="xl"
+                ></tui-avatar>
+
                 <!-- info-user -->
                 <div class="info-post">
-                  <span class="name-user">{{
-                    item.creatorId | idToName | async
-                  }}</span>
-                  <span class="date"
-                    >on
-                    {{ item.createdAt._seconds * 1000 | date: "medium" }}</span
-                  >
+                  <h6 class="tui-text_h6">
+                    {{ item.creatorId | idToName | async }}
+                  </h6>
+                  <p class="tui-text_body-s-2">
+                    {{ item.createdAt._seconds * 1000 | date: "medium" }}
+                  </p>
                 </div>
               </div>
 
@@ -152,30 +150,29 @@
               </p>
             </div>
             <div class="reaction">
-              <div class="tymAndCmt">
-                <button
-                  icon="tuiIconHeart"
-                  tuiIconButton
-                  [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
-                  appearance="custom"
-                  type="button"
-                  (click)="like()"
-                  class="reaction_button"
-                ></button>
-                <button
-                  icon="tuiIconMessageSquare"
-                  tuiIconButton
-                  appearance="custom"
-                  type="button"
-                  class="reaction_button"
-                ></button>
-              </div>
               <button
-                icon="tuiIconShare"
                 tuiIconButton
-                appearance="custom"
                 type="button"
                 class="reaction_button"
+                appearance="custom"
+                icon="tuiIconHeartLarge"
+                size="m"
+              ></button>
+              <button
+                tuiIconButton
+                type="button"
+                appearance="custom"
+                class="reaction_button"
+                icon="tuiIconMessageCircleLarge"
+                size="m"
+              ></button>
+              <button
+                tuiIconButton
+                type="button"
+                class="reaction_button"
+                appearance="custom"
+                icon="tuiIconNavigationLarge"
+                size="m"
               ></button>
             </div>
           </div>
@@ -186,50 +183,44 @@
             <div class="left">
               <div class="detail-dialog">
                 <tui-carousel
-                #carousel
-                [style.--tui-carousel-padding]="0"
-                style="height: 100%"
-                class="blurred-background"
-              >
-                <ng-container
-                  *ngFor="let photo of item.photoUrl; let i = index"
+                  #carousel
+                  [style.--tui-carousel-padding]="0"
+                  style="height: 100%"
+                  class="blurred-background"
                 >
-                  <div class="photolist" *tuiItem>
-                    <div class="btn_picture">
-                      @if (item.photoUrl.length >= 2) {
-                        <button
-                          class="button"
-                          appearance="custom"
-                          icon="tuiIconChevronLeftLarge"
-                          size="s"
-                          tuiIconButton
-                          type="button"
-                          (click)="carousel.prev()"
-                          [hidden]="i === 0"
-                        ></button>
-                        <button
-                          class="button"
-                          appearance="custom"
-                          icon="tuiIconChevronRightLarge"
-                          size="s"
-                          tuiIconButton
-                          type="button"
-                          [hidden]="i === item.photoUrl.length - 1"
-                          (click)="carousel.next()"
-                        ></button>
-                      }
+                  <ng-container
+                    *ngFor="let photo of item.photoUrl; let i = index"
+                  >
+                    <div class="photolist" *tuiItem>
+                      <div class="btn_picture">
+                        @if (item.photoUrl.length >= 2) {
+                          <button
+                            class="button"
+                            appearance="custom"
+                            icon="tuiIconChevronLeftLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.prev()"
+                            [hidden]="i === 0"
+                          ></button>
+                          <button
+                            class="button"
+                            appearance="custom"
+                            icon="tuiIconChevronRightLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            [hidden]="i === item.photoUrl.length - 1"
+                            (click)="carousel.next()"
+                          ></button>
+                        }
+                      </div>
+
+                      <img class="pictureDetail" [src]="photo" alt="" />
                     </div>
-                   
-                    <img
-                      class="pictureDetail"
-                      [src]="photo"
-                      alt=""
-              
-                    />
-                  
-                  </div>
-                </ng-container>
-              </tui-carousel>
+                  </ng-container>
+                </tui-carousel>
               </div>
             </div>
 
@@ -248,8 +239,12 @@
                       </div>
                       <!-- info-user -->
                       <div class="info-post">
-                        <span class="name-user">{{ item.creatorId | idToName | async }}</span>
-                        <span class="date">{{ item.createdAt._seconds * 1000 | date: "medium" }}</span>
+                        <span class="name-user">{{
+                          item.creatorId | idToName | async
+                        }}</span>
+                        <span class="date">{{
+                          item.createdAt._seconds * 1000 | date: "medium"
+                        }}</span>
                       </div>
                     </div>
 
@@ -259,7 +254,6 @@
                         #dropdown
                         [content]="content"
                         [open]="false"
-                      
                       >
                         <button
                           appearance="custom"
@@ -267,7 +261,6 @@
                           class="reaction_button"
                           tuiIconButton
                           type="button"
-                          
                           [pseudoHover]="dropdown.open || null"
                         ></button>
                       </tui-hosted-dropdown>
@@ -347,9 +340,9 @@
                   <div class="content-dialog">
                     <p class="description-preview">
                       @for (item of item.hashtag; track $index) {
-                        <span style="color: #0081ff; margin-left: 2px">#{{
-                          item
-                        }}</span>
+                        <span style="color: #0081ff; margin-left: 2px"
+                          >#{{ item }}</span
+                        >
                       }
                       {{ item.content }}
                     </p>
@@ -357,38 +350,34 @@
                 </div>
 
                 <div class="reaction">
-                  <div class="tymAndCmt">
-                    <button
-                      id="heart"
-                      icon="tuiIconHeart"
-                      tuiIconButton
-                      [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
-                      appearance="custom"
-                      type="button"
-                      (click)="like()"
-                      class="reaction_button"
-                    ></button>
-                    <button
-                      id="comment"
-                      icon="tuiIconMessageSquare"
-                      tuiIconButton
-                      appearance="custom"
-                      type="button"
-                      class="reaction_button"
-                    ></button>
-                  </div>
                   <button
-                    id="share"
-                    icon="tuiIconShare"
                     tuiIconButton
-                    appearance="custom"
                     type="button"
                     class="reaction_button"
+                    appearance="custom"
+                    icon="tuiIconHeartLarge"
+                    size="m"
+                  ></button>
+                  <button
+                    tuiIconButton
+                    type="button"
+                    appearance="custom"
+                    class="reaction_button"
+                    icon="tuiIconMessageCircleLarge"
+                    size="m"
+                  ></button>
+                  <button
+                    tuiIconButton
+                    type="button"
+                    class="reaction_button"
+                    appearance="custom"
+                    icon="tuiIconNavigationLarge"
+                    size="m"
                   ></button>
                 </div>
               
                 <tui-input
-                  formControlName="testValue"
+                  [(ngModel)]="commentValue"
                   [tuiTextfieldCleaner]="true"
                   [tuiTextfieldLabelOutside]="true"
                 >

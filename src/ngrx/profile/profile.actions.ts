@@ -4,7 +4,7 @@ import { HttpErrorResponseModel } from '../../app/model/http-error-response.mode
 
 export const createMine = createAction(
   '[Profile] Create Mine',
-  props<{ profile: ProfileModel }>(),
+  props<{ mine: ProfileModel }>(),
 );
 export const createMineSuccess = createAction('[Profile] Create Mine Success');
 export const createMineFailure = createAction(
@@ -14,7 +14,7 @@ export const createMineFailure = createAction(
 
 export const updateMine = createAction(
   '[Profile] Update Mine',
-  props<{ profile: ProfileModel }>(),
+  props<{ mine: ProfileModel }>(),
 );
 export const updateMineSuccess = createAction('[Profile] Update Mine Success');
 export const updateMineFailure = createAction(
@@ -25,10 +25,20 @@ export const updateMineFailure = createAction(
 export const getMine = createAction('[Profile] Get Mine');
 export const getMineSuccess = createAction(
   '[Profile] Get Mine Success',
-  props<{ profile: ProfileModel }>(),
+  props<{ mine: ProfileModel }>(),
 );
 export const getMineFailure = createAction(
   '[Profile] Get Mine Failure',
+  props<{ getErrorMessage: HttpErrorResponseModel }>(),
+);
+
+export const getList = createAction('[Profile] Get List Profiles');
+export const getListSuccess = createAction(
+  '[Profile] Get List Profiles Success',
+  props<{ profiles: ProfileModel[] }>(),
+);
+export const getListFailure = createAction(
+  '[Profile] Get List Profiles Failure',
   props<{ getErrorMessage: HttpErrorResponseModel }>(),
 );
 
@@ -66,3 +76,25 @@ export const clearUpdateState = createAction('[Profile] Clear Update State');
 export const clearGetState = createAction('[Profile] Clear Get State');
 
 export const clearSearchState = createAction('[Profile] Clear Search State');
+
+//follow
+export const follow = createAction(
+  '[Profile] Follow',
+  props<{ id: string; otherId: string }>(),
+);
+export const followSuccess = createAction('[Profile] Follow Success');
+export const followFailure = createAction(
+  '[Profile] Follow Failure',
+  props<{ followErrorMessage: HttpErrorResponseModel }>(),
+);
+
+//unfollow
+export const unFollow = createAction(
+  '[Profile] UnFollow',
+  props<{ id: string; otherId: string }>(),
+);
+export const unFollowSuccess = createAction('[Profile] UnFollow Success');
+export const unFollowFailure = createAction(
+  '[Profile] UnFollow Failure',
+  props<{ unFollowErrorMessage: HttpErrorResponseModel }>(),
+);

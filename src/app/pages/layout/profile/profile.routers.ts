@@ -32,11 +32,6 @@ export const PROFILE_ROUTERS: Routes = [
             (m) => m.MentionComponent,
           ),
       },
-      {
-        path: '',
-        redirectTo: 'post',
-        pathMatch: 'full',
-      },
     ],
   },
 ];

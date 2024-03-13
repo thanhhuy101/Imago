@@ -10,13 +10,16 @@ import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { NotiModel } from '../../../../../model/noti.model';
 import { IdToNamePipe } from '../../../../../shared/pipes/id-to-name.pipe';
-import {IdToAvatarPipe} from "../../../../../shared/pipes/id-to-avatar.pipe";
+import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
+import { set } from '@angular/fire/database';
 
 type Notification = {
   name: string;
   time: string;
   kind: string;
   icon: string;
+  avatar?: string;
+  color: string;
 };
 @Component({
   selector: 'app-all',
@@ -26,15 +29,14 @@ type Notification = {
   imports: [ShareModule, TaigaModule, IdToNamePipe, IdToAvatarPipe],
 })
 export class AllComponent implements OnInit, OnDestroy {
-  aceHole =
-    'https://qph.cf2.quoracdn.net/main-qimg-1c75fec28dcae94eadff9cd7899ae5f5-lq';
 
   notifications: Notification[] = [];
 
   subscriptions: Subscription[] = [];
 
-  //notification
-  // allNotifications: NotiModel[] = [];
+  isLoading = false;
+
+
 
   // observable
   token$ = this.store.select('auth', 'token');
@@ -55,11 +57,12 @@ export class AllComponent implements OnInit, OnDestroy {
       auth: AuthState;
       profile: ProfileState;
     }>,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.subscriptions.push(
       this.profile$.subscribe((profile) => {
+        console.log('profile', profile.id);
         if (profile.email) {
           this.store.dispatch(
             NotificationActions.getNotifications({
@@ -71,7 +74,8 @@ export class AllComponent implements OnInit, OnDestroy {
 
       this.isGettingNotifications$.subscribe((loading) => {
         if (loading) {
-          // console.log('loading', loading);
+          setTimeout(() => { this.isLoading = true; }, 1000)
+
         }
       }),
 
@@ -90,7 +94,7 @@ export class AllComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 
   viewNotification(index: any): void {
     // console.log('view notification', index);
@@ -98,10 +102,6 @@ export class AllComponent implements OnInit, OnDestroy {
 
   processNotifications(notifications: NotiModel[]): void {
     notifications.forEach((notification) => {
-      // calculate time difference between now and the time the notification was created in hours
-      // if > 24 hour then show the date instead
-      // if < 0 hour then show the minutes instead
-
       const time = new Date(notification.createdAt).getTime();
       const now = new Date().getTime();
       const diff = now - time;
@@ -124,6 +124,7 @@ export class AllComponent implements OnInit, OnDestroy {
           time: timeString,
           kind: 'followed on you',
           icon: 'tuiIconUserCheck',
+          color: 'green',
         });
       }
 
@@ -133,6 +134,7 @@ export class AllComponent implements OnInit, OnDestroy {
           time: timeString,
           kind: 'liked your post',
           icon: 'tuiIconHeart',
+          color: 'red',
         });
       }
 
@@ -142,6 +144,7 @@ export class AllComponent implements OnInit, OnDestroy {
           time: timeString,
           kind: 'commented on your post',
           icon: 'tuiIconMessageCircle',
+          color: 'blue',
         });
       }
     });

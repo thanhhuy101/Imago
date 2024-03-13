@@ -2,7 +2,10 @@ import { HttpErrorResponseModel } from '../../app/model/http-error-response.mode
 import { ProfileModel } from '../../app/model/profile.model';
 
 export interface ProfileState {
+  mine: ProfileModel;
   profile: ProfileModel;
+  profiles: ProfileModel[];
+
   isCreating: boolean;
   isCreateSuccess: boolean;
   createErrorMessage: HttpErrorResponseModel;
@@ -16,6 +19,14 @@ export interface ProfileState {
 
   isGettingById: boolean;
   getErrorMessageById: HttpErrorResponseModel;
+
+  isFollowing: boolean;
+  isFollowSuccess: boolean;
+  followErrorMessage: HttpErrorResponseModel;
+
+  isUnFollowing: boolean;
+  isUnFollowSuccess: boolean;
+  unFollowErrorMessage: HttpErrorResponseModel;
 
   profileSearchResult: ProfileModel[];
   isSearching: boolean;

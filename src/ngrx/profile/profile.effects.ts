@@ -16,7 +16,7 @@ export class ProfileEffect {
     this.action$.pipe(
       ofType(ProfileActions.createMine),
       switchMap((action) =>
-        this.profileService.createMine(action.profile).pipe(
+        this.profileService.createMine(action.mine).pipe(
           map(() => ProfileActions.createMineSuccess()),
           catchError((error) =>
             of(ProfileActions.createMineFailure({ createErrorMessage: error })),
@@ -30,10 +30,26 @@ export class ProfileEffect {
     this.action$.pipe(
       ofType(ProfileActions.updateMine),
       switchMap((action) =>
-        this.profileService.updateMine(action.profile).pipe(
+        this.profileService.updateMine(action.mine).pipe(
           map(() => ProfileActions.updateMineSuccess()),
           catchError((error) =>
             of(ProfileActions.updateMineFailure({ updateErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  getAll$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ProfileActions.getList),
+      switchMap(() =>
+        this.profileService.getAll().pipe(
+          map((profiles: ProfileModel[]) =>
+            ProfileActions.getListSuccess({ profiles }),
+          ),
+          catchError((error) =>
+            of(ProfileActions.getListFailure({ getErrorMessage: error })),
           ),
         ),
       ),
@@ -45,9 +61,7 @@ export class ProfileEffect {
       ofType(ProfileActions.getMine),
       switchMap(() =>
         this.profileService.getMine().pipe(
-          map((profile: ProfileModel) =>
-            ProfileActions.getMineSuccess({ profile }),
-          ),
+          map((mine: ProfileModel) => ProfileActions.getMineSuccess({ mine })),
           catchError((error) =>
             of(ProfileActions.getMineFailure({ getErrorMessage: error })),
           ),
@@ -82,6 +96,34 @@ export class ProfileEffect {
           ),
           catchError((error) =>
             of(ProfileActions.searchFailure({ searchErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+  
+  follow$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ProfileActions.follow),
+      switchMap((action) =>
+        this.profileService.follow(action.id, action.otherId).pipe(
+          map(() => ProfileActions.followSuccess()),
+          catchError((error) =>
+            of(ProfileActions.followFailure({ followErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  unFollow$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ProfileActions.unFollow),
+      switchMap((action) =>
+        this.profileService.unFollow(action.id, action.otherId).pipe(
+          map(() => ProfileActions.unFollowSuccess()),
+          catchError((error) =>
+            of(ProfileActions.unFollowFailure({ unFollowErrorMessage: error })),
           ),
         ),
       ),
