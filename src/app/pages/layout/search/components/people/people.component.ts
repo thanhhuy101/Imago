@@ -51,29 +51,40 @@ export class PeopleComponent implements OnInit, OnDestroy {
   followed = true;
   $profiles = this.store.select((state) => state.profile.profiles);
   $follow = this.store.select((state) => state.profile.isFollowing);
+  isFollowingSuccess$ = this.store.select(
+    (state) => state.profile.isFollowSuccess,
+  );
+  isFollowingFailure$ = this.store.select(
+    (state) => state.profile.followErrorMessage,
+  );
   $unfollow = this.store.select((state) => state.profile.isUnFollowing);
   profiles: ProfileModel[] = [];
   profile$ = this.store.select((state) => state.profile.profile);
-  isFollowing: boolean = false;
 
   currentUser: ProfileModel = <ProfileModel>{};
 
   constructor(private store: Store<{ profile: ProfileState }>) {
+    this.store.dispatch(ProfileActions.getList());
     this.subscription.push(
       this.store
         .select((state) => state.profile.profileSearchResult)
         .subscribe((res) => {
           this.profiles = res;
         }),
-    );
-    this.$profiles.subscribe((value) => {
-      this.profiles = value;
-    });
-    this.store.dispatch(ProfileActions.getList());
+      this.$profiles.subscribe((value) => {
+        this.profiles = value;
+      }),
 
-    this.profile$.subscribe((value) => {
-      this.currentUser = value;
-    });
+      this.profile$.subscribe((value) => {
+        this.currentUser = value;
+      }),
+      this.isFollowingSuccess$.subscribe((value) => {
+        ProfileActions.clearGetState();
+        if (value) {
+          this.store.dispatch(ProfileActions.getList());
+        }
+      }),
+    );
   }
 
   ngOnInit(): void {}
@@ -91,21 +102,20 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   //create funciton to follow user
   followUser(otherId: string) {
+    ProfileActions.clearGetState();
     this.store.dispatch(
       ProfileActions.follow({ id: this.currentUser.id, otherId }),
     );
 
-    this.currentUser.followers.forEach((follower) => {
-      if (follower === otherId) {
-        this.isFollowing = true;
-      }
-    });
+    // this.currentUser.following = [...this.currentUser.following, otherId];
   }
 
   //create function to unfollow user
   unFollowUser(otherId: string) {
+    ProfileActions.clearGetState();
+
     this.store.dispatch(
-      ProfileActions.unFollow({ otherId, id: this.currentUser.id }),
+      ProfileActions.unFollow({ id: this.currentUser.id, otherId }),
     );
   }
 }

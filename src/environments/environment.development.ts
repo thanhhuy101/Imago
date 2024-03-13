@@ -19,6 +19,16 @@ export const dev_environment = {
     messagingSenderId: '696714901988',
   },
 
+  firebase_backup2: {
+    projectId: 'imago-backup2',
+    appId: '1:307613940415:web:590dc59592b2b83788240a',
+    storageBucket: 'imago-backup2.appspot.com',
+    locationId: 'asia-east1',
+    apiKey: 'AIzaSyDvKdVzEJmlsJtk4ugeFc_yY-hEQ1RK6-o',
+    authDomain: 'imago-backup2.firebaseapp.com',
+    messagingSenderId: '307613940415',
+  },
+
   production: false,
 
   baseUrl: 'http://localhost:3000',

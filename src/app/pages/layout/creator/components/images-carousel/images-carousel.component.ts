@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 
 import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { ProfileModel } from '../../../../../model/profile.model';
+
 @Component({
   selector: 'app-images-carousel',
   standalone: true,
@@ -29,8 +30,7 @@ export class ImagesCarouselComponent implements OnInit {
     string[]
   >();
 
-  @Output() uploadImagesEvent = new EventEmitter<
-    boolean>();
+  @Output() uploadImagesEvent = new EventEmitter<boolean>();
   subscription: Subscription[] = [];
 
   control = new FormControl(new Array<File>(), [maxFilesLength(5)]);
@@ -48,6 +48,7 @@ export class ImagesCarouselComponent implements OnInit {
 
   profileState$ = this.store.select('profile', 'profile');
   profile: ProfileModel = <ProfileModel>{};
+
   constructor(
     private notificationService: NotificationService,
     private store: Store<{
@@ -78,12 +79,7 @@ export class ImagesCarouselComponent implements OnInit {
             this.files = [];
             return;
           }
-          if (response.length === 0) {
-            this.isUploadImages = true;
-          } else {
-            this.isUploadImages = false;
-
-          }
+          this.isUploadImages = response.length === 0;
           response.forEach((file: File) => {
             const reader = new FileReader();
             reader.readAsArrayBuffer(file);
@@ -165,9 +161,9 @@ export function maxFilesLength(maxLength: number): ValidatorFn {
   return ({ value }: AbstractControl) =>
     value.length > maxLength
       ? {
-        maxLength: new TuiValidationError(
-          'Error: maximum limit - 5 files for upload',
-        ),
-      }
+          maxLength: new TuiValidationError(
+            'Error: maximum limit - 5 files for upload',
+          ),
+        }
       : null;
 }

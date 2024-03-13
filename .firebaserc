@@ -13,9 +13,16 @@
           "imago-backup"
         ]
       }
+    },
+    "imago-backup2": {
+      "hosting": {
+        "imago": [
+          "imago-backup2"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "imago-backup"
+    "default": "imago-backup2"
   }
 }

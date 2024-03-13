@@ -6,8 +6,8 @@
     <tui-island size="m" class="content">
       <div class="tui-island__content">
         <div class="tui-island__figure">
-          @if (isFollowing == false) {
-          <button tuiButton type="button" size="m" id="flBtn" appearance="custom" (click)="followUser(item.id)"
+          @if ( !currentUser.following.includes(item.id) ) {
+          <button tuiButton type="button" size="m" id="flBtn" appearance="custom" (click)="followUser(item.id); "
             class="tui-space_right-3 tui-space_bottom-3">
             Follow
           </button>
@@ -26,11 +26,11 @@
                 <h3 class="tui-island__title">{{item.firstName}} {{item.lastName}}</h3>
                 <p class="tui-island__category">&#64;{{item.userName}}</p>
               </div>
-              @if ( item.followers.length > 1) {
+              @if (item.followers && item.followers.length > 1) {
               <h4 class="tui-island__category">
                 {{item.followers.length}} followers
               </h4>
-              } @else if ( item.followers.length == 1) {
+              } @else if ( item.followers && item.followers.length == 1) {
               <h4 class="tui-island__category">
                 {{item.followers.length}} follower
               </h4>
