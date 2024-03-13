@@ -6,6 +6,7 @@ import { TuiDialogService } from '@taiga-ui/core';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import * as AuthActions from '../../../../ngrx/auth/auth.actions';
+import { ProfileState } from '../../../../ngrx/profile/profile.state';
 
 @Component({
   selector: 'app-navbar',
@@ -19,10 +20,11 @@ export class NavbarComponent implements OnInit {
   activeItemIndex = 0;
   open = false;
   openDrawerSidebar = false;
+  uid: string = '';
 
   constructor(
     private router: Router,
-    private store: Store<{ auth: AuthState }>,
+    private store: Store<{ auth: AuthState; profile: ProfileState }>,
   ) {
     if (this.router.url.includes('/home')) {
       this.activeItemIndex = 0;
@@ -35,6 +37,12 @@ export class NavbarComponent implements OnInit {
     } else if (this.router.url.includes('/profile')) {
       this.activeItemIndex = 4;
     }
+
+    this.store.select('profile', 'profile').subscribe((profile) => {
+      if (profile.id) {
+        this.uid = profile.id;
+      }
+    });
   }
 
   ngOnInit(): void {

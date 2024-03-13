@@ -31,10 +31,7 @@ import { combineLatest } from 'rxjs';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [
-    { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
-    { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
-  ],
+  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
 })
 export class AppComponent implements OnInit {
   uid = '';
@@ -45,7 +42,6 @@ export class AppComponent implements OnInit {
   getAuthErrorResponse$ = this.store.select('auth', 'getAuthErrorResponse');
 
   isGetProfileSuccess$ = this.store.select('profile', 'profile');
-  getProfileErrorResponse$ = this.store.select('profile', 'getErrorMessage');
 
   isSignUpSuccess$ = this.store.select('auth', 'isSignUpSuccess');
 
@@ -78,7 +74,7 @@ export class AppComponent implements OnInit {
       if (token) {
         console.log(token);
         this.store.dispatch(AuthActions.getAuth({ id: this.uid }));
-        this.store.dispatch(ProfileActions.getMine());
+        this.store.dispatch(ProfileActions.getById({ id: this.uid }));
       }
     });
 

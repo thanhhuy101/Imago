@@ -5,6 +5,7 @@ import * as ProfileActions from './profile.actions';
 import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 export const initialState: ProfileState = {
+  mine: <ProfileModel>{},
   profile: <ProfileModel>{},
   profiles: [],
 
@@ -102,11 +103,11 @@ export const profileReducer = createReducer(
       isGetting: true,
     };
   }),
-  on(ProfileActions.getMineSuccess, (state, { profile, type }) => {
+  on(ProfileActions.getMineSuccess, (state, { mine, type }) => {
     console.log(type);
     return {
       ...state,
-      profile: profile,
+      mine: mine,
       isGetting: false,
     };
   }),

@@ -2,6 +2,7 @@ import { HttpErrorResponseModel } from '../../app/model/http-error-response.mode
 import { ProfileModel } from '../../app/model/profile.model';
 
 export interface ProfileState {
+  mine: ProfileModel;
   profile: ProfileModel;
   profiles: ProfileModel[];
 

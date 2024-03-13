@@ -18,10 +18,7 @@
   width: 85%;
   height: fit-content;
   columns: 3;
-
 }
-
-
 
 .post {
   width: 100%;
@@ -72,14 +69,13 @@
 .pictureDetail {
   object-fit: contain;
   width: 100%;
-  height: 100%  ;
- border-radius: 12px;
-
+  height: 100%;
+  border-radius: 12px;
 }
-.reaction_button{
+.reaction_button {
   cursor: pointer;
 }
-.reaction_button:hover{
+.reaction_button:hover {
   background-color: #e6e6e6;
 }
 @media (max-width: 4000px) {
@@ -186,7 +182,9 @@
   color: rgba(0, 0, 0, 0.5);
   font-size: 12px;
 }
-
+.comment{
+  height: 50vh;
+}
 .user-img {
   width: 90px;
   height: 90px;
@@ -195,7 +193,6 @@
 }
 
 .avatar-user {
-  
   width: 80px;
   height: 80px;
 }
@@ -211,6 +208,11 @@
   display: flex;
   flex-direction: column;
   margin-left: 12px;
+
+  h6 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
 }
 
 .info {
@@ -273,10 +275,12 @@
   width: 100%;
 }
 
-.reaction {
-  display: flex;
+.reactions {
   width: 100%;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  padding-inline: 3rem;
+  margin-bottom: 2rem;
 }
 
 .tymAndCmt {
@@ -307,11 +311,9 @@
   justify-content: space-between;
 }
 
-.carousel-image{
+.carousel-image {
   width: 100%;
   height: 100%;
-  
-
 }
 
 .checkbox {
@@ -378,10 +380,7 @@
 
 .detail-dialog {
   width: 100%;
- 
 }
-
-
 
 @media screen and (max-width: 1200px) {
   .postDetail {

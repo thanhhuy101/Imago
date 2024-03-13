@@ -117,6 +117,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       category: [],
     };
 
-    this.store.dispatch(ProfileActions.createMine({ profile: this.regisData }));
+    this.store.dispatch(ProfileActions.createMine({ mine: this.regisData }));
   }
 }

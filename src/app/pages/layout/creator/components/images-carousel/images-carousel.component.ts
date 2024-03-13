@@ -26,6 +26,7 @@ import { ProfileModel } from '../../../../../model/profile.model';
 })
 export class ImagesCarouselComponent implements OnInit {
   @Input() isUploadImages = true;
+  @Input() loader = false;
   @Output() responseChangeEvent: EventEmitter<string[]> = new EventEmitter<
     string[]
   >();
@@ -150,11 +151,6 @@ export class ImagesCarouselComponent implements OnInit {
       this.files = [];
     });
     this.uploadImagesEvent.emit(false);
-  }
-
-  onUploadImage(event: any) {
-    // console.log('event', event);
- 
   }
 }
 

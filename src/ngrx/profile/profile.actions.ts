@@ -4,7 +4,7 @@ import { HttpErrorResponseModel } from '../../app/model/http-error-response.mode
 
 export const createMine = createAction(
   '[Profile] Create Mine',
-  props<{ profile: ProfileModel }>(),
+  props<{ mine: ProfileModel }>(),
 );
 export const createMineSuccess = createAction('[Profile] Create Mine Success');
 export const createMineFailure = createAction(
@@ -14,7 +14,7 @@ export const createMineFailure = createAction(
 
 export const updateMine = createAction(
   '[Profile] Update Mine',
-  props<{ profile: ProfileModel }>(),
+  props<{ mine: ProfileModel }>(),
 );
 export const updateMineSuccess = createAction('[Profile] Update Mine Success');
 export const updateMineFailure = createAction(
@@ -25,7 +25,7 @@ export const updateMineFailure = createAction(
 export const getMine = createAction('[Profile] Get Mine');
 export const getMineSuccess = createAction(
   '[Profile] Get Mine Success',
-  props<{ profile: ProfileModel }>(),
+  props<{ mine: ProfileModel }>(),
 );
 export const getMineFailure = createAction(
   '[Profile] Get Mine Failure',

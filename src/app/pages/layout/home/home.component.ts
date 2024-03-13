@@ -34,9 +34,9 @@ import { IdToAvatarPipe } from '../../../shared/pipes/id-to-avatar.pipe';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
-
+  index = 0;
   token$ = this.store.select('auth', 'token');
-
+  disabled=true;
   postList$ = this.store.select('post', 'postResponse');
   postList: PostModel[] = [];
 
@@ -47,6 +47,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   size = 10;
   tempArr: PostModel[] = [];
 
+  commentValue = '';
+
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
@@ -55,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       auth: AuthState;
       report: ReportState;
     }>,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.subscription.push(
@@ -171,5 +173,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       testValue6: new FormControl(false),
       testValue7: new FormControl(false),
     });
+  }
+  get rounded(): number {
+    return Math.floor(this.index / this.itemsCount);
   }
 }

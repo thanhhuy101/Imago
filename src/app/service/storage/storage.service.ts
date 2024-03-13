@@ -6,7 +6,7 @@ import { StorageModel } from '../../model/storage.model';
   providedIn: 'root',
 })
 export class StorageService {
-  constructor(private http: HttpClientAuth) { }
+  constructor(private http: HttpClientAuth) {}
 
   uploadFile(file: File, fileName: string) {
     const formData = new FormData();
@@ -14,7 +14,6 @@ export class StorageService {
     formData.delete('files');
     formData.append('files', file);
     formData.append('fileName', fileName);
-    console.log('fileName', file);
 
     return this.http.post(`storage/upload`, formData);
   }
