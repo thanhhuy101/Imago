@@ -1,77 +1,110 @@
-<div id="profile-container">
-  <div class="profile">
-    <div class="left">
-      <div class="user-info">
-        <h3 class="tui-text_h3">
-          {{ profile.lastName }} {{ profile.firstName }}
-        </h3>
-        <h5 class="tui-text_body-xl">&#64;{{ profile.userName }}</h5>
-        <p class="tui-text_body-m">
-          A picture is worth a thousand words. Share your story here.
-        </p>
-      </div>
+@if (profile.id) {
+  <div id="profile-container">
+    <div class="profile">
+      <div class="left">
+        <div class="user-info">
+          <h3 class="tui-text_h3">
+            {{ profile.lastName }} {{ profile.firstName }}
+          </h3>
+          <h5 class="tui-text_body-xl">&#64;{{ profile.userName }}</h5>
+          <p class="tui-text_body-m">
+            A picture is worth a thousand words. Share your story here.
+          </p>
+        </div>
 
-      <div class="follow">
-        <tui-avatar-stack class="tui-space_vertical-4" [direction]="'right'">
-          <tui-avatar *ngFor="let name of names" [size]="'m'"></tui-avatar>
-          <tui-avatar size="m"> 99+</tui-avatar>
-        </tui-avatar-stack>
-        <p class="tui-text_body-m tui-space_left-2">100+ followers</p>
+        <div class="follow">
+          @if (profile.followers.length > 0) {
+            <tui-avatar-stack
+              class="tui-space_vertical-4"
+              [direction]="'right'"
+            >
+              <tui-avatar
+                *ngFor="let name of profile.followers | slice: 0 : 2"
+                [size]="'m'"
+              ></tui-avatar>
+              <tui-avatar size="m">
+                {{ profile.followers.length - 2 }}+
+              </tui-avatar>
+            </tui-avatar-stack>
+            <p class="tui-text_body-m tui-space_left-2">
+              {{ profile.followers.length }} followers
+            </p>
+          } @else {
+            <p class="tui-text_body-m">0 followers</p>
+          }
+        </div>
+      </div>
+      <div class="right">
+        <div class="avatar">
+          <tui-avatar
+            [src]="profile.photoUrl"
+            [round]="false"
+            size="xxl"
+          ></tui-avatar>
+        </div>
+
+        <div class="edit-btn">
+          <button
+            tuiButton
+            appearance="outline"
+            size="m"
+            (click)="toggleDialog(true)"
+          >
+            Edit
+          </button>
+        </div>
       </div>
     </div>
-    <div class="right">
-      <div class="avatar">
-        <tui-avatar
-          [src]="profile.photoUrl"
-          [round]="false"
-          size="xxl"
-        ></tui-avatar>
-      </div>
-
-      <div class="edit-btn">
+    <div class="tabs">
+      <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
         <button
-          tuiButton
-          appearance="outline"
-          size="m"
-          (click)="toggleDialog(true)"
+          [disabled]="activeItemIndex === 0"
+          [routerLink]="['post']"
+          routerLinkActive
+          tuiTab
         >
-          Edit
+          Posts
         </button>
-      </div>
+        <button
+          [disabled]="activeItemIndex === 1"
+          [routerLink]="['share']"
+          routerLinkActive
+          tuiTab
+        >
+          Share
+        </button>
+        <button
+          [disabled]="activeItemIndex === 2"
+          [routerLink]="['mention']"
+          routerLinkActive
+          tuiTab
+        >
+          Mentor
+        </button>
+      </tui-tabs>
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
     </div>
   </div>
-  <div class="tabs">
-    <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
-      <button
-        [disabled]="activeItemIndex === 0"
-        [routerLink]="['post']"
-        routerLinkActive
-        tuiTab
-      >
-        Posts
-      </button>
-      <button
-        [disabled]="activeItemIndex === 1"
-        [routerLink]="['share']"
-        routerLinkActive
-        tuiTab
-      >
-        Share
-      </button>
-      <button
-        [disabled]="activeItemIndex === 2"
-        [routerLink]="['mention']"
-        routerLinkActive
-        tuiTab
-      >
-        Mentor
-      </button>
-    </tui-tabs>
+} @else {
+  <div
+    style="
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <tui-loader
+      style="width: 100%"
+      [showLoader]="true"
+      [overlay]="true"
+      size="xxl"
+    ></tui-loader>
   </div>
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+}
 
 <ng-template [tuiDialogOptions]="{ size: 'm' }" [(tuiDialog)]="this.openDialog">
   <form [formGroup]="updateForm">
