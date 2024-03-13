@@ -15,12 +15,20 @@
           <div class="picture-post">
             <div class="image-post">
               <img
-                class="picture1"
-                [src]="item.photoUrl[0]"
-                alt=""
-                (click)="showDialogDetail(templateDetail)"
-              />
+              class="picture1"
+              [src]="item.photoUrl[0]"
+              alt=""
+              (click)="showDialogDetail(templateDetail)"
+            />
+         
+
+            
             </div>
+          
+          </div>
+          <div style="position: relative;">
+            <tui-pagination size="s" class="tui-space_top-4" [length]="item.photoUrl.length + 1  / itemsCount"></tui-pagination>
+            <div *ngIf="disabled" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
           </div>
           <!--  Bottom post -->
           <div class="bottom">
@@ -369,6 +377,7 @@
                     size="m"
                   ></button>
                 </div>
+              
                 <tui-input
                   [(ngModel)]="commentValue"
                   [tuiTextfieldCleaner]="true"
@@ -377,6 +386,9 @@
                   Add a comment...
                   <input tuiTextfield type="text" />
                 </tui-input>
+                <div class="comment">
+                  <div class="user"></div>
+                </div>
               </div>
             </div>
           </div>
