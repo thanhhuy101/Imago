@@ -34,9 +34,9 @@ import { IdToAvatarPipe } from '../../../shared/pipes/id-to-avatar.pipe';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
-
+  index = 0;
   token$ = this.store.select('auth', 'token');
-
+  disabled=true;
   postList$ = this.store.select('post', 'postResponse');
   postList: PostModel[] = [];
 
@@ -171,5 +171,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       testValue6: new FormControl(false),
       testValue7: new FormControl(false),
     });
+  }
+  get rounded(): number {
+    return Math.floor(this.index / this.itemsCount);
   }
 }

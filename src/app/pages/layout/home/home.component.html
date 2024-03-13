@@ -20,7 +20,12 @@
               alt=""
               (click)="showDialogDetail(templateDetail)"
             />
-            
+         
+
+            <div style="position: relative;">
+              <tui-pagination size="s" class="tui-space_top-4" [length]="(item.photoUrl.length ) / itemsCount"></tui-pagination>
+              <div *ngIf="disabled" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
+            </div>
             </div>
           </div>
           <!--  Bottom post -->
@@ -381,6 +386,7 @@
                     class="reaction_button"
                   ></button>
                 </div>
+              
                 <tui-input
                   formControlName="testValue"
                   [tuiTextfieldCleaner]="true"
@@ -389,6 +395,9 @@
                   Add a comment...
                   <input tuiTextfield type="text" />
                 </tui-input>
+                <div class="comment">
+                  <div class="user"></div>
+                </div>
               </div>
             </div>
           </div>
