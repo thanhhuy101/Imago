@@ -1,8 +1,14 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/share.module';
-import { TuiAlertService } from '@taiga-ui/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { TuiAlertService, TuiSizeXS, TuiSizeXXL } from '@taiga-ui/core';
+import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ProfileModel } from '../../../model/profile.model';
 import { Store } from '@ngrx/store';
@@ -19,11 +25,14 @@ import { NotificationService } from '../../../service/notification/notification.
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [TaigaModule, ShareModule, RouterOutlet],
+  imports: [TaigaModule, ShareModule, RouterOutlet, RouterLink],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss',
+  styleUrl: './profile.component.less',
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+  readonly names = ['Jason Statham', 'Jackie Chan'];
+  readonly sizes: ReadonlyArray<TuiSizeXS | TuiSizeXXL> = ['l'];
   readonly items = [
     {
       text: 'Post',
@@ -118,19 +127,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
   };
 
   submit() {
-    // this.updateData = {
-    //   userName: this.formupdate.value.userName ?? '',
-    //   firstName: this.formupdate.value.firstName ?? '',
-    //   lastName: this.formupdate.value.lastName ?? '',
-    //   bio: this.formupdate.value.bio ?? '',
-    //   photoURL: this.formupdate.value.photoUrl ?? '',
-    // };
-    // this.store.dispatch(
-    //   ProfileActions.updateProfile({
-    //     profile: this.formupdate.value,
-    //   }),
-    // );
-    // this.openAddDialog = false;
+    this.updateData = {
+      userName: this.updateForm.value.userName ?? '',
+      firstName: this.updateForm.value.firstName ?? '',
+      lastName: this.updateForm.value.lastName ?? '',
+      bio: this.updateForm.value.bio ?? '',
+      photoURL: this.updateForm.value.photoUrl ?? '',
+    };
+    this.store.dispatch(
+      ProfileActions.updateMine({
+        profile: this.updateForm.value,
+      }),
+    );
+    this.openAddDialog = false;
   }
 
   upLoadImage() {

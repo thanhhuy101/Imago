@@ -32,6 +32,10 @@ export class ProfileService {
     return this.httpClient.put('profile/mine', profile);
   }
 
+  search(query: string) {
+    return this.httpClient.get(`profile/search?query=${query}`);
+  }
+  
   follow(id: string, otherId: string) {
     console.log(id, otherId);
     return this.httpClient.put(

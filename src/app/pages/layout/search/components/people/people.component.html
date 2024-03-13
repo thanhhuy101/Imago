@@ -14,21 +14,25 @@
           } @else {
           <button tuiButton type="button" size="m" (click)="unFollowUser(item.id)" appearance="outline"
             class="tui-space_right-3 tui-space_bottom-3">
-            following
+            Following
           </button>
           }
         </div>
         <div class="all_left">
           <div class="top">
-            <tui-avatar class="tui_avatar1" [rounded]="true" text="alex inkin" [avatarUrl]="item.photoUrl"></tui-avatar>
+            <tui-avatar class="tui_avatar1" text="alex inkin" [src]="item.photoUrl"></tui-avatar>
             <div class="left">
               <div class="top_left">
                 <h3 class="tui-island__title">{{item.firstName}} {{item.lastName}}</h3>
                 <p class="tui-island__category">&#64;{{item.userName}}</p>
               </div>
-              @if (item.followers && item.followers.length > 0) {
+              @if ( item.followers.length > 1) {
               <h4 class="tui-island__category">
                 {{item.followers.length}} followers
+              </h4>
+              } @else if ( item.followers.length == 1) {
+              <h4 class="tui-island__category">
+                {{item.followers.length}} follower
               </h4>
               }@else {
               <h4 class="tui-island__category">

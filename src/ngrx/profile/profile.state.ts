@@ -26,4 +26,8 @@ export interface ProfileState {
   isUnFollowing: boolean;
   isUnFollowSuccess: boolean;
   unFollowErrorMessage: HttpErrorResponseModel;
+
+  profileSearchResult: ProfileModel[];
+  isSearching: boolean;
+  searchErrorMessage: HttpErrorResponseModel;
 }

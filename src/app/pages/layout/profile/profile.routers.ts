@@ -7,29 +7,36 @@ export const PROFILE_ROUTERS: Routes = [
     component: ProfileComponent,
     children: [
       {
-        path: 'post',
-        loadComponent: () => import('../profile/components/post/post.component').then((m) => m.PostComponent),
-      },
-      {
-        redirectTo: 'post',
         path: '',
+        redirectTo: 'post',
         pathMatch: 'full',
       },
-
+      {
+        path: 'post',
+        loadComponent: () =>
+          import('../profile/components/post/post.component').then(
+            (m) => m.PostComponent,
+          ),
+      },
       {
         path: 'share',
-        loadComponent: () => import('../profile/components/share/share.component').then((m) => m.ShareComponent),
+        loadComponent: () =>
+          import('../profile/components/share/share.component').then(
+            (m) => m.ShareComponent,
+          ),
       },
       {
         path: 'mention',
-        loadComponent: () => import('../profile/components/mention/mention.component').then((m) => m.MentionComponent),
+        loadComponent: () =>
+          import('../profile/components/mention/mention.component').then(
+            (m) => m.MentionComponent,
+          ),
       },
       {
-        path:'',
-        redirectTo:'post',
-        pathMatch:'full'
-      }
-    ]
+        path: '',
+        redirectTo: 'post',
+        pathMatch: 'full',
+      },
+    ],
   },
 ];
-

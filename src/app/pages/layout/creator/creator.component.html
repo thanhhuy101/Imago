@@ -6,28 +6,58 @@
       </div>
       <div id="create-card">
         <div class="input_form-cover">
-          <app-images-carousel [isUploadImages]="isUploadImages" (uploadImagesEvent)="onChangeValue($event)"
-            (responseChangeEvent)="handleImageListChange($event)"></app-images-carousel>
+          <app-images-carousel
+            [isUploadImages]="isUploadImages"
+            (uploadImagesEvent)="onChangeValue($event)"
+            (responseChangeEvent)="handleImageListChange($event)"
+          ></app-images-carousel>
         </div>
         <div class="info_cover tui-space_bottom-4">
-          <tui-avatar  [autoColor]="true" [avatarUrl]="this.profile.photoUrl" size="xl"></tui-avatar>
+          <tui-avatar
+            [round]="true"
+            [src]="this.profile.photoUrl"
+            size="xl"
+          ></tui-avatar>
           <div class="info tui-space_left-4">
             <h6 class="tui-text_h6">{{ this.profile.userName }}</h6>
-            <p class="tui-text_body-s-2">{{createAt}}</p>
+            <p class="tui-text_body-s-2">{{ createAt | date: "medium" }}</p>
           </div>
         </div>
 
-        <div class="status-cover" [tuiTextfieldCleaner]="true" [tuiTextfieldLabelOutside]="true">
-          <tui-textarea [(ngModel)]="statusValue" class="field-medium" [expandable]="true" [maxLength]="200">
+        <div
+          class="status-cover"
+          [tuiTextfieldCleaner]="true"
+          [tuiTextfieldLabelOutside]="true"
+        >
+          <tui-textarea
+            [(ngModel)]="statusValue"
+            class="field-medium"
+            [expandable]="true"
+            [maxLength]="200"
+          >
             Status here...
           </tui-textarea>
         </div>
 
         <div class="cover-btn">
-          <button tuiButton type="button" appearance="flat" size="m" (click)="clearStatus()" class="tui-space_right-4">
+          <button
+            tuiButton
+            type="button"
+            appearance="flat"
+            size="m"
+            (click)="clearStatus()"
+            class="tui-space_right-4"
+          >
             Clear
           </button>
-          <button tuiButton type="button" appearance="accent" size="m" (click)="publicPost()" [disabled]="isDisabled">
+          <button
+            tuiButton
+            type="button"
+            appearance="accent"
+            size="m"
+            (click)="publicPost()"
+            [disabled]="isDisabled"
+          >
             Publish
           </button>
         </div>
@@ -39,30 +69,68 @@
       </div>
       <div id="preview-card">
         <div id="preview-img">
-          <tui-carousel [style.--tui-carousel-padding]="0" [draggable]="true" [(index)]="index" style="height: 95%">
+          <tui-carousel
+            [style.--tui-carousel-padding]="0"
+            [draggable]="true"
+            [(index)]="index"
+            style="height: 95%"
+          >
             <ng-container *ngFor="let image of imageList">
               <img class="imageItems" *tuiItem [src]="image" />
             </ng-container>
           </tui-carousel>
-          <tui-pagination style="height: 5%" size="s" class="tui-space_top-4" [index]="rounded"
-            [length]="imageList.length / itemsCount" (indexChange)="onIndex($event)"></tui-pagination>
+          <tui-pagination
+            style="height: 5%"
+            size="s"
+            class="tui-space_top-4"
+            [index]="rounded"
+            [length]="imageList.length / itemsCount"
+            (indexChange)="onIndex($event)"
+          ></tui-pagination>
         </div>
         <div class="info_cover">
-          <tui-avatar class="tui-space_top-1" [autoColor]="true" size="xl" [avatarUrl]="this.profile.photoUrl"></tui-avatar>
+          <tui-avatar
+            [round]="true"
+            [src]="this.profile.photoUrl"
+            size="xl"
+          ></tui-avatar>
           <div class="info tui-space_left-4">
             <h6 class="tui-text_h6">{{ this.profile.userName }}</h6>
-            <p class="tui-text_body-s-2">{{createAt}}</p>
+            <p class="tui-text_body-s-2">{{ createAt | date: "medium" }}</p>
           </div>
         </div>
         <div class="status-cover" *ngIf="statusValue != ''">
-          <tui-textarea [readOnly]="true" [(ngModel)]="statusValue" class="field-medium" [maxLength]="200"
-            [expandable]="true">
+          <tui-textarea
+            [readOnly]="true"
+            [(ngModel)]="statusValue"
+            class="field-medium"
+            [maxLength]="200"
+            [expandable]="true"
+          >
           </tui-textarea>
         </div>
         <div class="reactions tui-space_top-4">
-          <button tuiIconButton type="button" appearance="flat" icon="tuiIconHeartLarge" size="m"></button>
-          <button tuiIconButton type="button" appearance="flat" icon="tuiIconMessageCircleLarge" size="m"></button>
-          <button tuiIconButton type="button" appearance="flat" icon="tuiIconNavigationLarge" size="m"></button>
+          <button
+            tuiIconButton
+            type="button"
+            appearance="flat"
+            icon="tuiIconHeartLarge"
+            size="m"
+          ></button>
+          <button
+            tuiIconButton
+            type="button"
+            appearance="flat"
+            icon="tuiIconMessageCircleLarge"
+            size="m"
+          ></button>
+          <button
+            tuiIconButton
+            type="button"
+            appearance="flat"
+            icon="tuiIconNavigationLarge"
+            size="m"
+          ></button>
         </div>
       </div>
     </div>

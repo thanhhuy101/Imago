@@ -59,6 +59,13 @@ export class PeopleComponent implements OnInit, OnDestroy {
   currentUser: ProfileModel = <ProfileModel>{};
 
   constructor(private store: Store<{ profile: ProfileState }>) {
+    this.subscription.push(
+      this.store
+        .select((state) => state.profile.profileSearchResult)
+        .subscribe((res) => {
+          this.profiles = res;
+        }),
+    );
     this.$profiles.subscribe((value) => {
       this.profiles = value;
     });
@@ -84,16 +91,21 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   //create funciton to follow user
   followUser(otherId: string) {
-    console.log(otherId);
     this.store.dispatch(
       ProfileActions.follow({ id: this.currentUser.id, otherId }),
     );
+
+    this.currentUser.followers.forEach((follower) => {
+      if (follower === otherId) {
+        this.isFollowing = true;
+      }
+    });
   }
 
   //create function to unfollow user
   unFollowUser(otherId: string) {
     this.store.dispatch(
-      ProfileActions.unFollow({ id: this.currentUser.id, otherId }),
+      ProfileActions.unFollow({ otherId, id: this.currentUser.id }),
     );
   }
 }

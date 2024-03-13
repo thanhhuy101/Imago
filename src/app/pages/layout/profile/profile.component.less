@@ -1,0 +1,110 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+#profile-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .profile {
+    height: 30%;
+    width: 65%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .left,
+    .right {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      // justify-content: center;
+
+      h3,
+      h5 {
+        margin-block-start: 0.5rem;
+        margin-block-end: 0;
+      }
+
+      .user-info {
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .follow {
+        height: 30%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .left {
+      width: 60%;
+    }
+
+    .right {
+      width: 40%;
+      align-items: center;
+
+      .avatar {
+        height: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .edit-btn {
+        height: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .tabs {
+    height: 10%;
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .tabs-container {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+
+      button {
+        width: 33%;
+        margin-left: 0 !important;
+        padding-inline: 1.25rem;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
+  .content {
+    height: 60%;
+    width: 85%;
+  }
+}
+
+[data-size=xxl] {
+  --t-size: 8rem !important;
+}
+
+@media (max-width: 768px) {
+  #profile-container {
+    .profile {
+      height: 30%;
+      width: 85%;
+    }
+  }
+}

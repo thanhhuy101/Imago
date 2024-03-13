@@ -1,12 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ShareModule } from '../../../shared/share.module';
 import { TaigaModule } from '../../../shared/taiga.module';
-import {
-  TuiDialogContext,
-  TuiDialogService,
-  TuiSizeL,
-  TuiSizeS,
-} from '@taiga-ui/core';
+import { TuiDialogContext, TuiDialogService } from '@taiga-ui/core';
 import { TuiDataListDropdownManagerModule } from '@taiga-ui/kit';
 import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,30 +15,38 @@ import * as ReportAction from '../../../../ngrx/report/report.actions';
 import { Subscription } from 'rxjs';
 import { ImagesCarouselComponent } from '../creator/components/images-carousel/images-carousel.component';
 import { PostModel, PostResponse } from '../../../model/post.model';
-import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { IdToNamePipe } from '../../../shared/pipes/id-to-name.pipe';
+import { IdToAvatarPipe } from '../../../shared/pipes/id-to-avatar.pipe';
+
 @Component({
   selector: 'app-home',
   standalone: true,
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
   imports: [
     ShareModule,
     TaigaModule,
     TuiDataListDropdownManagerModule,
     ImagesCarouselComponent,
-    InfiniteScrollModule
+    IdToNamePipe,
+    IdToAvatarPipe,
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  currentIndex = 0;
   subscription: Subscription[] = [];
 
   token$ = this.store.select('auth', 'token');
 
   postList$ = this.store.select('post', 'postResponse');
-  postList = <PostResponse>{};
+  postList: PostModel[] = [];
 
-  itemsCount = 1;
+  itemsCount = 0;
+  selector: string = '.scroll-container';
+
+  currentPage = 1;
+  size = 10;
+  tempArr: PostModel[] = [];
+
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
@@ -54,41 +57,41 @@ export class HomeComponent implements OnInit, OnDestroy {
     }>,
   ) {}
 
-  index = 0;
-  currentPage = 1;
-
-  throttle = 1000;
-  scrollDistance = 3;
-  scrollUpDistance = 1;
-  size = 10;
-  onScrollDown(ev: any) {
-    console.log('scrolled down!!', ev);
-   
-    // this.store.dispatch(PostActions.getAll({page: this.currentPage, size: 2}));
-  }
-
   ngOnInit(): void {
     this.subscription.push(
-      this.postList$.subscribe((data: PostResponse) => {
-      
-        if (data.endPage > 0) {
-          this.postList = data;
-          console.log('postList', this.postList);
-        }
-      }),
       this.token$.subscribe((token) => {
         if (token) {
-          this.store.dispatch(PostActions.getAll({page: 1, size: 50}));
+          this.store.dispatch(
+            PostActions.getAll({ page: this.currentPage, size: this.size }),
+          );
         }
       }),
-     
-  );
-  
+
+      this.postList$.subscribe((data: PostResponse) => {
+        if (data.endPage > 0) {
+          this.tempArr = [...this.postList];
+
+          this.postList = [...this.tempArr, ...data.data];
+          this.itemsCount = data.endPage;
+        }
+      }),
+    );
   }
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
     this.store.dispatch(PostActions.clearGetState());
+  }
+
+  onScrollDown(ev: any) {
+    console.log('scrolled down!!', ev);
+    this.currentPage += 1;
+
+    if (this.currentPage <= this.itemsCount) {
+      this.store.dispatch(
+        PostActions.getAll({ page: this.currentPage, size: this.size }),
+      );
+    }
   }
 
   isLiked = false;
@@ -169,5 +172,4 @@ export class HomeComponent implements OnInit, OnDestroy {
       testValue7: new FormControl(false),
     });
   }
-
 }

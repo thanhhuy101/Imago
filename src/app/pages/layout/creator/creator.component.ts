@@ -20,7 +20,7 @@ import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { AuthCredentialModel } from '../../../model/auth.model';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { PostState } from '../../../../ngrx/post/post.state';
-import { PostModel } from '../../../model/post.model';
+import { DateTime, PostModel } from '../../../model/post.model';
 import { error } from '@angular/compiler-cli/src/transformers/util';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -43,12 +43,12 @@ export class CreatorComponent
   name: string = 'Lulu';
   statusValue: string = '';
   //createAt . date.now
-  createAt = new Date();
+  createAt = Date.now();
   index = 0;
   itemsCount = 1;
 
   isContentChanged = false;
-  profile: ProfileModel = <ProfileModel>{}
+  profile: ProfileModel = <ProfileModel>{};
   linkOfImage: string[] = [];
   storageState$ = this.store.select('storage', 'url');
   isCreateSuccess$ = this.store.select('post', 'isCreateSuccess');
@@ -59,11 +59,10 @@ export class CreatorComponent
   subscription: Subscription[] = [];
   uid = '';
 
- 
   constructor(
     private route: Router,
     private notificationService: NotificationService,
-    
+
     private store: Store<{
       storage: StorageState;
       auth: AuthState;
@@ -91,7 +90,9 @@ export class CreatorComponent
         if (url) {
           url.forEach((url: string) => {
             this.linkOfImage.push(url);
-            this.notificationService.successNotification('Upload image success');
+            this.notificationService.successNotification(
+              'Upload image success',
+            );
           });
           console.log('linkOfImage', this.linkOfImage);
         }
@@ -151,19 +152,37 @@ export class CreatorComponent
     hashtag: string[];
     remaining: string;
   } {
-    // Tách chuỗi thành mảng các từ
-    const words = inputString.split(' ');
+    // Tìm và tách các hashtag bằng biểu thức chính quy
+    const hashtagRegex = /#(\w+)/g;
+    const hashtags = [];
+    let remainingWords = [];
 
-    // Lọc ra các từ chứa dấu #
-    const hashtag = words.filter((word) => word.includes('#'));
-    const remainingWords = words.filter((word) => !word.includes('#'));
-    // Loại bỏ dấu # ở đầu từ và trả về kết quả
-    const hashtagsWithoutHash = hashtag.map((hashtag) =>
-      hashtag.replace('#', ''),
-    );
-    const remainingString = remainingWords.join(' ');
+    let match;
+    let lastIndex = 0;
 
-    return { hashtag: hashtagsWithoutHash, remaining: remainingString };
+    while ((match = hashtagRegex.exec(inputString)) !== null) {
+      // Lấy từng hashtag và từng từ còn lại của chuỗi
+      const hashtag = match[1];
+      const wordBeforeHashtag = inputString.substring(lastIndex, match.index);
+      lastIndex = hashtagRegex.lastIndex;
+
+      // Thêm từ còn lại vào mảng
+      if (wordBeforeHashtag.trim() !== '') {
+        remainingWords.push(wordBeforeHashtag.trim());
+      }
+
+      // Thêm hashtag vào mảng
+      hashtags.push(hashtag);
+    }
+
+    // Lấy từ còn lại sau hashtag cuối cùng
+    const remainingString = inputString.substring(lastIndex).trim();
+    if (remainingString !== '') {
+      remainingWords.push(remainingString);
+    }
+
+    // Trả về kết quả
+    return { hashtag: hashtags, remaining: remainingWords.join(' ') };
   }
 
   publicPost(): void {
@@ -178,11 +197,18 @@ export class CreatorComponent
       cateId: [],
       comments: [],
       creatorId: this.uid,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deletedAt: new Date(),
+      createdAt: <DateTime>{
+        _seconds: Date.now(),
+        _nanoseconds: new Date().getMilliseconds() * 1000000,
+      },
+      updatedAt: <DateTime>{},
+      deletedAt: <DateTime>{},
       id: this.uid.slice(0, 10) + Date.now().toString(),
     };
+    if (result.remaining == '') {
+      this.notificationService.errorNotification('Content cannot be empty');
+      return;
+    }
     console.log('newPost', newPost);
     this.store.dispatch(PostActions.create({ post: newPost }));
   }

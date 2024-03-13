@@ -55,12 +55,27 @@ export const getByIdFailure = createAction(
   props<{ getErrorMessageById: HttpErrorResponseModel }>(),
 );
 
+export const search = createAction(
+  '[Profile] Search',
+  props<{ query: string }>(),
+);
+export const searchSuccess = createAction(
+  '[Profile] Search Success',
+  props<{ profileSearchResult: ProfileModel[] }>(),
+);
+export const searchFailure = createAction(
+  '[Profile] Search Failure',
+  props<{ searchErrorMessage: HttpErrorResponseModel }>(),
+);
+
 export const clearMessages = createAction('[Profile] Clear Message');
 export const clearCreateState = createAction('[Profile] Clear Create State');
 
 export const clearUpdateState = createAction('[Profile] Clear Update State');
 
 export const clearGetState = createAction('[Profile] Clear Get State');
+
+export const clearSearchState = createAction('[Profile] Clear Search State');
 
 //follow
 export const follow = createAction(

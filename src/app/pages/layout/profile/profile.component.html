@@ -1,4 +1,4 @@
-<div class="main">
+<div id="profile-container">
   <div class="profile">
     <div class="left">
       <div class="information">
@@ -31,39 +31,50 @@
       </div>
     </div>
     <div class="right">
-      <div class="content">
-        <div class="avatar">
-          <!-- <tui-input-files accept="image/*" [multiple]="false" [formControl]="control" (reject)="onReject($event)"
-            style="border-radius: 46%;">
+      <div class="avatar">
+        <tui-avatar
+          [src]="profile.photoUrl"
+          [round]="false"
+          size="xxl"
+        ></tui-avatar>
+      </div>
 
-          </tui-input-files> -->
-          <img class="avatar-user" [src]="profile.photoUrl" alt="" />
-        </div>
-        <div class="framebtnEditProfile">
-          <button
-            tuiButton
-            appearance="outline"
-            size="m"
-            (click)="upLoadImage()"
-          >
-            Edit
-          </button>
-        </div>
+      <div class="edit-btn">
+        <button tuiButton appearance="outline" size="m" (click)="openDialog()">Edit</button>
       </div>
     </div>
   </div>
-  <tui-tabs tuiMobileTabs [(activeItemIndex)]="activeItemIndex">
-    <button
-      *ngFor="let item of items; let i = index"
-      tuiRipple="var(--tui-text-01)"
-      tuiTab
-      class="post"
-      (click)="onChangePage(i)"
-    >
-      {{ item.text }}
-    </button>
-  </tui-tabs>
-  <router-outlet></router-outlet>
+  <div class="tabs">
+    <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
+      <button
+        [disabled]="activeItemIndex === 0"
+        [routerLink]="['post']"
+        routerLinkActive
+        tuiTab
+      >
+        Posts
+      </button>
+      <button
+        [disabled]="activeItemIndex === 1"
+        [routerLink]="['share']"
+        routerLinkActive
+        tuiTab
+      >
+        Share
+      </button>
+      <button
+        [disabled]="activeItemIndex === 2"
+        [routerLink]="['mention']"
+        routerLinkActive
+        tuiTab
+      >
+        Mentor
+      </button>
+    </tui-tabs>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 <ng-template

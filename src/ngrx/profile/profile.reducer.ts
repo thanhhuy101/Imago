@@ -21,9 +21,15 @@ export const initialState: ProfileState = {
 
   isGettingById: false,
   getErrorMessageById: <HttpErrorResponseModel>{},
+
+  profileSearchResult: [],
+  isSearching: false,
+  searchErrorMessage: <HttpErrorResponseModel>{},
+
   isFollowing: false,
   isFollowSuccess: false,
   followErrorMessage: <HttpErrorResponseModel>{},
+
   isUnFollowing: false,
   isUnFollowSuccess: false,
   unFollowErrorMessage: <HttpErrorResponseModel>{},
@@ -60,7 +66,6 @@ export const profileReducer = createReducer(
       };
     },
   ),
-
   // updateMine
   on(ProfileActions.updateMine, (state, { type }) => {
     console.log(type);
@@ -89,7 +94,6 @@ export const profileReducer = createReducer(
       };
     },
   ),
-
   // getMine
   on(ProfileActions.getMine, (state, { type }) => {
     console.log(type);
@@ -114,7 +118,6 @@ export const profileReducer = createReducer(
       isGetting: false,
     };
   }),
-
   // getList
   on(ProfileActions.getList, (state, { type }) => {
     console.log(type);
@@ -139,7 +142,6 @@ export const profileReducer = createReducer(
       isGetting: false,
     };
   }),
-
   // getById
   on(ProfileActions.getById, (state, { type }) => {
     console.log(type);
@@ -164,7 +166,6 @@ export const profileReducer = createReducer(
       isGetting: false,
     };
   }),
-
   // clearMessages
   on(ProfileActions.clearMessages, (state) => {
     return {
@@ -175,7 +176,6 @@ export const profileReducer = createReducer(
       getErrorMessageById: <HttpErrorResponseModel>{},
     };
   }),
-
   // clearCreateState
   on(ProfileActions.clearCreateState, (state) => {
     return {
@@ -184,7 +184,6 @@ export const profileReducer = createReducer(
       isCreateSuccess: false,
     };
   }),
-
   // clearUpdateState
   on(ProfileActions.clearUpdateState, (state) => {
     return {
@@ -193,7 +192,6 @@ export const profileReducer = createReducer(
       isUpdateSuccess: false,
     };
   }),
-
   // clearGetState
   on(ProfileActions.clearGetState, (state) => {
     return {
@@ -203,7 +201,40 @@ export const profileReducer = createReducer(
       profile: <ProfileModel>{},
     };
   }),
-
+  // search
+  on(ProfileActions.search, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isSearching: true,
+      profileSearchResult: [],
+      searchErrorMessage: <HttpErrorResponseModel>{},
+    };
+  }),
+  on(ProfileActions.searchSuccess, (state, { profileSearchResult, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      profileSearchResult: profileSearchResult,
+      isSearching: false,
+    };
+  }),
+  on(ProfileActions.searchFailure, (state, { searchErrorMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      searchErrorMessage: searchErrorMessage,
+      isSearching: false,
+    };
+  }),
+  on(ProfileActions.clearSearchState, (state) => {
+    return {
+      ...state,
+      profileSearchResult: [],
+      isSearching: false,
+      searchErrorMessage: <HttpErrorResponseModel>{},
+    };
+  }),
   // follow
   on(ProfileActions.follow, (state) => {
     return {
