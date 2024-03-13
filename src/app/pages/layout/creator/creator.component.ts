@@ -28,11 +28,11 @@ import { ProfileModel } from '../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 import { DateToStringPipe } from "../../../shared/pipes/date-to-string.pipe";
-import { TuiAvatarModule } from '@taiga-ui/kit';
+
 @Component({
   selector: 'app-creator',
   standalone: true,
-  imports: [TaigaModule, ShareModule, ImagesCarouselComponent, DateToStringPipe, TuiAvatarModule],
+  imports: [TaigaModule, ShareModule, ImagesCarouselComponent, DateToStringPipe],
   templateUrl: './creator.component.html',
   styleUrl: './creator.component.less',
   encapsulation: ViewEncapsulation.None,
