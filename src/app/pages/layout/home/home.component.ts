@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       auth: AuthState;
       report: ReportState;
     }>,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.subscription.push(
