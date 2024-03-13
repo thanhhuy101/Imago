@@ -52,6 +52,7 @@ export class InterestComponent implements OnInit, OnDestroy {
 
   // category
   categories: CategoryModel[] = [];
+  haveCategories = false;
 
   //carousel
   page = 1;
@@ -62,7 +63,7 @@ export class InterestComponent implements OnInit, OnDestroy {
 
   // items
   selectedItems: any = [];
-
+  countSelected = 0;
   profile: ProfileModel = {
     email: '',
     userName: '',
@@ -162,14 +163,26 @@ export class InterestComponent implements OnInit, OnDestroy {
   }
 
   toggleActive(item: any) {
+
     item.isActive = !item.isActive;
     if (item.isActive) {
+
       this.selectedItems.push(item);
+      this.countSelected++;
+
     } else {
+      this.countSelected--;
       this.selectedItems = this.selectedItems.filter(
         (i: any) => i.title !== item.title,
       );
     }
+
+    if (this.selectedItems.length > 0) {
+      this.haveCategories = true;
+    } else {
+      this.haveCategories = false;
+    }
+
   }
 
   mappingCategory(categories: any, page: number) {
@@ -213,6 +226,8 @@ export class InterestComponent implements OnInit, OnDestroy {
   }
 
   next() {
+
+
     let listCategory = this.selectedItems.map((item: any) => item.id);
 
     let profile: ProfileModel = {

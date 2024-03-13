@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ShareModule } from '../../../../../shared/share.module';
 import { TaigaModule } from '../../../../../shared/taiga.module';
-import { TuiBadgedContentComponent } from '@taiga-ui/kit';
+import { TuiAvatarModule, TuiBadgedContentComponent } from '@taiga-ui/kit';
 import { Store } from '@ngrx/store';
 import { NotiState } from '../../../../../../ngrx/noti/noti.state';
 import { AuthState } from '../../../../../../ngrx/auth/auth.state';

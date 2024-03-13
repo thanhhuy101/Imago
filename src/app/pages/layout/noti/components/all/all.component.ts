@@ -11,6 +11,7 @@ import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { NotiModel } from '../../../../../model/noti.model';
 import { IdToNamePipe } from '../../../../../shared/pipes/id-to-name.pipe';
 import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
+import { set } from '@angular/fire/database';
 
 type Notification = {
   name: string;
@@ -73,7 +74,8 @@ export class AllComponent implements OnInit, OnDestroy {
 
       this.isGettingNotifications$.subscribe((loading) => {
         if (loading) {
-          this.isLoading = true;
+          setTimeout(() => { this.isLoading = true; }, 1000)
+
         }
       }),
 
@@ -100,10 +102,6 @@ export class AllComponent implements OnInit, OnDestroy {
 
   processNotifications(notifications: NotiModel[]): void {
     notifications.forEach((notification) => {
-      // calculate time difference between now and the time the notification was created in hours
-      // if > 24 hour then show the date instead
-      // if < 0 hour then show the minutes instead
-
       const time = new Date(notification.createdAt).getTime();
       const now = new Date().getTime();
       const diff = now - time;

@@ -10,6 +10,10 @@
           <p class="cate-des">
             Select categories which you want to explore on your own.
           </p>
+          <p class="cate-des">
+            Number of categories you have select:
+            <span class="inclinations">{{ countSelected }}</span>
+          </p>
         </div>
       </div>
       <div class="main">
@@ -49,7 +53,8 @@
       <tui-pagination size="s" class="tui-space_top-4" [index]="rounded" [length]="6"
         (indexChange)="onIndex($event)"></tui-pagination>
       <div class="footer">
-        <button tuiButton type="button" class="tui-space_right-3" size="m" (click)="next()">
+        <button tuiButton type="button" class="tui-space_right-3" size="m" (click)="next()"
+          [disabled]="!haveCategories">
           Next
         </button>
       </div>

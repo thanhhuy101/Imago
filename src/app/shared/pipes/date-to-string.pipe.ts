@@ -6,8 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DateToStringPipe implements PipeTransform {
 
-  transform(date: Date): string {
-    return 'on ' + date.getDate() + ' ' + date.toLocaleString('default', { month: 'short' }) + ' ' + date.getFullYear();
+  transform(date: number): string {
+
+    // return date.getDate() + ' ' + date.toLocaleString('default', { month: 'short' }) + ' ' + date.getFullYear();
+    return new Date(date).toLocaleDateString();
+
   }
 
 }
