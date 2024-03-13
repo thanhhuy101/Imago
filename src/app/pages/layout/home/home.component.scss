@@ -18,7 +18,10 @@
   width: 85%;
   height: fit-content;
   columns: 3;
+
 }
+
+
 
 .post {
   width: 100%;
@@ -61,11 +64,24 @@
 .picture1 {
   object-fit: cover;
   width: 100%;
-  height: 50vh;
+  height: fit-content;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
+.pictureDetail {
+  object-fit: contain;
+  width: 100%;
+  height: 100%  ;
+ border-radius: 12px;
+
+}
+.reaction_button{
+  cursor: pointer;
+}
+.reaction_button:hover{
+  background-color: #e6e6e6;
+}
 @media (max-width: 4000px) {
   .allPost {
     width: 85%;
@@ -179,11 +195,13 @@
 }
 
 .avatar-user {
+  
   width: 80px;
   height: 80px;
 }
 
 .avatar {
+  object-fit: cover;
   width: 100%;
   height: 100%;
   border-radius: 17px;
@@ -289,6 +307,13 @@
   justify-content: space-between;
 }
 
+.carousel-image{
+  width: 100%;
+  height: 100%;
+  
+
+}
+
 .checkbox {
   margin: 20px 0;
 }
@@ -327,14 +352,18 @@
 
 .postDetail {
   display: flex;
-  width: 1100px;
+  width: 60vw;
 
   .left {
-    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
   }
 
   .right {
-    width: 50%;
+    width: 40%;
     height: 100%;
   }
 
@@ -343,20 +372,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 537px;
+    height: 100%;
   }
 }
 
 .detail-dialog {
-  width: 537px;
-  height: 537px;
+  width: 100%;
+ 
 }
 
-.img-dialog {
-  width: 100%;
-  height: 90%;
-  object-fit: cover;
-}
+
 
 @media screen and (max-width: 1200px) {
   .postDetail {

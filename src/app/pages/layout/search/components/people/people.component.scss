@@ -1,8 +1,21 @@
 .main-empty {
+  height: 80vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 0 6rem;
-  margin-top: 5rem;
+
+}
+
+.tui-text_body-xl{
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 2rem;
+}
+.search_icon{
+  width:  5rem;
+  height: 5rem;
 }
 .main{
   display: flex;

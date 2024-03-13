@@ -149,11 +149,12 @@ export class ImagesCarouselComponent implements OnInit {
       );
       this.files = [];
     });
+    this.uploadImagesEvent.emit(false);
   }
 
   onUploadImage(event: any) {
     // console.log('event', event);
-    this.uploadImagesEvent.emit(false);
+ 
   }
 }
 
