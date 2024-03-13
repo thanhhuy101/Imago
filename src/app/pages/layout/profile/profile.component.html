@@ -29,7 +29,14 @@
       </div>
 
       <div class="edit-btn">
-        <button tuiButton appearance="outline" size="m">Edit</button>
+        <button
+          tuiButton
+          appearance="outline"
+          size="m"
+          (click)="toggleDialog(true)"
+        >
+          Edit
+        </button>
       </div>
     </div>
   </div>
@@ -66,31 +73,134 @@
   </div>
 </div>
 
-<ng-template
-  [tuiDialogOptions]="{ label: 'Update profile', size: 's' }"
-  [(tuiDialog)]="this.openAddDialog"
->
-  <form [formGroup]="updateForm" (ngSubmit)="submit()">
-    <p>
-      <tui-input formControlName="userName">User Name</tui-input>
-    </p>
-    <p>
-      <tui-input formControlName="firstName">First Name</tui-input>
-    </p>
-    <p>
-      <tui-input formControlName="lastName">Last Name</tui-input>
-    </p>
-    <p>
-      <tui-input formControlName="bio">Bio</tui-input>
-    </p>
-    <p>
-      <tui-input formControlName="photoUrl">Link Image</tui-input>
-    </p>
-    <p style="display: flex; justify-content: space-between">
-      <button tuiButton size="m" type="submit">Update</button>
-      <button tuiButton size="m" type="submit" (click)="closeDialog()">
-        Cancel
-      </button>
-    </p>
+<ng-template [tuiDialogOptions]="{ size: 'm' }" [(tuiDialog)]="this.openDialog">
+  <form [formGroup]="updateForm">
+    <div class="tui-row tui-row_sme">
+      <div class="tui-col_12">
+        <h4
+          class="tui-form__header tui-form__header_margin-top_none tui-form__header_margin-bottom_small tui-text_h4"
+        >
+          Update Profile
+        </h4>
+
+        <tui-avatar
+          [src]="this.photoUrl"
+          [round]="false"
+          size="xxl"
+        ></tui-avatar>
+
+        <div class="tui-form__row">
+          <tui-input-files
+            (reject)="onReject($event)"
+            *ngIf="!imageControl.value"
+            [formControl]="imageControl"
+            [label]="'có kích thước <= 3MB'"
+            [link]="'Đăng tải ảnh đại diện'"
+            accept="image/*"
+          ></tui-input-files>
+
+          <tui-files [max]="1" class="tui-space_top-1">
+            <tui-file
+              (removed)="removeFile()"
+              *ngIf="loadedFiles$ | async as file"
+              [file]="file"
+              [showDelete]="imageControl.enabled"
+              [size]="'l'"
+            ></tui-file>
+
+            <tui-file
+              (removed)="clearRejected()"
+              *ngIf="rejectedFiles$ | async as file"
+              [file]="file"
+              [showDelete]="imageControl.enabled"
+              state="error"
+            ></tui-file>
+
+            <tui-file
+              *ngIf="loadingFiles$ | async as file"
+              [file]="file"
+              [showDelete]="imageControl.enabled"
+              state="loading"
+            ></tui-file>
+          </tui-files>
+        </div>
+
+        <div class="tui-form__row">
+          <label tuiLabel="Username">
+            <tui-input
+              formControlName="userName"
+              tuiTextfieldSize="m"
+              [tuiTextfieldCleaner]="true"
+              [tuiTextfieldLabelOutside]="true"
+            >
+              <input tuiTextfield />
+            </tui-input>
+            <tui-error
+              formControlName="userName"
+              [error]="[] | tuiFieldError | async"
+            ></tui-error>
+          </label>
+        </div>
+        <div class="tui-form__row">
+          <label tuiLabel="Last name">
+            <tui-input
+              formControlName="lastName"
+              tuiTextfieldSize="m"
+              [tuiTextfieldCleaner]="true"
+              [tuiTextfieldLabelOutside]="true"
+            >
+              <input tuiTextfield />
+            </tui-input>
+            <tui-error
+              formControlName="lastName"
+              [error]="[] | tuiFieldError | async"
+            ></tui-error>
+          </label>
+        </div>
+        <div class="tui-form__row">
+          <label tuiLabel="First name">
+            <tui-input
+              formControlName="firstName"
+              tuiTextfieldSize="m"
+              [tuiTextfieldCleaner]="true"
+              [tuiTextfieldLabelOutside]="true"
+            >
+              <input tuiTextfield />
+            </tui-input>
+            <tui-error
+              formControlName="firstName"
+              [error]="[] | tuiFieldError | async"
+            ></tui-error>
+          </label>
+        </div>
+        <div class="tui-form__row">
+          <label tuiLabel="Bio">
+            <tui-textarea
+              formControlName="bio"
+              class="field-medium"
+              [expandable]="true"
+              [maxLength]="100"
+            >
+            </tui-textarea>
+            <tui-error
+              formControlName="bio"
+              [error]="[] | tuiFieldError | async"
+            ></tui-error>
+          </label>
+        </div>
+
+        <div class="tui-form__buttons tui-form__buttons_align_center">
+          <button
+            tuiButton
+            appearance="accent"
+            size="l"
+            type="submit"
+            (click)="saveChanges()"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
   </form>
 </ng-template>
