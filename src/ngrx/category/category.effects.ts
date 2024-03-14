@@ -28,4 +28,20 @@ export class CategoryEffect {
       }),
     );
   });
+
+  getAllCategories$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(CategoryActions.getAllCategoryList),
+      switchMap(() => {
+        return this.categoryService.getAllCategories().pipe(
+          map((response) => {
+            return CategoryActions.getAllSuccess({ categoriesAll: response });
+          }),
+          catchError((error) => {
+            return of(CategoryActions.getAllFailure({ error }));
+          }),
+        );
+      }),
+    );
+  });
 }

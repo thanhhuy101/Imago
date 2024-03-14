@@ -19,4 +19,7 @@ export class CategoryService {
   uploadUserCategory(category: CategoryModel) {
     return this.httpClient.post('category', category);
   }
+  getAllCategories() {
+    return this.httpClient.get('category/all-categories');
+  }
 }
