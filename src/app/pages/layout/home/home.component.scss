@@ -397,7 +397,7 @@
   .userInforDetail{
     display: flex;
     flex-direction: row;
-   
+    margin-bottom: 8px;
   }
   .infoDetail {
     display: flex;
@@ -412,12 +412,12 @@
     .dateDetail {
       margin-left: 0.5rem;
       color: rgba(0, 0, 0, 0.5);
-      font-size: 0.7rem;
+      font-size: 1rem;
     }
     
   }
   .commentContent{
-    font-size: 0.9rem;
+    font-size: 1.15rem;
     word-wrap: break-word;
     margin-left: 0.5rem;
     padding: 0 0.6875rem 0 0  ;
@@ -588,5 +588,24 @@
       display: flex !important;
       flex-direction: column !important;
     }
+  }
+}
+
+.comment-place{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  tui-input{
+    width: 85%;
+    background-color: #262626;
+    color: white;
+  }
+
+  tui-input:active{
+    background-color: white;
+    color: #262626;
   }
 }

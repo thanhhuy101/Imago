@@ -3,6 +3,7 @@ export interface CommentModel {
   content: string;
   postId: string;
   authorId: string;
+  createdAt?: string;
 }
 
 export interface CommentResponseModel {
