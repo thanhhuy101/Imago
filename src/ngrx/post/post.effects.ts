@@ -67,6 +67,20 @@ export class PostEffect {
     ),
   );
 
+  getOne$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.getOne),
+      switchMap((action) =>
+        this.postService.getOne(action.id).pipe(
+          map((postDetail) => PostActions.getOneSuccess({ postDetail })),
+          catchError((error) =>
+            of(PostActions.getOneFailure({ errorGetOneMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
   getWithUserId$ = createEffect(() =>
     this.action$.pipe(
       ofType(PostActions.getWithUserId),

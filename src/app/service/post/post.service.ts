@@ -18,6 +18,10 @@ export class PostService {
     );
   }
 
+  getOne(id: string) {
+    return this.httpClient.get(`post?id=${id}`);
+  }
+
   create(post: PostModel) {
     return this.httpClient.post('post', post);
   }

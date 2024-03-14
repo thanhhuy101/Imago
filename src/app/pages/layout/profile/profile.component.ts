@@ -63,6 +63,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   activeItemIndex = 0;
 
   loader = false;
+  isMine = false;
 
   queryParams$ = this.activatedRoute.queryParams;
 
@@ -148,22 +149,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.isGetByIdSuccess$,
       ])
         .pipe(
-          filter(
-            ([
-              params,
-              token,
-              mine,
-              profile,
-              isGetMineSuccess,
-              isGetByIdSuccess,
-            ]) => Boolean(token && isGetMineSuccess),
+          filter(([token, isGetMineSuccess]) =>
+            Boolean(token && isGetMineSuccess),
           ),
         )
         .subscribe(([params, , mine, profile, , isGetByIdSuccess]) => {
           if (mine.id === params['uid']) {
             this.setProfileData(mine);
+            this.isMine = true;
           } else if (isGetByIdSuccess) {
             this.setProfileData(profile);
+            this.isMine = false;
           } else if (!profile.id) {
             this.store.dispatch(ProfileActions.getById({ id: params['uid'] }));
           }

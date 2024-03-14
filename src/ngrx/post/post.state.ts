@@ -18,6 +18,9 @@ export interface PostState {
   isDeleteSuccess: boolean;
   deleteErrorMessage: HttpErrorResponseModel;
 
+  isGettingOne: boolean;
+  errorGetOneMessage: HttpErrorResponseModel;
+
   isGettingAll: boolean;
   errorGetAllMessage: HttpErrorResponseModel;
 

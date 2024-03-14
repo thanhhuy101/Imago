@@ -58,14 +58,16 @@
         </div>
 
         <div class="edit-btn">
-          <button
-            tuiButton
-            appearance="outline"
-            size="m"
-            (click)="toggleDialog(true)"
-          >
-            Edit
-          </button>
+          @if (isMine) {
+            <button
+              tuiButton
+              appearance="outline"
+              size="m"
+              (click)="toggleDialog(true)"
+            >
+              Edit
+            </button>
+          }
         </div>
       </div>
     </div>

@@ -60,6 +60,16 @@ export const getWithUserIdFailure = createAction(
   props<{ errorGetWithUserIdMessage: HttpErrorResponseModel }>(),
 );
 
+export const getOne = createAction('[Post] Get One', props<{ id: string }>());
+export const getOneSuccess = createAction(
+  '[Post] Get One Success',
+  props<{ postDetail: PostModel }>(),
+);
+export const getOneFailure = createAction(
+  '[Post] Get One Failure',
+  props<{ errorGetOneMessage: HttpErrorResponseModel }>(),
+);
+
 export const getMine = createAction(
   '[Post] Get Mine',
   props<{ page: number; size: number }>(),

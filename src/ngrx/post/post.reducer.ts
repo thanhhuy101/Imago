@@ -24,6 +24,9 @@ const initialState: PostState = {
   isGettingAll: false,
   errorGetAllMessage: <HttpErrorResponseModel>{},
 
+  isGettingOne: false,
+  errorGetOneMessage: <HttpErrorResponseModel>{},
+
   isGettingWithUserId: false,
   errorGetWithUserIdMessage: <HttpErrorResponseModel>{},
 
@@ -116,6 +119,31 @@ export const postReducer = createReducer(
       ...state,
       isDeleting: false,
       deleteErrorMessage: deleteErrorMessage,
+    };
+  }),
+
+  // Get One
+  on(PostActions.getOne, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingOne: true,
+    };
+  }),
+  on(PostActions.getOneSuccess, (state, { postDetail, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingOne: false,
+      postDetail: postDetail,
+    };
+  }),
+  on(PostActions.getOneFailure, (state, { errorGetOneMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingOne: false,
+      errorGetOneMessage: errorGetOneMessage,
     };
   }),
 

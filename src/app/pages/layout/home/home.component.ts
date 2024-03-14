@@ -52,15 +52,22 @@ type Comment = {
 export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   index = 0;
-  token$ = this.store.select('auth', 'token');
   disabled = true;
   loader = false;
+  postList: PostModel[] = [];
+  postDetail: PostModel = <PostModel>{};
+
+  postDetail$ = this.store.select('post', 'postDetail');
+  errorGetOneMessage$ = this.store.select('post', 'errorGetOneMessage');
+
+  token$ = this.store.select('auth', 'token');
+
   isGetting$ = this.store.select('post', 'isGettingAll');
   postList$ = this.store.select('post', 'postResponse');
-  postList: PostModel[] = [];
 
   profileState$ = this.store.select('profile', 'profile');
   profile: ProfileModel = <ProfileModel>{};
+
   itemsCount = 0;
   selector: string = '.scroll-container';
 
@@ -122,13 +129,26 @@ export class HomeComponent implements OnInit, OnDestroy {
       }),
 
       this.commentList$.subscribe((comments) => {
-        let data = (comments as any).data;
-        for (let i = 0; i < data.length; i++) {
-          this.comments.push({
-            authorId: data[i].authorId,
-            content: data[i].content,
-            createdAt: data[i].createdAt!,
-          });
+        if (comments.length > 0) {
+          let data = (comments as any).data;
+          for (let i = 0; i < data.length; i++) {
+            this.comments.push({
+              authorId: data[i].authorId,
+              content: data[i].content,
+              createdAt: data[i].createdAt!,
+            });
+          }
+        }
+      }),
+
+      this.postDetail$.subscribe((data) => {
+        if (data.id) {
+          this.postDetail = data;
+          this.open = true;
+          this.comments = [];
+          this.store.dispatch(
+            CommentActions.getComments({ postId: data.id, page: 1 }),
+          );
         }
       }),
     );
@@ -158,29 +178,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.dialogsReport.open(content).subscribe();
   }
 
-  showDialogDetail(
-    content: PolymorpheusContent<TuiDialogContext>,
-    item: any,
-  ): void {
-    this.dialogsDetail.open(content, { size: 'auto' }).subscribe();
+  open = false;
 
-    // clear comments
-    this.comments = [];
-
-    this.store.dispatch(
-      CommentActions.getComments({ postId: item.id, page: 1 }),
-    );
+  showDialog(id: string): void {
+    if (id) {
+      this.store.dispatch(PostActions.getOne({ id: id }));
+    }
   }
 
   goToProfile(id: string) {
     if (id) {
+      if (this.open) {
+        this.open = false;
+      }
+
       this.router
         .navigate(['/profile/post'], { queryParams: { uid: id } })
         .then((value) => {
           this.store.dispatch(ProfileActions.getById({ id: id }));
-          // this.store.dispatch(
-          //   PostActions.getWithUserId({ creatorId: id, page: 1, size: 10 }),
-          // );
         });
     }
   }
