@@ -36,6 +36,9 @@ export class InterestComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   isLoading = false;
   loader = false;
+  isSelectAll = false;
+  isGetSuccess = false;
+
   // observable
   token$ = this.store.select('auth', 'token');
   getCategoriesSucces$ = this.store.select(
@@ -47,7 +50,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     'isGettingCategoryList',
   );
   categories$ = this.store.select('category', 'categories');
-
+  categoriesAllSuccess$ = this.store.select('category', 'allCategories');
   isGetProfileSuccess$ = this.store.select('profile', 'profile');
 
   isUpdatingProfile$ = this.store.select('profile', 'isUpdating');
@@ -56,7 +59,7 @@ export class InterestComponent implements OnInit, OnDestroy {
   // category
   categories: CategoryModel[] = [];
   haveCategories = false;
-
+  allCategories: CategoryModel[] = [];
   //carousel
   page = 1;
   index = 0;
@@ -178,6 +181,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     item.isActive = !item.isActive;
     if (item.isActive) {
       this.selectedItems.push(item);
+      console.log('item', item);
       this.countSelected++;
     } else {
       this.countSelected--;
@@ -243,6 +247,50 @@ export class InterestComponent implements OnInit, OnDestroy {
       this.store.dispatch(ProfileActions.updateMine({ mine: profile }));
     } else {
       this.alertService.errorNotification('Please select at least 1 category');
+    }
+  }
+
+  selectAllItems() {
+    this.store.dispatch(CategoryActions.getAllCategoryList());
+    this.subscription.push(
+      this.categoriesAllSuccess$.subscribe((category) => {
+        if (category) {
+          this.selectedItems = category;
+          this.haveCategories = true;
+        }
+      }),
+    );
+    this.countSelected = 60;
+    this.items.forEach((item) => {
+      item.isActive = true;
+      if (this.items.length < 30) {
+      }
+    });
+
+    this.secondaryItems.forEach((item) => {
+      item.isActive = true;
+    });
+
+    this.isSelectAll = true;
+  }
+
+  unselectAllItems() {
+    this.selectedItems = [];
+    this.countSelected = 0;
+    this.items.forEach((item) => {
+      item.isActive = false;
+    });
+
+    this.secondaryItems.forEach((item) => {
+      item.isActive = false;
+    });
+
+    this.isSelectAll = false;
+
+    if (this.selectedItems.length > 0) {
+      this.haveCategories = true;
+    } else {
+      this.haveCategories = false;
     }
   }
 }

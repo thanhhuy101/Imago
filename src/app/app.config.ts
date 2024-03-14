@@ -28,6 +28,8 @@ import { categoryReducer } from '../ngrx/category/category.reducer';
 import { CategoryEffect } from '../ngrx/category/category.effects';
 import { notiReducer } from '../ngrx/noti/noti.reducer';
 import { NotiEffect } from '../ngrx/noti/noti.effects';
+import { commentReducer } from '../ngrx/comment/comment.reducer';
+import { CommentEffect } from '../ngrx/comment/comment.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -49,6 +51,7 @@ export const appConfig: ApplicationConfig = {
     provideState({ name: 'storage', reducer: storageReducer }),
     provideState({ name: 'category', reducer: categoryReducer }),
     provideState({ name: 'notification', reducer: notiReducer }),
+    provideState({ name: 'comment', reducer: commentReducer }),
     provideEffects([
       AuthEffects,
       PostEffect,
@@ -57,6 +60,7 @@ export const appConfig: ApplicationConfig = {
       StorageEffects,
       ProfileEffect,
       NotiEffect,
+      CommentEffect,
     ]),
     provideHttpClient(),
     HttpClientAuth,

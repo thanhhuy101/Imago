@@ -13,6 +13,17 @@ import { NotiState } from '../../../../../../ngrx/noti/noti.state';
 import { or } from '@firebase/firestore';
 import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 
+type User = {
+  id: string;
+  userName: string;
+  firstName: string;
+  lastName: string;
+  photoUrl: string;
+  followers: string[];
+  followed: boolean;
+  numberOfFollowers: number;
+};
+
 @Component({
   selector: 'app-people',
   standalone: true,
@@ -21,18 +32,7 @@ import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
   styleUrl: './people.component.scss',
 })
 export class PeopleComponent implements OnInit, OnDestroy {
-  peoples = [
-    {
-      id: '',
-      userName: '',
-      firstName: '',
-      lastName: '',
-      photoUrl: '',
-      followers: [] as string[],
-      followed: false,
-      numberOfFollowers: 0,
-    },
-  ];
+  peoples: User[] = [];
   subscription: Subscription[] = [];
   loader = false;
   followed = true;
@@ -115,9 +115,6 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   //create funciton to follow user
   followUser(user: any, otherId: string) {
-    this.store.dispatch(
-      ProfileActions.follow({ id: this.currentUser.id, otherId }),
-    );
     const profile = this.profiles.find((p) => p.id === otherId);
     if (profile) {
       this.notificationService.successNotification(
@@ -140,8 +137,14 @@ export class PeopleComponent implements OnInit, OnDestroy {
     user.numberOfFollowers++;
 
     this.store.dispatch(
+      ProfileActions.follow({ id: this.currentUser.id, otherId: user.id }),
+    );
+
+    this.store.dispatch(
       NotificationActions.createNotification({ notification: newNotification }),
     );
+
+    ProfileActions.clearUpdateState();
   }
 
   //create function to unfollow user

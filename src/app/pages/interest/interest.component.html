@@ -86,6 +86,27 @@
         (indexChange)="onIndex($event)"
       ></tui-pagination>
       <div class="footer">
+        @if (!isSelectAll) {
+          <button
+            tuiButton
+            type="button"
+            class="tui-space_right-3"
+            size="m"
+            (click)="selectAllItems()"
+          >
+            Select all
+          </button>
+        } @else {
+          <button
+            tuiButton
+            type="button"
+            class="tui-space_right-3"
+            size="m"
+            (click)="unselectAllItems()"
+          >
+            Deselect all
+          </button>
+        }
         <button
           tuiButton
           type="button"
