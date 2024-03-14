@@ -5,6 +5,7 @@ import { PostState } from './post.state';
 import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 const initialState: PostState = {
+  minePost: <PostResponse>{},
   postResponse: <PostResponse>{},
   postDetail: <PostModel>{},
 
@@ -22,6 +23,9 @@ const initialState: PostState = {
 
   isGettingAll: false,
   errorGetAllMessage: <HttpErrorResponseModel>{},
+
+  isGettingWithUserId: false,
+  errorGetWithUserIdMessage: <HttpErrorResponseModel>{},
 
   isGettingMine: false,
   errorGetMineMessage: <HttpErrorResponseModel>{},
@@ -140,6 +144,34 @@ export const postReducer = createReducer(
     };
   }),
 
+  // Get With User Id
+  on(PostActions.getWithUserId, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingWithUserId: true,
+    };
+  }),
+  on(PostActions.getWithUserIdSuccess, (state, { postResponse, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingWithUserId: false,
+      postResponse: postResponse,
+    };
+  }),
+  on(
+    PostActions.getWithUserIdFailure,
+    (state, { errorGetWithUserIdMessage, type }) => {
+      console.log(type);
+      return {
+        ...state,
+        isGettingWithUserId: false,
+        errorGetWithUserIdMessage: errorGetWithUserIdMessage,
+      };
+    },
+  ),
+
   // Get Mine
   on(PostActions.getMine, (state, { type }) => {
     console.log(type);
@@ -148,12 +180,12 @@ export const postReducer = createReducer(
       isGettingMine: true,
     };
   }),
-  on(PostActions.getMineSuccess, (state, { postResponse, type }) => {
+  on(PostActions.getMineSuccess, (state, { minePost, type }) => {
     console.log(type);
     return {
       ...state,
       isGettingMine: false,
-      postResponse: postResponse,
+      minePost: minePost,
     };
   }),
   on(PostActions.getMineFailure, (state, { errorGetMineMessage, type }) => {
@@ -267,7 +299,9 @@ export const postReducer = createReducer(
     console.log(type);
     return {
       ...state,
+      minePost: <PostResponse>{},
       postResponse: <PostResponse>{},
+      postDetail: <PostModel>{},
       isGettingAll: false,
       isGettingMine: false,
       isGettingByShare: false,

@@ -72,12 +72,15 @@
   height: 100%;
   border-radius: 12px;
 }
+
 .reaction_button {
   cursor: pointer;
 }
+
 .reaction_button:hover {
   background-color: #e6e6e6;
 }
+
 @media (max-width: 4000px) {
   .allPost {
     width: 85%;
@@ -182,9 +185,11 @@
   color: rgba(0, 0, 0, 0.5);
   font-size: 12px;
 }
-.comment{
+
+.comment {
   height: 50vh;
 }
+
 .user-img {
   width: 90px;
   height: 90px;

@@ -17,6 +17,8 @@ import { ImagesCarouselComponent } from '../creator/components/images-carousel/i
 import { PostModel, PostResponse } from '../../../model/post.model';
 import { IdToNamePipe } from '../../../shared/pipes/id-to-name.pipe';
 import { IdToAvatarPipe } from '../../../shared/pipes/id-to-avatar.pipe';
+import { Router } from '@angular/router';
+import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +38,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   index = 0;
   token$ = this.store.select('auth', 'token');
-  disabled=true;
+  disabled = true;
+  loader = false;
+  isGetting$ = this.store.select('post', 'isGettingAll');
   postList$ = this.store.select('post', 'postResponse');
   postList: PostModel[] = [];
 
@@ -50,6 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   commentValue = '';
 
   constructor(
+    private router: Router,
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
     private store: Store<{
@@ -67,6 +72,10 @@ export class HomeComponent implements OnInit, OnDestroy {
             PostActions.getAll({ page: this.currentPage, size: this.size }),
           );
         }
+      }),
+
+      this.isGetting$.subscribe((data) => {
+        this.loader = data;
       }),
 
       this.postList$.subscribe((data: PostResponse) => {
@@ -108,6 +117,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   showDialogDetail(content: PolymorpheusContent<TuiDialogContext>): void {
     this.dialogsDetail.open(content, { size: 'auto' }).subscribe();
+  }
+
+  goToProfile(id: string) {
+    if (id) {
+      this.router
+        .navigate(['/profile/post'], { queryParams: { uid: id } })
+        .then((value) => {
+          this.store.dispatch(ProfileActions.getById({ id: id }));
+          // this.store.dispatch(
+          //   PostActions.getWithUserId({ creatorId: id, page: 1, size: 10 }),
+          // );
+        });
+    }
   }
 
   testForm = new FormGroup({
@@ -174,6 +196,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       testValue7: new FormControl(false),
     });
   }
+
   get rounded(): number {
     return Math.floor(this.index / this.itemsCount);
   }

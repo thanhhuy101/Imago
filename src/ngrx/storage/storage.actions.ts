@@ -16,4 +16,4 @@ export const uploadFileSuccess = createAction(
   props<{ url: string[] }>(),
 );
 
-export const resetStorage = createAction('[Profile] Clear States');
+export const resetStorage = createAction('[Storage] Clear States');

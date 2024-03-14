@@ -35,7 +35,7 @@ type Category = {
 export class InterestComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   isLoading = false;
-
+  loader = false;
   // observable
   token$ = this.store.select('auth', 'token');
   getCategoriesSucces$ = this.store.select(
@@ -49,6 +49,9 @@ export class InterestComponent implements OnInit, OnDestroy {
   categories$ = this.store.select('category', 'categories');
 
   isGetProfileSuccess$ = this.store.select('profile', 'profile');
+
+  isUpdatingProfile$ = this.store.select('profile', 'isUpdating');
+  isUpdateProfileSuccess$ = this.store.select('profile', 'isUpdateSuccess');
 
   // category
   categories: CategoryModel[] = [];
@@ -146,6 +149,15 @@ export class InterestComponent implements OnInit, OnDestroy {
           this.mappingCategory(data.data, this.page);
         }
       }),
+
+      this.isUpdatingProfile$.subscribe((value) => {
+        this.loader = value;
+      }),
+      this.isUpdateProfileSuccess$.subscribe((value) => {
+        if (value) {
+          this.router.navigate(['/home']).then();
+        }
+      }),
     );
   }
 
@@ -163,13 +175,10 @@ export class InterestComponent implements OnInit, OnDestroy {
   }
 
   toggleActive(item: any) {
-
     item.isActive = !item.isActive;
     if (item.isActive) {
-
       this.selectedItems.push(item);
       this.countSelected++;
-
     } else {
       this.countSelected--;
       this.selectedItems = this.selectedItems.filter(
@@ -182,7 +191,6 @@ export class InterestComponent implements OnInit, OnDestroy {
     } else {
       this.haveCategories = false;
     }
-
   }
 
   mappingCategory(categories: any, page: number) {
@@ -226,18 +234,13 @@ export class InterestComponent implements OnInit, OnDestroy {
   }
 
   next() {
-
-
     let listCategory = this.selectedItems.map((item: any) => item.id);
-
     let profile: ProfileModel = {
       ...this.profile,
       category: listCategory,
     };
-
     if (listCategory.length > 0) {
       this.store.dispatch(ProfileActions.updateMine({ mine: profile }));
-      this.router.navigate(['/home']).then();
     } else {
       this.alertService.errorNotification('Please select at least 1 category');
     }

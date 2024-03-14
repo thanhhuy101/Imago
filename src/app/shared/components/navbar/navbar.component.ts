@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
       this.activeItemIndex = 4;
     }
 
-    this.store.select('profile', 'profile').subscribe((profile) => {
+    this.store.select('profile', 'mine').subscribe((profile) => {
       if (profile.id) {
         this.uid = profile.id;
       }

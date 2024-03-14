@@ -47,7 +47,8 @@ export class ImagesCarouselComponent implements OnInit {
 
   firebaseData$ = this.store.select('auth', 'firebaseData');
 
-  profileState$ = this.store.select('profile', 'profile');
+  profileState$ = this.store.select('profile', 'mine');
+  isGetProfileSuccess$ = this.store.select('profile', 'isGetMineSuccess');
   profile: ProfileModel = <ProfileModel>{};
 
   constructor(
@@ -101,7 +102,7 @@ export class ImagesCarouselComponent implements OnInit {
       }),
 
       this.profileState$.subscribe((profile) => {
-        if (profile) {
+        if (profile.email) {
           this.profile = profile;
           console.log('profile', this.profile);
         }

@@ -34,7 +34,8 @@ export const deletePostFailure = createAction(
 
 export const getAll = createAction(
   '[Post] Get All',
-  props<{ page: number; size: number }>(),);
+  props<{ page: number; size: number }>(),
+);
 export const getAllSuccess = createAction(
   '[Post] Get All Success',
   props<{ postResponse: PostResponse }>(),
@@ -44,13 +45,28 @@ export const getAllFailure = createAction(
   props<{ errorGetAllMessage: HttpErrorResponseModel }>(),
 );
 
+export const getWithUserId = createAction(
+  '[Post] Get With User Id',
+  props<{ creatorId: string; page: number; size: number }>(),
+);
+
+export const getWithUserIdSuccess = createAction(
+  '[Post] Get With User Id Success',
+  props<{ postResponse: PostResponse }>(),
+);
+
+export const getWithUserIdFailure = createAction(
+  '[Post] Get With User Id Failure',
+  props<{ errorGetWithUserIdMessage: HttpErrorResponseModel }>(),
+);
+
 export const getMine = createAction(
   '[Post] Get Mine',
   props<{ page: number; size: number }>(),
 );
 export const getMineSuccess = createAction(
   '[Post] Get Mine Success',
-  props<{ postResponse: PostResponse }>(),
+  props<{ minePost: PostResponse }>(),
 );
 export const getMineFailure = createAction(
   '[Post] Get Mine Failure',

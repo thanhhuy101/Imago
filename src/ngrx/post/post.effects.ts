@@ -67,12 +67,34 @@ export class PostEffect {
     ),
   );
 
+  getWithUserId$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.getWithUserId),
+      switchMap((action) =>
+        this.postService
+          .getAllWithUserId(action.creatorId, action.page, action.size)
+          .pipe(
+            map((postResponse) =>
+              PostActions.getWithUserIdSuccess({ postResponse }),
+            ),
+            catchError((error) =>
+              of(
+                PostActions.getWithUserIdFailure({
+                  errorGetWithUserIdMessage: error,
+                }),
+              ),
+            ),
+          ),
+      ),
+    ),
+  );
+
   getMine$ = createEffect(() =>
     this.action$.pipe(
       ofType(PostActions.getMine),
       switchMap((action) =>
         this.postService.getMine(action.page, action.size).pipe(
-          map((postResponse) => PostActions.getMineSuccess({ postResponse })),
+          map((minePost) => PostActions.getMineSuccess({ minePost })),
           catchError((error) =>
             of(PostActions.getMineFailure({ errorGetMineMessage: error })),
           ),

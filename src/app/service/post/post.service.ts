@@ -12,6 +12,12 @@ export class PostService {
     return this.httpClient.get(`post/all?page=${page}&size=${size}`);
   }
 
+  getAllWithUserId(creatorId: string, page: number, size: number) {
+    return this.httpClient.get(
+      `post/user?creatorId=${creatorId}&page=${page}&size=${size}`,
+    );
+  }
+
   create(post: PostModel) {
     return this.httpClient.post('post', post);
   }
