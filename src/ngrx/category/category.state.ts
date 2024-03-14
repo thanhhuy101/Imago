@@ -13,4 +13,10 @@ export interface CategoryState{
   isGettingCategoryList: boolean;
   getCategoryListSuccess: boolean;
   getCategoryListError: HttpErrorResponseModel;
+
+  //all category list
+  allCategories: CategoryModel[];
+  isGettingAllCategoryList: boolean;
+  getAllCategoryListSuccess: boolean;
+  getAllCategoryListError: HttpErrorResponseModel;
 }

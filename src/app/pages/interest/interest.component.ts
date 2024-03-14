@@ -36,6 +36,7 @@ export class InterestComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   isLoading = false;
   isSelectAll = false;
+  isGetSuccess=false
 
   // observable
   token$ = this.store.select('auth', 'token');
@@ -48,13 +49,13 @@ export class InterestComponent implements OnInit, OnDestroy {
     'isGettingCategoryList',
   );
   categories$ = this.store.select('category', 'categories');
-
+  categoriesAllSuccess$ = this.store.select('category', 'allCategories');
   isGetProfileSuccess$ = this.store.select('profile', 'profile');
 
   // category
   categories: CategoryModel[] = [];
   haveCategories = false;
-
+  allCategories: CategoryModel[] = [];
   //carousel
   page = 1;
   index = 0;
@@ -147,6 +148,7 @@ export class InterestComponent implements OnInit, OnDestroy {
           this.mappingCategory(data.data, this.page);
         }
       }),
+
     );
   }
 
@@ -167,6 +169,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     item.isActive = !item.isActive;
     if (item.isActive) {
       this.selectedItems.push(item);
+      console.log('item', item);
       this.countSelected++;
     } else {
       this.countSelected--;
@@ -239,40 +242,41 @@ export class InterestComponent implements OnInit, OnDestroy {
   }
 
   selectAllItems() {
+    this.store.dispatch(CategoryActions.getAllCategoryList());
+    this.subscription.push(
+      this.categoriesAllSuccess$.subscribe((category) => {
+        if (category) {
+          this.selectedItems = category;
+          this.haveCategories = true;
+        }
+      }),
+    );
+    this.countSelected = 60;
     this.items.forEach((item) => {
       item.isActive = true;
-      this.selectedItems.push(item);
-      if (this.items.length < 25) {
-        this.countSelected++;
+      if (this.items.length < 30) {
+       
       }
     });
 
     this.secondaryItems.forEach((item) => {
       item.isActive = true;
-      this.selectedItems.push(item);
-      this.countSelected++;
+      
     });
-
+   
     this.isSelectAll = true;
-
-    if (this.selectedItems.length > 0) {
-      this.haveCategories = true;
-    } else {
-      this.haveCategories = false;
-    }
+   
   }
 
   unselectAllItems() {
+    this.selectedItems = [];
+    this.countSelected = 0;
     this.items.forEach((item) => {
       item.isActive = false;
-      this.selectedItems = [];
-      this.countSelected = 0;
     });
 
     this.secondaryItems.forEach((item) => {
       item.isActive = false;
-      this.selectedItems = [];
-      this.countSelected = 0;
     });
 
     this.isSelectAll = false;

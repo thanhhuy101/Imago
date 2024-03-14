@@ -132,9 +132,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
-    //this.store.dispatch(ProfileActions.clearGetState());
     this.store.dispatch(ProfileActions.clearUpdateState());
-    this.store.dispatch(ProfileActions.clearMessages());
   }
 
   //create funciton to follow user
