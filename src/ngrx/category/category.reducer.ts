@@ -14,6 +14,11 @@ const initialState: CategoryState = {
   isGettingCategoryList: false,
   getCategoryListSuccess: false,
   getCategoryListError: <HttpErrorResponseModel>{},
+
+  allCategories: [] as CategoryModel[],
+  isGettingAllCategoryList: false,
+  getAllCategoryListSuccess: false,
+  getAllCategoryListError: <HttpErrorResponseModel>{},
 };
 
 export const categoryReducer = createReducer(
@@ -74,6 +79,35 @@ export const categoryReducer = createReducer(
       isGettingCategoryList: false,
       getCategoryListSuccess: false,
       getCategoryListError: error,
+    };
+  }),
+
+//getallcategories
+  on(CategoryActions.getAllCategoryList, (state) => {
+    return {
+      ...state,
+      isGettingAllCategoryList: true,
+      getAllCategoryListSuccess: false,
+      getAllCategoryListError: <HttpErrorResponseModel>{},
+    };
+  }),
+
+  on(CategoryActions.getAllSuccess, (state, { categoriesAll }) => {
+    return {
+      ...state,
+      allCategories: categoriesAll,
+      isGettingAllCategoryList: false,
+      getAllCategoryListSuccess: true,
+      getAllCategoryListError: <HttpErrorResponseModel>{},
+    };
+  }),
+
+  on(CategoryActions.getAllFailure, (state, { error }) => {
+    return {
+      ...state,
+      isGettingAllCategoryList: false,
+      getAllCategoryListSuccess: false,
+      getAllCategoryListError: error,
     };
   }),
 

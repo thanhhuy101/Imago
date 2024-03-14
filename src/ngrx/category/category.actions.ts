@@ -24,6 +24,19 @@ export const getCategoryListFailure = createAction(
   '[Category] Get Category List Failure',
   props<{ error: HttpErrorResponseModel }>(),
 );
+export const getAllCategoryList = createAction(
+  '[Category] Get All Category List',
+ 
+);
+export const getAllSuccess = createAction(
+  '[Category] Get All Success',
+  props<{ categoriesAll: CategoryModel[] }>(),
+);
+export const getAllFailure = createAction(
+  '[Category] Get All Failure',
+  props<{ error: HttpErrorResponseModel }>(),
+
+)
 
 export const uploadUserCategory = createAction(
   '[Category] Upload User Category',
