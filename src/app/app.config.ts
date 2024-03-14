@@ -34,7 +34,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideRouter(routes),
     importProvidersFrom(
-      provideFirebaseApp(() => initializeApp(dev_environment.firebase_backup2)),
+      provideFirebaseApp(() => initializeApp(dev_environment.firebase)),
       TuiRootModule,
     ),
     importProvidersFrom(provideAuth(() => getAuth())),
