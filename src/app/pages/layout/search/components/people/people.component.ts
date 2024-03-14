@@ -1,16 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { Store } from '@ngrx/store';
 import { TaigaModule } from '../../../../../shared/taiga.module';
 import { ShareModule } from '../../../../../shared/share.module';
 import * as ProfileActions from '../../../../../../ngrx/profile/profile.actions';
 import { ProfileModel } from '../../../../../model/profile.model';
-import { AuthService } from '../../../../../service/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { NotificationService } from '../../../../../service/notification/notification.service';
 import { NotiState } from '../../../../../../ngrx/noti/noti.state';
-import { or } from '@firebase/firestore';
 import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 
 @Component({
@@ -48,8 +46,6 @@ export class PeopleComponent implements OnInit, OnDestroy {
   profiles: ProfileModel[] = [];
   profile$ = this.store.select((state) => state.profile.profile);
 
-  // observable
-
   currentUser: ProfileModel = <ProfileModel>{};
 
   constructor(
@@ -58,7 +54,6 @@ export class PeopleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.store.dispatch(ProfileActions.clearGetState());
     this.store.dispatch(ProfileActions.getList());
     this.subscription.push(
       this.store
@@ -69,58 +64,82 @@ export class PeopleComponent implements OnInit, OnDestroy {
       this.$profiles.subscribe((value) => {
         if (value) {
           this.profiles = value;
-
-          for (let i = 0; i < this.profiles.length; i++) {
-            this.peoples.push({
-              id: this.profiles[i].id,
-              userName: this.profiles[i].userName,
-              firstName: this.profiles[i].firstName,
-              lastName: this.profiles[i].lastName,
-              photoUrl: this.profiles[i].photoUrl,
-              followers: this.profiles[i].followers,
-              followed: this.profiles[i].followers.includes(
-                this.currentUser.id,
-              ),
-              numberOfFollowers: this.profiles[i].followers.length,
-            });
+          if (!this.peoples || !this.peoples.length) {
+            // If this.peoples is not initialized, initialize it
+            for (let i = 0; i < this.profiles.length; i++) {
+              this.peoples.push({
+                id: this.profiles[i].id,
+                userName: this.profiles[i].userName,
+                firstName: this.profiles[i].firstName,
+                lastName: this.profiles[i].lastName,
+                photoUrl: this.profiles[i].photoUrl,
+                followers: this.profiles[i].followers,
+                followed: this.profiles[i].followers.includes(
+                  this.currentUser.id,
+                ),
+                numberOfFollowers: this.profiles[i].followers.length,
+              });
+            }
+          } else {
+            // If this.peoples is already initialized, update it
+            for (let i = 0; i < this.profiles.length; i++) {
+              const index = this.peoples.findIndex(
+                (p) => p.id === this.profiles[i].id,
+              );
+              if (index !== -1) {
+                this.peoples[index] = {
+                  id: this.profiles[i].id,
+                  userName: this.profiles[i].userName,
+                  firstName: this.profiles[i].firstName,
+                  lastName: this.profiles[i].lastName,
+                  photoUrl: this.profiles[i].photoUrl,
+                  followers: this.profiles[i].followers,
+                  followed: this.profiles[i].followers.includes(
+                    this.currentUser.id,
+                  ),
+                  numberOfFollowers: this.profiles[i].followers.length,
+                };
+              } else {
+                this.peoples.push({
+                  id: this.profiles[i].id,
+                  userName: this.profiles[i].userName,
+                  firstName: this.profiles[i].firstName,
+                  lastName: this.profiles[i].lastName,
+                  photoUrl: this.profiles[i].photoUrl,
+                  followers: this.profiles[i].followers,
+                  followed: this.profiles[i].followers.includes(
+                    this.currentUser.id,
+                  ),
+                  numberOfFollowers: this.profiles[i].followers.length,
+                });
+              }
+            }
           }
         }
-
-        // console.log('peoples', this.peoples);
       }),
 
       this.profile$.subscribe((value) => {
         this.currentUser = value;
       }),
-      this.isFollowingSuccess$.subscribe((success) => {
-        if (success) {
-          this.loader = false;
-          //window.location.reload();
-        }
-      }),
+      // this.isFollowingSuccess$.subscribe((success) => {
+      //   if (success) {
+      //     this.loader = false;
+      //     //window.location.reload();
+      //   }
+      // }),
     );
   }
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
-
-    // this.store.dispatch(ProfileActions.clearGetState());
-    this.peoples = [];
   }
-  // followUser(otherId: string) {
-  //   for (let i = 0; i < this.users.length; i++) {
-  //     if (this.profiles[i].id === otherId) {
-  //       this.users[i].followed = !this.users[i].followed;
-
-  //     }
-  //   }
-  // }
 
   //create funciton to follow user
   followUser(user: any, otherId: string) {
     this.store.dispatch(
       ProfileActions.follow({ id: this.currentUser.id, otherId }),
     );
+
     const profile = this.profiles.find((p) => p.id === otherId);
     if (profile) {
       this.notificationService.successNotification(
@@ -152,16 +171,15 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       ProfileActions.unFollow({ id: this.currentUser.id, otherId }),
     );
+
     const profile = this.profiles.find((p) => p.id === otherId);
     if (profile) {
       this.notificationService.successNotification(
-        `Unfollowing ${profile.userName} successfully`,
+        `Unfollow ${profile.userName} successfully`,
       );
     }
 
     user.followed = !user.followed;
     user.numberOfFollowers--;
-
-    ProfileActions.clearUpdateState();
   }
 }
