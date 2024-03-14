@@ -267,4 +267,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       NotifiActions.createNotification({ notification: newNotification }),
     );
   }
+  //create function to like post
+  likePost(item: any) {
+    this.isLiked = !this.isLiked;
+  }
 }

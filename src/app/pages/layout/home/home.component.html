@@ -157,14 +157,27 @@
               </p>
             </div>
             <div class="reaction">
-              <button
-                tuiIconButton
-                type="button"
-                class="reaction_button"
-                appearance="custom"
-                icon="tuiIconHeartLarge"
-                size="m"
-              ></button>
+              @if (isLiked) {
+                <button
+                  tuiIconButton
+                  type="button"
+                  class="reaction_like_button"
+                  appearance="custom"
+                  icon="tuiIconHeartLarge"
+                  size="m"
+                  (click)="likePost(item.id)"
+                ></button>
+              } @else {
+                <button
+                  tuiIconButton
+                  type="button"
+                  class="reaction_button"
+                  appearance="custom"
+                  icon="tuiIconHeartLarge"
+                  size="m"
+                  (click)="likePost(item.id)"
+                ></button>
+              }
               <button
                 tuiIconButton
                 type="button"
@@ -421,7 +434,7 @@
                         class="tui-space_top-1"
                         [round]="false"
                         src="{{ comment.authorId | idToAvatar | async }}"
-                        size="l"
+                        size="m"
                       ></tui-avatar>
                       <div class="commentContentAndUserName">
                         <div class="infoDetail">

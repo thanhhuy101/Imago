@@ -2,6 +2,10 @@ import { PostModel, PostResponse } from '../../app/model/post.model';
 import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 export interface PostState {
+  isReaction: boolean;
+  reactionSuccess: boolean;
+  reactionErrorMessage: HttpErrorResponseModel;
+
   postResponse: PostResponse;
   postDetail: PostModel;
 
