@@ -25,7 +25,7 @@ export class PostComponent {
   subscription: Subscription[] = [];
   postSearchResult$ = this.store.select((state) => state.post.postSearchResult);
   list: PostModel[] = [];
-
+  commentValue = '';
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
@@ -35,7 +35,8 @@ export class PostComponent {
       report: ReportState;
     }>,
   ) {}
-
+itemsCount = 0;
+disabled=true;
   index = 0;
 
   ngOnInit(): void {
@@ -51,6 +52,70 @@ export class PostComponent {
     this.subscription.forEach((sub) => sub.unsubscribe());
     this.list = [];
   }
+
+  comments =[
+    {
+      id: 1,
+      name: 'Nguyễn Văn A',
+      avatar: 'https://picsum.photos/200/300',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel.',
+      date: '2021-11-11',
+      like: 10,
+      reply: 5,
+      isLiked: false,
+    },
+    {
+      id: 2,
+      name: 'Nguyễn Văn B',
+      avatar: 'https://picsum.photos/200/300',
+      content: '"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.',
+      date: '2021-11-11',
+      like: 10,
+      reply: 5,
+      isLiked: false,
+    },
+    {
+      id: 2,
+      name: 'Nguyễn Văn B',
+      avatar: 'https://picsum.photos/200/300',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel.',
+      date: '2021-11-11',
+      like: 10,
+      reply: 5,
+      isLiked: false,
+    },
+    {
+      id: 2,
+      name: 'Nguyễn Văn B',
+      avatar: 'https://picsum.photos/200/300',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel.',
+      date: '2021-11-11',
+      like: 10,
+      reply: 5,
+      isLiked: false,
+    },
+    {
+      id: 2,
+      name: 'Nguyễn Văn B',
+      avatar: 'https://picsum.photos/200/300',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel.',
+      date: '2021-11-11',
+      like: 10,
+      reply: 5,
+      isLiked: false,
+    },
+    {
+      id: 2,
+      name: 'Nguyễn Văn B',
+      avatar: 'https://picsum.photos/200/300',
+      content: '"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.',
+      date: '2021-11-11',
+      like: 10,
+      reply: 5,
+      isLiked: false,
+    },
+  
+  ]
 
   isLiked = false;
 
