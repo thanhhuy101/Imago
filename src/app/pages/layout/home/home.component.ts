@@ -17,6 +17,20 @@ import { ImagesCarouselComponent } from '../creator/components/images-carousel/i
 import { PostModel, PostResponse } from '../../../model/post.model';
 import { IdToNamePipe } from '../../../shared/pipes/id-to-name.pipe';
 import { IdToAvatarPipe } from '../../../shared/pipes/id-to-avatar.pipe';
+import { ProfileState } from '../../../../ngrx/profile/profile.state';
+import { ProfileModel } from '../../../model/profile.model';
+import { CommentState } from '../../../../ngrx/comment/comment.state';
+import { CommentModel } from '../../../model/comment.model';
+import * as CommentActions from '../../../../ngrx/comment/comment.actions';
+import { DateToStringPipe } from '../../../shared/pipes/date-to-string.pipe';
+import { NotiState } from '../../../../ngrx/noti/noti.state';
+import * as NotifiActions from '../../../../ngrx/noti/noti.actions';
+
+type Comment = {
+  authorId: string;
+  content: string;
+  createdAt: string;
+};
 
 @Component({
   selector: 'app-home',
@@ -30,24 +44,37 @@ import { IdToAvatarPipe } from '../../../shared/pipes/id-to-avatar.pipe';
     ImagesCarouselComponent,
     IdToNamePipe,
     IdToAvatarPipe,
+    DateToStringPipe,
   ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   index = 0;
   token$ = this.store.select('auth', 'token');
-  disabled=true;
+  disabled = true;
   postList$ = this.store.select('post', 'postResponse');
   postList: PostModel[] = [];
 
+  profileState$ = this.store.select('profile', 'profile');
+  profile: ProfileModel = <ProfileModel>{};
   itemsCount = 0;
   selector: string = '.scroll-container';
+
+  // comment observable
+  commentList$ = this.store.select('comment', 'comments');
+  isGettingComments$ = this.store.select('comment', 'isGettingComments');
+  getCommentsSuccess$ = this.store.select('comment', 'getCommentsSuccess');
+  getCommentsError$ = this.store.select('comment', 'getCommentsError');
+  commentList: CommentModel[] = [];
+  commentValue = '';
+  comments: Comment[] = [];
+
+  isLiked = false;
 
   currentPage = 1;
   size = 10;
   tempArr: PostModel[] = [];
-
-  commentValue = '';
+  skeletonVisible = false;
 
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
@@ -56,6 +83,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       post: PostState;
       auth: AuthState;
       report: ReportState;
+      profile: ProfileState;
+      comment: CommentState;
+      notification: NotiState;
     }>,
   ) {}
 
@@ -77,6 +107,21 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.itemsCount = data.endPage;
         }
       }),
+
+      this.profileState$.subscribe((profile) => {
+        this.profile = profile;
+      }),
+
+      this.commentList$.subscribe((comments) => {
+        let data = (comments as any).data;
+        for (let i = 0; i < data.length; i++) {
+          this.comments.push({
+            authorId: data[i].authorId,
+            content: data[i].content,
+            createdAt: data[i].createdAt!,
+          });
+        }
+      }),
     );
   }
 
@@ -96,8 +141,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  isLiked = false;
-
   like() {
     this.isLiked = !this.isLiked;
   }
@@ -106,8 +149,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.dialogsReport.open(content).subscribe();
   }
 
-  showDialogDetail(content: PolymorpheusContent<TuiDialogContext>): void {
+  showDialogDetail(
+    content: PolymorpheusContent<TuiDialogContext>,
+    item: any,
+  ): void {
     this.dialogsDetail.open(content, { size: 'auto' }).subscribe();
+
+    // clear comments
+    this.comments = [];
+
+    this.store.dispatch(
+      CommentActions.getComments({ postId: item.id, page: 1 }),
+    );
   }
 
   testForm = new FormGroup({
@@ -176,5 +229,42 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   get rounded(): number {
     return Math.floor(this.index / this.itemsCount);
+  }
+
+  sendComment(item: any, comment: string) {
+    this.commentValue = '';
+
+    let initComment: CommentModel = {
+      id: new Date().getTime().toString(),
+      content: comment,
+      postId: item.id,
+      authorId: this.profile.id,
+      createdAt: new Date().toString(),
+    };
+
+    this.store.dispatch(CommentActions.createComment({ comment: initComment }));
+    this.comments.push({
+      authorId: initComment.authorId,
+      content: initComment.content,
+      createdAt: initComment.createdAt! as string,
+    });
+
+    // send notification
+    let newNotification = {
+      id: '',
+      uid: item.creatorId,
+      postId: item.id,
+      createdAt: new Date().toString(),
+      sender: this.profile.id,
+      isFollow: false,
+      isLike: false,
+      isComment: true,
+    };
+
+    // console.log(newNotification);
+
+    this.store.dispatch(
+      NotifiActions.createNotification({ notification: newNotification }),
+    );
   }
 }

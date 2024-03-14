@@ -35,6 +35,7 @@ type Category = {
 export class InterestComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   isLoading = false;
+  isSelectAll = false;
 
   // observable
   token$ = this.store.select('auth', 'token');
@@ -163,13 +164,10 @@ export class InterestComponent implements OnInit, OnDestroy {
   }
 
   toggleActive(item: any) {
-
     item.isActive = !item.isActive;
     if (item.isActive) {
-
       this.selectedItems.push(item);
       this.countSelected++;
-
     } else {
       this.countSelected--;
       this.selectedItems = this.selectedItems.filter(
@@ -182,7 +180,6 @@ export class InterestComponent implements OnInit, OnDestroy {
     } else {
       this.haveCategories = false;
     }
-
   }
 
   mappingCategory(categories: any, page: number) {
@@ -226,8 +223,6 @@ export class InterestComponent implements OnInit, OnDestroy {
   }
 
   next() {
-
-
     let listCategory = this.selectedItems.map((item: any) => item.id);
 
     let profile: ProfileModel = {
@@ -240,6 +235,52 @@ export class InterestComponent implements OnInit, OnDestroy {
       this.router.navigate(['/home']).then();
     } else {
       this.alertService.errorNotification('Please select at least 1 category');
+    }
+  }
+
+  selectAllItems() {
+    this.items.forEach((item) => {
+      item.isActive = true;
+      this.selectedItems.push(item);
+      if (this.items.length < 25) {
+        this.countSelected++;
+      }
+    });
+
+    this.secondaryItems.forEach((item) => {
+      item.isActive = true;
+      this.selectedItems.push(item);
+      this.countSelected++;
+    });
+
+    this.isSelectAll = true;
+
+    if (this.selectedItems.length > 0) {
+      this.haveCategories = true;
+    } else {
+      this.haveCategories = false;
+    }
+  }
+
+  unselectAllItems() {
+    this.items.forEach((item) => {
+      item.isActive = false;
+      this.selectedItems = [];
+      this.countSelected = 0;
+    });
+
+    this.secondaryItems.forEach((item) => {
+      item.isActive = false;
+      this.selectedItems = [];
+      this.countSelected = 0;
+    });
+
+    this.isSelectAll = false;
+
+    if (this.selectedItems.length > 0) {
+      this.haveCategories = true;
+    } else {
+      this.haveCategories = false;
     }
   }
 }

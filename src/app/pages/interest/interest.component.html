@@ -1,5 +1,11 @@
 <div id="container">
-  <tui-loader class="loader" [inheritColor]="false" [overlay]="true" [showLoader]="!isLoading" size="xxl">
+  <tui-loader
+    class="loader"
+    [inheritColor]="false"
+    [overlay]="true"
+    [showLoader]="!isLoading"
+    size="xxl"
+  >
     <div id="category-container">
       <div class="header">
         <h1>
@@ -17,44 +23,98 @@
         </div>
       </div>
       <div class="main">
-        <tui-carousel [itemsCount]="5" [(index)]="index" [style.--tui-carousel-padding]="0" [draggable]="false"
-          style="margin-bottom: 30px">
+        <tui-carousel
+          [itemsCount]="5"
+          [(index)]="index"
+          [style.--tui-carousel-padding]="0"
+          [draggable]="false"
+          style="margin-bottom: 30px"
+        >
           <ng-container>
             @for (item of items; track item; let i = $index) {
-            <div *tuiItem>
-              <div [ngClass]="{
+              <div *tuiItem>
+                <div
+                  [ngClass]="{
                     'category-item': !item.isActive,
                     active: item.isActive
-                  }" (click)="toggleActive(item)">
-                <span class="item-pic material-symbols-outlined" id="logo">{{ item.logo }}</span>
-                <span class="item-name">{{ item.title }}</span>
+                  }"
+                  (click)="toggleActive(item)"
+                >
+                  <span class="item-pic material-symbols-outlined" id="logo">{{
+                    item.logo
+                  }}</span>
+                  <span class="item-name">{{ item.title }}</span>
+                </div>
               </div>
-            </div>
             }
           </ng-container>
         </tui-carousel>
-        <tui-carousel [itemsCount]="5" [(index)]="index" [style.--tui-carousel-padding]="0" [draggable]="false"
-          style="margin-bottom: 30px">
+        <tui-carousel
+          [itemsCount]="5"
+          [(index)]="index"
+          [style.--tui-carousel-padding]="0"
+          [draggable]="false"
+          style="margin-bottom: 30px"
+        >
           <ng-container>
             @for (item of secondaryItems; track item; let i = $index) {
-            <div *tuiItem>
-              <div [ngClass]="{
+              <div *tuiItem>
+                <div
+                  [ngClass]="{
                     'category-item': !item.isActive,
                     active: item.isActive
-                  }" (click)="toggleActive(item)">
-                <span class="item-pic material-symbols-outlined" style="font-size: 60px">{{ item.logo }}</span>
-                <span class="item-name">{{ item.title }}</span>
+                  }"
+                  (click)="toggleActive(item)"
+                >
+                  <span
+                    class="item-pic material-symbols-outlined"
+                    style="font-size: 60px"
+                    >{{ item.logo }}</span
+                  >
+                  <span class="item-name">{{ item.title }}</span>
+                </div>
               </div>
-            </div>
             }
           </ng-container>
         </tui-carousel>
       </div>
-      <tui-pagination size="s" class="tui-space_top-4" [index]="rounded" [length]="6"
-        (indexChange)="onIndex($event)"></tui-pagination>
+      <tui-pagination
+        size="s"
+        class="tui-space_top-4"
+        [index]="rounded"
+        [length]="6"
+        (indexChange)="onIndex($event)"
+      ></tui-pagination>
       <div class="footer">
-        <button tuiButton type="button" class="tui-space_right-3" size="m" (click)="next()"
-          [disabled]="!haveCategories">
+        @if (!isSelectAll) {
+          <button
+            tuiButton
+            type="button"
+            class="tui-space_right-3"
+            size="m"
+            (click)="selectAllItems()"
+          >
+            Select all
+          </button>
+        } @else {
+          <button
+            tuiButton
+            type="button"
+            class="tui-space_right-3"
+            size="m"
+            (click)="unselectAllItems()"
+          >
+            Deselect all
+          </button>
+        }
+        <button
+          tuiButton
+          type="button"
+          class="tui-space_right-3"
+          size="m"
+          (click)="next()"
+          [disabled]="!haveCategories"
+        >
           Next
         </button>
       </div>
