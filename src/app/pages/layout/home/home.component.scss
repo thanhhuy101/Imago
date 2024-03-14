@@ -12,7 +12,7 @@
 }
 .carousel-item {
   width: 100%;
-  height: 95vh;
+  height: 80vh;
   position: relative;
   z-index: 1;
 
@@ -34,9 +34,21 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
   }
+ .buttonLeft{
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+ }
+ .buttonRight{
+  position: absolute;
+  top: 50%;
+  
+  right: 0;
+  z-index: 3;
+ }
 }
 .picture-post {
   width: 100%;
@@ -69,15 +81,7 @@
   display: inline-block;
   height: fit-content;
 
-  .btn_picture {
-    position: absolute;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    padding: 5px;
-  }
+  
 }
 
 .button {
@@ -212,7 +216,7 @@
   font-size: 12px;
 }
 .comment{
-  height: 55vh;
+  height: 42vh;
   // overflow: auto;
   margin-left: 1.5rem;
 }
@@ -397,7 +401,7 @@
   .userInforDetail{
     display: flex;
     flex-direction: row;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
   .infoDetail {
     display: flex;
@@ -441,16 +445,66 @@
   width: 100%;
 }
 
+// @media( max-width: 2048px){
+//   .postDetail {
+//     display: flex;
+//     width: 70vw;
+  
+//     .left {
+//       display: flex;
+//       flex-direction: row;
+//       justify-content: center;
+//       align-items: center;
+//       width: 55%;
+//     }
+//     .userInforDetail{
+//       display: flex;
+//       flex-direction: row;
+//       margin-bottom: 8px;
+//     }
+//     .infoDetail {
+//       display: flex;
+//       flex-direction: row;
+//       margin-top: 0.25rem;
+//       margin-left: 0.5rem;
+//       .userName {
+//         font-size: 1rem;
+//         font-weight: bold;
+//       }
+//       .dateDetail {
+//         margin-left: 0.5rem;
+//         color: rgba(0, 0, 0, 0.5);
+//         font-size: 1rem;
+//       }
+      
+//     }
+//     .commentContent{
+//       font-size: 1rem;
+//       word-wrap: break-word;
+//       margin-left: 0.5rem;
+//       padding: 0 0.6875rem 0 0  ;
+//     }
+  
+//     .right {
+//       width: 45%;
+//       height: 100%;
+//     }
+  
+//     .bottom {
+//       padding: 0 20px 20px 20px;
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: space-between;
+//       height: 100%;
+//     }
+//   }
+// }
+
 @media screen and (max-width: 1200px) {
   .postDetail {
-    width: 100%;
+    width: 70vw;
     height: fit-content;
-    //display: flex;
-    //flex-direction: column;
-    //align-items: center;
-    ////justify-content: space-evenly;
-    ////position: fixed;
-    //height: 100% !important;
+ ;
   }
 
   .detail-dialog {
@@ -470,23 +524,58 @@
 
   @media screen and (max-width: 1024px) {
     .postDetail {
-      width: 100%;
-      height: fit-content;
-    }
-
-    .detail-dialog {
-      width: 100%;
-      height: 100%;
-    }
-
-    .img-dialog {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .description-preview {
-      font-size: 20px;
+      display: flex;
+      width: 70vw;
+      flex-direction: column;
+      align-items: center;
+    
+      .left {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+   
+        width: 90%;
+      }
+      .userInforDetail{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 8px;
+      }
+      .infoDetail {
+        display: flex;
+        flex-direction: row;
+        margin-top: 0.25rem;
+        margin-left: 0.5rem;
+        .userName {
+          font-size: 1rem;
+          font-weight: bold;
+        }
+        .dateDetail {
+          margin-left: 0.5rem;
+          color: rgba(0, 0, 0, 0.5);
+          font-size: 1rem;
+        }
+        
+      }
+      .commentContent{
+        font-size: 1rem;
+        word-wrap: break-word;
+        margin-left: 0.5rem;
+        padding: 0 0.6875rem 0 0  ;
+      }
+    
+      .right {
+        width: 95%;
+        height: 100%;
+      }
+    
+      .bottom {
+        padding: 0 20px 20px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
     }
   }
 
@@ -497,11 +586,12 @@
       width: 70vw;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       .left {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        align-items: center;
+       
         width: 90%;
       }
       .userInforDetail{

@@ -149,16 +149,6 @@ export class InterestComponent implements OnInit, OnDestroy {
         }
       }),
 
-      
-
-      // this.categoriesAllSuccess$.subscribe((category) => {
-      //   if (category) {
-      //     this.selectedItems = category; 
-      //     if(this.selectedItems.length > 0){
-      //       this.haveCategories = true;
-      //     }
-      //   }
-      // }),
     );
   }
 
@@ -275,7 +265,6 @@ export class InterestComponent implements OnInit, OnDestroy {
     });
    
     this.isSelectAll = true;
-
    
   }
 

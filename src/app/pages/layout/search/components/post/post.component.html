@@ -332,7 +332,16 @@
               Add a comment...
               <input tuiTextfield type="text" />
             </tui-input>
-           
+            <button
+                    tuiIconButton
+                    type="button"
+                    icon="tuiIconSend"
+                    appearance="custom"
+                    (click)="sendComment(item, commentValue)"
+                    [disabled]="commentValue === ''"
+                  >
+                    Button
+                  </button>
           </div>
           <tui-scrollbar>
           <div class="comment">
@@ -341,16 +350,16 @@
                 <tui-avatar
                   class="tui-space_top-1"
                   [round]="false"
-                  src="{{comment.avatar}}"
+                  src="{{ comment.authorId | idToAvatar | async }}"
                   size="m"
                 ></tui-avatar>
                 <div class="commentContentAndUserName">
                   <div class="infoDetail">
                     <span class="userName">{{
-                      comment.name
+                      comment.authorId | idToName | async
                     }}</span>
                     <span class="dateDetail">{{
-                     comment.date
+                      comment.createdAt | date
                     }}</span>
                   </div>
                   <div class="commentContent">

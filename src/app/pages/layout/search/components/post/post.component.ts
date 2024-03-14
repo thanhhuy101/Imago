@@ -13,6 +13,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReportModel } from '../../../../../model/report.model';
 import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
 import { IdToNamePipe } from "../../../../../shared/pipes/id-to-name.pipe";
+import { CommentModel } from '../../../../../model/comment.model';
+import { CommentState } from '../../../../../../ngrx/comment/comment.state';
+import { NotiState } from '../../../../../../ngrx/noti/noti.state';
+import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
+import { ProfileModel } from '../../../../../model/profile.model';
+import * as CommentActions from '../../../../../../ngrx/comment/comment.actions';
+import * as NotifiActions from '../../../../../../ngrx/noti/noti.actions';
+type Comment = {
+  authorId: string;
+  content: string;
+  createdAt: string;
+};
 
 @Component({
     selector: 'app-post',
@@ -26,6 +38,19 @@ export class PostComponent {
   postSearchResult$ = this.store.select((state) => state.post.postSearchResult);
   list: PostModel[] = [];
   commentValue = '';
+
+  //profile
+  profileState$ = this.store.select('profile', 'profile');
+  profile: ProfileModel = <ProfileModel>{};
+
+  //comment 
+  commentList$ = this.store.select('comment', 'comments');
+  isGettingComments$ = this.store.select('comment', 'isGettingComments');
+  getCommentsSuccess$ = this.store.select('comment', 'getCommentsSuccess');
+  getCommentsError$ = this.store.select('comment', 'getCommentsError');
+  commentList: CommentModel[] = [];
+  skeletonVisible = false;
+  comments: Comment[] = [];
   constructor(
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
@@ -33,6 +58,9 @@ export class PostComponent {
       post: PostState;
       auth: AuthState;
       report: ReportState;
+      profile: ProfileState;
+      comment: CommentState;
+      notification: NotiState;
     }>,
   ) {}
 itemsCount = 0;
@@ -45,6 +73,20 @@ disabled=true;
         this.list = res;
         console.log('search list',this.list);
       }),
+      this.commentList$.subscribe((comments) => {
+        let data = (comments as any).data;
+        for (let i = 0; i < data.length; i++) {
+          this.comments.push({
+            authorId: data[i].authorId,
+            content: data[i].content,
+            createdAt: data[i].createdAt!,
+          });
+        }
+      }),
+      this.profileState$.subscribe((profile) => {
+        this.profile = profile;
+      }),
+
     );
   }
 
@@ -53,69 +95,6 @@ disabled=true;
     this.list = [];
   }
 
-  comments =[
-    {
-      id: 1,
-      name: 'Nguyễn Văn A',
-      avatar: 'https://picsum.photos/200/300',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel.',
-      date: '2021-11-11',
-      like: 10,
-      reply: 5,
-      isLiked: false,
-    },
-    {
-      id: 2,
-      name: 'Nguyễn Văn B',
-      avatar: 'https://picsum.photos/200/300',
-      content: '"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.',
-      date: '2021-11-11',
-      like: 10,
-      reply: 5,
-      isLiked: false,
-    },
-    {
-      id: 2,
-      name: 'Nguyễn Văn B',
-      avatar: 'https://picsum.photos/200/300',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel.',
-      date: '2021-11-11',
-      like: 10,
-      reply: 5,
-      isLiked: false,
-    },
-    {
-      id: 2,
-      name: 'Nguyễn Văn B',
-      avatar: 'https://picsum.photos/200/300',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel.',
-      date: '2021-11-11',
-      like: 10,
-      reply: 5,
-      isLiked: false,
-    },
-    {
-      id: 2,
-      name: 'Nguyễn Văn B',
-      avatar: 'https://picsum.photos/200/300',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel.',
-      date: '2021-11-11',
-      like: 10,
-      reply: 5,
-      isLiked: false,
-    },
-    {
-      id: 2,
-      name: 'Nguyễn Văn B',
-      avatar: 'https://picsum.photos/200/300',
-      content: '"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.',
-      date: '2021-11-11',
-      like: 10,
-      reply: 5,
-      isLiked: false,
-    },
-  
-  ]
 
   isLiked = false;
 
@@ -194,5 +173,41 @@ disabled=true;
       testValue6: new FormControl(false),
       testValue7: new FormControl(false),
     });
+  }
+  sendComment(item: any, comment: string) {
+    this.commentValue = '';
+
+    let initComment: CommentModel = {
+      id: new Date().getTime().toString(),
+      content: comment,
+      postId: item.id,
+      authorId: this.profile.id,
+      createdAt: new Date().toString(),
+    };
+
+    this.store.dispatch(CommentActions.createComment({ comment: initComment }));
+    this.comments.push({
+      authorId: initComment.authorId,
+      content: initComment.content,
+      createdAt: initComment.createdAt! as string,
+    });
+
+    // send notification
+    let newNotification = {
+      id: '',
+      uid: item.creatorId,
+      postId: item.id,
+      createdAt: new Date().toString(),
+      sender: this.profile.id,
+      isFollow: false,
+      isLike: false,
+      isComment: true,
+    };
+
+    // console.log(newNotification);
+
+    this.store.dispatch(
+      NotifiActions.createNotification({ notification: newNotification }),
+    );
   }
 }
