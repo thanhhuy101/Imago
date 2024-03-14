@@ -9,6 +9,7 @@ const initialState: PostState = {
   reactionSuccess: false,
   reactionErrorMessage: <HttpErrorResponseModel>{},
 
+  minePost: <PostResponse>{},
   postResponse: <PostResponse>{},
   postDetail: <PostModel>{},
 
@@ -26,6 +27,12 @@ const initialState: PostState = {
 
   isGettingAll: false,
   errorGetAllMessage: <HttpErrorResponseModel>{},
+
+  isGettingOne: false,
+  errorGetOneMessage: <HttpErrorResponseModel>{},
+
+  isGettingWithUserId: false,
+  errorGetWithUserIdMessage: <HttpErrorResponseModel>{},
 
   isGettingMine: false,
   errorGetMineMessage: <HttpErrorResponseModel>{},
@@ -119,6 +126,31 @@ export const postReducer = createReducer(
     };
   }),
 
+  // Get One
+  on(PostActions.getOne, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingOne: true,
+    };
+  }),
+  on(PostActions.getOneSuccess, (state, { postDetail, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingOne: false,
+      postDetail: postDetail,
+    };
+  }),
+  on(PostActions.getOneFailure, (state, { errorGetOneMessage, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingOne: false,
+      errorGetOneMessage: errorGetOneMessage,
+    };
+  }),
+
   // Get All
   on(PostActions.getAll, (state, { type }) => {
     console.log(type);
@@ -144,6 +176,34 @@ export const postReducer = createReducer(
     };
   }),
 
+  // Get With User Id
+  on(PostActions.getWithUserId, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingWithUserId: true,
+    };
+  }),
+  on(PostActions.getWithUserIdSuccess, (state, { postResponse, type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGettingWithUserId: false,
+      postResponse: postResponse,
+    };
+  }),
+  on(
+    PostActions.getWithUserIdFailure,
+    (state, { errorGetWithUserIdMessage, type }) => {
+      console.log(type);
+      return {
+        ...state,
+        isGettingWithUserId: false,
+        errorGetWithUserIdMessage: errorGetWithUserIdMessage,
+      };
+    },
+  ),
+
   // Get Mine
   on(PostActions.getMine, (state, { type }) => {
     console.log(type);
@@ -152,12 +212,12 @@ export const postReducer = createReducer(
       isGettingMine: true,
     };
   }),
-  on(PostActions.getMineSuccess, (state, { postResponse, type }) => {
+  on(PostActions.getMineSuccess, (state, { minePost, type }) => {
     console.log(type);
     return {
       ...state,
       isGettingMine: false,
-      postResponse: postResponse,
+      minePost: minePost,
     };
   }),
   on(PostActions.getMineFailure, (state, { errorGetMineMessage, type }) => {
@@ -237,6 +297,9 @@ export const postReducer = createReducer(
       errorGetMineMessage: <HttpErrorResponseModel>{},
       errorGetByShareMessage: <HttpErrorResponseModel>{},
       errorGetByMentionMessage: <HttpErrorResponseModel>{},
+      errorSearchMessage: <HttpErrorResponseModel>{},
+      errorGetOneMessage: <HttpErrorResponseModel>{},
+      errorGetWithUserIdMessage: <HttpErrorResponseModel>{},
     };
   }),
 
@@ -271,11 +334,15 @@ export const postReducer = createReducer(
     console.log(type);
     return {
       ...state,
+      minePost: <PostResponse>{},
       postResponse: <PostResponse>{},
+      postDetail: <PostModel>{},
       isGettingAll: false,
       isGettingMine: false,
       isGettingByShare: false,
       isGettingByMention: false,
+      isGettingOne: false,
+      isGettingWithUserId: false,
     };
   }),
 

@@ -45,13 +45,38 @@ export const getAllFailure = createAction(
   props<{ errorGetAllMessage: HttpErrorResponseModel }>(),
 );
 
+export const getWithUserId = createAction(
+  '[Post] Get With User Id',
+  props<{ creatorId: string; page: number; size: number }>(),
+);
+
+export const getWithUserIdSuccess = createAction(
+  '[Post] Get With User Id Success',
+  props<{ postResponse: PostResponse }>(),
+);
+
+export const getWithUserIdFailure = createAction(
+  '[Post] Get With User Id Failure',
+  props<{ errorGetWithUserIdMessage: HttpErrorResponseModel }>(),
+);
+
+export const getOne = createAction('[Post] Get One', props<{ id: string }>());
+export const getOneSuccess = createAction(
+  '[Post] Get One Success',
+  props<{ postDetail: PostModel }>(),
+);
+export const getOneFailure = createAction(
+  '[Post] Get One Failure',
+  props<{ errorGetOneMessage: HttpErrorResponseModel }>(),
+);
+
 export const getMine = createAction(
   '[Post] Get Mine',
   props<{ page: number; size: number }>(),
 );
 export const getMineSuccess = createAction(
   '[Post] Get Mine Success',
-  props<{ postResponse: PostResponse }>(),
+  props<{ minePost: PostResponse }>(),
 );
 export const getMineFailure = createAction(
   '[Post] Get Mine Failure',

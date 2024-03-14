@@ -6,6 +6,7 @@ export interface PostState {
   reactionSuccess: boolean;
   reactionErrorMessage: HttpErrorResponseModel;
 
+  minePost: PostResponse;
   postResponse: PostResponse;
   postDetail: PostModel;
 
@@ -21,8 +22,14 @@ export interface PostState {
   isDeleteSuccess: boolean;
   deleteErrorMessage: HttpErrorResponseModel;
 
+  isGettingOne: boolean;
+  errorGetOneMessage: HttpErrorResponseModel;
+
   isGettingAll: boolean;
   errorGetAllMessage: HttpErrorResponseModel;
+
+  isGettingWithUserId: boolean;
+  errorGetWithUserIdMessage: HttpErrorResponseModel;
 
   isGettingMine: boolean;
   errorGetMineMessage: HttpErrorResponseModel;
