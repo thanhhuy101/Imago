@@ -1,11 +1,12 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Router, RouterLink, NavigationStart } from '@angular/router';
 import { TaigaModule } from '../../taiga.module';
-import { TuiDialogService } from '@taiga-ui/core';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import * as AuthActions from '../../../../ngrx/auth/auth.actions';
+import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
+import * as PostActions from '../../../../ngrx/post/post.actions';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 
 @Component({
@@ -73,7 +74,8 @@ export class NavbarComponent implements OnInit {
   }
 
   signOut(): void {
-    console.log('sign out');
     this.store.dispatch(AuthActions.signOutWithGG());
+    this.store.dispatch(ProfileActions.clearGetState());
+    this.store.dispatch(PostActions.clearGetState());
   }
 }

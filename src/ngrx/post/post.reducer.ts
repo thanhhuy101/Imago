@@ -293,6 +293,9 @@ export const postReducer = createReducer(
       errorGetMineMessage: <HttpErrorResponseModel>{},
       errorGetByShareMessage: <HttpErrorResponseModel>{},
       errorGetByMentionMessage: <HttpErrorResponseModel>{},
+      errorSearchMessage: <HttpErrorResponseModel>{},
+      errorGetOneMessage: <HttpErrorResponseModel>{},
+      errorGetWithUserIdMessage: <HttpErrorResponseModel>{},
     };
   }),
 
@@ -334,6 +337,8 @@ export const postReducer = createReducer(
       isGettingMine: false,
       isGettingByShare: false,
       isGettingByMention: false,
+      isGettingOne: false,
+      isGettingWithUserId: false,
     };
   }),
 

@@ -153,14 +153,14 @@ export class InterestComponent implements OnInit, OnDestroy {
         }
       }),
 
-      this.isUpdatingProfile$.subscribe((value) => {
-        this.loader = value;
-      }),
-      this.isUpdateProfileSuccess$.subscribe((value) => {
-        if (value) {
-          this.router.navigate(['/home']).then();
-        }
-      }),
+      // this.categoriesAllSuccess$.subscribe((category) => {
+      //   if (category) {
+      //     this.selectedItems = category;
+      //     if(this.selectedItems.length > 0){
+      //       this.haveCategories = true;
+      //     }
+      //   }
+      // }),
     );
   }
 

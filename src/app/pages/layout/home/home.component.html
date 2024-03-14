@@ -216,6 +216,47 @@
                   >
                     <div class="photolist" *tuiItem>
                       <div class="carousel-item">
+                        @if (i === 0) {
+                          <button
+                            class="buttonRight"
+                            appearance="custom"
+                            icon="tuiIconChevronRightLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.next()"
+                          ></button>
+                        } @else if (i === postDetail.photoUrl.length - 1) {
+                          <button
+                            class="buttonLeft"
+                            appearance="custom"
+                            icon="tuiIconChevronLeftLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.prev()"
+                          ></button>
+                        } @else {
+                          <button
+                            class="buttonLeft"
+                            appearance="custom"
+                            icon="tuiIconChevronLeftLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.prev()"
+                          ></button>
+                          <button
+                            class="buttonRight"
+                            appearance="custom"
+                            icon="tuiIconChevronRightLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.next()"
+                          ></button>
+                        }
+
                         <div
                           class="bg-image"
                           [ngStyle]="{
@@ -223,30 +264,6 @@
                           }"
                         ></div>
                         <div class="bg-text">
-                          <div class="btn_picture">
-                            @if (postDetail.photoUrl.length >= 2) {
-                              <button
-                                class="button"
-                                appearance="custom"
-                                icon="tuiIconChevronLeftLarge"
-                                size="s"
-                                tuiIconButton
-                                type="button"
-                                (click)="carousel.prev()"
-                                [hidden]="i === 0"
-                              ></button>
-                              <button
-                                class="button"
-                                appearance="custom"
-                                icon="tuiIconChevronRightLarge"
-                                size="s"
-                                tuiIconButton
-                                type="button"
-                                [hidden]="i === postDetail.photoUrl.length - 1"
-                                (click)="carousel.next()"
-                              ></button>
-                            }
-                          </div>
                           <img class="pictureDetail" [src]="photo" alt="" />
                         </div>
                       </div>

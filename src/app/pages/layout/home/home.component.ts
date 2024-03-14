@@ -157,6 +157,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
     this.store.dispatch(PostActions.clearGetState());
+    // this.store.dispatch(ProfileActions.clearGetState());
   }
 
   onScrollDown(ev: any) {
