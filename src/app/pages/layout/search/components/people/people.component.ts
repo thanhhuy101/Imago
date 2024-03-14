@@ -55,7 +55,10 @@ export class PeopleComponent implements OnInit, OnDestroy {
   constructor(
     private notificationService: NotificationService,
     private store: Store<{ profile: ProfileState; notification: NotiState }>,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+    // this.store.dispatch(ProfileActions.clearGetState());
     this.store.dispatch(ProfileActions.getList());
     this.subscription.push(
       this.store
@@ -89,20 +92,20 @@ export class PeopleComponent implements OnInit, OnDestroy {
       this.profile$.subscribe((value) => {
         this.currentUser = value;
       }),
+      this.isFollowingSuccess$.subscribe((success) => {
+        if (success) {
+          this.loader = false;
+          //window.location.reload();
+        }
+      }),
     );
-  }
-
-  ngOnInit(): void {
-    this.isFollowingSuccess$.subscribe((success) => {
-      if (success) {
-        this.loader = false;
-        //window.location.reload();
-      }
-    });
   }
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
+
+    // this.store.dispatch(ProfileActions.clearGetState());
+    this.peoples = [];
   }
   // followUser(otherId: string) {
   //   for (let i = 0; i < this.users.length; i++) {
