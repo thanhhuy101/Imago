@@ -698,3 +698,14 @@
     color: #262626;
   }
 }
+
+.reaction_like_button{
+  ::ng-deep tui-svg{
+    color: #cc4647 !important;
+    fill: #cc4647 !important;
+  }
+}
+
+.reaction_like_button:hover{
+  background-color: #e6e6e6;
+}

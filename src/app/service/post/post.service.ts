@@ -49,4 +49,18 @@ export class PostService {
   search(query: string) {
     return this.httpClient.get(`post/search?query=${query}`);
   }
+
+  reaction(postId: string, senderId: string) {
+    return this.httpClient.put(
+      `post/reaction?postId=${postId}&senderId=${senderId}`,
+      {},
+    );
+  }
+
+  unReaction(postId: string, senderId: string) {
+    return this.httpClient.put(
+      `post/unreaction?postId=${postId}&senderId=${senderId}`,
+      {},
+    );
+  }
 }

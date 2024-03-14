@@ -119,6 +119,27 @@ export const searchFailure = createAction(
   props<{ errorSearchMessage: HttpErrorResponseModel }>(),
 );
 
+export const reaction = createAction(
+  '[Post] Reaction',
+  props<{ postId: string; senderId: string }>(),
+);
+export const reactionSuccess = createAction('[Post] Reaction Success');
+export const reactionFailure = createAction(
+  '[Post] Reaction Failure',
+  props<{ reactionErrorMessage: HttpErrorResponseModel }>(),
+);
+
+//unreaction
+export const unReaction = createAction(
+  '[Post] UnReaction',
+  props<{ postId: string; senderId: string }>(),
+);
+export const unReactionSuccess = createAction('[Post] UnReaction Success');
+export const unReactionFailure = createAction(
+  '[Post] UnReaction Failure',
+  props<{ reactionErrorMessage: HttpErrorResponseModel }>(),
+);
+
 export const clearMessages = createAction('[Post] Clear Message');
 export const clearCreateState = createAction('[Post] Clear Create State');
 export const clearUpdateState = createAction('[Post] Clear Update State');
