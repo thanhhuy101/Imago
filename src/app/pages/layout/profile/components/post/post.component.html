@@ -17,42 +17,11 @@
       @for (post of postList.data; track post.id; let i = $index) {
         <div class="post">
           <div class="picture-post1">
-            <tui-carousel #carousel>
-              <ng-container *ngFor="let photo of post.photoUrl">
-                <div class="photolist" *tuiItem (click)="showDialog(post.id)">
-                  <button
-                    class="close-button"
-                    appearance="custom"
-                    size="xs"
-                    icon="tuiIconMoreHorizontalLarge"
-                    tuiIconButton
-                  ></button>
-                  <div class="btn_picture">
-                    @if (post.photoUrl.length >= 2) {
-                      <button
-                        class="button"
-                        appearance="custom"
-                        icon="tuiIconChevronLeftLarge"
-                        size="s"
-                        tuiIconButton
-                        type="button"
-                        (click)="carousel.prev()"
-                      ></button>
-                      <button
-                        class="button"
-                        appearance="custom"
-                        icon="tuiIconChevronRightLarge"
-                        size="s"
-                        tuiIconButton
-                        type="button"
-                        (click)="carousel.next()"
-                      ></button>
-                    }
-                  </div>
-                  <img class="picture1" [src]="photo" alt="" />
-                </div>
-              </ng-container>
-            </tui-carousel>
+            <img
+              class="picture1"
+              src="{{ post.photoUrl[0] }}"
+              (click)="showDialog(post.id)"
+            />
           </div>
 
           <div class="capAndReaction">

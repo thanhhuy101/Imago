@@ -1,13 +1,20 @@
-
-.search_iamge{
+.inputAndButton {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  .inputComment {
+    width: 100%;
+  }
+}
+.search_iamge {
   width: 20rem;
   height: 20rem;
 }
-.material-symbols-outlined{
+.material-symbols-outlined {
   font-size: 8rem;
   font-weight: 100;
 }
-.tui-text_body-xl{
+.tui-text_body-xl {
   margin-top: 1rem;
   font-weight: bold;
   font-size: 2rem;
@@ -18,8 +25,12 @@
   align-items: center;
   display: flex;
   justify-content: center;
- 
- 
+}
+.reactions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 .scroll-container {
   width: 100%;
@@ -344,8 +355,6 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  padding-inline: 3rem;
-  margin-bottom: 2rem;
 }
 
 .tymAndCmt {
@@ -568,8 +577,6 @@
         display: flex;
         flex-direction: row;
         margin-bottom: 8px;
-
-        
       }
       .infoDetail {
         display: flex;
@@ -725,18 +732,17 @@
   }
 }
 
-.reaction_like_button{
-  ::ng-deep tui-svg{
+.reaction_like_button {
+  ::ng-deep tui-svg {
     color: #cc4647 !important;
     fill: #cc4647 !important;
   }
 }
 
-.reaction_like_button:hover{
+.reaction_like_button:hover {
   background-color: #e6e6e6;
 }
 
-
-.userInforDetail:hover{
+.userInforDetail:hover {
   cursor: pointer;
 }

@@ -8,13 +8,7 @@
           <img class="picture1" [src]="item.photoUrl[0]" alt="" (click)="showDialogDetail(templateDetail)" />
         </div>
       </div>
-      <!-- @if (item.photoUrl.length > 1) {
-      <div style="position: relative">
-        <tui-pagination size="s" class="tui-space_top-4"
-          [length]="item.photoUrl.length + 1 / itemsCount"></tui-pagination>
-        <div *ngIf="disabled" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"></div>
-      </div>
-      } -->
+
       <!--  Bottom post -->
       <div class="bottom">
         <div class="userInfoReport">
@@ -96,7 +90,7 @@
             {{ item.content }}
           </p>
         </div>
-        <div class="reaction">
+        <div class="reactions">
           <div class="tymAndCmt">
             <button icon="tuiIconHeart" tuiIconButton [ngClass]="isLiked ? 'heartBtnActive' : 'heartBtn'"
               appearance="custom" type="button" (click)="like()" cclass="reaction_button"></button>
@@ -116,19 +110,17 @@
               <ng-container *ngFor="let photo of item.photoUrl; let i = index">
                 <div class="photolist" *tuiItem>
                   <div class="carousel-item">
+                    @if (item.photoUrl.length >= 2) {
+                    <button class="buttonLeft" appearance="custom" icon="tuiIconChevronLeftLarge" size="s" tuiIconButton
+                      type="button" (click)="carousel.prev()" [hidden]="i === 0"></button>
+                    <button class="buttonRight" appearance="custom" icon="tuiIconChevronRightLarge" size="s"
+                      tuiIconButton type="button" [hidden]="i === item.photoUrl.length - 1"
+                      (click)="carousel.next()"></button>
+                    }
                     <div class="bg-image" [ngStyle]="{
                           'background-image': 'url(' + photo + ')'
                         }"></div>
                     <div class="bg-text">
-                      <div class="btn_picture">
-                        @if (item.photoUrl.length >= 2) {
-                        <button class="button" appearance="custom" icon="tuiIconChevronLeftLarge" size="s" tuiIconButton
-                          type="button" (click)="carousel.prev()" [hidden]="i === 0"></button>
-                        <button class="button" appearance="custom" icon="tuiIconChevronRightLarge" size="s"
-                          tuiIconButton type="button" [hidden]="i === item.photoUrl.length - 1"
-                          (click)="carousel.next()"></button>
-                        }
-                      </div>
                       <img class="pictureDetail" [src]="photo" alt="" />
                     </div>
                   </div>
@@ -235,14 +227,17 @@
                 icon="tuiIconNavigationLarge" size="m"></button>
             </div>
 
-            <tui-input [(ngModel)]="commentValue" [tuiTextfieldCleaner]="true" [tuiTextfieldLabelOutside]="true">
-              Add a comment...
-              <input tuiTextfield type="text" />
-            </tui-input>
-            <button tuiIconButton type="button" icon="tuiIconSend" appearance="custom"
-              (click)="sendComment(item, commentValue)" [disabled]="commentValue === ''">
-              Button
-            </button>
+            <div class="inputAndButton">
+              <tui-input class="inputComment" [(ngModel)]="commentValue" [tuiTextfieldCleaner]="true"
+                [tuiTextfieldLabelOutside]="true">
+                Add a comment...
+                <input tuiTextfield type="text" />
+              </tui-input>
+              <button tuiIconButton type="button" icon="tuiIconSend" appearance="custom"
+                (click)="sendComment(item, commentValue)" [disabled]="commentValue === ''">
+                Button
+              </button>
+            </div>
           </div>
           <tui-scrollbar>
             <div class="comment">

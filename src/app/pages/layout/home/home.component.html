@@ -13,8 +13,7 @@
           </div>
           @if (item.photoUrl.length > 1) {
           <div style="position: relative">
-            <tui-pagination size="s" class="tui-space_top-4"
-              [length]="item.photoUrl.length / itemsCount"></tui-pagination>
+            <tui-pagination size="s" class="tui-space_top-4" [length]="item.photoUrl.length"></tui-pagination>
             <div *ngIf="disabled" style="
                     position: absolute;
                     top: 0;
@@ -297,7 +296,7 @@
                 <div class="comment-place">
                   <tui-input [(ngModel)]="commentValue" [tuiTextfieldCleaner]="true" [tuiTextfieldLabelOutside]="true">
                     Add a comment...
-                    <input tuiTextfield type="text" (keyup.enter)="sendComment(postDetail, commentValue)" />
+                    <input tuiTextfield (keyup.enter)="sendComment(postDetail, commentValue)" />
                   </tui-input>
                   <button tuiIconButton type="button" icon="tuiIconSend" appearance="custom"
                     (click)="sendComment(postDetail, commentValue)" [disabled]="commentValue === ''">
