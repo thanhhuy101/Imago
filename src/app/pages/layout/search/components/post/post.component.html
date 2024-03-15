@@ -15,7 +15,11 @@
         </div>
         @if (item.photoUrl.length > 1) {
           <div style="position: relative">
-            <!-- <tui-pagination size="s" class="tui-space_top-4" [length]="item.photoUrl.length + 1  / itemsCount"></tui-pagination> -->
+            <tui-pagination
+              size="s"
+              class="tui-space_top-4"
+              [length]="item.photoUrl.length + 1 / itemsCount"
+            ></tui-pagination>
             <div
               *ngIf="disabled"
               style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"

@@ -312,7 +312,6 @@ export class InterestComponent implements OnInit, OnDestroy {
         });
       }
       this.scrollIndex = ev;
-      this.store.dispatch(CategoryActions.clearAll());
     } else {
       // decrease index
       if (this.page > 1) {
@@ -334,7 +333,7 @@ export class InterestComponent implements OnInit, OnDestroy {
         });
       }
       this.scrollIndex = ev;
-      this.store.dispatch(CategoryActions.clearAll());
     }
+    this.store.dispatch(CategoryActions.clearAll());
   }
 }
