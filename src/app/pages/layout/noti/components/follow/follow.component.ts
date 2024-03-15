@@ -45,7 +45,7 @@ export class FollowComponent {
     'notification',
     'getFollowNotificationsError',
   );
-  profile$ = this.store.select('profile', 'profile');
+  profile$ = this.store.select('profile', 'mine');
 
   ngOnInit(): void {
     this.subscriptions.push(
