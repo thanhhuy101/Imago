@@ -51,7 +51,7 @@ export class InterestComponent implements OnInit, OnDestroy {
   );
   categories$ = this.store.select('category', 'categories');
   categoriesAllSuccess$ = this.store.select('category', 'allCategories');
-  isGetProfileSuccess$ = this.store.select('profile', 'profile');
+  isGetProfileSuccess$ = this.store.select('profile', 'mine');
 
   isUpdatingProfile$ = this.store.select('profile', 'isUpdating');
   isUpdateProfileSuccess$ = this.store.select('profile', 'isUpdateSuccess');

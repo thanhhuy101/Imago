@@ -197,12 +197,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       this.commentList$.subscribe((comments) => {
         let data = (comments as any).data;
-        for (let i = 0; i < data.length; i++) {
-          this.comments.push({
-            authorId: data[i].authorId,
-            content: data[i].content,
-            createdAt: data[i].createdAt!,
-          });
+        if (data != undefined) {
+          for (let i = 0; i < data.length; i++) {
+            this.comments.push({
+              authorId: data[i].authorId,
+              content: data[i].content,
+              createdAt: data[i].createdAt!,
+            });
+          }
         }
       });
     }

@@ -1,6 +1,5 @@
-<tui-scrollbar class="scroll-container ">
+<tui-scrollbar class="scroll-container">
   <div [ngClass]="profiles.length > 0 ? 'container' : 'main-empty'">
-
     @if (profiles.length > 0) {
     @for (item of this.peoples; track item.id) {
     <div class="col">
@@ -53,6 +52,5 @@
       <div class="tui-text_body-xl">No result match</div>
     </ng-container>
     }
-
   </div>
 </tui-scrollbar>

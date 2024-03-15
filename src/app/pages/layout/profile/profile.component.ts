@@ -202,7 +202,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if (value) {
           this.loader = false;
           this.notificationService.successNotification('Update success');
-          this.store.dispatch(ProfileActions.getById({ id: this.profile.id }));
+
+          this.store.dispatch(ProfileActions.getMine());
           this.openDialog = false;
         }
       }),
