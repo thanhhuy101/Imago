@@ -245,6 +245,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     };
     if (listCategory.length > 0) {
       this.store.dispatch(ProfileActions.updateMine({ mine: profile }));
+      this.router.navigate(['/home']).then();
     } else {
       this.alertService.errorNotification('Please select at least 1 category');
     }

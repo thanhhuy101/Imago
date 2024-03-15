@@ -126,6 +126,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       this.profileState$.subscribe((profile) => {
         this.profile = profile;
+        console.log(this.profile);
       }),
 
       this.commentList$.subscribe((comments) => {
