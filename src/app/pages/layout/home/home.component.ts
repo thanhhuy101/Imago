@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isGetting$ = this.store.select('post', 'isGettingAll');
   postList$ = this.store.select('post', 'postResponse');
 
-  profileState$ = this.store.select('profile', 'profile');
+  profileState$ = this.store.select('profile', 'mine');
   profile: ProfileModel = <ProfileModel>{};
 
   itemsCount = 0;
