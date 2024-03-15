@@ -184,6 +184,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.isUploadSuccess$.subscribe((value) => {
         if (value.length > 0) {
           this.notificationService.successNotification('Upload success');
+          this.store.dispatch(ProfileActions.clearUpdateState());
+          this.store.dispatch(StorageActions.resetStorage());
+          this.store.dispatch(ProfileActions.clearMessages());
           this.photoUrl = value[0];
           this.imageControl.setValue(null);
         }
@@ -191,6 +194,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.uploadError$.subscribe((value) => {
         if (value.status) {
           this.notificationService.errorNotification('Upload failed');
+          this.store.dispatch(ProfileActions.clearUpdateState());
+          this.store.dispatch(StorageActions.resetStorage());
+          this.store.dispatch(ProfileActions.clearMessages());
           this.imageControl.setValue(null);
         }
       }),
@@ -201,10 +207,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.isUpdateSuccess$.subscribe((value) => {
         if (value) {
           this.loader = false;
+          this.openDialog = false;
           this.notificationService.successNotification('Update success');
 
           this.store.dispatch(ProfileActions.getMine());
-          this.openDialog = false;
         }
       }),
       this.updateErrorMessages$.subscribe((value) => {

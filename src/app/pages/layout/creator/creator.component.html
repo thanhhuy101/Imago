@@ -57,7 +57,7 @@
             appearance="accent"
             size="m"
             (click)="publicPost()"
-            [disabled]="isDisabled"
+            [disabled]="isDisabled || statusValue === ''"
           >
             Publish
           </button>
