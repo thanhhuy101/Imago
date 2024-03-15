@@ -18,9 +18,11 @@ export const initialState: ProfileState = {
   updateErrorMessage: <HttpErrorResponseModel>{},
 
   isGetting: false,
+  isGetMineSuccess: false,
   getErrorMessage: <HttpErrorResponseModel>{},
 
   isGettingById: false,
+  isGetByIdSuccess: false,
   getErrorMessageById: <HttpErrorResponseModel>{},
 
   profileSearchResult: [],
@@ -109,6 +111,7 @@ export const profileReducer = createReducer(
       ...state,
       mine: mine,
       isGetting: false,
+      isGetMineSuccess: true,
     };
   }),
   on(ProfileActions.getMineFailure, (state, { getErrorMessage, type }) => {
@@ -117,6 +120,7 @@ export const profileReducer = createReducer(
       ...state,
       getErrorMessage: getErrorMessage,
       isGetting: false,
+      isGetMineSuccess: false,
     };
   }),
   // getList
@@ -143,12 +147,13 @@ export const profileReducer = createReducer(
       isGetting: false,
     };
   }),
+
   // getById
   on(ProfileActions.getById, (state, { type }) => {
     console.log(type);
     return {
       ...state,
-      isGetting: true,
+      isGettingById: true,
     };
   }),
   on(ProfileActions.getByIdSuccess, (state, { profile, type }) => {
@@ -156,7 +161,8 @@ export const profileReducer = createReducer(
     return {
       ...state,
       profile: profile,
-      isGetting: false,
+      isGettingById: false,
+      isGetByIdSuccess: true,
     };
   }),
   on(ProfileActions.getByIdFailure, (state, { getErrorMessageById, type }) => {
@@ -164,11 +170,12 @@ export const profileReducer = createReducer(
     return {
       ...state,
       getErrorMessageById: getErrorMessageById,
-      isGetting: false,
+      isGettingById: false,
     };
   }),
   // clearMessages
-  on(ProfileActions.clearMessages, (state) => {
+  on(ProfileActions.clearMessages, (state, { type }) => {
+    console.log(type);
     return {
       ...state,
       createErrorMessage: <HttpErrorResponseModel>{},
@@ -178,7 +185,8 @@ export const profileReducer = createReducer(
     };
   }),
   // clearCreateState
-  on(ProfileActions.clearCreateState, (state) => {
+  on(ProfileActions.clearCreateState, (state, { type }) => {
+    console.log(type);
     return {
       ...state,
       isCreating: false,
@@ -186,7 +194,8 @@ export const profileReducer = createReducer(
     };
   }),
   // clearUpdateState
-  on(ProfileActions.clearUpdateState, (state) => {
+  on(ProfileActions.clearUpdateState, (state, { type }) => {
+    console.log(type);
     return {
       ...state,
       isUpdating: false,
@@ -194,7 +203,8 @@ export const profileReducer = createReducer(
     };
   }),
   // clearGetState
-  on(ProfileActions.clearGetState, (state) => {
+  on(ProfileActions.clearGetState, (state, { type }) => {
+    console.log(type);
     return {
       ...state,
       isGetting: false,
@@ -228,7 +238,8 @@ export const profileReducer = createReducer(
       isSearching: false,
     };
   }),
-  on(ProfileActions.clearSearchState, (state) => {
+  on(ProfileActions.clearSearchState, (state, { type }) => {
+    console.log(type);
     return {
       ...state,
       profileSearchResult: [],
@@ -236,14 +247,15 @@ export const profileReducer = createReducer(
       searchErrorMessage: <HttpErrorResponseModel>{},
     };
   }),
+
   // follow
-  on(ProfileActions.follow, (state) => {
+  on(ProfileActions.follow, (state, { type }) => {
     return {
       ...state,
       isFollowing: true,
     };
   }),
-  on(ProfileActions.followSuccess, (state) => {
+  on(ProfileActions.followSuccess, (state, { type }) => {
     return {
       ...state,
       isFollowing: false,

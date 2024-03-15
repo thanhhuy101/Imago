@@ -8,7 +8,7 @@
         </h3>
         <h5 class="tui-text_body-xl">&#64;{{ profile.userName }}</h5>
         <p class="tui-text_body-m">
-          A picture is worth a thousand words. Share your story here.
+          {{ profile.bio }}
         </p>
       </div>
 
@@ -41,9 +41,11 @@
       </div>
 
       <div class="edit-btn">
+        @if (isMine) {
         <button tuiButton appearance="outline" size="m" (click)="toggleDialog(true)">
           Edit
         </button>
+        }
       </div>
     </div>
   </div>

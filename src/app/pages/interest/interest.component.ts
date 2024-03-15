@@ -35,8 +35,9 @@ type Category = {
 export class InterestComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   isLoading = false;
+  loader = false;
   isSelectAll = false;
-  isGetSuccess=false
+  isGetSuccess = false;
 
   // observable
   token$ = this.store.select('auth', 'token');
@@ -51,6 +52,9 @@ export class InterestComponent implements OnInit, OnDestroy {
   categories$ = this.store.select('category', 'categories');
   categoriesAllSuccess$ = this.store.select('category', 'allCategories');
   isGetProfileSuccess$ = this.store.select('profile', 'profile');
+
+  isUpdatingProfile$ = this.store.select('profile', 'isUpdating');
+  isUpdateProfileSuccess$ = this.store.select('profile', 'isUpdateSuccess');
 
   // category
   categories: CategoryModel[] = [];
@@ -149,6 +153,14 @@ export class InterestComponent implements OnInit, OnDestroy {
         }
       }),
 
+      // this.categoriesAllSuccess$.subscribe((category) => {
+      //   if (category) {
+      //     this.selectedItems = category;
+      //     if(this.selectedItems.length > 0){
+      //       this.haveCategories = true;
+      //     }
+      //   }
+      // }),
     );
   }
 
@@ -227,15 +239,12 @@ export class InterestComponent implements OnInit, OnDestroy {
 
   next() {
     let listCategory = this.selectedItems.map((item: any) => item.id);
-
     let profile: ProfileModel = {
       ...this.profile,
       category: listCategory,
     };
-
     if (listCategory.length > 0) {
       this.store.dispatch(ProfileActions.updateMine({ mine: profile }));
-      this.router.navigate(['/home']).then();
     } else {
       this.alertService.errorNotification('Please select at least 1 category');
     }
@@ -255,17 +264,14 @@ export class InterestComponent implements OnInit, OnDestroy {
     this.items.forEach((item) => {
       item.isActive = true;
       if (this.items.length < 30) {
-       
       }
     });
 
     this.secondaryItems.forEach((item) => {
       item.isActive = true;
-      
     });
-   
+
     this.isSelectAll = true;
-   
   }
 
   unselectAllItems() {
