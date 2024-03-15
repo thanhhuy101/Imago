@@ -59,7 +59,6 @@ export class AllComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(
       this.profile$.subscribe((profile) => {
-        console.log('profile', profile.id);
         if (profile.email) {
           this.store.dispatch(
             NotificationActions.getNotifications({

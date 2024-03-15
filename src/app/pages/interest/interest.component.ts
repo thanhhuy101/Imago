@@ -66,6 +66,7 @@ export class InterestComponent implements OnInit, OnDestroy {
   itemsCount = 5;
   items: Category[] = [];
   secondaryItems: Category[] = [];
+  scrollIndex = 0;
 
   // items
   selectedItems: any = [];
@@ -94,7 +95,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     }>,
     private alertService: NotificationService,
   ) {
-    for (let index = 0; index < 50; index++) {
+    for (let index = 0; index < 30; index++) {
       this.items[index] = {
         id: '',
         title: '',
@@ -112,6 +113,7 @@ export class InterestComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(CategoryActions.clearAll());
   }
 
   ngOnInit(): void {
@@ -152,15 +154,6 @@ export class InterestComponent implements OnInit, OnDestroy {
           this.mappingCategory(data.data, this.page);
         }
       }),
-
-      // this.categoriesAllSuccess$.subscribe((category) => {
-      //   if (category) {
-      //     this.selectedItems = category;
-      //     if(this.selectedItems.length > 0){
-      //       this.haveCategories = true;
-      //     }
-      //   }
-      // }),
     );
   }
 
@@ -173,6 +166,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     if (this.index > 0) {
       this.page = this.index / this.itemsCount + 1;
     }
+    console.log('index', this.index, 'page', this.page);
 
     this.getCategoriesByPage(this.index, this.page);
   }
@@ -181,7 +175,6 @@ export class InterestComponent implements OnInit, OnDestroy {
     item.isActive = !item.isActive;
     if (item.isActive) {
       this.selectedItems.push(item);
-      console.log('item', item);
       this.countSelected++;
     } else {
       this.countSelected--;
@@ -235,6 +228,8 @@ export class InterestComponent implements OnInit, OnDestroy {
         this.mappingCategory(data.data, page);
       }
     });
+
+    this.store.dispatch(CategoryActions.clearAll());
   }
 
   next() {
@@ -273,6 +268,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     });
 
     this.isSelectAll = true;
+    this.store.dispatch(CategoryActions.clearAll());
   }
 
   unselectAllItems() {
@@ -293,5 +289,51 @@ export class InterestComponent implements OnInit, OnDestroy {
     } else {
       this.haveCategories = false;
     }
+  }
+
+  onScroll(ev: any) {
+    if (this.scrollIndex < ev) {
+      if (this.page <= 5) {
+        this.index = this.index;
+        this.index += 4;
+        this.page += 1;
+
+        this.store.dispatch(
+          CategoryActions.getCategoryList({ page: this.page }),
+        );
+
+        this.categories$.subscribe((categories) => {
+          if (categories.length === 0) {
+            this.isLoading = true;
+          } else {
+            let data = { ...categories } as any;
+            this.mappingCategory(data.data, this.page);
+          }
+        });
+      }
+      this.scrollIndex = ev;
+    } else {
+      // decrease index
+      if (this.page > 1) {
+        this.index = this.index;
+        this.index -= 4;
+        this.page -= 1;
+
+        this.store.dispatch(
+          CategoryActions.getCategoryList({ page: this.page }),
+        );
+
+        this.categories$.subscribe((categories) => {
+          if (categories.length === 0) {
+            this.isLoading = true;
+          } else {
+            let data = { ...categories } as any;
+            this.mappingCategory(data.data, this.page);
+          }
+        });
+      }
+      this.scrollIndex = ev;
+    }
+    this.store.dispatch(CategoryActions.clearAll());
   }
 }
