@@ -7,19 +7,17 @@
       <tui-island size="m" class="content">
         <div class="tui-island__content">
           <div class="tui-island__figure">
-            <tui-loader>
-              @if (!item.followed) {
-              <button tuiButton type="button" size="m" id="flBtn" appearance="custom"
-                (click)="followUser(item, item.id)" class="tui-space_right-3 tui-space_bottom-3">
-                Follow
-              </button>
-              } @else {
-              <button tuiButton type="button" size="m" (click)="unFollowUser(item, item.id)" appearance="outline"
-                class="tui-space_right-3 tui-space_bottom-3">
-                Following
-              </button>
-              }
-            </tui-loader>
+            @if (!item.followed) {
+            <button tuiButton type="button" size="m" id="flBtn" appearance="custom" (click)="followUser(item, item.id)"
+              class="tui-space_right-3 tui-space_bottom-3">
+              Follow
+            </button>
+            } @else {
+            <button tuiButton type="button" size="m" (click)="unFollowUser(item, item.id)" appearance="outline"
+              class="tui-space_right-3 tui-space_bottom-3">
+              Following
+            </button>
+            }
           </div>
           <div class="all_left">
             <div class="top">

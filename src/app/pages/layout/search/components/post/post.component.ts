@@ -11,8 +11,8 @@ import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { PostModel } from '../../../../../model/post.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReportModel } from '../../../../../model/report.model';
-import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
-import { IdToNamePipe } from "../../../../../shared/pipes/id-to-name.pipe";
+import { IdToAvatarPipe } from '../../../../../shared/pipes/id-to-avatar.pipe';
+import { IdToNamePipe } from '../../../../../shared/pipes/id-to-name.pipe';
 import { CommentModel } from '../../../../../model/comment.model';
 import { CommentState } from '../../../../../../ngrx/comment/comment.state';
 import { NotiState } from '../../../../../../ngrx/noti/noti.state';
@@ -27,11 +27,11 @@ type Comment = {
 };
 
 @Component({
-    selector: 'app-post',
-    standalone: true,
-    templateUrl: './post.component.html',
-    styleUrl: './post.component.scss',
-    imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe]
+  selector: 'app-post',
+  standalone: true,
+  templateUrl: './post.component.html',
+  styleUrl: './post.component.scss',
+  imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe],
 })
 export class PostComponent {
   subscription: Subscription[] = [];
@@ -43,7 +43,7 @@ export class PostComponent {
   profileState$ = this.store.select('profile', 'profile');
   profile: ProfileModel = <ProfileModel>{};
 
-  //comment 
+  //comment
   commentList$ = this.store.select('comment', 'comments');
   isGettingComments$ = this.store.select('comment', 'isGettingComments');
   getCommentsSuccess$ = this.store.select('comment', 'getCommentsSuccess');
@@ -63,15 +63,15 @@ export class PostComponent {
       notification: NotiState;
     }>,
   ) {}
-itemsCount = 0;
-disabled=true;
+  itemsCount = 0;
+  disabled = true;
   index = 0;
 
   ngOnInit(): void {
     this.subscription.push(
       this.postSearchResult$.subscribe((res) => {
         this.list = res;
-        console.log('search list',this.list);
+        console.log('search list', this.list);
       }),
       this.commentList$.subscribe((comments) => {
         let data = (comments as any).data;
@@ -86,7 +86,6 @@ disabled=true;
       this.profileState$.subscribe((profile) => {
         this.profile = profile;
       }),
-
     );
   }
 
@@ -94,7 +93,6 @@ disabled=true;
     this.subscription.forEach((sub) => sub.unsubscribe());
     this.list = [];
   }
-
 
   isLiked = false;
 
@@ -160,7 +158,6 @@ disabled=true;
       reporter: '',
     };
     this.listChooses = [];
- 
 
     this.testForm2.patchValue({ testValue1: '' });
     this.testForm = new FormGroup({
