@@ -15,6 +15,7 @@ import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import {
   combineLatest,
+  filter,
   finalize,
   map,
   Observable,
@@ -62,10 +63,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   activeItemIndex = 0;
 
   loader = false;
+  isMine = false;
 
   queryParams$ = this.activatedRoute.queryParams;
 
+  token$ = this.store.select('auth', 'token');
+  mine$ = this.store.select('profile', 'mine');
+  isGetByIdSuccess$ = this.store.select('profile', 'isGetByIdSuccess');
   profile$ = this.store.select('profile', 'profile');
+  isGetMineSuccess$ = this.store.select('profile', 'isGetMineSuccess');
 
   isUpdating$ = this.store.select('profile', 'isUpdating');
   isUpdateSuccess$ = this.store.select('profile', 'isUpdateSuccess');
@@ -134,26 +140,30 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription.push(
-      combineLatest([this.queryParams$, this.profile$]).subscribe(
-        ([params, profile]) => {
-          if (params['uid'] !== undefined && profile.email) {
-            this.profile = profile;
-            this.photoUrl = profile.photoUrl;
-
-            this.updateForm.setValue({
-              userName: profile.userName,
-              firstName: profile.firstName,
-              lastName: profile.lastName,
-              bio: profile.bio,
-              photoUrl: profile.photoUrl,
-            });
-
-            this.updateData = {
-              ...profile,
-            };
+      combineLatest([
+        this.queryParams$,
+        this.token$,
+        this.mine$,
+        this.profile$,
+        this.isGetMineSuccess$,
+        this.isGetByIdSuccess$,
+      ])
+        .pipe(
+          filter(([token, isGetMineSuccess]) =>
+            Boolean(token && isGetMineSuccess),
+          ),
+        )
+        .subscribe(([params, , mine, profile, , isGetByIdSuccess]) => {
+          if (mine.id === params['uid']) {
+            this.setProfileData(mine);
+            this.isMine = true;
+          } else if (isGetByIdSuccess) {
+            this.setProfileData(profile);
+            this.isMine = false;
+          } else if (!profile.id) {
+            this.store.dispatch(ProfileActions.getById({ id: params['uid'] }));
           }
-        },
-      ),
+        }),
 
       this.imageControl.valueChanges.subscribe((file) => {
         if (file) {
@@ -203,6 +213,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
       }),
     );
+  }
+
+  setProfileData(profileData: ProfileModel) {
+    this.profile = profileData;
+    this.photoUrl = profileData.photoUrl;
+
+    this.updateForm.setValue({
+      userName: profileData.userName,
+      firstName: profileData.firstName,
+      lastName: profileData.lastName,
+      bio: profileData.bio,
+      photoUrl: profileData.photoUrl,
+    });
+
+    this.updateData = {
+      ...profileData,
+    };
   }
 
   ngOnDestroy(): void {

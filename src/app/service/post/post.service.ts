@@ -12,6 +12,16 @@ export class PostService {
     return this.httpClient.get(`post/all?page=${page}&size=${size}`);
   }
 
+  getAllWithUserId(creatorId: string, page: number, size: number) {
+    return this.httpClient.get(
+      `post/user?creatorId=${creatorId}&page=${page}&size=${size}`,
+    );
+  }
+
+  getOne(id: string) {
+    return this.httpClient.get(`post?id=${id}`);
+  }
+
   create(post: PostModel) {
     return this.httpClient.post('post', post);
   }
@@ -38,5 +48,19 @@ export class PostService {
 
   search(query: string) {
     return this.httpClient.get(`post/search?query=${query}`);
+  }
+
+  reaction(postId: string, senderId: string) {
+    return this.httpClient.put(
+      `post/reaction?postId=${postId}&senderId=${senderId}`,
+      {},
+    );
+  }
+
+  unReaction(postId: string, senderId: string) {
+    return this.httpClient.put(
+      `post/unreaction?postId=${postId}&senderId=${senderId}`,
+      {},
+    );
   }
 }

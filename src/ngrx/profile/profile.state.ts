@@ -15,9 +15,11 @@ export interface ProfileState {
   updateErrorMessage: HttpErrorResponseModel;
 
   isGetting: boolean;
+  isGetMineSuccess: boolean;
   getErrorMessage: HttpErrorResponseModel;
 
   isGettingById: boolean;
+  isGetByIdSuccess: boolean;
   getErrorMessageById: HttpErrorResponseModel;
 
   isFollowing: boolean;

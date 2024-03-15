@@ -34,7 +34,8 @@ export const deletePostFailure = createAction(
 
 export const getAll = createAction(
   '[Post] Get All',
-  props<{ page: number; size: number }>(),);
+  props<{ page: number; size: number }>(),
+);
 export const getAllSuccess = createAction(
   '[Post] Get All Success',
   props<{ postResponse: PostResponse }>(),
@@ -44,13 +45,38 @@ export const getAllFailure = createAction(
   props<{ errorGetAllMessage: HttpErrorResponseModel }>(),
 );
 
+export const getWithUserId = createAction(
+  '[Post] Get With User Id',
+  props<{ creatorId: string; page: number; size: number }>(),
+);
+
+export const getWithUserIdSuccess = createAction(
+  '[Post] Get With User Id Success',
+  props<{ postResponse: PostResponse }>(),
+);
+
+export const getWithUserIdFailure = createAction(
+  '[Post] Get With User Id Failure',
+  props<{ errorGetWithUserIdMessage: HttpErrorResponseModel }>(),
+);
+
+export const getOne = createAction('[Post] Get One', props<{ id: string }>());
+export const getOneSuccess = createAction(
+  '[Post] Get One Success',
+  props<{ postDetail: PostModel }>(),
+);
+export const getOneFailure = createAction(
+  '[Post] Get One Failure',
+  props<{ errorGetOneMessage: HttpErrorResponseModel }>(),
+);
+
 export const getMine = createAction(
   '[Post] Get Mine',
   props<{ page: number; size: number }>(),
 );
 export const getMineSuccess = createAction(
   '[Post] Get Mine Success',
-  props<{ postResponse: PostResponse }>(),
+  props<{ minePost: PostResponse }>(),
 );
 export const getMineFailure = createAction(
   '[Post] Get Mine Failure',
@@ -91,6 +117,27 @@ export const searchSuccess = createAction(
 export const searchFailure = createAction(
   '[Post] Search Failure',
   props<{ errorSearchMessage: HttpErrorResponseModel }>(),
+);
+
+export const reaction = createAction(
+  '[Post] Reaction',
+  props<{ postId: string; senderId: string }>(),
+);
+export const reactionSuccess = createAction('[Post] Reaction Success');
+export const reactionFailure = createAction(
+  '[Post] Reaction Failure',
+  props<{ reactionErrorMessage: HttpErrorResponseModel }>(),
+);
+
+//unreaction
+export const unReaction = createAction(
+  '[Post] UnReaction',
+  props<{ postId: string; senderId: string }>(),
+);
+export const unReactionSuccess = createAction('[Post] UnReaction Success');
+export const unReactionFailure = createAction(
+  '[Post] UnReaction Failure',
+  props<{ reactionErrorMessage: HttpErrorResponseModel }>(),
 );
 
 export const clearMessages = createAction('[Post] Clear Message');

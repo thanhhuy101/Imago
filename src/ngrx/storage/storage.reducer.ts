@@ -30,8 +30,8 @@ export const storageReducer = createReducer(
     };
   }),
 
-  on(StorageActions.resetStorage, (state) => {
-    console.log('resetStorage');
+  on(StorageActions.resetStorage, (state, { type }) => {
+    console.log(type);
     return {
       ...initualState,
     };

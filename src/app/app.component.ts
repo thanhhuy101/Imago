@@ -41,7 +41,8 @@ export class AppComponent implements OnInit {
   isGetAuthSuccess$ = this.store.select('auth', 'authCredential');
   getAuthErrorResponse$ = this.store.select('auth', 'getAuthErrorResponse');
 
-  isGetProfileSuccess$ = this.store.select('profile', 'profile');
+  mine$ = this.store.select('profile', 'mine');
+  isGetProfileSuccess$ = this.store.select('profile', 'isGetMineSuccess');
 
   isSignUpSuccess$ = this.store.select('auth', 'isSignUpSuccess');
 
@@ -74,20 +75,21 @@ export class AppComponent implements OnInit {
       if (token) {
         console.log(token);
         this.store.dispatch(AuthActions.getAuth({ id: this.uid }));
-        this.store.dispatch(ProfileActions.getById({ id: this.uid }));
+        this.store.dispatch(ProfileActions.getMine());
       }
     });
 
     combineLatest([
+      this.mine$,
       this.isGetAuthSuccess$,
       this.isGetProfileSuccess$,
       this.getAuthErrorResponse$,
-    ]).subscribe(([authCredential, profile, error]) => {
+    ]).subscribe(([mine, authCredential, isGetMineSuccess, error]) => {
       const { email: authEmail } = authCredential;
-      const { email: profileEmail, category } = profile;
+      const { email: profileEmail, category } = mine;
 
-      if (authEmail && profileEmail) {
-        if (category.length !== 0) {
+      if (authEmail && isGetMineSuccess) {
+        if (profileEmail && category.length !== 0) {
           const isAuthRoute = ['/login', '/register', '/interest'].includes(
             this.router.url,
           );
@@ -98,9 +100,10 @@ export class AppComponent implements OnInit {
           console.log('interest');
           this.router.navigate(['/interest']).then();
         }
-      } else if (authEmail && !profileEmail) {
-        console.log('register');
-        this.router.navigate(['/register']).then();
+      } else if (authEmail && isGetMineSuccess) {
+        if (!mine.email) {
+          this.router.navigate(['/register']).then();
+        }
       } else if (error.status === 404) {
         this.store.dispatch(AuthActions.signUp());
       }

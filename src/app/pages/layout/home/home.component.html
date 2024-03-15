@@ -1,191 +1,207 @@
 <tui-scrollbar class="scroll-container">
-  <div
-    class="main"
-    infiniteScroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
-    [infiniteScrollContainer]="selector"
-    [fromRoot]="true"
-    (scrolled)="onScrollDown($event)"
-  >
-    <div class="allPost">
-      @for (item of postList; track item) {
-        <div class="post">
-          <!--  Picture post -->
-          <div class="picture-post">
-            <div class="image-post">
-              <img
-                class="picture1"
-                [src]="item.photoUrl[0]"
-                alt=""
-                (click)="showDialogDetail(templateDetail, item)"
-              />
+  <tui-loader size="xxl" [showLoader]="loader" [overlay]="true">
+    <div
+      class="main"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      [infiniteScrollContainer]="selector"
+      [fromRoot]="true"
+      (scrolled)="onScrollDown($event)"
+    >
+      <div class="allPost">
+        @for (item of postList; track item) {
+          <div class="post">
+            <!--  Picture post -->
+            <div class="picture-post">
+              <div class="image-post">
+                <img
+                  class="picture1"
+                  [src]="item.photoUrl[0]"
+                  alt=""
+                  (click)="showDialog(item.id)"
+                />
+              </div>
             </div>
-          </div>
-          @if (item.photoUrl.length > 1) {
-            <div style="position: relative">
-              <tui-pagination
-                size="s"
-                class="tui-space_top-4"
-                [length]="item.photoUrl.length / itemsCount"
-              ></tui-pagination>
-              <div
-                *ngIf="disabled"
-                style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"
-              ></div>
-            </div>
-          }
-          <!--  Bottom post -->
-          <div class="bottom">
-            <div class="userInfoReport">
-              <div class="user-info">
-                <tui-avatar
-                  class="tui-space_top-1"
-                  [round]="false"
-                  [src]="item.creatorId | idToAvatar | async"
-                  size="xl"
-                ></tui-avatar>
+            @if (item.photoUrl.length > 1) {
+              <div style="position: relative">
+                <tui-pagination
+                  size="s"
+                  class="tui-space_top-4"
+                  [length]="item.photoUrl.length / itemsCount"
+                ></tui-pagination>
+                <div
+                  *ngIf="disabled"
+                  style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                  "
+                ></div>
+              </div>
+            }
 
-                <!-- info-user -->
-                <div class="info-post">
-                  <h6 class="tui-text_h6">
-                    {{ item.creatorId | idToName | async }}
-                  </h6>
-                  <p class="tui-text_body-s-2">
-                    {{ item.createdAt._seconds * 1000 | date: "medium" }}
-                  </p>
+            <!--  Bottom post -->
+            <div class="bottom">
+              <div class="userInfoReport">
+                <div class="user-info">
+                  <tui-avatar
+                    class="tui-space_top-1"
+                    [round]="false"
+                    [src]="item.creatorId | idToAvatar | async"
+                    size="xl"
+                    (click)="goToProfile(item.creatorId)"
+                  ></tui-avatar>
+
+                  <!-- info-user -->
+                  <div class="info-post">
+                    <h6
+                      class="tui-text_h6"
+                      (click)="goToProfile(item.creatorId)"
+                    >
+                      {{ item.creatorId | idToName | async }}
+                    </h6>
+                    <p class="tui-text_body-s-2">
+                      {{ item.createdAt._seconds * 1000 | date: "medium" }}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- report-->
+                <div class="more">
+                  <tui-hosted-dropdown
+                    #dropdown
+                    [content]="content"
+                    [open]="false"
+                  >
+                    <button
+                      appearance="custom"
+                      icon="tuiIconMoreVertical"
+                      tuiIconButton
+                      type="button"
+                      [pseudoHover]="dropdown.open || null"
+                      class="reaction_button"
+                    ></button>
+                  </tui-hosted-dropdown>
+                  <ng-template #content let-activeZone>
+                    <tui-data-list
+                      tuiDataListDropdownManager
+                      size="s"
+                      [tuiActiveZoneParent]="activeZone"
+                    >
+                      <button *tuiLet="'Report' as itemReport" tuiOption>
+                        <span (click)="showDialogReport(templateReport)">
+                          {{ itemReport }}
+                        </span>
+
+                        <ng-template #templateReport let-observerReport>
+                          <form [formGroup]="testForm">
+                            <h2 class="reportTitle">Report</h2>
+                            <div class="line"></div>
+
+                            <span class="selectProblem">
+                              Please select a problem
+                            </span>
+                            @for (item of listReports; track $index) {
+                              <div class="check">
+                                <tui-checkbox-labeled
+                                  class="checkbox"
+                                  formControlName="testValue{{ $index }}"
+                                  size="l"
+                                  (click)="checkBox(item)"
+                                >
+                                </tui-checkbox-labeled>
+                                {{ item }}
+                              </div>
+                            }
+
+                            <form [formGroup]="testForm2">
+                              <label tuiLabel="Description Report">
+                                <tui-textarea
+                                  formControlName="testValue1"
+                                  [tuiTextfieldLabelOutside]="true"
+                                ></tui-textarea>
+                              </label>
+                            </form>
+
+                            <div class="btn-report">
+                              <button
+                                appearance="secondary"
+                                size="m"
+                                tuiButton
+                                type="button"
+                                (click)="observerReport.complete()"
+                              >
+                                Cancel
+                              </button>
+
+                              <button
+                                appearance="primary"
+                                size="m"
+                                tuiButton
+                                type="button"
+                                (click)="
+                                  observerReport.complete(); submit(item.id)
+                                "
+                              >
+                                Submit
+                              </button>
+                            </div>
+                          </form>
+                        </ng-template>
+                      </button>
+                    </tui-data-list>
+                  </ng-template>
                 </div>
               </div>
 
-              <!-- report-->
-              <div class="more">
-                <tui-hosted-dropdown
-                  #dropdown
-                  [content]="content"
-                  [open]="false"
-                >
-                  <button
-                    appearance="custom"
-                    icon="tuiIconMoreVertical"
-                    tuiIconButton
-                    type="button"
-                    [pseudoHover]="dropdown.open || null"
-                    class="reaction_button"
-                  ></button>
-                </tui-hosted-dropdown>
-                <ng-template #content let-activeZone>
-                  <tui-data-list
-                    tuiDataListDropdownManager
-                    size="s"
-                    [tuiActiveZoneParent]="activeZone"
-                  >
-                    <button *tuiLet="'Report' as itemReport" tuiOption>
-                      <span (click)="showDialogReport(templateReport)">
-                        {{ itemReport }}
-                      </span>
-
-                      <ng-template #templateReport let-observerReport>
-                        <form [formGroup]="testForm">
-                          <h2 class="reportTitle">Report</h2>
-                          <div class="line"></div>
-
-                          <span class="selectProblem">
-                            Please select a problem
-                          </span>
-                          @for (item of listReports; track $index) {
-                            <div class="check">
-                              <tui-checkbox-labeled
-                                class="checkbox"
-                                formControlName="testValue{{ $index }}"
-                                size="l"
-                                (click)="checkBox(item)"
-                              >
-                              </tui-checkbox-labeled>
-                              {{ item }}
-                            </div>
-                          }
-
-                          <form [formGroup]="testForm2">
-                            <label tuiLabel="Description Report">
-                              <tui-textarea
-                                formControlName="testValue1"
-                                [tuiTextfieldLabelOutside]="true"
-                              ></tui-textarea>
-                            </label>
-                          </form>
-
-                          <div class="btn-report">
-                            <button
-                              appearance="secondary"
-                              size="m"
-                              tuiButton
-                              type="button"
-                              (click)="observerReport.complete()"
-                            >
-                              Cancel
-                            </button>
-
-                            <button
-                              appearance="primary"
-                              size="m"
-                              tuiButton
-                              type="button"
-                              (click)="
-                                observerReport.complete(); submit(item.id)
-                              "
-                            >
-                              Submit
-                            </button>
-                          </div>
-                        </form>
-                      </ng-template>
-                    </button>
-                  </tui-data-list>
-                </ng-template>
+              <!-- post-content-->
+              <div class="content">
+                <p class="description-preview">
+                  @for (item of item.hashtag; track $index) {
+                    <span style="color: #0081ff; margin-left: 2px"
+                      >#{{ item }}</span
+                    >
+                  }
+                  {{ item.content }}
+                </p>
+              </div>
+              <div class="reaction">
+                <button
+                  tuiIconButton
+                  type="button"
+                  class="reaction_button"
+                  appearance="custom"
+                  icon="tuiIconHeartLarge"
+                  size="m"
+                ></button>
+                <button
+                  tuiIconButton
+                  type="button"
+                  appearance="custom"
+                  class="reaction_button"
+                  icon="tuiIconMessageCircleLarge"
+                  size="m"
+                ></button>
+                <button
+                  tuiIconButton
+                  type="button"
+                  class="reaction_button"
+                  appearance="custom"
+                  icon="tuiIconNavigationLarge"
+                  size="m"
+                ></button>
               </div>
             </div>
-
-            <!-- post-content-->
-            <div class="content">
-              <p class="description-preview">
-                @for (item of item.hashtag; track $index) {
-                  <span style="color: #0081ff; margin-left: 2px"
-                    >#{{ item }}</span
-                  >
-                }
-                {{ item.content }}
-              </p>
-            </div>
-            <div class="reaction">
-              <button
-                tuiIconButton
-                type="button"
-                class="reaction_button"
-                appearance="custom"
-                icon="tuiIconHeartLarge"
-                size="m"
-              ></button>
-              <button
-                tuiIconButton
-                type="button"
-                appearance="custom"
-                class="reaction_button"
-                icon="tuiIconMessageCircleLarge"
-                size="m"
-              ></button>
-              <button
-                tuiIconButton
-                type="button"
-                class="reaction_button"
-                appearance="custom"
-                icon="tuiIconNavigationLarge"
-                size="m"
-              ></button>
-            </div>
           </div>
-        </div>
-
-        <ng-template #templateDetail>
+        }
+        <ng-template
+          let-observer
+          [tuiDialogOptions]="{ size: 'auto' }"
+          [(tuiDialog)]="open"
+        >
           <div class="postDetail">
             <div class="left">
               <div class="detail-dialog">
@@ -196,48 +212,64 @@
                   class="blurred-background"
                 >
                   <ng-container
-                    *ngFor="let photo of item.photoUrl; let i = index"
+                    *ngFor="let photo of postDetail.photoUrl; let i = index"
                   >
                     <div class="photolist" *tuiItem>
                       <div class="carousel-item">
-                        <button
-                        class="buttonLeft"
-                          appearance="custom"
-                          icon="tuiIconChevronLeftLarge"
-                          size="s"
-                          tuiIconButton
-                          type="button"
-                          (click)="carousel.prev()"
-                          
+                        @if (i === 0) {
+                          <button
+                            class="buttonRight"
+                            appearance="custom"
+                            icon="tuiIconChevronRightLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.next()"
+                          ></button>
+                        } @else if (i === postDetail.photoUrl.length - 1) {
+                          <button
+                            class="buttonLeft"
+                            appearance="custom"
+                            icon="tuiIconChevronLeftLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.prev()"
+                          ></button>
+                        } @else {
+                          <button
+                            class="buttonLeft"
+                            appearance="custom"
+                            icon="tuiIconChevronLeftLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.prev()"
                           ></button>
                           <button
-                          class="buttonRight"
-                           appearance="custom"
-                          icon="tuiIconChevronRightLarge"
-                          size="s"
-                          tuiIconButton
-                          type="button"
-                          (click)="carousel.next()"
+                            class="buttonRight"
+                            appearance="custom"
+                            icon="tuiIconChevronRightLarge"
+                            size="s"
+                            tuiIconButton
+                            type="button"
+                            (click)="carousel.next()"
                           ></button>
+                        }
+
                         <div
                           class="bg-image"
                           [ngStyle]="{
                             'background-image': 'url(' + photo + ')'
                           }"
-                        >
-                        
-                     </div>
+                        ></div>
                         <div class="bg-text">
                           <img class="pictureDetail" [src]="photo" alt="" />
                         </div>
-                    
-                       
                       </div>
                     </div>
-                  
                   </ng-container>
                 </tui-carousel>
-               
               </div>
             </div>
 
@@ -246,122 +278,129 @@
                 <div class="content">
                   <div class="userInfoReport">
                     <div class="user-info">
-                      <!-- avatar-user -->
-                      <div class="avatar-user">
-                        <img
-                          class="avatar"
-                          src="{{ item.creatorId | idToAvatar | async }}"
-                          alt=""
-                        />
-                      </div>
+                      <tui-avatar
+                        class="tui-space_top-1"
+                        [round]="false"
+                        [src]="postDetail.creatorId | idToAvatar | async"
+                        size="xl"
+                        (click)="goToProfile(postDetail.creatorId)"
+                      ></tui-avatar>
+
                       <!-- info-user -->
                       <div class="info-post">
-                        <span class="name-user">{{
-                          item.creatorId | idToName | async
-                        }}</span>
-                        <span class="date">{{
-                          item.createdAt._seconds * 1000 | date: "medium"
-                        }}</span>
+                        <h6
+                          class="tui-text_h6"
+                          (click)="goToProfile(postDetail.creatorId)"
+                        >
+                          {{ postDetail.creatorId | idToName | async }}
+                        </h6>
+                        <p class="tui-text_body-s-2">
+                          {{
+                            postDetail.createdAt._seconds * 1000
+                              | date: "medium"
+                          }}
+                        </p>
                       </div>
                     </div>
 
                     <!-- report-->
-                    <div class="more">
-                      <tui-hosted-dropdown
-                        #dropdown
-                        [content]="content"
-                        [open]="false"
-                      >
-                        <button
-                          appearance="custom"
-                          icon="tuiIconMoreVertical"
-                          class="reaction_button"
-                          tuiIconButton
-                          type="button"
-                          [pseudoHover]="dropdown.open || null"
-                        ></button>
-                      </tui-hosted-dropdown>
-                      <ng-template #content let-activeZone>
-                        <tui-data-list
-                          tuiDataListDropdownManager
-                          size="s"
-                          [tuiActiveZoneParent]="activeZone"
+                    <!-- <div class="more">
+                        <tui-hosted-dropdown
+                          #dropdown
+                          [content]="content"
+                          [open]="false"
                         >
-                          <button *tuiLet="'Report' as itemReport" tuiOption>
-                            <span (click)="showDialogReport(templateReport)">
-                              {{ itemReport }}
-                            </span>
+                          <button
+                            appearance="custom"
+                            icon="tuiIconMoreVertical"
+                            class="reaction_button"
+                            tuiIconButton
+                            type="button"
+                            [pseudoHover]="dropdown.open || null"
+                          ></button>
+                        </tui-hosted-dropdown>
+                        <ng-template #content let-activeZone>
+                          <tui-data-list
+                            tuiDataListDropdownManager
+                            size="s"
+                            [tuiActiveZoneParent]="activeZone"
+                          >
+                            <button *tuiLet="'Report' as itemReport" tuiOption>
+                              <span (click)="showDialogReport(templateReport)">
+                                {{ itemReport }}
+                              </span>
 
-                            <ng-template #templateReport let-observerReport>
-                              <form [formGroup]="testForm">
-                                <h2 class="reportTitle">Report</h2>
-                                <div class="line"></div>
+                              <ng-template #templateReport let-observerReport>
+                                <form [formGroup]="testForm">
+                                  <h2 class="reportTitle">Report</h2>
+                                  <div class="line"></div>
 
-                                <span class="selectProblem">
-                                  Please select a problem
-                                </span>
-                                @for (item of listReports; track $index) {
-                                  <div class="check">
-                                    <tui-checkbox-labeled
-                                      class="checkbox"
-                                      formControlName="testValue{{ $index }}"
-                                      size="l"
-                                      (click)="checkBox(item)"
+                                  <span class="selectProblem">
+                                    Please select a problem
+                                  </span>
+                                  @for (item of listReports; track $index) {
+                                    <div class="check">
+                                      <tui-checkbox-labeled
+                                        class="checkbox"
+                                        formControlName="testValue{{ $index }}"
+                                        size="l"
+                                        (click)="checkBox(item)"
+                                      >
+                                      </tui-checkbox-labeled>
+                                      {{ item }}
+                                    </div>
+                                  }
+
+                                  <form [formGroup]="testForm2">
+                                    <label tuiLabel="Description Report">
+                                      <tui-textarea
+                                        formControlName="testValue1"
+                                        [tuiTextfieldLabelOutside]="true"
+                                      ></tui-textarea>
+                                    </label>
+                                  </form>
+
+                                  <div class="btn-report">
+                                    <button
+                                      appearance="secondary"
+                                      size="m"
+                                      tuiButton
+                                      type="button"
+                                      (click)="observerReport.complete()"
                                     >
-                                    </tui-checkbox-labeled>
-                                    {{ item }}
+                                      Cancel
+                                    </button>
+
+                                    <button
+                                      appearance="primary"
+                                      size="m"
+                                      tuiButton
+                                      type="button"
+                                      (click)="
+                                        observerReport.complete();
+                                        submit(item.id)
+                                      "
+                                    >
+                                      Submit
+                                    </button>
                                   </div>
-                                }
-
-                                <form [formGroup]="testForm2">
-                                  <label tuiLabel="Description Report">
-                                    <tui-textarea
-                                      formControlName="testValue1"
-                                      [tuiTextfieldLabelOutside]="true"
-                                    ></tui-textarea>
-                                  </label>
                                 </form>
-
-                                <div class="btn-report">
-                                  <button
-                                    appearance="secondary"
-                                    size="m"
-                                    tuiButton
-                                    type="button"
-                                    (click)="observerReport.complete()"
-                                  >
-                                    Cancel
-                                  </button>
-
-                                  <button
-                                    appearance="primary"
-                                    size="m"
-                                    tuiButton
-                                    type="button"
-                                    (click)="
-                                      observerReport.complete(); submit(item.id)
-                                    "
-                                  >
-                                    Submit
-                                  </button>
-                                </div>
-                              </form>
-                            </ng-template>
-                          </button>
-                        </tui-data-list>
-                      </ng-template>
-                    </div>
+                              </ng-template>
+                            </button>
+                          </tui-data-list>
+                        </ng-template>
+                      </div> -->
                   </div>
 
                   <!-- post-content-->
                   <div class="content-dialog">
                     <p class="description-preview">
-                      @for (item of item.hashtag; track $index) {
+                      @for (item of postDetail.hashtag; track $index) {
                         <span style="color: #0081ff; margin-left: 2px"
                           >#{{ item }}</span
                         >
                       }
-                      {{ item.content }}
+                      {{ postDetail.content }}
                     </p>
                   </div>
                 </div>
@@ -406,7 +445,7 @@
                     type="button"
                     icon="tuiIconSend"
                     appearance="custom"
-                    (click)="sendComment(item, commentValue)"
+                    (click)="sendComment(postDetail, commentValue)"
                     [disabled]="commentValue === ''"
                   >
                     Button
@@ -422,7 +461,7 @@
                         class="tui-space_top-1"
                         [round]="false"
                         src="{{ comment.authorId | idToAvatar | async }}"
-                        size="l"
+                        size="m"
                       ></tui-avatar>
                       <div class="commentContentAndUserName">
                         <div class="infoDetail">
@@ -444,7 +483,7 @@
             </div>
           </div>
         </ng-template>
-      }
+      </div>
     </div>
-  </div>
+  </tui-loader>
 </tui-scrollbar>

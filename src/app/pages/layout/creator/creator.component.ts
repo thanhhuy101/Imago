@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { StorageState } from '../../../../ngrx/storage/storage.state';
 import * as PostActions from '../../../../ngrx/post/post.actions';
 import * as StorageActions from '../../../../ngrx/storage/storage.actions';
+import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 import { AuthState } from '../../../../ngrx/auth/auth.state';
 import { PostState } from '../../../../ngrx/post/post.state';
 import { DateTime, PostModel } from '../../../model/post.model';
@@ -53,7 +54,7 @@ export class CreatorComponent
   createErrorMessage$ = this.store.select('post', 'createErrorMessage');
 
   firebaseData$ = this.store.select('auth', 'firebaseData');
-  profile$ = this.store.select('profile', 'profile');
+  profile$ = this.store.select('profile', 'mine');
 
   imageList: string[] = ['https://via.placeholder.com/450'];
   subscription: Subscription[] = [];
@@ -107,7 +108,7 @@ export class CreatorComponent
             }
           });
 
-          console.log('linkOfImage', this.linkOfImage);
+          // console.log('linkOfImage', this.linkOfImage);
         }
       }),
       this.uploadError$.subscribe((error) => {
@@ -124,7 +125,6 @@ export class CreatorComponent
         if (isSuccess) {
           this.isContentChanged = false;
           this.notificationService.successNotification('Post successfully');
-          this.store.dispatch(PostActions.clearCreateState());
           this.route
             .navigate(['/profile/post'], {
               queryParams: { uid: this.profile.id },
@@ -134,7 +134,7 @@ export class CreatorComponent
       }),
       this.createErrorMessage$.subscribe((error) => {
         if (error.status) {
-          this.notificationService.errorNotification('Please input status!');
+          this.notificationService.errorNotification(error.error.message);
           this.store.dispatch(PostActions.clearCreateState());
         }
       }),
@@ -151,6 +151,7 @@ export class CreatorComponent
     this.store.dispatch(PostActions.clearMessages());
     this.store.dispatch(StorageActions.resetStorage());
     this.store.dispatch(PostActions.clearCreateState());
+    this.store.dispatch(ProfileActions.clearGetState());
   }
 
   handleImageListChange(imageList: string[]): void {

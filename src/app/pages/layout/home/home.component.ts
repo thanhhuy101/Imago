@@ -17,6 +17,8 @@ import { ImagesCarouselComponent } from '../creator/components/images-carousel/i
 import { PostModel, PostResponse } from '../../../model/post.model';
 import { IdToNamePipe } from '../../../shared/pipes/id-to-name.pipe';
 import { IdToAvatarPipe } from '../../../shared/pipes/id-to-avatar.pipe';
+import { Router } from '@angular/router';
+import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import { ProfileModel } from '../../../model/profile.model';
 import { CommentState } from '../../../../ngrx/comment/comment.state';
@@ -50,13 +52,22 @@ type Comment = {
 export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   index = 0;
-  token$ = this.store.select('auth', 'token');
   disabled = true;
-  postList$ = this.store.select('post', 'postResponse');
+  loader = false;
   postList: PostModel[] = [];
+  postDetail: PostModel = <PostModel>{};
+
+  postDetail$ = this.store.select('post', 'postDetail');
+  errorGetOneMessage$ = this.store.select('post', 'errorGetOneMessage');
+
+  token$ = this.store.select('auth', 'token');
+
+  isGetting$ = this.store.select('post', 'isGettingAll');
+  postList$ = this.store.select('post', 'postResponse');
 
   profileState$ = this.store.select('profile', 'profile');
   profile: ProfileModel = <ProfileModel>{};
+
   itemsCount = 0;
   selector: string = '.scroll-container';
 
@@ -77,6 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   skeletonVisible = false;
 
   constructor(
+    private router: Router,
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
     private store: Store<{
@@ -99,6 +111,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }),
 
+      this.isGetting$.subscribe((data) => {
+        this.loader = data;
+      }),
+
       this.postList$.subscribe((data: PostResponse) => {
         if (data.endPage > 0) {
           this.tempArr = [...this.postList];
@@ -114,13 +130,26 @@ export class HomeComponent implements OnInit, OnDestroy {
       }),
 
       this.commentList$.subscribe((comments) => {
-        let data = (comments as any).data;
-        for (let i = 0; i < data.length; i++) {
-          this.comments.push({
-            authorId: data[i].authorId,
-            content: data[i].content,
-            createdAt: data[i].createdAt!,
-          });
+        if (comments.length > 0) {
+          let data = (comments as any).data;
+          for (let i = 0; i < data.length; i++) {
+            this.comments.push({
+              authorId: data[i].authorId,
+              content: data[i].content,
+              createdAt: data[i].createdAt!,
+            });
+          }
+        }
+      }),
+
+      this.postDetail$.subscribe((data) => {
+        if (data.id) {
+          this.postDetail = data;
+          this.open = true;
+          this.comments = [];
+          this.store.dispatch(
+            CommentActions.getComments({ postId: data.id, page: 1 }),
+          );
         }
       }),
     );
@@ -129,6 +158,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
     this.store.dispatch(PostActions.clearGetState());
+    // this.store.dispatch(ProfileActions.clearGetState());
   }
 
   onScrollDown(ev: any) {
@@ -150,18 +180,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.dialogsReport.open(content).subscribe();
   }
 
-  showDialogDetail(
-    content: PolymorpheusContent<TuiDialogContext>,
-    item: any,
-  ): void {
-    this.dialogsDetail.open(content, { size: 'auto' }).subscribe();
+  open = false;
 
-    // clear comments
-    this.comments = [];
+  showDialog(id: string): void {
+    if (id) {
+      this.store.dispatch(PostActions.getOne({ id: id }));
+    }
+  }
 
-    this.store.dispatch(
-      CommentActions.getComments({ postId: item.id, page: 1 }),
-    );
+  goToProfile(id: string) {
+    if (id) {
+      if (this.open) {
+        this.open = false;
+      }
+
+      this.router
+        .navigate(['/profile/post'], { queryParams: { uid: id } })
+        .then((value) => {
+          this.store.dispatch(ProfileActions.getById({ id: id }));
+        });
+    }
   }
 
   testForm = new FormGroup({
@@ -228,6 +266,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       testValue7: new FormControl(false),
     });
   }
+
   get rounded(): number {
     return Math.floor(this.index / this.itemsCount);
   }
@@ -267,5 +306,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       NotifiActions.createNotification({ notification: newNotification }),
     );
+  }
+  //create function to like post
+  likePost(item: any) {
+    this.isLiked = !this.isLiked;
   }
 }

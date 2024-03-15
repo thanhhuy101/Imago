@@ -2,6 +2,11 @@ import { PostModel, PostResponse } from '../../app/model/post.model';
 import { HttpErrorResponseModel } from '../../app/model/http-error-response.model';
 
 export interface PostState {
+  isReaction: boolean;
+  reactionSuccess: boolean;
+  reactionErrorMessage: HttpErrorResponseModel;
+
+  minePost: PostResponse;
   postResponse: PostResponse;
   postDetail: PostModel;
 
@@ -17,8 +22,14 @@ export interface PostState {
   isDeleteSuccess: boolean;
   deleteErrorMessage: HttpErrorResponseModel;
 
+  isGettingOne: boolean;
+  errorGetOneMessage: HttpErrorResponseModel;
+
   isGettingAll: boolean;
   errorGetAllMessage: HttpErrorResponseModel;
+
+  isGettingWithUserId: boolean;
+  errorGetWithUserIdMessage: HttpErrorResponseModel;
 
   isGettingMine: boolean;
   errorGetMineMessage: HttpErrorResponseModel;
