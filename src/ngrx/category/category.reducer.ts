@@ -82,7 +82,7 @@ export const categoryReducer = createReducer(
     };
   }),
 
-//getallcategories
+  //getallcategories
   on(CategoryActions.getAllCategoryList, (state) => {
     return {
       ...state,
@@ -125,6 +125,82 @@ export const categoryReducer = createReducer(
   on(CategoryActions.uploadUserCategoryFailure, (state, { error }) => {
     return {
       ...state,
+    };
+  }),
+
+  // clear state
+  on(CategoryActions.clearState, (state) => {
+    return {
+      ...state,
+      category: {} as CategoryModel,
+      isGettingCategory: false,
+      getCategorySuccess: false,
+      getCategoryError: <HttpErrorResponseModel>{},
+
+      categories: [] as CategoryModel[],
+      isGettingCategoryList: false,
+      getCategoryListSuccess: false,
+      getCategoryListError: <HttpErrorResponseModel>{},
+
+      allCategories: [] as CategoryModel[],
+      isGettingAllCategoryList: false,
+      getAllCategoryListSuccess: false,
+      getAllCategoryListError: <HttpErrorResponseModel>{},
+    };
+  }),
+
+  on(CategoryActions.clearError, (state) => {
+    return {
+      ...state,
+      getCategoryError: <HttpErrorResponseModel>{},
+      getCategoryListError: <HttpErrorResponseModel>{},
+      getAllCategoryListError: <HttpErrorResponseModel>{},
+    };
+  }),
+  on(CategoryActions.clearCategory, (state) => {
+    return {
+      ...state,
+      category: {} as CategoryModel,
+    };
+  }),
+
+  on(CategoryActions.clearCategoryList, (state) => {
+    return {
+      ...state,
+      categories: [] as CategoryModel[],
+    };
+  }),
+
+  on(CategoryActions.clearAllCategoryList, (state) => {
+    return {
+      ...state,
+      allCategories: [] as CategoryModel[],
+    };
+  }),
+
+  on(CategoryActions.clearUploadUserCategory, (state) => {
+    return {
+      ...state,
+    };
+  }),
+
+  on(CategoryActions.clearAll, (state) => {
+    return {
+      ...state,
+      category: {} as CategoryModel,
+      isGettingCategory: false,
+      getCategorySuccess: false,
+      getCategoryError: <HttpErrorResponseModel>{},
+
+      categories: [] as CategoryModel[],
+      isGettingCategoryList: false,
+      getCategoryListSuccess: false,
+      getCategoryListError: <HttpErrorResponseModel>{},
+
+      allCategories: [] as CategoryModel[],
+      isGettingAllCategoryList: false,
+      getAllCategoryListSuccess: false,
+      getAllCategoryListError: <HttpErrorResponseModel>{},
     };
   }),
 );

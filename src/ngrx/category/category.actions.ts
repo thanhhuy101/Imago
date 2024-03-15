@@ -26,7 +26,6 @@ export const getCategoryListFailure = createAction(
 );
 export const getAllCategoryList = createAction(
   '[Category] Get All Category List',
- 
 );
 export const getAllSuccess = createAction(
   '[Category] Get All Success',
@@ -35,8 +34,7 @@ export const getAllSuccess = createAction(
 export const getAllFailure = createAction(
   '[Category] Get All Failure',
   props<{ error: HttpErrorResponseModel }>(),
-
-)
+);
 
 export const uploadUserCategory = createAction(
   '[Category] Upload User Category',
@@ -48,4 +46,25 @@ export const uploadUserCategorySuccess = createAction(
 export const uploadUserCategoryFailure = createAction(
   '[Category] Upload User Category Failure',
   props<{ error: HttpErrorResponseModel }>(),
+);
+
+// clear state
+export const clearState = createAction('[Category] Clear State');
+export const clearError = createAction('[Category] Clear Error');
+export const clearCategory = createAction('[Category] Clear Category');
+export const clearCategoryList = createAction('[Category] Clear Category List');
+export const clearAllCategoryList = createAction(
+  '[Category] Clear All Category List',
+);
+export const clearUploadUserCategory = createAction(
+  '[Category] Clear Upload User Category',
+);
+export const clearAll = createAction('[Category] Clear All');
+export const clearAllSuccess = createAction('[Category] Clear All Success');
+export const clearAllFailure = createAction('[Category] Clear All Failure');
+export const clearUploadUserCategorySuccess = createAction(
+  '[Category] Clear Upload User Category Success',
+);
+export const clearUploadUserCategoryFailure = createAction(
+  '[Category] Clear Upload User Category Failure',
 );

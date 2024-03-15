@@ -70,4 +70,18 @@ export const commentReducer = createReducer(
       getCommentsError: error,
     };
   }),
+
+  // clear state
+  on(CommentActions.clearState, (state) => {
+    return {
+      ...state,
+      isCreatingComment: false,
+      createCommentSuccess: false,
+      createCommentError: '',
+      comments: [],
+      isGettingComments: false,
+      getCommentsSuccess: false,
+      getCommentsError: '',
+    };
+  }),
 );

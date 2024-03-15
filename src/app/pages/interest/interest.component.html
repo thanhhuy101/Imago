@@ -28,6 +28,7 @@
           [(index)]="index"
           [style.--tui-carousel-padding]="0"
           [draggable]="false"
+          (indexChange)="onScroll($event)"
           style="margin-bottom: 30px"
         >
           <ng-container>
@@ -55,6 +56,7 @@
           [style.--tui-carousel-padding]="0"
           [draggable]="false"
           style="margin-bottom: 30px"
+          (indexChange)="onScroll($event)"
         >
           <ng-container>
             @for (item of secondaryItems; track item; let i = $index) {
@@ -116,7 +118,7 @@
           [disabled]="!haveCategories"
           [showLoader]="loader"
         >
-          Nex
+          Next
         </button>
       </div>
     </div>

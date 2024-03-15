@@ -8,26 +8,28 @@
           <img class="picture1" [src]="item.photoUrl[0]" alt="" (click)="showDialogDetail(templateDetail)" />
         </div>
       </div>
-      @if(item.photoUrl.length > 1){
-      <div style="position: relative;">
-        <!-- <tui-pagination size="s" class="tui-space_top-4" [length]="item.photoUrl.length + 1  / itemsCount"></tui-pagination> -->
-        <div *ngIf="disabled" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;"></div>
+      <!-- @if (item.photoUrl.length > 1) {
+      <div style="position: relative">
+        <tui-pagination size="s" class="tui-space_top-4"
+          [length]="item.photoUrl.length + 1 / itemsCount"></tui-pagination>
+        <div *ngIf="disabled" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"></div>
       </div>
-      }
+      } -->
       <!--  Bottom post -->
       <div class="bottom">
         <div class="userInfoReport">
           <div class="user-info">
             <!-- avatar-user -->
             <div class="avatar-user">
-              <img class="avatar" src="{{ item.creatorId | idToAvatar | async }}" alt="">
+              <img class="avatar" src="{{ item.creatorId | idToAvatar | async }}" alt="" />
             </div>
             <!-- info-user -->
             <div class="info-post">
               <span class="name-user">{{
                 item.creatorId | idToName | async
                 }}</span>
-              <span class="date"> on{{ item.createdAt._seconds * 1000 | date: "medium" }}</span>
+              <span class="date">
+                on{{ item.createdAt._seconds * 1000 | date: "medium" }}</span>
             </div>
           </div>
 
@@ -46,16 +48,14 @@
 
                   <ng-template #templateReport let-observerReport>
                     <form [formGroup]="testForm">
-                      <h2 class="reportTitle">
-                        Report
-                      </h2>
+                      <h2 class="reportTitle">Report</h2>
 
                       <span class="selectProblem">
                         Please select a problem
                       </span>
-                      @for (item of listReports; track $index; ) {
+                      @for (item of listReports; track $index) {
                       <div class="check">
-                        <tui-checkbox-labeled class="checkbox" formControlName="testValue{{$index}}" size="l"
+                        <tui-checkbox-labeled class="checkbox" formControlName="testValue{{ $index }}" size="l"
                           (click)="checkBox(item)">
                         </tui-checkbox-labeled>
                         {{ item }}
@@ -83,10 +83,7 @@
                   </ng-template>
                 </button>
               </tui-data-list>
-
             </ng-template>
-
-
           </div>
         </div>
 
@@ -94,7 +91,7 @@
         <div class="content">
           <p class="description-preview">
             @for (item of item.hashtag; track $index) {
-            <span style="color: #0081FF; margin-left: 2px">#{{ item }}</span>
+            <span style="color: #0081ff; margin-left: 2px">#{{ item }}</span>
             }
             {{ item.content }}
           </p>
@@ -119,11 +116,9 @@
               <ng-container *ngFor="let photo of item.photoUrl; let i = index">
                 <div class="photolist" *tuiItem>
                   <div class="carousel-item">
-
                     <div class="bg-image" [ngStyle]="{
-                        'background-image': 'url(' + photo + ')'
-                      }">
-                    </div>
+                          'background-image': 'url(' + photo + ')'
+                        }"></div>
                     <div class="bg-text">
                       <div class="btn_picture">
                         @if (item.photoUrl.length >= 2) {
@@ -137,8 +132,6 @@
                       <img class="pictureDetail" [src]="photo" alt="" />
                     </div>
                   </div>
-
-
                 </div>
               </ng-container>
             </tui-carousel>
@@ -209,8 +202,8 @@
                               </button>
 
                               <button appearance="primary" size="m" tuiButton type="button" (click)="
-                                  observerReport.complete(); submit(item.id)
-                                ">
+                                    observerReport.complete(); submit(item.id)
+                                  ">
                                 Submit
                               </button>
                             </div>
@@ -253,7 +246,7 @@
           </div>
           <tui-scrollbar>
             <div class="comment">
-              @for(comment of comments; track comment){
+              @for (comment of comments; track comment) {
               <div class="userInforDetail">
                 <tui-avatar class="tui-space_top-1" [round]="false" src="{{ comment.authorId | idToAvatar | async }}"
                   size="m"></tui-avatar>
@@ -267,26 +260,20 @@
                       }}</span>
                   </div>
                   <div class="commentContent">
-                    <span>{{ comment.content }}
-                    </span>
+                    <span>{{ comment.content }} </span>
                   </div>
                 </div>
-
               </div>
               }
-
             </div>
           </tui-scrollbar>
         </div>
       </div>
-
-
     </ng-template>
     }
   </div>
-
 </div>
 <ng-template #noResult>
-  <img class="search_iamge" src="../../../../../../assets/images/searchPost.jpg" alt="">
+  <img class="search_iamge" src="../../../../../../assets/images/searchPost.jpg" alt="" />
   <div class="tui-text_body-xl">No result match</div>
 </ng-template>

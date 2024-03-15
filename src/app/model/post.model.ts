@@ -9,7 +9,7 @@ export interface PostModel {
   hashtag: string[];
   cateId: string[];
   reaction: string[];
-  comments: CommentModel[];
+  comments: string[];
   mention: string[];
   createdAt: DateTime;
   updatedAt: DateTime;
