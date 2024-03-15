@@ -22,7 +22,10 @@ import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import { ProfileModel } from '../../../model/profile.model';
 import { CommentState } from '../../../../ngrx/comment/comment.state';
-import { CommentModel } from '../../../model/comment.model';
+import {
+  CommentModel,
+  CommentResponseModel,
+} from '../../../model/comment.model';
 import * as CommentActions from '../../../../ngrx/comment/comment.actions';
 import { DateToStringPipe } from '../../../shared/pipes/date-to-string.pipe';
 import { NotiState } from '../../../../ngrx/noti/noti.state';
@@ -65,7 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isGetting$ = this.store.select('post', 'isGettingAll');
   postList$ = this.store.select('post', 'postResponse');
 
-  profileState$ = this.store.select('profile', 'profile');
+  profileState$ = this.store.select('profile', 'mine');
   profile: ProfileModel = <ProfileModel>{};
 
   itemsCount = 0;
@@ -125,8 +128,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       }),
 
       this.profileState$.subscribe((profile) => {
-        this.profile = profile;
-        console.log(this.profile);
+        if (profile.id) {
+          this.profile = profile;
+        }
       }),
 
       this.commentList$.subscribe((comments) => {
@@ -185,6 +189,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   showDialog(id: string): void {
     if (id) {
       this.store.dispatch(PostActions.getOne({ id: id }));
+
+      // get comments of postId
+      this.store.dispatch(CommentActions.getComments({ postId: id, page: 1 }));
+
+      this.comments = [];
+
+      this.commentList$.subscribe((comments) => {
+        let data = (comments as any).data;
+        for (let i = 0; i < data.length; i++) {
+          this.comments.push({
+            authorId: data[i].authorId,
+            content: data[i].content,
+            createdAt: data[i].createdAt!,
+          });
+        }
+      });
     }
   }
 
