@@ -79,6 +79,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   isGettingComments$ = this.store.select('comment', 'isGettingComments');
   getCommentsSuccess$ = this.store.select('comment', 'getCommentsSuccess');
   getCommentsError$ = this.store.select('comment', 'getCommentsError');
+
+  isCreateCommentSuccess$ = this.store.select(
+    'comment',
+    'createCommentSuccess',
+  );
   commentList: CommentModel[] = [];
   commentValue = '';
   comments: Comment[] = [];
@@ -128,6 +133,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.profileState$.subscribe((profile) => {
         if (profile.id) {
           this.profile = profile;
+        }
+      }),
+
+      this.isCreateCommentSuccess$.subscribe((data) => {
+        if (data) {
+          this.store.dispatch(
+            CommentActions.getComments({ postId: this.postDetail.id, page: 1 }),
+          );
         }
       }),
 
@@ -303,11 +316,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(CommentActions.createComment({ comment: initComment }));
-    this.comments.push({
-      authorId: initComment.authorId,
-      content: initComment.content,
-      createdAt: initComment.createdAt! as string,
-    });
+    // this.comments.push({
+    //   authorId: initComment.authorId,
+    //   content: initComment.content,
+    //   createdAt: initComment.createdAt! as string,
+    // });
 
     // send notification
     let newNotification = {
