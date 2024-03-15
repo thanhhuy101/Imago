@@ -129,18 +129,20 @@
                   <ng-container *ngFor="let photo of postDetail.photoUrl; let i = index">
                     <div class="photolist" *tuiItem>
                       <div class="carousel-item">
+                      @if(postDetail.photoUrl.length > 1) {
                         @if (i === 0) {
-                        <button class="buttonRight" appearance="custom" icon="tuiIconChevronRightLarge" size="s"
-                          tuiIconButton type="button" (click)="carousel.next()"></button>
-                        } @else if (i === postDetail.photoUrl.length - 1) {
-                        <button class="buttonLeft" appearance="custom" icon="tuiIconChevronLeftLarge" size="s"
-                          tuiIconButton type="button" (click)="carousel.prev()"></button>
-                        } @else {
-                        <button class="buttonLeft" appearance="custom" icon="tuiIconChevronLeftLarge" size="s"
-                          tuiIconButton type="button" (click)="carousel.prev()"></button>
-                        <button class="buttonRight" appearance="custom" icon="tuiIconChevronRightLarge" size="s"
-                          tuiIconButton type="button" (click)="carousel.next()"></button>
-                        }
+                          <button class="buttonRight" appearance="custom" icon="tuiIconChevronRightLarge" size="s"
+                            tuiIconButton type="button" (click)="carousel.next()"></button>
+                          } @else if (i === postDetail.photoUrl.length - 1) {
+                          <button class="buttonLeft" appearance="custom" icon="tuiIconChevronLeftLarge" size="s"
+                            tuiIconButton type="button" (click)="carousel.prev()"></button>
+                          } @else {
+                          <button class="buttonLeft" appearance="custom" icon="tuiIconChevronLeftLarge" size="s"
+                            tuiIconButton type="button" (click)="carousel.prev()"></button>
+                          <button class="buttonRight" appearance="custom" icon="tuiIconChevronRightLarge" size="s"
+                            tuiIconButton type="button" (click)="carousel.next()"></button>
+                          }
+                      }
 
                         <div class="bg-image" [ngStyle]="{
                             'background-image': 'url(' + photo + ')'
