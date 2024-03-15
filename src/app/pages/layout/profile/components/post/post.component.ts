@@ -23,7 +23,7 @@ export class PostComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
 
   token$ = this.store.select('auth', 'token');
-  profile$ = this.store.select('profile', 'mine');
+  profile$ = this.store.select('profile', 'profile');
   queryParam$ = this.activatedRoute.queryParams;
   uid = '';
 
