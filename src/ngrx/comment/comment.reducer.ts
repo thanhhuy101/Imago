@@ -56,10 +56,10 @@ export const commentReducer = createReducer(
   on(CommentActions.getCommentsSuccess, (state, { comments }) => {
     return {
       ...state,
-      comments: comments,
       isGettingComments: false,
       getCommentsSuccess: true,
       getCommentsError: '',
+      comments,
     };
   }),
   on(CommentActions.getCommentsFailure, (state, { error }) => {

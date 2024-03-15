@@ -1,5 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { CommentModel } from '../../app/model/comment.model';
+import {
+  CommentModel,
+  CommentResponseModel,
+} from '../../app/model/comment.model';
 
 export const createComment = createAction(
   '[Comment] Create Comment',
@@ -22,7 +25,7 @@ export const getComments = createAction(
 
 export const getCommentsSuccess = createAction(
   '[Comment] Get Comments Success',
-  props<{ comments: CommentModel[] }>(),
+  props<{ comments: CommentResponseModel[] }>(),
 );
 
 export const getCommentsFailure = createAction(

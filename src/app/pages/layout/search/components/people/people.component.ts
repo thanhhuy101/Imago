@@ -46,7 +46,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
   );
   $unfollow = this.store.select((state) => state.profile.isUnFollowing);
   profiles: ProfileModel[] = [];
-  profile$ = this.store.select((state) => state.profile.profile);
+  profile$ = this.store.select((state) => state.profile.mine);
 
   // observable
 
