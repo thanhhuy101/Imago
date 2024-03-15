@@ -40,7 +40,7 @@ export class PostComponent {
   commentValue = '';
 
   //profile
-  profileState$ = this.store.select('profile', 'mine');
+  profileState$ = this.store.select('profile', 'profile');
   profile: ProfileModel = <ProfileModel>{};
 
   //comment
