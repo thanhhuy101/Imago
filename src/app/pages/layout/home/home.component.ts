@@ -83,8 +83,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   commentValue = '';
   comments: Comment[] = [];
 
-  isLiked = false;
-
   currentPage = 1;
   size = 10;
   tempArr: PostModel[] = [];
@@ -133,18 +131,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }),
 
-      this.commentList$.subscribe((comments) => {
-        if (comments.length > 0) {
-          let data = (comments as any).data;
-          for (let i = 0; i < data.length; i++) {
-            this.comments.push({
-              authorId: data[i].authorId,
-              content: data[i].content,
-              createdAt: data[i].createdAt!,
-            });
-          }
-        }
-      }),
+      // this.commentList$.subscribe((comments) => {
+      //   if (comments.length > 0) {
+      //     let data = (comments as any).data;
+      //     for (let i = 0; i < data.length; i++) {
+      //       this.comments.push({
+      //         authorId: data[i].authorId,
+      //         content: data[i].content,
+      //         createdAt: data[i].createdAt!,
+      //       });
+      //     }
+      //   }
+      // }),
 
       this.postDetail$.subscribe((data) => {
         if (data.id) {
@@ -174,10 +172,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         PostActions.getAll({ page: this.currentPage, size: this.size }),
       );
     }
-  }
-
-  like() {
-    this.isLiked = !this.isLiked;
   }
 
   showDialogReport(content: PolymorpheusContent<TuiDialogContext>): void {
@@ -328,9 +322,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       NotifiActions.createNotification({ notification: newNotification }),
     );
-  }
-  //create function to like post
-  likePost(item: any) {
-    this.isLiked = !this.isLiked;
   }
 }

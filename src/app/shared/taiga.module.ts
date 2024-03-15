@@ -88,6 +88,7 @@ import {
   TuiButtonCloseModule,
   TuiAvatarStackModule,
   TuiAvatarModule,
+  TuiIconModule,
 } from '@taiga-ui/experimental';
 
 const TaigaModules = [
@@ -181,6 +182,7 @@ const TaigaModules = [
   TuiButtonCloseModule,
   TuiAvatarStackModule,
   TuiAvatarModule,
+  TuiIconModule,
 ];
 
 @NgModule({
@@ -188,4 +190,4 @@ const TaigaModules = [
   imports: [CommonModule, ...TaigaModules],
   exports: [...TaigaModules],
 })
-export class TaigaModule { }
+export class TaigaModule {}

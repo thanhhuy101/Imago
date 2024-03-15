@@ -31,6 +31,166 @@
   margin-bottom: 2.5rem;
 }
 
+.postDetail {
+  display: flex;
+  width: 70vw;
+
+  .left {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 55%;
+  }
+  .userInforDetail {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 12px;
+  }
+  .infoDetail {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 0.25rem;
+    margin-left: 0.5rem;
+    .userName {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .dateDetail {
+      margin-left: 0.5rem;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 1rem;
+    }
+  }
+  .commentContent {
+    font-size: 1.15rem;
+    word-wrap: break-word;
+    margin-left: 0.5rem;
+    padding: 0 0.6875rem 0 0;
+  }
+
+  .right {
+    width: 45%;
+    height: 100%;
+  }
+
+  .bottom {
+    padding: 0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+}
+
+.detail-dialog {
+  width: 100%;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 80vh;
+  position: relative;
+  z-index: 1;
+
+  .bg-image {
+    filter: blur(16px);
+    -webkit-filter: blur(16px);
+
+    height: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .bg-text {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    height: 80%;
+  }
+
+  .buttonLeft {
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+
+    z-index: 3;
+  }
+  .buttonRight {
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    right: 5%;
+
+    z-index: 3;
+  }
+}
+
+.pictureDetail {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.bottom-dialog {
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  //justify-content: space-between;
+  height: fit-content;
+}
+
+.userInfoReport {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-info {
+  width: 82%;
+  height: 24%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.info-post {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+
+  h6 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}
+
+.content-dialog {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+}
+
+.description-preview {
+  font-size: 16px;
+}
+
 @media (max-width: 4000px) {
   .allPost {
     width: 100%;
@@ -116,11 +276,36 @@
 }
 
 .reaction {
-  display: flex;
   width: 100%;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-right: 1em;
+  }
 }
 
+.comment-place {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  tui-input {
+    width: 85%;
+    background-color: #262626;
+    color: white;
+  }
+
+  tui-input:active {
+    background-color: white;
+    color: #262626;
+  }
+}
 .tymAndCmt {
   display: flex;
   width: 30%;
