@@ -170,4 +170,34 @@ export class PostEffect {
       ),
     ),
   );
+
+  reaction$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.reaction),
+      switchMap((action) =>
+        this.postService.reaction(action.postId, action.senderId).pipe(
+          map(() => PostActions.reactionSuccess()),
+          catchError((error) =>
+            of(PostActions.reactionFailure({ reactionErrorMessage: error })),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  unReaction$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(PostActions.unReaction),
+      switchMap((action) =>
+        this.postService.unReaction(action.postId, action.senderId).pipe(
+          map(() => PostActions.unReactionSuccess()),
+          catchError((error) =>
+            of(
+              PostActions.unReactionFailure({ unReactionErrorMessage: error }),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }

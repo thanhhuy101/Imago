@@ -137,7 +137,7 @@ export const unReaction = createAction(
 export const unReactionSuccess = createAction('[Post] UnReaction Success');
 export const unReactionFailure = createAction(
   '[Post] UnReaction Failure',
-  props<{ reactionErrorMessage: HttpErrorResponseModel }>(),
+  props<{ unReactionErrorMessage: HttpErrorResponseModel }>(),
 );
 
 export const clearMessages = createAction('[Post] Clear Message');
@@ -146,3 +146,4 @@ export const clearUpdateState = createAction('[Post] Clear Update State');
 export const clearGetState = createAction('[Post] Clear Get State');
 export const clearDeleteState = createAction('[Post] Clear Delete State');
 export const clearSearchState = createAction('[Post] Clear Search State');
+export const clearReactionState = createAction('[Post] Clear Reaction State');

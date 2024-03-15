@@ -79,11 +79,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   isGettingComments$ = this.store.select('comment', 'isGettingComments');
   getCommentsSuccess$ = this.store.select('comment', 'getCommentsSuccess');
   getCommentsError$ = this.store.select('comment', 'getCommentsError');
+
+  isCreateCommentSuccess$ = this.store.select(
+    'comment',
+    'createCommentSuccess',
+  );
   commentList: CommentModel[] = [];
   commentValue = '';
   comments: Comment[] = [];
-
-  isLiked = false;
 
   currentPage = 1;
   size = 10;
@@ -133,18 +136,26 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }),
 
-      this.commentList$.subscribe((comments) => {
-        if (comments.length > 0) {
-          let data = (comments as any).data;
-          for (let i = 0; i < data.length; i++) {
-            this.comments.push({
-              authorId: data[i].authorId,
-              content: data[i].content,
-              createdAt: data[i].createdAt!,
-            });
-          }
+      this.isCreateCommentSuccess$.subscribe((data) => {
+        if (data) {
+          this.store.dispatch(
+            CommentActions.getComments({ postId: this.postDetail.id, page: 1 }),
+          );
         }
       }),
+
+      // this.commentList$.subscribe((comments) => {
+      //   if (comments.length > 0) {
+      //     let data = (comments as any).data;
+      //     for (let i = 0; i < data.length; i++) {
+      //       this.comments.push({
+      //         authorId: data[i].authorId,
+      //         content: data[i].content,
+      //         createdAt: data[i].createdAt!,
+      //       });
+      //     }
+      //   }
+      // }),
 
       this.postDetail$.subscribe((data) => {
         if (data.id) {
@@ -175,10 +186,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         PostActions.getAll({ page: this.currentPage, size: this.size }),
       );
     }
-  }
-
-  like() {
-    this.isLiked = !this.isLiked;
   }
 
   showDialogReport(content: PolymorpheusContent<TuiDialogContext>): void {
@@ -309,11 +316,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(CommentActions.createComment({ comment: initComment }));
-    this.comments.push({
-      authorId: initComment.authorId,
-      content: initComment.content,
-      createdAt: initComment.createdAt! as string,
-    });
+    // this.comments.push({
+    //   authorId: initComment.authorId,
+    //   content: initComment.content,
+    //   createdAt: initComment.createdAt! as string,
+    // });
 
     // send notification
     let newNotification = {
@@ -332,9 +339,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       NotifiActions.createNotification({ notification: newNotification }),
     );
-  }
-  //create function to like post
-  likePost(item: any) {
-    this.isLiked = !this.isLiked;
   }
 }

@@ -3,8 +3,12 @@ import { HttpErrorResponseModel } from '../../app/model/http-error-response.mode
 
 export interface PostState {
   isReaction: boolean;
-  reactionSuccess: boolean;
+  isReactionSuccess: boolean;
   reactionErrorMessage: HttpErrorResponseModel;
+
+  isUnReaction: boolean;
+  isUnReactionSuccess: boolean;
+  unReactionErrorMessage: HttpErrorResponseModel;
 
   minePost: PostResponse;
   postResponse: PostResponse;

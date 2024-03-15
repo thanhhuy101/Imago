@@ -6,8 +6,12 @@ import { HttpErrorResponseModel } from '../../app/model/http-error-response.mode
 
 const initialState: PostState = {
   isReaction: false,
-  reactionSuccess: false,
+  isReactionSuccess: false,
   reactionErrorMessage: <HttpErrorResponseModel>{},
+
+  isUnReaction: false,
+  isUnReactionSuccess: false,
+  unReactionErrorMessage: <HttpErrorResponseModel>{},
 
   minePost: <PostResponse>{},
   postResponse: <PostResponse>{},
@@ -395,7 +399,7 @@ export const postReducer = createReducer(
     return {
       ...state,
       isReaction: false,
-      reactionSuccess: true,
+      isReactionSuccess: true,
     };
   }),
   on(PostActions.reactionFailure, (state, { reactionErrorMessage, type }) => {
@@ -403,7 +407,50 @@ export const postReducer = createReducer(
     return {
       ...state,
       isReaction: false,
+      isReactionSuccess: false,
       reactionErrorMessage: reactionErrorMessage,
+    };
+  }),
+
+  //unreaction
+  on(PostActions.unReaction, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isUnReaction: true,
+    };
+  }),
+  on(PostActions.unReactionSuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isUnReaction: false,
+      isUnReactionSuccess: true,
+    };
+  }),
+  on(
+    PostActions.unReactionFailure,
+    (state, { unReactionErrorMessage, type }) => {
+      console.log(type);
+      return {
+        ...state,
+        isUnReaction: false,
+        isUnReactionSuccess: false,
+        unReactionErrorMessage: unReactionErrorMessage,
+      };
+    },
+  ),
+
+  on(PostActions.clearReactionState, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isReaction: false,
+      isReactionSuccess: false,
+      isUnReaction: false,
+      isUnReactionSuccess: false,
+      reactionErrorMessage: <HttpErrorResponseModel>{},
+      unReactionErrorMessage: <HttpErrorResponseModel>{},
     };
   }),
 );
