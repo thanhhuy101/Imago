@@ -1,251 +1,146 @@
 @if (profile.id) {
-  <div id="profile-container">
-    <div class="profile">
-      <div class="left">
-        <div class="user-info">
-          <h3 class="tui-text_h3">
-            {{ profile.lastName }} {{ profile.firstName }}
-          </h3>
-          <h5 class="tui-text_body-xl">&#64;{{ profile.userName }}</h5>
-          <p class="tui-text_body-m">
-            {{ profile.bio }}
-          </p>
-        </div>
-
-        <div class="follow">
-          @if (profile.followers.length > 0) {
-            @if (profile.followers.length > 2) {
-              <tui-avatar-stack
-                class="tui-space_vertical-4"
-                [direction]="'right'"
-              >
-                <tui-avatar
-                  *ngFor="let id of profile.followers | slice: 0 : 2"
-                  [size]="'m'"
-                  [src]="id | idToAvatar | async"
-                ></tui-avatar>
-                <tui-avatar size="m">
-                  {{ profile.followers.length - 2 }}+
-                </tui-avatar>
-              </tui-avatar-stack>
-            } @else {
-              <tui-avatar-stack
-                class="tui-space_vertical-4"
-                [direction]="'right'"
-              >
-                <tui-avatar
-                  *ngFor="let id of profile.followers"
-                  [size]="'m'"
-                  [src]="id | idToAvatar | async"
-                ></tui-avatar>
-              </tui-avatar-stack>
-            }
-            <p class="tui-text_body-m tui-space_left-2">
-              {{ profile.followers.length }} followers
-            </p>
-          } @else {
-            <p class="tui-text_body-m">0 followers</p>
-          }
-        </div>
+<div id="profile-container">
+  <div class="profile">
+    <div class="left">
+      <div class="user-info">
+        <h3 class="tui-text_h3">
+          {{ profile.lastName }} {{ profile.firstName }}
+        </h3>
+        <h5 class="tui-text_body-xl">&#64;{{ profile.userName }}</h5>
+        <p class="tui-text_body-m">
+          {{ profile.bio }}
+        </p>
       </div>
-      <div class="right">
-        <div class="avatar">
-          <tui-avatar
-            [src]="profile.photoUrl"
-            [round]="false"
-            size="xxl"
-          ></tui-avatar>
-        </div>
 
-        <div class="edit-btn">
-          @if (isMine) {
-            <button
-              tuiButton
-              appearance="outline"
-              size="m"
-              (click)="toggleDialog(true)"
-            >
-              Edit
-            </button>
-          }
-        </div>
+      <div class="follow">
+        @if (profile.followers.length > 0) {
+        @if (profile.followers.length > 2) {
+        <tui-avatar-stack class="tui-space_vertical-4" [direction]="'right'">
+          <tui-avatar *ngFor="let id of profile.followers | slice: 0 : 2" [size]="'m'"
+            [src]="id | idToAvatar | async"></tui-avatar>
+          <tui-avatar size="m">
+            {{ profile.followers.length - 2 }}+
+          </tui-avatar>
+        </tui-avatar-stack>
+        } @else {
+        <tui-avatar-stack class="tui-space_vertical-4" [direction]="'right'">
+          <tui-avatar *ngFor="let id of profile.followers" [size]="'m'" [src]="id | idToAvatar | async"></tui-avatar>
+        </tui-avatar-stack>
+        }
+        <p class="tui-text_body-m tui-space_left-2">
+          {{ profile.followers.length }} followers
+        </p>
+        } @else {
+        <p class="tui-text_body-m">0 followers</p>
+        }
       </div>
     </div>
-    <div class="tabs">
-      <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
-        <button
-          [disabled]="activeItemIndex === 0"
-          [routerLink]="['post']"
-          routerLinkActive
-          tuiTab
-        >
-          Posts
+    <div class="right">
+      <div class="avatar">
+        <tui-avatar [src]="profile.photoUrl" [round]="false" size="xxl"></tui-avatar>
+      </div>
+
+      <div class="edit-btn">
+        @if (isMine) {
+        <button tuiButton appearance="outline" size="m" (click)="toggleDialog(true)">
+          Edit
         </button>
-        <button
-          [disabled]="activeItemIndex === 1"
-          [routerLink]="['share']"
-          routerLinkActive
-          tuiTab
-        >
-          Share
-        </button>
-        <button
-          [disabled]="activeItemIndex === 2"
-          [routerLink]="['mention']"
-          routerLinkActive
-          tuiTab
-        >
-          Mentor
-        </button>
-      </tui-tabs>
-    </div>
-    <div class="content">
-      <router-outlet></router-outlet>
+        }
+      </div>
     </div>
   </div>
+  <div class="tabs">
+    <tui-tabs [(activeItemIndex)]="activeItemIndex" class="tabs-container">
+      <button [disabled]="activeItemIndex === 0" [routerLink]="['post']" routerLinkActive tuiTab>
+        Posts
+      </button>
+      <button [disabled]="activeItemIndex === 1" [routerLink]="['share']" routerLinkActive tuiTab>
+        Share
+      </button>
+      <button [disabled]="activeItemIndex === 2" [routerLink]="['mention']" routerLinkActive tuiTab>
+        Mentor
+      </button>
+    </tui-tabs>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
 } @else {
-  <div
-    style="
+<div style="
       width: 100%;
       height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-    "
-  >
-    <tui-loader
-      style="width: 100%"
-      [showLoader]="true"
-      [overlay]="true"
-      size="xxl"
-    ></tui-loader>
-  </div>
+    ">
+  <tui-loader style="width: 100%" [showLoader]="true" [overlay]="true" size="xxl"></tui-loader>
+</div>
 }
 
 <ng-template [tuiDialogOptions]="{ size: 'm' }" [(tuiDialog)]="this.openDialog">
   <form [formGroup]="updateForm">
     <div class="tui-row tui-row_sme">
       <div class="tui-col_12">
-        <h4
-          class="tui-form__header tui-form__header_margin-top_none tui-form__header_margin-bottom_small tui-text_h4"
-        >
+        <h4 class="tui-form__header tui-form__header_margin-top_none tui-form__header_margin-bottom_small tui-text_h4">
           Update Profile
         </h4>
 
-        <tui-avatar
-          [src]="this.photoUrl"
-          [round]="false"
-          size="xxl"
-        ></tui-avatar>
+        <tui-avatar [src]="this.photoUrl" [round]="false" size="xxl"></tui-avatar>
 
         <div class="tui-form__row">
-          <tui-input-files
-            (reject)="onReject($event)"
-            *ngIf="!imageControl.value"
-            [formControl]="imageControl"
-            [label]="'có kích thước <= 3MB'"
-            [link]="'Đăng tải ảnh đại diện'"
-            accept="image/*"
-          ></tui-input-files>
+          <tui-input-files (reject)="onReject($event)" *ngIf="!imageControl.value" [formControl]="imageControl"
+            [label]="'có kích thước <= 3MB'" [link]="'Đăng tải ảnh đại diện'" accept="image/*"></tui-input-files>
 
           <tui-files [max]="1" class="tui-space_top-1">
-            <tui-file
-              (removed)="removeFile()"
-              *ngIf="loadedFiles$ | async as file"
-              [file]="file"
-              [showDelete]="imageControl.enabled"
-              [size]="'l'"
-            ></tui-file>
+            <tui-file (removed)="removeFile()" *ngIf="loadedFiles$ | async as file" [file]="file"
+              [showDelete]="imageControl.enabled" [size]="'l'"></tui-file>
 
-            <tui-file
-              (removed)="clearRejected()"
-              *ngIf="rejectedFiles$ | async as file"
-              [file]="file"
-              [showDelete]="imageControl.enabled"
-              state="error"
-            ></tui-file>
+            <tui-file (removed)="clearRejected()" *ngIf="rejectedFiles$ | async as file" [file]="file"
+              [showDelete]="imageControl.enabled" state="error"></tui-file>
 
-            <tui-file
-              *ngIf="loadingFiles$ | async as file"
-              [file]="file"
-              [showDelete]="imageControl.enabled"
-              state="loading"
-            ></tui-file>
+            <tui-file *ngIf="loadingFiles$ | async as file" [file]="file" [showDelete]="imageControl.enabled"
+              state="loading"></tui-file>
           </tui-files>
         </div>
 
         <div class="tui-form__row">
           <label tuiLabel="Username">
-            <tui-input
-              formControlName="userName"
-              tuiTextfieldSize="m"
-              [tuiTextfieldCleaner]="true"
-              [tuiTextfieldLabelOutside]="true"
-            >
+            <tui-input formControlName="userName" tuiTextfieldSize="m" [tuiTextfieldCleaner]="true"
+              [tuiTextfieldLabelOutside]="true">
               <input tuiTextfield />
             </tui-input>
-            <tui-error
-              formControlName="userName"
-              [error]="[] | tuiFieldError | async"
-            ></tui-error>
+            <tui-error formControlName="userName" [error]="[] | tuiFieldError | async"></tui-error>
           </label>
         </div>
         <div class="tui-form__row">
           <label tuiLabel="Last name">
-            <tui-input
-              formControlName="lastName"
-              tuiTextfieldSize="m"
-              [tuiTextfieldCleaner]="true"
-              [tuiTextfieldLabelOutside]="true"
-            >
+            <tui-input formControlName="lastName" tuiTextfieldSize="m" [tuiTextfieldCleaner]="true"
+              [tuiTextfieldLabelOutside]="true">
               <input tuiTextfield />
             </tui-input>
-            <tui-error
-              formControlName="lastName"
-              [error]="[] | tuiFieldError | async"
-            ></tui-error>
+            <tui-error formControlName="lastName" [error]="[] | tuiFieldError | async"></tui-error>
           </label>
         </div>
         <div class="tui-form__row">
           <label tuiLabel="First name">
-            <tui-input
-              formControlName="firstName"
-              tuiTextfieldSize="m"
-              [tuiTextfieldCleaner]="true"
-              [tuiTextfieldLabelOutside]="true"
-            >
+            <tui-input formControlName="firstName" tuiTextfieldSize="m" [tuiTextfieldCleaner]="true"
+              [tuiTextfieldLabelOutside]="true">
               <input tuiTextfield />
             </tui-input>
-            <tui-error
-              formControlName="firstName"
-              [error]="[] | tuiFieldError | async"
-            ></tui-error>
+            <tui-error formControlName="firstName" [error]="[] | tuiFieldError | async"></tui-error>
           </label>
         </div>
         <div class="tui-form__row">
           <label tuiLabel="Bio">
-            <tui-textarea
-              formControlName="bio"
-              class="field-medium"
-              [expandable]="true"
-              [maxLength]="100"
-            >
+            <tui-textarea formControlName="bio" class="field-medium" [expandable]="true" [maxLength]="100">
             </tui-textarea>
-            <tui-error
-              formControlName="bio"
-              [error]="[] | tuiFieldError | async"
-            ></tui-error>
+            <tui-error formControlName="bio" [error]="[] | tuiFieldError | async"></tui-error>
           </label>
         </div>
 
         <div class="tui-form__buttons tui-form__buttons_align_center">
-          <button
-            tuiButton
-            appearance="accent"
-            size="l"
-            type="submit"
-            (click)="saveChanges()"
-          >
+          <button tuiButton appearance="accent" size="l" type="submit" (click)="saveChanges()">
             Update
           </button>
         </div>

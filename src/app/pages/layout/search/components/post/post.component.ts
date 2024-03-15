@@ -11,8 +11,8 @@ import { PolymorpheusContent } from '@tinkoff/ng-polymorpheus';
 import { PostModel } from '../../../../../model/post.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReportModel } from '../../../../../model/report.model';
-import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
-import { IdToNamePipe } from "../../../../../shared/pipes/id-to-name.pipe";
+import { IdToAvatarPipe } from '../../../../../shared/pipes/id-to-avatar.pipe';
+import { IdToNamePipe } from '../../../../../shared/pipes/id-to-name.pipe';
 import { CommentModel } from '../../../../../model/comment.model';
 import { CommentState } from '../../../../../../ngrx/comment/comment.state';
 import { NotiState } from '../../../../../../ngrx/noti/noti.state';
@@ -20,6 +20,10 @@ import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { ProfileModel } from '../../../../../model/profile.model';
 import * as CommentActions from '../../../../../../ngrx/comment/comment.actions';
 import * as NotifiActions from '../../../../../../ngrx/noti/noti.actions';
+import { Router } from '@angular/router';
+import * as ProfileActions from '../../../../../../ngrx/profile/profile.actions';
+import * as PostActions from '../../../../../../ngrx/post/post.actions';
+import { DatetimeToStringPipe } from "../../../../../shared/pipes/datetime-to-string.pipe";
 type Comment = {
   authorId: string;
   content: string;
@@ -31,7 +35,7 @@ type Comment = {
     standalone: true,
     templateUrl: './post.component.html',
     styleUrl: './post.component.scss',
-    imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe]
+    imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe, DatetimeToStringPipe]
 })
 export class PostComponent {
   subscription: Subscription[] = [];
@@ -42,8 +46,10 @@ export class PostComponent {
   //profile
   profileState$ = this.store.select('profile', 'mine');
   profile: ProfileModel = <ProfileModel>{};
+  postDetail: PostModel = <PostModel>{};
 
-  //comment 
+  postDetail$ = this.store.select('post', 'postDetail');
+  //comment
   commentList$ = this.store.select('comment', 'comments');
   isGettingComments$ = this.store.select('comment', 'isGettingComments');
   getCommentsSuccess$ = this.store.select('comment', 'getCommentsSuccess');
@@ -52,6 +58,7 @@ export class PostComponent {
   skeletonVisible = false;
   comments: Comment[] = [];
   constructor(
+    private router: Router,
     @Inject(TuiDialogService) private readonly dialogsReport: TuiDialogService,
     private readonly dialogsDetail: TuiDialogService,
     private store: Store<{
@@ -63,15 +70,15 @@ export class PostComponent {
       notification: NotiState;
     }>,
   ) {}
-itemsCount = 0;
-disabled=true;
+  itemsCount = 0;
+  disabled = true;
   index = 0;
 
   ngOnInit(): void {
     this.subscription.push(
       this.postSearchResult$.subscribe((res) => {
         this.list = res;
-        console.log('search list',this.list);
+        console.log('search list', this.list);
       }),
       this.commentList$.subscribe((comments) => {
         let data = (comments as any).data;
@@ -86,15 +93,25 @@ disabled=true;
       this.profileState$.subscribe((profile) => {
         this.profile = profile;
       }),
-
+      this.postDetail$.subscribe((data) => {
+        if (data.id) {
+          this.postDetail = data;
+          this.open = true;
+          this.comments = [];
+          this.store.dispatch(
+            CommentActions.getComments({ postId: data.id, page: 1 }),
+          );
+        }
+      }),
     );
   }
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(PostActions.clearGetState());
+
     this.list = [];
   }
-
 
   isLiked = false;
 
@@ -114,9 +131,28 @@ disabled=true;
 
   openUpdate = false;
 
-  showDialog(i: number): void {
-    this.selectedItem = this.list[i];
-    this.open = true;
+  showDialog(id: string): void {
+    if (id) {
+      this.store.dispatch(PostActions.getOne({ id: id }));
+
+      // get comments of postId
+      this.store.dispatch(CommentActions.getComments({ postId: id, page: 1 }));
+
+      this.comments = [];
+
+      this.commentList$.subscribe((comments) => {
+        let data = (comments as any).data;
+        if (data != undefined) {
+          for (let i = 0; i < data.length; i++) {
+            this.comments.push({
+              authorId: data[i].authorId,
+              content: data[i].content,
+              createdAt: data[i].createdAt!,
+            });
+          }
+        }
+      });
+    }
   }
   testForm = new FormGroup({
     testValue0: new FormControl(false),
@@ -160,7 +196,6 @@ disabled=true;
       reporter: '',
     };
     this.listChooses = [];
- 
 
     this.testForm2.patchValue({ testValue1: '' });
     this.testForm = new FormGroup({
@@ -209,5 +244,18 @@ disabled=true;
     this.store.dispatch(
       NotifiActions.createNotification({ notification: newNotification }),
     );
+  }
+  goToProfile(id: string) {
+    if (id) {
+      if (this.open) {
+        this.open = false;
+      }
+
+      this.router
+        .navigate(['/profile/post'], { queryParams: { uid: id } })
+        .then((value) => {
+          this.store.dispatch(ProfileActions.getById({ id: id }));
+        });
+    }
   }
 }

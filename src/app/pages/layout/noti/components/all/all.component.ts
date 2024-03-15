@@ -10,7 +10,7 @@ import * as NotificationActions from '../../../../../../ngrx/noti/noti.actions';
 import { ProfileState } from '../../../../../../ngrx/profile/profile.state';
 import { NotiModel } from '../../../../../model/noti.model';
 import { IdToNamePipe } from '../../../../../shared/pipes/id-to-name.pipe';
-import { IdToAvatarPipe } from "../../../../../shared/pipes/id-to-avatar.pipe";
+import { IdToAvatarPipe } from '../../../../../shared/pipes/id-to-avatar.pipe';
 import { set } from '@angular/fire/database';
 
 type Notification = {
@@ -29,14 +29,11 @@ type Notification = {
   imports: [ShareModule, TaigaModule, IdToNamePipe, IdToAvatarPipe],
 })
 export class AllComponent implements OnInit, OnDestroy {
-
   notifications: Notification[] = [];
 
   subscriptions: Subscription[] = [];
 
   isLoading = false;
-
-
 
   // observable
   token$ = this.store.select('auth', 'token');
@@ -49,7 +46,7 @@ export class AllComponent implements OnInit, OnDestroy {
     'notification',
     'getNotificationsError',
   );
-  profile$ = this.store.select('profile', 'profile');
+  profile$ = this.store.select('profile', 'mine');
 
   constructor(
     private store: Store<{
@@ -57,7 +54,7 @@ export class AllComponent implements OnInit, OnDestroy {
       auth: AuthState;
       profile: ProfileState;
     }>,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -74,8 +71,9 @@ export class AllComponent implements OnInit, OnDestroy {
 
       this.isGettingNotifications$.subscribe((loading) => {
         if (loading) {
-          setTimeout(() => { this.isLoading = true; }, 1000)
-
+          setTimeout(() => {
+            this.isLoading = true;
+          }, 1000);
         }
       }),
 
@@ -94,7 +92,7 @@ export class AllComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 
   viewNotification(index: any): void {
     // console.log('view notification', index);

@@ -44,7 +44,7 @@ export class LikeComponent {
     'notification',
     'getLikeNotificationsError',
   );
-  profile$ = this.store.select('profile', 'profile');
+  profile$ = this.store.select('profile', 'mine');
 
   ngOnInit(): void {
     this.subscriptions.push(
