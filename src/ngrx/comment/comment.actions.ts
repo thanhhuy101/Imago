@@ -32,3 +32,5 @@ export const getCommentsFailure = createAction(
   '[Comment] Get Comments Failure',
   props<{ error: string }>(),
 );
+
+export const clearState = createAction('[Comment] Clear State');

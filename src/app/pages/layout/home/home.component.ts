@@ -157,6 +157,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }),
     );
+    this.comments = [];
   }
 
   ngOnDestroy(): void {
@@ -193,20 +194,23 @@ export class HomeComponent implements OnInit, OnDestroy {
       // get comments of postId
       this.store.dispatch(CommentActions.getComments({ postId: id, page: 1 }));
 
-      this.comments = [];
-
-      this.commentList$.subscribe((comments) => {
-        let data = (comments as any).data;
-        if (data != undefined) {
-          for (let i = 0; i < data.length; i++) {
-            this.comments.push({
-              authorId: data[i].authorId,
-              content: data[i].content,
-              createdAt: data[i].createdAt!,
-            });
+      if (this.comments && this.comments.length > 0) {
+        this.comments = [];
+      } else {
+        this.comments = [];
+        this.commentList$.subscribe((comments) => {
+          let data = (comments as any).data;
+          if (data != undefined) {
+            for (let i = 0; i < data.length; i++) {
+              this.comments.push({
+                authorId: data[i].authorId,
+                content: data[i].content,
+                createdAt: data[i].createdAt!,
+              });
+            }
           }
-        }
-      });
+        });
+      }
     }
   }
 

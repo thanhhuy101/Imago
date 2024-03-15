@@ -169,6 +169,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     console.log('index', this.index, 'page', this.page);
 
     this.getCategoriesByPage(this.index, this.page);
+    this.store.dispatch(CategoryActions.clearAll());
   }
 
   toggleActive(item: any) {
@@ -244,6 +245,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     } else {
       this.alertService.errorNotification('Please select at least 1 category');
     }
+    this.store.dispatch(CategoryActions.clearAll());
   }
 
   selectAllItems() {
@@ -289,6 +291,7 @@ export class InterestComponent implements OnInit, OnDestroy {
     } else {
       this.haveCategories = false;
     }
+    this.store.dispatch(CategoryActions.clearAll());
   }
 
   onScroll(ev: any) {
