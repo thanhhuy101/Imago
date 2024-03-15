@@ -23,7 +23,7 @@ import * as NotifiActions from '../../../../../../ngrx/noti/noti.actions';
 import { Router } from '@angular/router';
 import * as ProfileActions from '../../../../../../ngrx/profile/profile.actions';
 import * as PostActions from '../../../../../../ngrx/post/post.actions';
-import { DatetimeToStringPipe } from "../../../../../shared/pipes/datetime-to-string.pipe";
+import { DatetimeToStringPipe } from '../../../../../shared/pipes/datetime-to-string.pipe';
 type Comment = {
   authorId: string;
   content: string;
@@ -31,11 +31,17 @@ type Comment = {
 };
 
 @Component({
-    selector: 'app-post',
-    standalone: true,
-    templateUrl: './post.component.html',
-    styleUrl: './post.component.scss',
-    imports: [TaigaModule, ShareModule, IdToAvatarPipe, IdToNamePipe, DatetimeToStringPipe]
+  selector: 'app-post',
+  standalone: true,
+  templateUrl: './post.component.html',
+  styleUrl: './post.component.scss',
+  imports: [
+    TaigaModule,
+    ShareModule,
+    IdToAvatarPipe,
+    IdToNamePipe,
+    DatetimeToStringPipe,
+  ],
 })
 export class PostComponent {
   subscription: Subscription[] = [];
@@ -96,6 +102,7 @@ export class PostComponent {
       this.postDetail$.subscribe((data) => {
         if (data.id) {
           this.postDetail = data;
+          console.log('postDetail', this.postDetail);
           this.open = true;
           this.comments = [];
           this.store.dispatch(

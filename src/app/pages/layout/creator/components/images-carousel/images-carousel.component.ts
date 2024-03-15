@@ -73,17 +73,24 @@ export class ImagesCarouselComponent implements OnInit {
       }),
       this.control.valueChanges.subscribe((response: File[] | null) => {
         if (response) {
+          response = response.slice(0, 5);
+
           console.log('response', response);
           response.forEach((file: File) => {
-            if(file.size > 5000000) {
+            if (file.size > 5000000) {
               this.notificationService.errorNotification(
                 'Error: maximum limit - 5MB for upload',
               );
-              this.control.setValue(this.control.value!.filter((_, i) => i !== this.control.value!.length - 1));
+              this.control.setValue(
+                this.control.value!.filter(
+                  (_, i) => i !== this.control.value!.length - 1,
+                ),
+              );
             }
           });
-          this.files = response;
+
           console.log('files', this.files);
+          this.files = response;
           if (response.length > 5) {
             this.notificationService.errorNotification(
               'Error: maximum limit - 5 files for upload',
@@ -91,7 +98,9 @@ export class ImagesCarouselComponent implements OnInit {
             return;
           }
           this.isUploadImages = response.length === 0;
-          response.forEach((file: File) => {{
+
+          response.forEach((file: File) => {
+            {
               const reader = new FileReader();
               reader.readAsArrayBuffer(file);
               reader.onload = () => {
@@ -99,7 +108,7 @@ export class ImagesCarouselComponent implements OnInit {
                   const blob = new Blob([reader.result], { type: 'image/png' });
                   const url = URL.createObjectURL(blob);
                   this.tmpImageList.push(url);
-                  if (this.tmpImageList.length === response.length) {
+                  if (this.tmpImageList.length === response!.length) {
                     this.imageList = this.tmpImageList;
                     console.log('imageList', this.imageList);
                     this.responseChangeEvent.emit(this.imageList);
@@ -108,7 +117,6 @@ export class ImagesCarouselComponent implements OnInit {
                 }
               };
             }
-          
           });
         }
       }),
@@ -155,7 +163,6 @@ export class ImagesCarouselComponent implements OnInit {
 
   upLoadImage() {
     this.files.forEach((file: File) => {
-     
       this.store.dispatch(
         StorageActions.uploadFile({
           file: file,

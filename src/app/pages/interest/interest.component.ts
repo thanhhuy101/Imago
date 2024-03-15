@@ -154,6 +154,22 @@ export class InterestComponent implements OnInit, OnDestroy {
           this.mappingCategory(data.data, this.page);
         }
       }),
+
+      this.isUpdatingProfile$.subscribe((loading) => {
+        if (loading) {
+          this.loader = true;
+        }
+      }),
+      this.isUpdateProfileSuccess$.subscribe((success) => {
+        if (success) {
+          this.alertService.successNotification('Profile updated successfully');
+          this.store.dispatch(ProfileActions.clearMessages());
+          this.store.dispatch(ProfileActions.clearUpdateState());
+          this.router.navigate(['/home']).then(() => {
+            this.store.dispatch(ProfileActions.getMine());
+          });
+        }
+      }),
     );
   }
 
@@ -241,7 +257,6 @@ export class InterestComponent implements OnInit, OnDestroy {
     };
     if (listCategory.length > 0) {
       this.store.dispatch(ProfileActions.updateMine({ mine: profile }));
-      this.router.navigate(['/home']).then();
     } else {
       this.alertService.errorNotification('Please select at least 1 category');
     }

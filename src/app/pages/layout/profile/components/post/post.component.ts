@@ -144,6 +144,7 @@ export class PostComponent implements OnInit, OnDestroy {
       this.postDetail$.subscribe((data) => {
         if (data.id) {
           this.postDetail = data;
+          console.log('postDetail', this.postDetail);
           this.open = true;
           this.comments = [];
           this.store.dispatch(

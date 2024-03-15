@@ -20,9 +20,16 @@
           "imago-backup2"
         ]
       }
+    },
+    "imago-core-offical": {
+      "hosting": {
+        "imago": [
+          "imago-core-offical"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "imago-backup2"
+    "default": "imago-core-offical"
   }
 }

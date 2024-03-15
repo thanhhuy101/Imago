@@ -29,6 +29,17 @@ export const dev_environment = {
     messagingSenderId: '307613940415',
   },
 
+  firebase_offical: {
+    projectId: 'imago-core-offical',
+    appId: '1:785682675012:web:bd3bd0ece3c429daea5311',
+    storageBucket: 'imago-core-offical.appspot.com',
+    locationId: 'asia-east1',
+    apiKey: 'AIzaSyB3-3u9tnZBrEoqMGKP0aTf2mJ1UwxfRXw',
+    authDomain: 'imago-core-offical.firebaseapp.com',
+    messagingSenderId: '785682675012',
+    measurementId: 'G-8MSRP5LMS0',
+  },
+
   production: false,
 
   baseUrl: 'http://localhost:3000',
