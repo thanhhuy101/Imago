@@ -1,4 +1,7 @@
-import { CommentModel } from '../../app/model/comment.model';
+import {
+  CommentModel,
+  CommentResponseModel,
+} from '../../app/model/comment.model';
 
 export interface CommentState {
   // create comment
@@ -7,7 +10,7 @@ export interface CommentState {
   createCommentError: string;
 
   // get comments
-  comments: CommentModel[];
+  comments: CommentResponseModel[];
   isGettingComments: boolean;
   getCommentsSuccess: boolean;
   getCommentsError: string;

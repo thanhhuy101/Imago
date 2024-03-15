@@ -302,13 +302,13 @@
                 <div class="comment">
                   @for (comment of comments; track comment) {
                   <div class="userInforDetail">
-                    <tui-avatar class="tui-space_top-1" [round]="false"
-                      src="{{ comment.authorId | idToAvatar | async }}" size="m"></tui-avatar>
+                    <tui-avatar class="tui-space_top-2" [round]="false"
+                      src="{{ comment.authorId | idToAvatar | async }}" size="m"
+                      (click)="goToProfile(comment.authorId)"></tui-avatar>
                     <div class="commentContentAndUserName">
                       <div class="infoDetail">
-                        <span class="userName">{{
-                          comment.authorId | idToName | async
-                          }}</span>
+                        <span class="userName" (click)="goToProfile(comment.authorId)">{{ comment.authorId | idToName |
+                          async }}</span>
                         <span class="dateDetail">{{
                           comment.createdAt | date
                           }}</span>
