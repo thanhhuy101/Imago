@@ -100,7 +100,7 @@ export class AppComponent implements OnInit {
           console.log('interest');
           this.router.navigate(['/interest']).then();
         }
-      } else if (authEmail && isGetMineSuccess) {
+      } else if (authEmail) {
         if (!mine.email) {
           this.router.navigate(['/register']).then();
         }

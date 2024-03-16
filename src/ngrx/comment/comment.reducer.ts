@@ -19,7 +19,9 @@ export const commentReducer = createReducer(
   initialState,
 
   // create comment
-  on(CommentActions.createComment, (state) => {
+  on(CommentActions.createComment, (state, { type }) => {
+    console.log(type);
+
     return {
       ...state,
       isCreatingComment: true,
@@ -27,7 +29,8 @@ export const commentReducer = createReducer(
       createCommentError: '',
     };
   }),
-  on(CommentActions.createCommentSuccess, (state) => {
+  on(CommentActions.createCommentSuccess, (state, { type }) => {
+    console.log(type);
     return {
       ...state,
       isCreatingComment: false,
@@ -35,7 +38,8 @@ export const commentReducer = createReducer(
       createCommentError: '',
     };
   }),
-  on(CommentActions.createCommentFailure, (state, { error }) => {
+  on(CommentActions.createCommentFailure, (state, { error, type }) => {
+    console.log(type);
     return {
       ...state,
       isCreatingComment: false,
@@ -45,7 +49,9 @@ export const commentReducer = createReducer(
   }),
 
   // get comments
-  on(CommentActions.getComments, (state) => {
+  on(CommentActions.getComments, (state, { type }) => {
+    console.log(type);
+
     return {
       ...state,
       isGettingComments: true,
@@ -53,7 +59,8 @@ export const commentReducer = createReducer(
       getCommentsError: '',
     };
   }),
-  on(CommentActions.getCommentsSuccess, (state, { comments }) => {
+  on(CommentActions.getCommentsSuccess, (state, { comments, type }) => {
+    console.log(type);
     return {
       ...state,
       isGettingComments: false,
@@ -62,7 +69,8 @@ export const commentReducer = createReducer(
       comments,
     };
   }),
-  on(CommentActions.getCommentsFailure, (state, { error }) => {
+  on(CommentActions.getCommentsFailure, (state, { error, type }) => {
+    console.log(type);
     return {
       ...state,
       isGettingComments: false,
@@ -72,7 +80,8 @@ export const commentReducer = createReducer(
   }),
 
   // clear state
-  on(CommentActions.clearState, (state) => {
+  on(CommentActions.clearState, (state, { type }) => {
+    console.log(type);
     return {
       ...state,
       isCreatingComment: false,
