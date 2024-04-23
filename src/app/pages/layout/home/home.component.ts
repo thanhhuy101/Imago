@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // comment observable
   commentList$ = this.store.select('comment', 'comments');
   isGettingComments$ = this.store.select('comment', 'isGettingComments');
-  getCommentsSuccess$ = this.store.select('comment', 'getCommentsSuccess');
+  // getCommentsSuccess$ = this.store.select('comment', 'getCommentsSuccess');
   getCommentsError$ = this.store.select('comment', 'getCommentsError');
 
   isCreateCommentSuccess$ = this.store.select(
@@ -138,24 +138,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       this.isCreateCommentSuccess$.subscribe((data) => {
         if (data) {
+          this.store.dispatch(CommentActions.clearState());
+          this.comments = [];
           this.store.dispatch(
             CommentActions.getComments({ postId: this.postDetail.id, page: 1 }),
           );
         }
       }),
 
-      // this.commentList$.subscribe((comments) => {
-      //   if (comments.length > 0) {
-      //     let data = (comments as any).data;
-      //     for (let i = 0; i < data.length; i++) {
-      //       this.comments.push({
-      //         authorId: data[i].authorId,
-      //         content: data[i].content,
-      //         createdAt: data[i].createdAt!,
-      //       });
-      //     }
-      //   }
-      // }),
+      this.commentList$.subscribe((comments) => {
+        let data = (comments as any).data;
+        if (data != undefined) {
+          for (let i = 0; i < data.length; i++) {
+            this.comments.push({
+              authorId: data[i].authorId,
+              content: data[i].content,
+              createdAt: data[i].createdAt!,
+            });
+          }
+        }
+      }),
 
       this.postDetail$.subscribe((data) => {
         if (data.id) {
@@ -196,37 +198,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   showDialog(id: string): void {
     if (id) {
+      if (this.open) {
+        this.open = false;
+      }
       this.store.dispatch(PostActions.getOne({ id: id }));
 
       // get comments of postId
-      this.store.dispatch(CommentActions.getComments({ postId: id, page: 1 }));
-
-      if (this.comments && this.comments.length > 0) {
-        this.comments = [];
-      } else {
-        this.comments = [];
-        this.commentList$.subscribe((comments) => {
-          let data = (comments as any).data;
-          if (data != undefined) {
-            for (let i = 0; i < data.length; i++) {
-              this.comments.push({
-                authorId: data[i].authorId,
-                content: data[i].content,
-                createdAt: data[i].createdAt!,
-              });
-            }
-          }
-        });
-      }
+      // this.store.dispatch(CommentActions.getComments({ postId: id, page: 1 }));
     }
   }
 
   goToProfile(id: string) {
     if (id) {
-      if (this.open) {
-        this.open = false;
-      }
-
       this.router
         .navigate(['/profile/post'], { queryParams: { uid: id } })
         .then((value) => {
