@@ -42,6 +42,6 @@ export const dev_environment = {
 
   production: false,
 
-  baseUrl: 'http://localhost:3000',
-  baseVersion: 'v1',
+  baseUrl: 'http://localhost:8080',
+  baseVersion: 'v2',
 };
